@@ -1,0 +1,193 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --bg-page: #FDFBF7;
+    --bg-card: #FFFFFF;
+    --bg-card-hover: #F7F4EB;
+    --border-subtle: #E5DECE;
+    --border-strong: #C7BEAB;
+    --text-primary: #1D1A18;
+    --text-secondary: #57524A;
+    --text-muted: #847C70;
+    --accent-gold: #C5A059;
+    --accent-gold-hover: #D4AF37;
+    --accent-crimson: #B91C1C;
+    --accent-navy: #1D4ED8;
+    --reading-ink: #1F1C1A;
+  }
+
+  .theme-sepia {
+    --bg-page: #F4EFEA;
+    --bg-card: #ECE5DE;
+    --bg-card-hover: #E3DACE;
+    --border-subtle: #D8CCC0;
+    --border-strong: #C2B3A3;
+    --text-primary: #2C2523;
+    --text-secondary: #5C524E;
+    --text-muted: #7E726C;
+    --accent-gold: #B38E46;
+    --accent-gold-hover: #C5A059;
+    --accent-crimson: #A71D1D;
+    --accent-navy: #1E40AF;
+    --reading-ink: #26201E;
+  }
+
+  .theme-dark {
+    --bg-page: #080C14;
+    --bg-card: #0F172A;
+    --bg-card-hover: #162238;
+    --border-subtle: #1E293B;
+    --border-strong: #334155;
+    --text-primary: #F8FAFC;
+    --text-secondary: #94A3B8;
+    --text-muted: #64748B;
+    --accent-gold: #D4AF37;
+    --accent-gold-hover: #E5C358;
+    --accent-crimson: #EF4444;
+    --accent-navy: #3B82F6;
+    --reading-ink: #E2E8F0;
+  }
+
+  body {
+    background-color: var(--bg-page);
+    color: var(--text-primary);
+    font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    transition: background-color 0.25s ease, color 0.25s ease;
+  }
+}
+
+/* Custom Scholarly Scrollbars */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: var(--border-strong);
+  border-radius: 9999px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--accent-gold);
+}
+
+/* Scholarly reading typography constraints */
+.scholarly-prose {
+  font-family: 'Newsreader', 'Georgia', serif;
+  line-height: 1.7;
+  font-size: 1.15rem;
+  color: var(--reading-ink);
+}
+
+.scholarly-prose p {
+  margin-bottom: 1.45rem;
+}
+
+.scholarly-prose h2 {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 1.55rem;
+  font-weight: 700;
+  letter-spacing: -0.015em;
+  margin-top: 2.5rem;
+  margin-bottom: 1rem;
+  color: var(--text-primary);
+  border-bottom: 1px solid var(--border-subtle);
+  padding-bottom: 0.5rem;
+}
+
+.scholarly-prose h3 {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin-top: 1.8rem;
+  margin-bottom: 0.75rem;
+  color: var(--text-primary);
+}
+
+/* Citation anchor pill */
+.citation-ref {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.1rem 0.35rem;
+  margin: 0 0.15rem;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--accent-navy);
+  background: rgba(37, 99, 235, 0.08);
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  border: 1px solid transparent;
+}
+.citation-ref:hover {
+  background: rgba(37, 99, 235, 0.18);
+  border-color: var(--accent-navy);
+  transform: translateY(-1px);
+}
+
+/* Rashomon Perspective Highlights */
+.lens-highlight-legal {
+  border-left: 3px solid #2563EB;
+  background: rgba(37, 99, 235, 0.04);
+  padding-left: 1rem;
+  border-radius: 0 6px 6px 0;
+}
+
+.lens-highlight-forensic {
+  border-left: 3px solid #B91C1C;
+  background: rgba(185, 28, 28, 0.04);
+  padding-left: 1rem;
+  border-radius: 0 6px 6px 0;
+}
+
+.lens-highlight-psychological {
+  border-left: 3px solid #7C3AED;
+  background: rgba(124, 58, 237, 0.04);
+  padding-left: 1rem;
+  border-radius: 0 6px 6px 0;
+}
+
+.lens-highlight-sociological {
+  border-left: 3px solid #059669;
+  background: rgba(5, 150, 105, 0.04);
+  padding-left: 1rem;
+  border-radius: 0 6px 6px 0;
+}
+
+.lens-dimmed {
+  opacity: 0.35;
+  transition: opacity 0.3s ease;
+}
+
+/* Living Document Diff Styles */
+.diff-added {
+  background-color: rgba(16, 185, 129, 0.15);
+  color: #065F46;
+  text-decoration: none;
+  padding: 0.1rem 0.3rem;
+  border-radius: 3px;
+  border-bottom: 2px solid #10B981;
+}
+.theme-dark .diff-added {
+  background-color: rgba(16, 185, 129, 0.25);
+  color: #6EE7B7;
+}
+
+.diff-removed {
+  background-color: rgba(239, 68, 68, 0.15);
+  color: #991B1B;
+  text-decoration: line-through;
+  padding: 0.1rem 0.3rem;
+  border-radius: 3px;
+}
+.theme-dark .diff-removed {
+  background-color: rgba(239, 68, 68, 0.25);
+  color: #FCA5A5;
+}
