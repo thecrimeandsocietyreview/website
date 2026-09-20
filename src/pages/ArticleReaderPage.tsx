@@ -344,7 +344,7 @@ export const ArticleReaderPage: React.FC = () => {
                   <a
                     href={`https://orcid.org/${auth.orcid}`}
                     target="_blank"
-                    rel="noreferrer"
+                    rel="noopener noreferrer"
                     className="text-emerald-600 hover:text-emerald-700 font-mono text-xs inline-flex items-center"
                     title={`ORCID: ${auth.orcid}`}
                   >
@@ -660,7 +660,7 @@ export const ArticleReaderPage: React.FC = () => {
                   <a
                     href={`https://doi.org/${selectedCitation.doi}`}
                     target="_blank"
-                    rel="noreferrer"
+                    rel="noopener noreferrer"
                     className="inline-flex items-center gap-1 text-[var(--accent-navy)] hover:underline font-mono text-[11px]"
                   >
                     <span>View Persistent DOI Record</span>

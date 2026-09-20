@@ -335,7 +335,7 @@ export const HomePage: React.FC = () => {
                 <a 
                   href={`https://orcid.org/${auth.orcid}`}
                   target="_blank" 
-                  rel="noreferrer"
+                  rel="noopener noreferrer"
                   className="text-emerald-600 hover:text-emerald-700 font-mono text-xs inline-flex items-center font-bold"
                   title={`ORCID: ${auth.orcid}`}
                 >
