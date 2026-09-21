@@ -50,7 +50,10 @@ export const Header: React.FC = () => {
 
   return (
     <>
-      <header className="sticky top-0 z-40 w-full border-b border-[var(--border-subtle)] bg-[var(--bg-card)]/95 backdrop-blur-md transition-colors shadow-2xs">
+      <header 
+        className="sticky top-0 z-40 w-full border-b border-[var(--border-subtle)] bg-[var(--bg-card)] transition-colors shadow-2xs"
+        style={{ backgroundColor: 'var(--bg-card)' }}
+      >
         <div className="max-w-7xl mx-auto px-3 sm:px-5 py-2 flex items-center justify-between gap-2">
           
           {/* LEFT: Compact Brand Logo & Title */}
@@ -266,9 +269,10 @@ export const Header: React.FC = () => {
           aria-hidden="true"
         />
 
-        {/* Mobile Navigation Drawer (Absolute Overlay: Does NOT push page down) */}
+        {/* Mobile Navigation Drawer (Absolute Overlay: 100% Solid Opaque Background) */}
         <div 
-          className={`lg:hidden absolute top-full left-0 w-full border-b border-[var(--border-subtle)] bg-[var(--bg-card)]/98 backdrop-blur-xl px-4 py-4 space-y-3 shadow-2xl z-40 max-h-[calc(100vh-56px)] overflow-y-auto transition-all duration-300 ease-out origin-top ${
+          style={{ backgroundColor: 'var(--bg-card)' }}
+          className={`lg:hidden absolute top-full left-0 w-full border-b border-[var(--border-subtle)] bg-[var(--bg-card)] px-4 py-4 space-y-3 shadow-2xl z-40 max-h-[calc(100vh-56px)] overflow-y-auto transition-all duration-300 ease-out origin-top ${
             mobileMenuOpen 
               ? 'opacity-100 scale-y-100 translate-y-0 pointer-events-auto visible' 
               : 'opacity-0 scale-y-95 -translate-y-2 pointer-events-none invisible'
