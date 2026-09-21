@@ -20,7 +20,6 @@ import {
   Landmark, 
   ShieldAlert, 
   HeartHandshake,
-  Activity,
   Bookmark,
   Award,
   Globe,
@@ -110,32 +109,6 @@ export const HomePage: React.FC = () => {
 
   return (
     <div className="space-y-16 pb-16 animate-fadeIn">
-      {/* Top Editorial Announcement & Live Rolling Ticker */}
-      <div className="bg-[var(--bg-card)] border-b border-[var(--border-subtle)] py-2 px-3 sm:px-4 text-xs w-full overflow-hidden">
-        <div className="max-w-7xl mx-auto flex flex-col sm:flex-row sm:items-center justify-between gap-2 text-[var(--text-secondary)]">
-          <div className="flex items-center gap-2 truncate min-w-0">
-            <span className="px-1.5 py-0.5 rounded font-mono text-[9px] sm:text-[10px] font-bold bg-[var(--accent-crimson)] text-white uppercase tracking-wider shrink-0 flex items-center gap-1 shadow-2xs">
-              <Activity className="w-3 h-3 animate-pulse" /> Live Wire
-            </span>
-            <Link to="/article/e2026-0492" className="hover:text-[var(--accent-navy)] truncate flex items-center gap-1.5 font-medium text-xs min-w-0">
-              <span className="font-mono text-[var(--accent-gold)] font-bold shrink-0">[Art. e10492]</span>
-              <span className="truncate">The Rashomon Paradigm in Indian Criminal Jurisprudence (BSA 2023)</span>
-            </Link>
-          </div>
-          <div className="flex items-center gap-2.5 text-[10px] sm:text-[11px] font-mono text-[var(--text-muted)] shrink-0">
-            <a href="#cfp" className="flex items-center gap-1 text-emerald-600 dark:text-emerald-400 font-semibold hover:underline shrink-0">
-              <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
-              <span>CFP Vol. 1(2) Open</span>
-            </a>
-            <span className="hidden md:inline text-[var(--border-strong)]">•</span>
-            <span className="hidden md:inline">Vol. 1 (2026) Rolling Publication</span>
-            <span className="text-[var(--border-strong)]">•</span>
-            <Link to="/aims-scope" className="font-sans font-semibold text-[var(--accent-navy)] hover:underline flex items-center gap-1 shrink-0">
-              Aims & Scope <ArrowRight className="w-3 h-3" />
-            </Link>
-          </div>
-        </div>
-      </div>
 
       {/* ========================================================
           PREMIER JOURNAL HERO SECTION

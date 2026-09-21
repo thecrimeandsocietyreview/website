@@ -60,18 +60,9 @@ export const Header: React.FC = () => {
               alt="The Crime & Society Review Logo" 
               className="h-10 w-10 sm:h-12 sm:w-12 md:h-13 md:w-13 rounded-xl object-contain bg-white shadow-xs border border-[var(--border-strong)] group-hover:scale-105 transition-transform shrink-0 p-0.5" 
             />
-            <div className="flex flex-col justify-center min-w-0">
-              <span className="block font-serif text-xs sm:text-sm md:text-base font-bold tracking-tight text-[var(--text-primary)] group-hover:text-[var(--accent-navy)] transition-colors leading-tight truncate max-w-[170px] xs:max-w-[240px] sm:max-w-none">
-                The Crime &amp; Society Review
-              </span>
-              <div className="flex items-center gap-1 text-[9px] sm:text-[10px] font-mono text-[var(--text-muted)] mt-0.5 truncate">
-                <span className="text-[var(--accent-gold)] font-bold shrink-0">ISSN {JOURNAL_METADATA.issnOnline}</span>
-                <span className="hidden xs:inline text-[var(--border-strong)]">•</span>
-                <span className="hidden xs:inline text-emerald-600 dark:text-emerald-400 font-semibold shrink-0">UGC-CARE</span>
-                <span className="hidden sm:inline text-[var(--border-strong)]">•</span>
-                <span className="hidden sm:inline text-blue-600 dark:text-blue-400 font-semibold shrink-0">Gold OA</span>
-              </div>
-            </div>
+            <span className="font-serif text-sm sm:text-base md:text-lg font-bold tracking-tight text-[var(--text-primary)] group-hover:text-[var(--accent-navy)] transition-colors leading-tight truncate">
+              The Crime &amp; Society Review
+            </span>
           </Link>
 
           {/* CENTER: Primary Desktop Navigation (Desktop Only) */}
