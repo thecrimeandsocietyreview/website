@@ -63,9 +63,9 @@ export const App: React.FC = () => {
     <ThemeProvider>
       <Router>
         <ScrollToTop />
-        <div className="min-h-screen flex flex-col bg-[var(--bg-page)] text-[var(--text-primary)] transition-colors">
+        <div className="min-h-screen flex flex-col w-full overflow-x-hidden bg-[var(--bg-page)] text-[var(--text-primary)] transition-colors">
           <Header />
-          <main className="flex-1">
+          <main className="flex-1 w-full overflow-x-hidden">
             <Routes>
               {/* 1. Home */}
               <Route path="/" element={<HomePage />} />

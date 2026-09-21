@@ -82,7 +82,7 @@ export const Footer: React.FC = () => {
           <p className="text-xs text-[var(--text-muted)] leading-relaxed max-w-md">
             An interdisciplinary Indian scholarly rolling publication dedicated to advancing critical, evidence-informed, and multi-perspective scholarship on the Bharatiya Nyaya Sanhita (BNS), BNSS, BSA, forensics, policing, and societal justice.
           </p>
-          <div className="font-mono text-xs text-[var(--text-muted)] space-y-1">
+          <div className="font-mono text-xs text-[var(--text-muted)] space-y-1 break-words">
             <div><span className="text-[var(--text-primary)] font-semibold">Online ISSN:</span> {JOURNAL_METADATA.issnOnline} (CSIR-NIScPR New Delhi)</div>
             <div><span className="text-[var(--text-primary)] font-semibold">Print ISSN:</span> {JOURNAL_METADATA.issnPrint}</div>
             <div><span className="text-[var(--text-primary)] font-semibold">Publisher:</span> {PUBLISHER_PROFILE.name}</div>
@@ -132,7 +132,7 @@ export const Footer: React.FC = () => {
             <li><Link to="/for-authors" className="hover:text-[var(--accent-navy)] transition-colors">Author Guidelines &amp; ₹0 APC</Link></li>
             <li><Link to="/for-reviewers" className="hover:text-[var(--accent-navy)] transition-colors">Become a Reviewer</Link></li>
             <li><Link to="/contact" className="hover:text-[var(--accent-navy)] transition-colors">Contact Editorial Chambers</Link></li>
-            <li><a href={`mailto:${CONTACT_DETAILS.submissions.email}`} className="hover:text-[var(--accent-navy)] transition-colors font-mono text-[11px] block pt-1 text-[var(--text-muted)]">{CONTACT_DETAILS.submissions.email}</a></li>
+            <li><a href={`mailto:${CONTACT_DETAILS.submissions.email}`} className="hover:text-[var(--accent-navy)] transition-colors font-mono text-[11px] block pt-1 text-[var(--text-muted)] break-all">{CONTACT_DETAILS.submissions.email}</a></li>
           </ul>
         </div>
 

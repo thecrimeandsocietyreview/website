@@ -51,31 +51,31 @@ export const Header: React.FC = () => {
   return (
     <>
       <header className="sticky top-0 z-40 w-full border-b border-[var(--border-subtle)] bg-[var(--bg-card)]/95 backdrop-blur-md transition-colors shadow-2xs">
-        <div className="max-w-7xl mx-auto px-3 sm:px-5 py-2 flex items-center justify-between gap-2 lg:gap-3">
+        <div className="max-w-7xl mx-auto px-3 sm:px-5 py-2 flex items-center justify-between gap-2">
           
-          {/* LEFT: Brand Logo */}
-          <Link to="/" className="flex items-center gap-3 group shrink-0 py-0.5">
+          {/* LEFT: Compact Brand Logo & Title */}
+          <Link to="/" className="flex items-center gap-2 sm:gap-2.5 group shrink min-w-0 py-0.5">
             <img 
               src="/logo.png" 
               alt="The Crime & Society Review Logo" 
-              className="h-12 w-12 sm:h-14 sm:w-14 rounded-xl object-contain bg-white shadow-xs border border-[var(--border-strong)] group-hover:scale-105 transition-transform shrink-0 p-1" 
+              className="h-10 w-10 sm:h-12 sm:w-12 md:h-13 md:w-13 rounded-xl object-contain bg-white shadow-xs border border-[var(--border-strong)] group-hover:scale-105 transition-transform shrink-0 p-0.5" 
             />
-            <div className="flex flex-col justify-center">
-              <span className="block font-serif text-sm sm:text-base font-bold tracking-tight text-[var(--text-primary)] group-hover:text-[var(--accent-navy)] transition-colors leading-tight">
+            <div className="flex flex-col justify-center min-w-0">
+              <span className="block font-serif text-xs sm:text-sm md:text-base font-bold tracking-tight text-[var(--text-primary)] group-hover:text-[var(--accent-navy)] transition-colors leading-tight truncate max-w-[170px] xs:max-w-[240px] sm:max-w-none">
                 The Crime &amp; Society Review
               </span>
-              <div className="flex items-center gap-1.5 text-[10px] sm:text-[11px] font-mono text-[var(--text-muted)] mt-0.5">
-                <span className="text-[var(--accent-gold)] font-bold">ISSN {JOURNAL_METADATA.issnOnline}</span>
-                <span className="text-[var(--border-strong)]">•</span>
-                <span className="text-emerald-600 dark:text-emerald-400 font-semibold">UGC-CARE</span>
-                <span className="text-[var(--border-strong)]">•</span>
-                <span className="text-blue-600 dark:text-blue-400 font-semibold">Gold OA</span>
+              <div className="flex items-center gap-1 text-[9px] sm:text-[10px] font-mono text-[var(--text-muted)] mt-0.5 truncate">
+                <span className="text-[var(--accent-gold)] font-bold shrink-0">ISSN {JOURNAL_METADATA.issnOnline}</span>
+                <span className="hidden xs:inline text-[var(--border-strong)]">•</span>
+                <span className="hidden xs:inline text-emerald-600 dark:text-emerald-400 font-semibold shrink-0">UGC-CARE</span>
+                <span className="hidden sm:inline text-[var(--border-strong)]">•</span>
+                <span className="hidden sm:inline text-blue-600 dark:text-blue-400 font-semibold shrink-0">Gold OA</span>
               </div>
             </div>
           </Link>
 
-          {/* CENTER: Primary Desktop Navigation (User Specified Exact Structure) */}
-          <nav className="hidden lg:flex items-center gap-0.5 xl:gap-1 text-[11px] xl:text-xs font-medium">
+          {/* CENTER: Primary Desktop Navigation (Desktop Only) */}
+          <nav className="hidden lg:flex items-center gap-0.5 xl:gap-1 text-[11px] xl:text-xs font-medium shrink-0">
             
             {/* 1. Home */}
             <Link
@@ -123,7 +123,7 @@ export const Header: React.FC = () => {
               )}
             </div>
 
-            {/* 3. Research (Articles Discovery) */}
+            {/* 3. Research */}
             <Link
               to="/articles"
               className={`px-2.5 py-1.5 rounded-md transition-colors ${
@@ -173,23 +173,23 @@ export const Header: React.FC = () => {
 
           </nav>
 
-          {/* RIGHT: Compact Controls (Search + Theme Toggle + Submit Manuscript) */}
+          {/* RIGHT: Compact Controls (Search + Theme + Submit) */}
           <div className="flex items-center gap-1.5 sm:gap-2 shrink-0">
             {/* Search 🔍 Pill */}
             <button
               onClick={() => setIsSearchOpen(true)}
-              className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg border border-[var(--border-subtle)] bg-[var(--bg-card-hover)] hover:border-[var(--accent-gold)] text-[var(--text-secondary)] text-xs transition-colors cursor-pointer"
+              className="flex items-center gap-1.5 px-2 sm:px-2.5 py-1.5 rounded-lg border border-[var(--border-subtle)] bg-[var(--bg-card-hover)] hover:border-[var(--accent-gold)] text-[var(--text-secondary)] text-xs transition-colors cursor-pointer"
               title="Search Articles, Authors, DOI (Ctrl+K)"
             >
               <Search className="w-3.5 h-3.5 text-[var(--accent-gold)]" />
-              <span className="hidden xl:inline text-[11px] font-mono">Search</span>
-              <kbd className="text-[9px] px-1 py-0.2 rounded bg-[var(--bg-card)] border border-[var(--border-subtle)] text-[var(--text-muted)] font-mono">
+              <span className="hidden md:inline text-[11px] font-mono">Search</span>
+              <kbd className="hidden xl:inline text-[9px] px-1 py-0.2 rounded bg-[var(--bg-card)] border border-[var(--border-subtle)] text-[var(--text-muted)] font-mono">
                 ⌘K
               </kbd>
             </button>
 
-            {/* Theme Toggle Control */}
-            <div className="flex items-center border border-[var(--border-subtle)] rounded-lg p-0.5 bg-[var(--bg-card-hover)]">
+            {/* Desktop 3-Mode Theme Segmented Control */}
+            <div className="hidden sm:flex items-center border border-[var(--border-subtle)] rounded-lg p-0.5 bg-[var(--bg-card-hover)]">
               <button
                 onClick={() => setTheme('light')}
                 className={`p-1 sm:p-1.5 rounded transition-all cursor-pointer ${
@@ -227,20 +227,38 @@ export const Header: React.FC = () => {
               </button>
             </div>
 
-            {/* Submit Manuscript CTA Button */}
+            {/* Mobile Single-Button Theme Toggle (Cycles Light -> Dark -> Sepia) */}
+            <button
+              onClick={() => {
+                if (theme === 'light') setTheme('dark');
+                else if (theme === 'dark') setTheme('sepia');
+                else setTheme('light');
+              }}
+              className="sm:hidden p-1.5 rounded-lg border border-[var(--border-subtle)] text-[var(--text-secondary)] hover:bg-[var(--bg-card-hover)] cursor-pointer"
+              title="Toggle Theme"
+            >
+              {theme === 'dark' ? (
+                <Moon className="w-3.5 h-3.5 text-[var(--accent-gold)]" />
+              ) : theme === 'sepia' ? (
+                <BookOpen className="w-3.5 h-3.5 text-[#A78B60]" />
+              ) : (
+                <Sun className="w-3.5 h-3.5 text-amber-500" />
+              )}
+            </button>
+
+            {/* Submit Manuscript Button (Tablet & Desktop) */}
             <Link
               to="/submit"
-              className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-[var(--accent-gold)] hover:bg-[var(--accent-gold-hover)] text-slate-950 font-bold text-xs shadow-2xs transition-all hover:scale-102 shrink-0"
+              className="hidden sm:flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-[var(--accent-gold)] hover:bg-[var(--accent-gold-hover)] text-slate-950 font-bold text-xs shadow-2xs transition-all hover:scale-102 shrink-0"
             >
               <Send className="w-3 h-3" />
-              <span className="hidden sm:inline">Submit Manuscript</span>
-              <span className="sm:hidden">Submit</span>
+              <span>Submit</span>
             </Link>
 
             {/* Mobile Hamburger Button */}
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="lg:hidden p-1.5 rounded-lg border border-[var(--border-subtle)] text-[var(--text-secondary)] hover:bg-[var(--bg-card-hover)] cursor-pointer"
+              className="lg:hidden p-1.5 rounded-lg border border-[var(--border-subtle)] text-[var(--text-secondary)] hover:bg-[var(--bg-card-hover)] cursor-pointer shrink-0"
               aria-label="Toggle Navigation Menu"
             >
               {mobileMenuOpen ? <X className="w-4 h-4" /> : <Menu className="w-4 h-4" />}
@@ -250,70 +268,129 @@ export const Header: React.FC = () => {
 
         {/* Mobile Navigation Drawer */}
         {mobileMenuOpen && (
-          <div className="lg:hidden border-t border-[var(--border-subtle)] bg-[var(--bg-card)] px-4 py-3 space-y-1 shadow-xl animate-fadeIn max-h-[80vh] overflow-y-auto">
+          <div className="lg:hidden border-t border-[var(--border-subtle)] bg-[var(--bg-card)] px-4 py-4 space-y-3 shadow-xl animate-fadeIn max-h-[85vh] overflow-y-auto">
+            
+            {/* Top Primary CTA in Mobile Drawer */}
             <Link
-              to="/"
+              to="/submit"
               onClick={() => setMobileMenuOpen(false)}
-              className="block px-3 py-2 rounded-lg text-sm text-[var(--text-secondary)] hover:bg-[var(--bg-card-hover)] font-medium"
+              className="w-full flex items-center justify-center gap-2 py-2.5 rounded-xl bg-[var(--accent-gold)] hover:bg-[var(--accent-gold-hover)] text-slate-950 font-bold text-xs shadow-sm transition-all"
             >
-              Home
+              <Send className="w-3.5 h-3.5" />
+              <span>Submit Manuscript Online</span>
             </Link>
 
-            <div className="py-1">
-              <span className="px-3 text-[10px] font-mono uppercase text-[var(--text-muted)] font-bold">
-                About the Journal
-              </span>
-              {aboutDropdownLinks.map(item => (
-                <Link
-                  key={item.path}
-                  to={item.path}
-                  onClick={() => setMobileMenuOpen(false)}
-                  className="block px-4 py-1.5 text-xs text-[var(--text-secondary)] hover:text-[var(--text-primary)]"
+            {/* Mobile Theme Selector inside Drawer */}
+            <div className="flex items-center justify-between p-2 rounded-xl bg-[var(--bg-page)] border border-[var(--border-subtle)]">
+              <span className="text-xs font-mono text-[var(--text-muted)]">Theme:</span>
+              <div className="flex items-center gap-1">
+                <button
+                  onClick={() => setTheme('light')}
+                  className={`px-2 py-1 rounded text-xs font-mono flex items-center gap-1 ${
+                    theme === 'light' ? 'bg-[var(--accent-gold)] text-slate-950 font-bold' : 'text-[var(--text-secondary)]'
+                  }`}
                 >
-                  {item.label}
-                </Link>
-              ))}
+                  <Sun className="w-3 h-3" /> Light
+                </button>
+                <button
+                  onClick={() => setTheme('sepia')}
+                  className={`px-2 py-1 rounded text-xs font-mono flex items-center gap-1 ${
+                    theme === 'sepia' ? 'bg-[#A78B60] text-white font-bold' : 'text-[var(--text-secondary)]'
+                  }`}
+                >
+                  <BookOpen className="w-3 h-3" /> Sepia
+                </button>
+                <button
+                  onClick={() => setTheme('dark')}
+                  className={`px-2 py-1 rounded text-xs font-mono flex items-center gap-1 ${
+                    theme === 'dark' ? 'bg-slate-700 text-white font-bold' : 'text-[var(--text-secondary)]'
+                  }`}
+                >
+                  <Moon className="w-3 h-3" /> Dark
+                </button>
+              </div>
             </div>
 
-            <Link
-              to="/articles"
-              onClick={() => setMobileMenuOpen(false)}
-              className="block px-3 py-2 rounded-lg text-sm text-[var(--text-secondary)] hover:bg-[var(--bg-card-hover)] font-medium"
-            >
-              Research &amp; Articles
-            </Link>
+            {/* Core Navigation Links */}
+            <div className="space-y-1 pt-1">
+              <Link
+                to="/"
+                onClick={() => setMobileMenuOpen(false)}
+                className={`block px-3 py-2 rounded-lg text-sm font-medium ${
+                  location.pathname === '/' ? 'bg-[var(--accent-navy)]/10 text-[var(--accent-navy)] font-bold' : 'text-[var(--text-secondary)] hover:bg-[var(--bg-card-hover)]'
+                }`}
+              >
+                Home
+              </Link>
 
-            <Link
-              to="/issues"
-              onClick={() => setMobileMenuOpen(false)}
-              className="block px-3 py-2 rounded-lg text-sm text-[var(--text-secondary)] hover:bg-[var(--bg-card-hover)] font-medium"
-            >
-              Issues &amp; Archive
-            </Link>
+              <div className="py-1">
+                <span className="px-3 text-[10px] font-mono uppercase text-[var(--text-muted)] font-bold">
+                  About the Journal
+                </span>
+                {aboutDropdownLinks.map(item => (
+                  <Link
+                    key={item.path}
+                    to={item.path}
+                    onClick={() => setMobileMenuOpen(false)}
+                    className={`block px-4 py-1.5 text-xs transition-colors ${
+                      location.pathname === item.path ? 'text-[var(--accent-navy)] font-bold' : 'text-[var(--text-secondary)] hover:text-[var(--text-primary)]'
+                    }`}
+                  >
+                    {item.label}
+                  </Link>
+                ))}
+              </div>
 
-            <Link
-              to="/for-authors"
-              onClick={() => setMobileMenuOpen(false)}
-              className="block px-3 py-2 rounded-lg text-sm text-[var(--text-secondary)] hover:bg-[var(--bg-card-hover)] font-medium"
-            >
-              For Authors
-            </Link>
+              <Link
+                to="/articles"
+                onClick={() => setMobileMenuOpen(false)}
+                className={`block px-3 py-2 rounded-lg text-sm font-medium ${
+                  location.pathname === '/articles' ? 'bg-[var(--accent-navy)]/10 text-[var(--accent-navy)] font-bold' : 'text-[var(--text-secondary)] hover:bg-[var(--bg-card-hover)]'
+                }`}
+              >
+                Research &amp; Articles
+              </Link>
 
-            <Link
-              to="/for-reviewers"
-              onClick={() => setMobileMenuOpen(false)}
-              className="block px-3 py-2 rounded-lg text-sm text-[var(--text-secondary)] hover:bg-[var(--bg-card-hover)] font-medium"
-            >
-              For Reviewers
-            </Link>
+              <Link
+                to="/issues"
+                onClick={() => setMobileMenuOpen(false)}
+                className={`block px-3 py-2 rounded-lg text-sm font-medium ${
+                  location.pathname === '/issues' ? 'bg-[var(--accent-navy)]/10 text-[var(--accent-navy)] font-bold' : 'text-[var(--text-secondary)] hover:bg-[var(--bg-card-hover)]'
+                }`}
+              >
+                Issues &amp; Archive
+              </Link>
 
-            <Link
-              to="/contact"
-              onClick={() => setMobileMenuOpen(false)}
-              className="block px-3 py-2 rounded-lg text-sm text-[var(--text-secondary)] hover:bg-[var(--bg-card-hover)] font-medium"
-            >
-              Contact Editorial Office
-            </Link>
+              <Link
+                to="/for-authors"
+                onClick={() => setMobileMenuOpen(false)}
+                className={`block px-3 py-2 rounded-lg text-sm font-medium ${
+                  location.pathname === '/for-authors' ? 'bg-[var(--accent-navy)]/10 text-[var(--accent-navy)] font-bold' : 'text-[var(--text-secondary)] hover:bg-[var(--bg-card-hover)]'
+                }`}
+              >
+                For Authors
+              </Link>
+
+              <Link
+                to="/for-reviewers"
+                onClick={() => setMobileMenuOpen(false)}
+                className={`block px-3 py-2 rounded-lg text-sm font-medium ${
+                  location.pathname === '/for-reviewers' ? 'bg-[var(--accent-navy)]/10 text-[var(--accent-navy)] font-bold' : 'text-[var(--text-secondary)] hover:bg-[var(--bg-card-hover)]'
+                }`}
+              >
+                For Reviewers
+              </Link>
+
+              <Link
+                to="/contact"
+                onClick={() => setMobileMenuOpen(false)}
+                className={`block px-3 py-2 rounded-lg text-sm font-medium ${
+                  location.pathname === '/contact' ? 'bg-[var(--accent-navy)]/10 text-[var(--accent-navy)] font-bold' : 'text-[var(--text-secondary)] hover:bg-[var(--bg-card-hover)]'
+                }`}
+              >
+                Contact Editorial Office
+              </Link>
+            </div>
           </div>
         )}
       </header>
