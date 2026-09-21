@@ -257,133 +257,145 @@ export const Header: React.FC = () => {
           </div>
         </div>
 
-        {/* Mobile Navigation Drawer */}
-        {mobileMenuOpen && (
-          <div className="lg:hidden border-t border-[var(--border-subtle)] bg-[var(--bg-card)] px-4 py-4 space-y-3 shadow-xl animate-fadeIn max-h-[85vh] overflow-y-auto">
-            
-            {/* Top Primary CTA in Mobile Drawer */}
-            <Link
-              to="/submit"
-              onClick={() => setMobileMenuOpen(false)}
-              className="w-full flex items-center justify-center gap-2 py-2.5 rounded-xl bg-[var(--accent-gold)] hover:bg-[var(--accent-gold-hover)] text-slate-950 font-bold text-xs shadow-sm transition-all"
-            >
-              <Send className="w-3.5 h-3.5" />
-              <span>Submit Manuscript Online</span>
-            </Link>
+        {/* Soft Ambient Backdrop (Closes menu on tap outside) */}
+        <div 
+          onClick={() => setMobileMenuOpen(false)}
+          className={`lg:hidden fixed inset-0 top-[53px] bg-black/40 backdrop-blur-xs transition-opacity duration-300 ease-in-out z-30 ${
+            mobileMenuOpen ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'
+          }`}
+          aria-hidden="true"
+        />
 
-            {/* Mobile Theme Selector inside Drawer */}
-            <div className="flex items-center justify-between p-2 rounded-xl bg-[var(--bg-page)] border border-[var(--border-subtle)]">
-              <span className="text-xs font-mono text-[var(--text-muted)]">Theme:</span>
-              <div className="flex items-center gap-1">
-                <button
-                  onClick={() => setTheme('light')}
-                  className={`px-2 py-1 rounded text-xs font-mono flex items-center gap-1 ${
-                    theme === 'light' ? 'bg-[var(--accent-gold)] text-slate-950 font-bold' : 'text-[var(--text-secondary)]'
-                  }`}
-                >
-                  <Sun className="w-3 h-3" /> Light
-                </button>
-                <button
-                  onClick={() => setTheme('sepia')}
-                  className={`px-2 py-1 rounded text-xs font-mono flex items-center gap-1 ${
-                    theme === 'sepia' ? 'bg-[#A78B60] text-white font-bold' : 'text-[var(--text-secondary)]'
-                  }`}
-                >
-                  <BookOpen className="w-3 h-3" /> Sepia
-                </button>
-                <button
-                  onClick={() => setTheme('dark')}
-                  className={`px-2 py-1 rounded text-xs font-mono flex items-center gap-1 ${
-                    theme === 'dark' ? 'bg-slate-700 text-white font-bold' : 'text-[var(--text-secondary)]'
-                  }`}
-                >
-                  <Moon className="w-3 h-3" /> Dark
-                </button>
-              </div>
-            </div>
+        {/* Mobile Navigation Drawer (Absolute Overlay: Does NOT push page down) */}
+        <div 
+          className={`lg:hidden absolute top-full left-0 w-full border-b border-[var(--border-subtle)] bg-[var(--bg-card)]/98 backdrop-blur-xl px-4 py-4 space-y-3 shadow-2xl z-40 max-h-[calc(100vh-56px)] overflow-y-auto transition-all duration-300 ease-out origin-top ${
+            mobileMenuOpen 
+              ? 'opacity-100 scale-y-100 translate-y-0 pointer-events-auto visible' 
+              : 'opacity-0 scale-y-95 -translate-y-2 pointer-events-none invisible'
+          }`}
+        >
+          {/* Top Primary CTA in Mobile Drawer */}
+          <Link
+            to="/submit"
+            onClick={() => setMobileMenuOpen(false)}
+            className="w-full flex items-center justify-center gap-2 py-2.5 rounded-xl bg-[var(--accent-gold)] hover:bg-[var(--accent-gold-hover)] text-slate-950 font-bold text-xs shadow-sm transition-all"
+          >
+            <Send className="w-3.5 h-3.5" />
+            <span>Submit Manuscript Online</span>
+          </Link>
 
-            {/* Core Navigation Links */}
-            <div className="space-y-1 pt-1">
-              <Link
-                to="/"
-                onClick={() => setMobileMenuOpen(false)}
-                className={`block px-3 py-2 rounded-lg text-sm font-medium ${
-                  location.pathname === '/' ? 'bg-[var(--accent-navy)]/10 text-[var(--accent-navy)] font-bold' : 'text-[var(--text-secondary)] hover:bg-[var(--bg-card-hover)]'
+          {/* Mobile Theme Selector inside Drawer */}
+          <div className="flex items-center justify-between p-2 rounded-xl bg-[var(--bg-page)] border border-[var(--border-subtle)]">
+            <span className="text-xs font-mono text-[var(--text-muted)]">Theme:</span>
+            <div className="flex items-center gap-1">
+              <button
+                onClick={() => setTheme('light')}
+                className={`px-2 py-1 rounded text-xs font-mono flex items-center gap-1 cursor-pointer ${
+                  theme === 'light' ? 'bg-[var(--accent-gold)] text-slate-950 font-bold' : 'text-[var(--text-secondary)]'
                 }`}
               >
-                Home
-              </Link>
-
-              <div className="py-1">
-                <span className="px-3 text-[10px] font-mono uppercase text-[var(--text-muted)] font-bold">
-                  About the Journal
-                </span>
-                {aboutDropdownLinks.map(item => (
-                  <Link
-                    key={item.path}
-                    to={item.path}
-                    onClick={() => setMobileMenuOpen(false)}
-                    className={`block px-4 py-1.5 text-xs transition-colors ${
-                      location.pathname === item.path ? 'text-[var(--accent-navy)] font-bold' : 'text-[var(--text-secondary)] hover:text-[var(--text-primary)]'
-                    }`}
-                  >
-                    {item.label}
-                  </Link>
-                ))}
-              </div>
-
-              <Link
-                to="/articles"
-                onClick={() => setMobileMenuOpen(false)}
-                className={`block px-3 py-2 rounded-lg text-sm font-medium ${
-                  location.pathname === '/articles' ? 'bg-[var(--accent-navy)]/10 text-[var(--accent-navy)] font-bold' : 'text-[var(--text-secondary)] hover:bg-[var(--bg-card-hover)]'
+                <Sun className="w-3 h-3" /> Light
+              </button>
+              <button
+                onClick={() => setTheme('sepia')}
+                className={`px-2 py-1 rounded text-xs font-mono flex items-center gap-1 cursor-pointer ${
+                  theme === 'sepia' ? 'bg-[#A78B60] text-white font-bold' : 'text-[var(--text-secondary)]'
                 }`}
               >
-                Research &amp; Articles
-              </Link>
-
-              <Link
-                to="/issues"
-                onClick={() => setMobileMenuOpen(false)}
-                className={`block px-3 py-2 rounded-lg text-sm font-medium ${
-                  location.pathname === '/issues' ? 'bg-[var(--accent-navy)]/10 text-[var(--accent-navy)] font-bold' : 'text-[var(--text-secondary)] hover:bg-[var(--bg-card-hover)]'
+                <BookOpen className="w-3 h-3" /> Sepia
+              </button>
+              <button
+                onClick={() => setTheme('dark')}
+                className={`px-2 py-1 rounded text-xs font-mono flex items-center gap-1 cursor-pointer ${
+                  theme === 'dark' ? 'bg-slate-700 text-white font-bold' : 'text-[var(--text-secondary)]'
                 }`}
               >
-                Issues &amp; Archive
-              </Link>
-
-              <Link
-                to="/for-authors"
-                onClick={() => setMobileMenuOpen(false)}
-                className={`block px-3 py-2 rounded-lg text-sm font-medium ${
-                  location.pathname === '/for-authors' ? 'bg-[var(--accent-navy)]/10 text-[var(--accent-navy)] font-bold' : 'text-[var(--text-secondary)] hover:bg-[var(--bg-card-hover)]'
-                }`}
-              >
-                For Authors
-              </Link>
-
-              <Link
-                to="/for-reviewers"
-                onClick={() => setMobileMenuOpen(false)}
-                className={`block px-3 py-2 rounded-lg text-sm font-medium ${
-                  location.pathname === '/for-reviewers' ? 'bg-[var(--accent-navy)]/10 text-[var(--accent-navy)] font-bold' : 'text-[var(--text-secondary)] hover:bg-[var(--bg-card-hover)]'
-                }`}
-              >
-                For Reviewers
-              </Link>
-
-              <Link
-                to="/contact"
-                onClick={() => setMobileMenuOpen(false)}
-                className={`block px-3 py-2 rounded-lg text-sm font-medium ${
-                  location.pathname === '/contact' ? 'bg-[var(--accent-navy)]/10 text-[var(--accent-navy)] font-bold' : 'text-[var(--text-secondary)] hover:bg-[var(--bg-card-hover)]'
-                }`}
-              >
-                Contact Editorial Office
-              </Link>
+                <Moon className="w-3 h-3" /> Dark
+              </button>
             </div>
           </div>
-        )}
+
+          {/* Core Navigation Links */}
+          <div className="space-y-1 pt-1">
+            <Link
+              to="/"
+              onClick={() => setMobileMenuOpen(false)}
+              className={`block px-3 py-2 rounded-lg text-sm font-medium ${
+                location.pathname === '/' ? 'bg-[var(--accent-navy)]/10 text-[var(--accent-navy)] font-bold' : 'text-[var(--text-secondary)] hover:bg-[var(--bg-card-hover)]'
+              }`}
+            >
+              Home
+            </Link>
+
+            <div className="py-1">
+              <span className="px-3 text-[10px] font-mono uppercase text-[var(--text-muted)] font-bold">
+                About the Journal
+              </span>
+              {aboutDropdownLinks.map(item => (
+                <Link
+                  key={item.path}
+                  to={item.path}
+                  onClick={() => setMobileMenuOpen(false)}
+                  className={`block px-4 py-1.5 text-xs transition-colors ${
+                    location.pathname === item.path ? 'text-[var(--accent-navy)] font-bold' : 'text-[var(--text-secondary)] hover:text-[var(--text-primary)]'
+                  }`}
+                >
+                  {item.label}
+                </Link>
+              ))}
+            </div>
+
+            <Link
+              to="/articles"
+              onClick={() => setMobileMenuOpen(false)}
+              className={`block px-3 py-2 rounded-lg text-sm font-medium ${
+                location.pathname === '/articles' ? 'bg-[var(--accent-navy)]/10 text-[var(--accent-navy)] font-bold' : 'text-[var(--text-secondary)] hover:bg-[var(--bg-card-hover)]'
+              }`}
+            >
+              Research &amp; Articles
+            </Link>
+
+            <Link
+              to="/issues"
+              onClick={() => setMobileMenuOpen(false)}
+              className={`block px-3 py-2 rounded-lg text-sm font-medium ${
+                location.pathname === '/issues' ? 'bg-[var(--accent-navy)]/10 text-[var(--accent-navy)] font-bold' : 'text-[var(--text-secondary)] hover:bg-[var(--bg-card-hover)]'
+              }`}
+            >
+              Issues &amp; Archive
+            </Link>
+
+            <Link
+              to="/for-authors"
+              onClick={() => setMobileMenuOpen(false)}
+              className={`block px-3 py-2 rounded-lg text-sm font-medium ${
+                location.pathname === '/for-authors' ? 'bg-[var(--accent-navy)]/10 text-[var(--accent-navy)] font-bold' : 'text-[var(--text-secondary)] hover:bg-[var(--bg-card-hover)]'
+              }`}
+            >
+              For Authors
+            </Link>
+
+            <Link
+              to="/for-reviewers"
+              onClick={() => setMobileMenuOpen(false)}
+              className={`block px-3 py-2 rounded-lg text-sm font-medium ${
+                location.pathname === '/for-reviewers' ? 'bg-[var(--accent-navy)]/10 text-[var(--accent-navy)] font-bold' : 'text-[var(--text-secondary)] hover:bg-[var(--bg-card-hover)]'
+              }`}
+            >
+              For Reviewers
+            </Link>
+
+            <Link
+              to="/contact"
+              onClick={() => setMobileMenuOpen(false)}
+              className={`block px-3 py-2 rounded-lg text-sm font-medium ${
+                location.pathname === '/contact' ? 'bg-[var(--accent-navy)]/10 text-[var(--accent-navy)] font-bold' : 'text-[var(--text-secondary)] hover:bg-[var(--bg-card-hover)]'
+              }`}
+            >
+              Contact Editorial Office
+            </Link>
+          </div>
+        </div>
       </header>
 
       <CommandPalette isOpen={isSearchOpen} onClose={() => setIsSearchOpen(false)} />
