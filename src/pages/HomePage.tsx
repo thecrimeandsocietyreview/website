@@ -114,52 +114,52 @@ export const HomePage: React.FC = () => {
           PREMIER JOURNAL HERO SECTION
       ======================================================== */}
       <section className="max-w-7xl mx-auto px-4">
-        <div className="relative rounded-3xl p-8 sm:p-12 lg:p-14 overflow-hidden bg-[var(--bg-card)]">
-          {/* Panoramic Hero Artwork Background - Clearly Visible */}
+        <div className="relative rounded-3xl p-6 sm:p-10 lg:p-14 overflow-hidden bg-[var(--bg-card)]">
+          {/* Panoramic Hero Artwork Background */}
           <img 
             src="/hero-bg.png" 
             alt="The Crime & Society Review Scholarly Artwork" 
-            className="absolute inset-0 w-full h-full object-cover object-center select-none"
+            className="absolute inset-0 w-full h-full object-cover object-right sm:object-center select-none"
           />
-          {/* Soft semi-transparent veil: preserves vibrant visibility of artwork while ensuring text readability */}
-          <div className="absolute inset-0 bg-white/60 dark:bg-slate-950/70 transition-colors"></div>
+          {/* Directional Scrim: Solid high-contrast backing on left for text, transparent on right so artwork shines */}
+          <div className="absolute inset-0 bg-gradient-to-r from-white/95 via-white/90 to-white/30 dark:from-slate-950/95 dark:via-slate-950/90 dark:to-slate-950/40"></div>
 
-          <div className="relative z-10 max-w-5xl mx-auto text-center space-y-6">
+          <div className="relative z-10 max-w-3xl space-y-6 text-left">
             
             {/* Top Eyebrow Badges */}
-            <div className="flex flex-wrap items-center justify-center gap-2 text-xs">
-              <span className="px-3 py-1 rounded-full font-mono text-[11px] font-bold bg-[var(--accent-gold)]/10 text-[var(--accent-gold)] border border-[var(--accent-gold)]/30 flex items-center gap-1.5 shadow-2xs">
-                <Award className="w-3.5 h-3.5" /> UGC-CARE Group II Aligned
+            <div className="flex flex-wrap items-center justify-start gap-2 text-xs">
+              <span className="px-3 py-1 rounded-full font-mono text-[11px] font-bold bg-amber-500/15 text-amber-900 dark:text-[var(--accent-gold)] border border-amber-500/30 flex items-center gap-1.5 shadow-2xs">
+                <Award className="w-3.5 h-3.5 text-amber-600 dark:text-[var(--accent-gold)]" /> UGC-CARE Group II Aligned
               </span>
-              <span className="px-3 py-1 rounded-full font-mono text-[11px] font-semibold bg-emerald-500/10 text-emerald-700 dark:text-emerald-400 border border-emerald-500/30 flex items-center gap-1.5 shadow-2xs">
+              <span className="px-3 py-1 rounded-full font-mono text-[11px] font-semibold bg-emerald-500/15 text-emerald-800 dark:text-emerald-400 border border-emerald-500/30 flex items-center gap-1.5 shadow-2xs">
                 <ShieldCheck className="w-3.5 h-3.5" /> 100% Diamond Open Access (₹0 APC)
               </span>
-              <span className="px-3 py-1 rounded-full font-mono text-[11px] text-[var(--text-muted)] bg-[var(--bg-card)] border border-[var(--border-subtle)] hidden sm:flex items-center gap-1">
+              <span className="px-3 py-1 rounded-full font-mono text-[11px] text-slate-700 dark:text-[var(--text-muted)] bg-white/80 dark:bg-slate-900/80 border border-slate-300 dark:border-[var(--border-subtle)] hidden sm:flex items-center gap-1">
                 <Globe className="w-3.5 h-3.5 text-blue-500" /> Crossref Member (10.59821/csr)
               </span>
-              <span className="px-3 py-1 rounded-full font-mono text-[11px] text-[var(--text-muted)] bg-[var(--bg-card)] border border-[var(--border-subtle)] hidden md:flex items-center gap-1">
+              <span className="px-3 py-1 rounded-full font-mono text-[11px] text-slate-700 dark:text-[var(--text-muted)] bg-white/80 dark:bg-slate-900/80 border border-slate-300 dark:border-[var(--border-subtle)] hidden md:flex items-center gap-1">
                 ISSN 2998-4122 (CSIR-NIScPR New Delhi)
               </span>
             </div>
 
             {/* Main Journal Title */}
-            <div className="space-y-3">
-              <h1 className="font-serif text-3xl sm:text-5xl md:text-6xl font-extrabold text-[var(--text-primary)] tracking-tight leading-[1.15]">
-                The Crime & Society Review
+            <div className="space-y-2.5">
+              <h1 className="font-serif text-3xl sm:text-5xl md:text-6xl font-extrabold text-slate-950 dark:text-white tracking-tight leading-[1.12]">
+                The Crime &amp; Society Review
               </h1>
-              <p className="font-serif italic text-base sm:text-xl md:text-2xl text-[var(--accent-gold)] font-medium max-w-3xl mx-auto leading-snug">
-                Indian Journal of Interdisciplinary Criminology, Forensics & Criminal Jurisprudence
+              <p className="font-serif italic text-base sm:text-lg md:text-xl text-amber-900 dark:text-[var(--accent-gold)] font-bold leading-snug">
+                Indian Journal of Interdisciplinary Criminology, Forensics &amp; Criminal Jurisprudence
               </p>
             </div>
 
             {/* Core Mission Subtitle */}
-            <p className="text-sm sm:text-base md:text-lg text-[var(--text-secondary)] font-serif leading-relaxed max-w-3xl mx-auto">
+            <p className="text-sm sm:text-base md:text-lg text-slate-800 dark:text-slate-200 font-serif leading-relaxed max-w-2xl">
               A peer-reviewed, open-access scholarly forum pioneering the <strong>Rashomon Approach</strong>—triangulating criminal justice under the <strong>Bharatiya Nyaya Sanhita (BNS)</strong>, <strong>BNSS</strong>, and <strong>BSA</strong> with <strong>NFSU forensic standards</strong>, Article 21 fair trial safeguards, and carceral sociology.
             </p>
 
             {/* Interactive Search & DOI Resolution Bar */}
-            <form onSubmit={handleHeroSearch} className="max-w-2xl mx-auto pt-2">
-              <div className="relative flex items-center rounded-2xl border border-[var(--border-strong)] bg-[var(--bg-card)] p-1.5 shadow-md focus-within:border-[var(--accent-gold)] focus-within:ring-2 focus-within:ring-[var(--accent-gold)]/20 transition-all">
+            <form onSubmit={handleHeroSearch} className="max-w-2xl pt-1">
+              <div className="relative flex items-center rounded-2xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900/95 p-1.5 shadow-md focus-within:border-[var(--accent-gold)] focus-within:ring-2 focus-within:ring-[var(--accent-gold)]/20 transition-all">
                 <div className="pl-3 text-[var(--accent-gold)]">
                   <Search className="w-5 h-5" />
                 </div>
@@ -168,7 +168,7 @@ export const HomePage: React.FC = () => {
                   value={heroSearchQuery}
                   onChange={(e) => setHeroSearchQuery(e.target.value)}
                   placeholder="Search articles, keywords, statutes (e.g. Section 63 BSA, BNSS 105), or DOI..."
-                  className="w-full bg-transparent px-3 py-2 text-xs sm:text-sm text-[var(--text-primary)] placeholder:text-[var(--text-muted)] focus:outline-none"
+                  className="w-full bg-transparent px-3 py-2 text-xs sm:text-sm text-slate-900 dark:text-slate-100 placeholder:text-slate-500 dark:placeholder:text-slate-400 focus:outline-none"
                 />
                 <button
                   type="submit"
@@ -180,8 +180,8 @@ export const HomePage: React.FC = () => {
               </div>
 
               {/* Quick Topic Chips */}
-              <div className="mt-3 flex flex-wrap items-center justify-center gap-1.5 text-xs text-[var(--text-muted)]">
-                <span className="font-mono text-[11px]">Popular Searches:</span>
+              <div className="mt-3 flex flex-wrap items-center justify-start gap-1.5 text-xs text-slate-700 dark:text-slate-300">
+                <span className="font-mono text-[11px] font-semibold text-slate-800 dark:text-slate-300">Popular Searches:</span>
                 {[
                   'BNS 2023 Statutory Analysis',
                   'Section 63 BSA Digital Evidence',
@@ -197,7 +197,7 @@ export const HomePage: React.FC = () => {
                       setHeroSearchQuery(term);
                       navigate(`/explore?search=${encodeURIComponent(term)}`);
                     }}
-                    className="px-2.5 py-0.5 rounded-full border border-[var(--border-subtle)] bg-[var(--bg-card)] hover:border-[var(--accent-gold)] hover:text-[var(--accent-gold)] transition-colors text-[11px] font-mono cursor-pointer"
+                    className="px-2.5 py-0.5 rounded-full border border-slate-300 dark:border-slate-700 bg-white/90 dark:bg-slate-800/90 hover:border-[var(--accent-gold)] hover:text-amber-900 dark:hover:text-[var(--accent-gold)] transition-colors text-[11px] font-mono text-slate-800 dark:text-slate-200 cursor-pointer shadow-2xs"
                   >
                     {term}
                   </button>
@@ -206,7 +206,7 @@ export const HomePage: React.FC = () => {
             </form>
 
             {/* Main Action CTAs */}
-            <div className="flex flex-wrap items-center justify-center gap-3.5 pt-4">
+            <div className="flex flex-wrap items-center justify-start gap-3.5 pt-3">
               <Link
                 to="/submit"
                 className="px-6 py-3 rounded-xl bg-[var(--accent-gold)] hover:bg-[var(--accent-gold-hover)] text-slate-950 font-bold text-xs sm:text-sm shadow-md transition-all hover:scale-102 flex items-center gap-2 group cursor-pointer"
@@ -218,7 +218,7 @@ export const HomePage: React.FC = () => {
 
               <a
                 href="#cfp"
-                className="px-5 py-3 rounded-xl border border-[var(--border-subtle)] hover:border-[var(--accent-navy)] text-[var(--text-primary)] font-semibold text-xs sm:text-sm transition-colors flex items-center gap-2 bg-[var(--bg-card)] cursor-pointer"
+                className="px-5 py-3 rounded-xl border border-slate-300 dark:border-[var(--border-subtle)] hover:border-[var(--accent-navy)] text-slate-900 dark:text-[var(--text-primary)] font-semibold text-xs sm:text-sm transition-colors flex items-center gap-2 bg-white/90 dark:bg-slate-900/90 cursor-pointer shadow-2xs"
               >
                 <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
                 <span>Call for Papers (Vol. 1, Issue 2)</span>
@@ -226,7 +226,7 @@ export const HomePage: React.FC = () => {
 
               <button
                 onClick={() => handleDownloadTemplate('docx')}
-                className="px-4 py-3 rounded-xl border border-[var(--border-subtle)] hover:border-[var(--border-strong)] text-[var(--text-secondary)] hover:text-[var(--text-primary)] text-xs font-medium transition-colors flex items-center gap-1.5 bg-[var(--bg-card)] cursor-pointer"
+                className="px-4 py-3 rounded-xl border border-slate-300 dark:border-[var(--border-subtle)] hover:border-slate-400 text-slate-700 dark:text-[var(--text-secondary)] hover:text-slate-950 dark:hover:text-[var(--text-primary)] text-xs font-medium transition-colors flex items-center gap-1.5 bg-white/90 dark:bg-slate-900/90 cursor-pointer shadow-2xs"
               >
                 <Download className="w-4 h-4 text-[var(--accent-gold)]" />
                 <span>Author Toolkit (.docx)</span>
