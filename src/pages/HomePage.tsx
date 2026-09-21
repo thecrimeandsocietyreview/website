@@ -111,20 +111,21 @@ export const HomePage: React.FC = () => {
     <div className="space-y-16 pb-16 animate-fadeIn">
 
       {/* ========================================================
-          PREMIER JOURNAL HERO SECTION
+          PREMIER JOURNAL HERO SECTION (FULL WIDTH EDGE-TO-EDGE)
       ======================================================== */}
-      <section className="max-w-7xl mx-auto px-4">
-        <div className="relative rounded-3xl p-6 sm:p-10 lg:p-14 overflow-hidden bg-[var(--bg-card)]">
-          {/* Panoramic Hero Artwork Background */}
-          <img 
-            src="/hero-bg.png" 
-            alt="The Crime & Society Review Scholarly Artwork" 
-            className="absolute inset-0 w-full h-full object-cover object-right sm:object-center select-none"
-          />
-          {/* Directional Scrim: Solid high-contrast backing on left for text, transparent on right so artwork shines */}
-          <div className="absolute inset-0 bg-gradient-to-r from-white/95 via-white/90 to-white/30 dark:from-slate-950/95 dark:via-slate-950/90 dark:to-slate-950/40"></div>
+      <section className="relative w-full overflow-hidden bg-[var(--bg-card)]">
+        {/* Full-Bleed Panoramic Hero Artwork Background */}
+        <img 
+          src="/hero-bg.png" 
+          alt="The Crime & Society Review Scholarly Artwork" 
+          className="absolute inset-0 w-full h-full object-cover object-right sm:object-center select-none"
+        />
+        {/* Directional Scrim: Solid high-contrast backing on left for text, transparent on right so artwork shines */}
+        <div className="absolute inset-0 bg-gradient-to-r from-white/95 via-white/90 to-white/30 dark:from-slate-950/95 dark:via-slate-950/90 dark:to-slate-950/40"></div>
 
-          <div className="relative z-10 max-w-3xl space-y-6 text-left">
+        {/* Content Container (Grid-aligned with navbar max-w-7xl) */}
+        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 sm:py-14 lg:py-18 space-y-10">
+          <div className="max-w-3xl space-y-6 text-left">
             
             {/* Top Eyebrow Badges */}
             <div className="flex flex-wrap items-center justify-start gap-2 text-xs">
@@ -232,47 +233,47 @@ export const HomePage: React.FC = () => {
                 <span>Author Toolkit (.docx)</span>
               </button>
             </div>
+          </div>
 
-            {/* Quick Metrics Bar in Hero Footer */}
-            <div className="pt-6 border-t border-[var(--border-subtle)] grid grid-cols-2 sm:grid-cols-4 gap-4 text-center">
-              <div>
-                <div className="font-serif text-xl sm:text-2xl font-bold text-[var(--text-primary)]">
-                  Continuous
-                </div>
-                <div className="text-[11px] font-mono text-[var(--text-muted)] mt-0.5">
-                  Rolling Publication Model
-                </div>
+          {/* Quick Metrics Bar in Hero Footer */}
+          <div className="pt-8 border-t border-slate-300/80 dark:border-slate-800/80 grid grid-cols-2 sm:grid-cols-4 gap-4 text-center">
+            <div>
+              <div className="font-serif text-xl sm:text-2xl font-bold text-[var(--text-primary)]">
+                Continuous
               </div>
-
-              <div>
-                <div className="font-serif text-xl sm:text-2xl font-bold text-emerald-600 dark:text-emerald-400">
-                  ₹0 / Free
-                </div>
-                <div className="text-[11px] font-mono text-[var(--text-muted)] mt-0.5">
-                  Diamond Open Access (No APC)
-                </div>
-              </div>
-
-              <div>
-                <div className="font-serif text-xl sm:text-2xl font-bold text-[var(--accent-gold)]">
-                  14–21 Days
-                </div>
-                <div className="text-[11px] font-mono text-[var(--text-muted)] mt-0.5">
-                  Double-Blind Peer Review
-                </div>
-              </div>
-
-              <div>
-                <div className="font-serif text-xl sm:text-2xl font-bold text-[var(--text-primary)]">
-                  6 Lenses
-                </div>
-                <div className="text-[11px] font-mono text-[var(--text-muted)] mt-0.5">
-                  Rashomon Interdisciplinary Prism
-                </div>
+              <div className="text-[11px] font-mono text-[var(--text-muted)] mt-0.5">
+                Rolling Publication Model
               </div>
             </div>
 
+            <div>
+              <div className="font-serif text-xl sm:text-2xl font-bold text-emerald-600 dark:text-emerald-400">
+                ₹0 / Free
+              </div>
+              <div className="text-[11px] font-mono text-[var(--text-muted)] mt-0.5">
+                Diamond Open Access (No APC)
+              </div>
+            </div>
+
+            <div>
+              <div className="font-serif text-xl sm:text-2xl font-bold text-[var(--accent-gold)]">
+                14–21 Days
+              </div>
+              <div className="text-[11px] font-mono text-[var(--text-muted)] mt-0.5">
+                Double-Blind Peer Review
+              </div>
+            </div>
+
+            <div>
+              <div className="font-serif text-xl sm:text-2xl font-bold text-[var(--text-primary)]">
+                6 Lenses
+              </div>
+              <div className="text-[11px] font-mono text-[var(--text-muted)] mt-0.5">
+                Rashomon Interdisciplinary Prism
+              </div>
+            </div>
           </div>
+
         </div>
       </section>
 
