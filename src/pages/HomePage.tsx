@@ -114,7 +114,18 @@ export const HomePage: React.FC = () => {
           PREMIER JOURNAL HERO SECTION
       ======================================================== */}
       <section className="max-w-7xl mx-auto px-4">
-        <div className="relative rounded-3xl border border-[var(--border-subtle)] bg-gradient-to-b from-[var(--bg-card)] via-[var(--bg-card-hover)] to-[var(--bg-card)] p-8 sm:p-12 lg:p-14 shadow-sm overflow-hidden">
+        <div className="relative rounded-3xl bg-gradient-to-b from-[var(--bg-card)] via-[var(--bg-card-hover)] to-[var(--bg-card)] p-8 sm:p-12 lg:p-14 overflow-hidden">
+          {/* Panoramic Hero Artwork Background */}
+          <div className="absolute inset-0 z-0 pointer-events-none overflow-hidden">
+            <img 
+              src="/hero-bg.png" 
+              alt="The Crime & Society Review Scholarly Artwork" 
+              className="w-full h-full object-cover object-center opacity-30 dark:opacity-20 mix-blend-multiply dark:mix-blend-screen transition-opacity select-none"
+            />
+            {/* Atmospheric overlay to preserve high readability and contrast */}
+            <div className="absolute inset-0 bg-gradient-to-b from-[var(--bg-card)]/80 via-[var(--bg-card)]/65 to-[var(--bg-card)]/90 backdrop-blur-[0.5px]"></div>
+          </div>
+
           {/* Subtle Ambient Background Gradients */}
           <div className="absolute top-0 right-0 -mr-24 -mt-24 w-96 h-96 rounded-full bg-[var(--accent-gold)]/10 blur-3xl pointer-events-none"></div>
           <div className="absolute bottom-0 left-0 -ml-20 -mb-20 w-80 h-80 rounded-full bg-[var(--accent-navy)]/10 blur-3xl pointer-events-none"></div>
