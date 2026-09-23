@@ -5,23 +5,11 @@ import { Header } from './components/common/Header';
 import { Footer } from './components/common/Footer';
 import { AlertCircle, ArrowLeft } from 'lucide-react';
 
-// The 16 Primary Pages
+// The 4 Core Pages
 import { HomePage } from './pages/HomePage';
 import { AboutPage } from './pages/AboutPage';
 import { AimsScopePage } from './pages/AimsScopePage';
-import { ArticlesPage } from './pages/ArticlesPage';
-import { IssuesPage } from './pages/IssuesPage';
-import { ArticleReaderPage } from './pages/ArticleReaderPage';
 import { RashomonPage } from './pages/RashomonPage';
-import { EditorialBoardPage } from './pages/EditorialBoardPage';
-import { EditorialPhilosophyPage } from './pages/EditorialPhilosophyPage';
-import { ForAuthorsPage } from './pages/ForAuthorsPage';
-import { SubmitPage } from './pages/SubmitPage';
-import { ForReviewersPage } from './pages/ForReviewersPage';
-import { ExplorePage } from './pages/ExplorePage';
-import { HistoryPage } from './pages/HistoryPage';
-import { PublisherPage } from './pages/PublisherPage';
-import { ContactPage } from './pages/ContactPage';
 
 // Scroll to top automatically on route changes
 const ScrollToTop: React.FC = () => {
@@ -32,7 +20,7 @@ const ScrollToTop: React.FC = () => {
   return null;
 };
 
-// Scholarly 404 Component
+// Clean 404 Component
 const NotFoundPage: React.FC = () => {
   return (
     <div className="max-w-2xl mx-auto px-4 py-20 text-center space-y-6 animate-fadeIn">
@@ -40,10 +28,10 @@ const NotFoundPage: React.FC = () => {
         <AlertCircle className="w-7 h-7" />
       </div>
       <h1 className="font-serif text-3xl font-bold text-[var(--text-primary)]">
-        404 — Persistent Identifier Not Found
+        404 — Page Not Found
       </h1>
       <p className="text-sm text-[var(--text-secondary)] font-serif leading-relaxed">
-        The requested URL or DOI does not correspond to an active Version of Record or editorial resource in <em>The Crime &amp; Society Review</em>.
+        The requested page does not exist or has been restructured into our core sections.
       </p>
       <div className="pt-2">
         <Link
@@ -76,48 +64,23 @@ export const App: React.FC = () => {
               {/* 3. Aims & Scope */}
               <Route path="/aims-scope" element={<AimsScopePage />} />
 
-              {/* 4. Publications / Articles */}
-              <Route path="/articles" element={<ArticlesPage />} />
-
-              {/* 5. Issues (and alias /archive) */}
-              <Route path="/issues" element={<IssuesPage />} />
-              <Route path="/archive" element={<Navigate to="/issues" replace />} />
-
-              {/* 6. Individual Article Page */}
-              <Route path="/article/:id" element={<ArticleReaderPage />} />
-
-              {/* 7. Rashomon / Multidisciplinary Approach */}
+              {/* 4. Rashomon Approach */}
               <Route path="/rashomon-approach" element={<RashomonPage />} />
 
-              {/* 8. Editorial Board */}
-              <Route path="/editorial-board" element={<EditorialBoardPage />} />
-
-              {/* 9. Editorial Philosophy */}
-              <Route path="/editorial-philosophy" element={<EditorialPhilosophyPage />} />
-
-              {/* 10. For Authors */}
-              <Route path="/for-authors" element={<ForAuthorsPage />} />
-
-              {/* 11. Submit Your Research */}
-              <Route path="/submit" element={<SubmitPage />} />
-
-              {/* 12. For Reviewers */}
-              <Route path="/for-reviewers" element={<ForReviewersPage />} />
-
-              {/* 13. Research / Explore */}
-              <Route path="/explore" element={<ExplorePage />} />
-
-              {/* 14. Journal History */}
-              <Route path="/history" element={<HistoryPage />} />
-
-              {/* 15. Publisher */}
-              <Route path="/publisher" element={<PublisherPage />} />
-
-              {/* 16. Contact */}
-              <Route path="/contact" element={<ContactPage />} />
-
-              {/* Governance aliases redirecting to their respective dedicated pages */}
-              <Route path="/ethics" element={<Navigate to="/editorial-philosophy" replace />} />
+              {/* Clean Redirects from previous paths to their corresponding core page */}
+              <Route path="/history" element={<Navigate to="/about" replace />} />
+              <Route path="/publisher" element={<Navigate to="/about" replace />} />
+              <Route path="/editorial-philosophy" element={<Navigate to="/about" replace />} />
+              <Route path="/editorial-board" element={<Navigate to="/about" replace />} />
+              <Route path="/ethics" element={<Navigate to="/about" replace />} />
+              <Route path="/articles" element={<Navigate to="/" replace />} />
+              <Route path="/issues" element={<Navigate to="/" replace />} />
+              <Route path="/archive" element={<Navigate to="/" replace />} />
+              <Route path="/explore" element={<Navigate to="/aims-scope" replace />} />
+              <Route path="/for-authors" element={<Navigate to="/aims-scope" replace />} />
+              <Route path="/for-reviewers" element={<Navigate to="/about" replace />} />
+              <Route path="/submit" element={<Navigate to="/about" replace />} />
+              <Route path="/contact" element={<Navigate to="/about" replace />} />
 
               {/* 404 Fallback */}
               <Route path="*" element={<NotFoundPage />} />
