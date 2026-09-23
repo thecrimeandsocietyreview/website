@@ -56,7 +56,7 @@ export const Footer: React.FC = () => {
             <img 
               src="/logo.png" 
               alt="The Crime & Society Review Logo" 
-              className="w-12 h-12 rounded-xl object-contain bg-white shadow-xs border border-[var(--border-strong)] p-1 shrink-0" 
+              className="w-16 h-16 object-contain bg-transparent shrink-0" 
             />
             <div>
               <span className="font-serif font-bold text-base sm:text-lg text-[var(--text-primary)] block leading-tight">

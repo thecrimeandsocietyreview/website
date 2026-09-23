@@ -30,13 +30,13 @@ export const Header: React.FC = () => {
       <div className="max-w-6xl mx-auto px-4 sm:px-6 py-2.5 flex items-center justify-between gap-4">
         
         {/* Brand Logo & Title */}
-        <Link to="/" className="flex items-center gap-2.5 group shrink min-w-0 py-0.5">
+        <Link to="/" className="flex items-center gap-3 group shrink min-w-0 py-1">
           <img 
             src="/logo.png" 
             alt="The Crime & Society Review Logo" 
-            className="h-10 w-10 sm:h-11 sm:w-11 rounded-xl object-contain bg-white shadow-xs border border-[var(--border-strong)] group-hover:scale-105 transition-transform shrink-0 p-0.5" 
+            className="h-12 w-auto sm:h-14 md:h-15 object-contain bg-transparent group-hover:scale-105 transition-transform shrink-0" 
           />
-          <span className="font-serif text-sm sm:text-base md:text-lg font-bold tracking-tight text-[var(--text-primary)] group-hover:text-[var(--accent-navy)] transition-colors leading-tight truncate">
+          <span className="font-serif text-base sm:text-lg md:text-xl font-bold tracking-tight text-[var(--text-primary)] group-hover:text-[var(--accent-navy)] transition-colors leading-tight truncate">
             The Crime &amp; Society Review
           </span>
         </Link>
