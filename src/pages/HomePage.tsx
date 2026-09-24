@@ -43,7 +43,7 @@ export const HomePage: React.FC = () => {
                 <Award className="w-3.5 h-3.5 text-amber-600 dark:text-[var(--accent-gold)]" /> Academic Journal
               </span>
               <span className="px-3 py-1 rounded-full font-mono text-[11px] font-semibold bg-emerald-500/15 text-emerald-800 dark:text-emerald-400 border border-emerald-500/30 flex items-center gap-1.5 shadow-2xs">
-                <ShieldCheck className="w-3.5 h-3.5" /> Diamond Open Access
+                <ShieldCheck className="w-3.5 h-3.5" /> Open Access
               </span>
             </div>
 
