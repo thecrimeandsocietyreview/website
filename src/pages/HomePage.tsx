@@ -45,9 +45,6 @@ export const HomePage: React.FC = () => {
               <span className="px-3 py-1 rounded-full font-mono text-[11px] font-semibold bg-emerald-500/15 text-emerald-800 dark:text-emerald-400 border border-emerald-500/30 flex items-center gap-1.5 shadow-2xs">
                 <ShieldCheck className="w-3.5 h-3.5" /> Diamond Open Access
               </span>
-              <span className="px-3 py-1 rounded-full font-mono text-[11px] text-slate-700 dark:text-[var(--text-muted)] bg-white/80 dark:bg-slate-900/80 border border-slate-300 dark:border-[var(--border-subtle)] flex items-center gap-1">
-                ISSN {JOURNAL_METADATA.issnOnline}
-              </span>
             </div>
 
             {/* 1. Journal Name - Single Line */}

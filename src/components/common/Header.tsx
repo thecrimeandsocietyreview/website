@@ -134,30 +134,36 @@ export const Header: React.FC = () => {
         </div>
       </div>
 
-      {/* Mobile Drawer (Only the 4 items) */}
+      {/* Mobile Drawer Overlay (anchored below header so page content does not shift) */}
       {mobileMenuOpen && (
-        <div 
-          style={{ backgroundColor: 'var(--bg-card)' }}
-          className="md:hidden border-b border-[var(--border-subtle)] px-4 py-4 space-y-2 shadow-xl animate-fadeIn"
-        >
-          {navLinks.map((item) => {
-            const isActive = location.pathname === item.path;
-            return (
-              <Link
-                key={item.path}
-                to={item.path}
-                onClick={() => setMobileMenuOpen(false)}
-                className={`block px-3 py-2.5 rounded-lg text-sm font-medium ${
-                  isActive
-                    ? 'bg-[var(--accent-navy)]/10 text-[var(--accent-navy)] font-bold'
-                    : 'text-[var(--text-secondary)] hover:bg-[var(--bg-card-hover)]'
-                }`}
-              >
-                {item.label}
-              </Link>
-            );
-          })}
-        </div>
+        <>
+          <div 
+            className="fixed inset-0 top-[60px] bg-black/40 backdrop-blur-xs z-40 md:hidden animate-fadeIn"
+            onClick={() => setMobileMenuOpen(false)}
+          />
+          <div 
+            style={{ backgroundColor: 'var(--bg-card)' }}
+            className="absolute top-full left-0 right-0 w-full md:hidden border-b border-[var(--border-subtle)] px-4 py-4 space-y-2 shadow-2xl z-50 animate-fadeIn"
+          >
+            {navLinks.map((item) => {
+              const isActive = location.pathname === item.path;
+              return (
+                <Link
+                  key={item.path}
+                  to={item.path}
+                  onClick={() => setMobileMenuOpen(false)}
+                  className={`block px-3.5 py-2.5 rounded-lg text-sm font-medium transition-colors ${
+                    isActive
+                      ? 'bg-[var(--accent-navy)]/10 text-[var(--accent-navy)] font-bold'
+                      : 'text-[var(--text-secondary)] hover:bg-[var(--bg-card-hover)] hover:text-[var(--text-primary)]'
+                  }`}
+                >
+                  {item.label}
+                </Link>
+              );
+            })}
+          </div>
+        </>
       )}
     </header>
   );
