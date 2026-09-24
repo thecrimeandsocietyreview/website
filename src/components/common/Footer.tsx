@@ -31,11 +31,13 @@ export const Footer: React.FC = () => {
           </h4>
           <ul className="space-y-2 text-xs font-serif">
             <li><Link to="/" className="hover:text-[var(--accent-navy)] transition-colors">1. Home</Link></li>
-            <li><Link to="/editorial-board" className="hover:text-[var(--accent-navy)] transition-colors">2. Editorial Board</Link></li>
+            <li><Link to="/submit" className="hover:text-[var(--accent-navy)] transition-colors font-semibold text-[var(--accent-gold)]">2. Submission Guidelines</Link></li>
             <li><Link to="/about" className="hover:text-[var(--accent-navy)] transition-colors">3. About the Journal</Link></li>
-            <li><Link to="/aims-scope" className="hover:text-[var(--accent-navy)] transition-colors">4. Aims &amp; Scope</Link></li>
-            <li><Link to="/rashomon-approach" className="hover:text-[var(--accent-navy)] transition-colors font-medium text-[var(--accent-gold)]">5. Rashomon Approach</Link></li>
-            <li><Link to="/contact" className="hover:text-[var(--accent-navy)] transition-colors">6. Contact Us</Link></li>
+            <li><Link to="/editorial-board" className="hover:text-[var(--accent-navy)] transition-colors">4. Editorial Board</Link></li>
+            <li><Link to="/rashomon-approach" className="hover:text-[var(--accent-navy)] transition-colors font-medium text-[var(--accent-gold)]">5. The Rashomon Approach</Link></li>
+            <li><Link to="/current-issue" className="hover:text-[var(--accent-navy)] transition-colors">6. Current Issue</Link></li>
+            <li><Link to="/aims-scope" className="hover:text-[var(--accent-navy)] transition-colors">7. Aims &amp; Scope</Link></li>
+            <li><Link to="/contact" className="hover:text-[var(--accent-navy)] transition-colors">8. Contact Us</Link></li>
           </ul>
         </div>
 
@@ -45,11 +47,11 @@ export const Footer: React.FC = () => {
             Key Highlights
           </h4>
           <ul className="space-y-1.5 text-xs text-[var(--text-secondary)] font-serif">
-            <li>• Interdisciplinary Legal Focus</li>
-            <li>• 6 Analytical Lenses</li>
-            <li>• 20 Research Subject Areas</li>
+            <li>• Multidisciplinary Analytical Scope</li>
             <li>• Continuous Rolling Publication</li>
-            <li>• Non-Profit Publisher Infrastructure</li>
+            <li>• ₹0 Article Processing Charges</li>
+            <li>• Double-Blind Peer Review</li>
+            <li>• ISSN: Coming Soon</li>
           </ul>
         </div>
 
@@ -59,18 +61,22 @@ export const Footer: React.FC = () => {
       <div className="border-t border-[var(--border-subtle)] bg-[var(--bg-card-hover)] py-4 px-4 text-xs">
         <div className="max-w-6xl mx-auto flex flex-wrap items-center justify-between gap-4 font-mono text-[11px] text-[var(--text-muted)]">
           <div>
-            © {new Date().getFullYear()} The Crime &amp; Society Review. Open Access CC BY 4.0.
+            © {new Date().getFullYear()} The Crime &amp; Society Review. ISSN: Coming Soon • Open Access CC BY 4.0.
           </div>
-          <div className="flex items-center gap-4">
+          <div className="flex items-center gap-3 flex-wrap">
             <Link to="/" className="hover:text-[var(--text-primary)]">Home</Link>
             <span>•</span>
-            <Link to="/editorial-board" className="hover:text-[var(--text-primary)]">Editorial Board</Link>
+            <Link to="/submit" className="hover:text-[var(--text-primary)]">Submission</Link>
             <span>•</span>
             <Link to="/about" className="hover:text-[var(--text-primary)]">About</Link>
             <span>•</span>
-            <Link to="/aims-scope" className="hover:text-[var(--text-primary)]">Aims &amp; Scope</Link>
+            <Link to="/editorial-board" className="hover:text-[var(--text-primary)]">Editorial Board</Link>
             <span>•</span>
-            <Link to="/rashomon-approach" className="hover:text-[var(--text-primary)]">Rashomon Approach</Link>
+            <Link to="/rashomon-approach" className="hover:text-[var(--text-primary)]">The Rashomon Approach</Link>
+            <span>•</span>
+            <Link to="/current-issue" className="hover:text-[var(--text-primary)]">Current Issue</Link>
+            <span>•</span>
+            <Link to="/aims-scope" className="hover:text-[var(--text-primary)]">Aims &amp; Scope</Link>
             <span>•</span>
             <Link to="/contact" className="hover:text-[var(--text-primary)]">Contact Us</Link>
           </div>

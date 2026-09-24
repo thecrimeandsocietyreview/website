@@ -1,20 +1,14 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
 import { 
   Mail, 
-  Phone, 
   MapPin, 
-  Building2, 
   Send, 
   CheckCircle2, 
   Clock, 
-  HelpCircle, 
-  FileText, 
-  Users, 
   ExternalLink,
   Globe
 } from 'lucide-react';
-import { CONTACT_DETAILS, JOURNAL_METADATA } from '../data/mockJournalData';
+import { CONTACT_DETAILS } from '../data/mockJournalData';
 
 export const ContactPage: React.FC = () => {
   const [submitted, setSubmitted] = useState(false);
@@ -45,107 +39,6 @@ export const ContactPage: React.FC = () => {
         <p className="font-serif italic text-base sm:text-xl text-[var(--accent-gold)]">
           Direct Inquiries to the Editorial Chambers, Peer Review Desk, and Publisher Office
         </p>
-      </div>
-
-      {/* Institutional Contact Cards (4 Sections) */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-        
-        {/* Editorial Office */}
-        <div className="p-6 rounded-2xl border border-[var(--border-subtle)] bg-[var(--bg-card)] space-y-3 shadow-2xs">
-          <div className="w-10 h-10 rounded-xl bg-[var(--accent-navy)]/10 text-[var(--accent-navy)] flex items-center justify-center">
-            <Mail className="w-5 h-5 text-[var(--accent-gold)]" />
-          </div>
-          <div>
-            <h3 className="font-serif font-bold text-base text-[var(--text-primary)]">
-              {CONTACT_DETAILS.editorialOffice.title}
-            </h3>
-            <span className="text-[11px] font-mono text-[var(--text-muted)] block mt-0.5">
-              Manuscript Ingestion &amp; Triage
-            </span>
-          </div>
-          <p className="text-xs text-[var(--text-secondary)] font-serif leading-relaxed">
-            For correspondence regarding active submissions, peer-review status, and editorial desk inquiries.
-          </p>
-          <a
-            href={`mailto:${CONTACT_DETAILS.editorialOffice.email}`}
-            className="inline-block text-xs font-mono text-[var(--accent-navy)] font-semibold hover:underline break-all"
-          >
-            {CONTACT_DETAILS.editorialOffice.email}
-          </a>
-        </div>
-
-        {/* Submissions & Author Support */}
-        <div className="p-6 rounded-2xl border border-[var(--border-subtle)] bg-[var(--bg-card)] space-y-3 shadow-2xs">
-          <div className="w-10 h-10 rounded-xl bg-[var(--accent-navy)]/10 text-[var(--accent-navy)] flex items-center justify-center">
-            <FileText className="w-5 h-5 text-[var(--accent-gold)]" />
-          </div>
-          <div>
-            <h3 className="font-serif font-bold text-base text-[var(--text-primary)]">
-              {CONTACT_DETAILS.submissions.title}
-            </h3>
-            <span className="text-[11px] font-mono text-[var(--text-muted)] block mt-0.5">
-              Pre-Submission Queries
-            </span>
-          </div>
-          <p className="text-xs text-[var(--text-secondary)] font-serif leading-relaxed">
-            Formatting guidance, LaTeX queries, special issue calls, and scope suitability checks.
-          </p>
-          <a
-            href={`mailto:${CONTACT_DETAILS.submissions.email}`}
-            className="inline-block text-xs font-mono text-[var(--accent-navy)] font-semibold hover:underline break-all"
-          >
-            {CONTACT_DETAILS.submissions.email}
-          </a>
-        </div>
-
-        {/* Reviewer Desk */}
-        <div className="p-6 rounded-2xl border border-[var(--border-subtle)] bg-[var(--bg-card)] space-y-3 shadow-2xs">
-          <div className="w-10 h-10 rounded-xl bg-[var(--accent-navy)]/10 text-[var(--accent-navy)] flex items-center justify-center">
-            <Users className="w-5 h-5 text-[var(--accent-gold)]" />
-          </div>
-          <div>
-            <h3 className="font-serif font-bold text-base text-[var(--text-primary)]">
-              {CONTACT_DETAILS.reviewers.title}
-            </h3>
-            <span className="text-[11px] font-mono text-[var(--text-muted)] block mt-0.5">
-              Peer Referees &amp; Board
-            </span>
-          </div>
-          <p className="text-xs text-[var(--text-secondary)] font-serif leading-relaxed">
-            Reviewer registration, ORCID synchronization, certificates, and editorial board matters.
-          </p>
-          <a
-            href={`mailto:${CONTACT_DETAILS.reviewers.email}`}
-            className="inline-block text-xs font-mono text-[var(--accent-navy)] font-semibold hover:underline break-all"
-          >
-            {CONTACT_DETAILS.reviewers.email}
-          </a>
-        </div>
-
-        {/* Publisher Office */}
-        <div className="p-6 rounded-2xl border border-[var(--border-subtle)] bg-[var(--bg-card)] space-y-3 shadow-2xs">
-          <div className="w-10 h-10 rounded-xl bg-[var(--accent-navy)]/10 text-[var(--accent-navy)] flex items-center justify-center">
-            <Building2 className="w-5 h-5 text-[var(--accent-gold)]" />
-          </div>
-          <div>
-            <h3 className="font-serif font-bold text-base text-[var(--text-primary)]">
-              {CONTACT_DETAILS.publisher.title}
-            </h3>
-            <span className="text-[11px] font-mono text-[var(--text-muted)] block mt-0.5">
-              Consortium &amp; Institutional
-            </span>
-          </div>
-          <p className="text-xs text-[var(--text-secondary)] font-serif leading-relaxed">
-            Library harvesting, indexing compliance, OAI-PMH feeds, and copyright queries.
-          </p>
-          <a
-            href={`mailto:${CONTACT_DETAILS.publisher.email}`}
-            className="inline-block text-xs font-mono text-[var(--accent-navy)] font-semibold hover:underline break-all"
-          >
-            {CONTACT_DETAILS.publisher.email}
-          </a>
-        </div>
-
       </div>
 
       {/* Main Form & Postal Chambers */}

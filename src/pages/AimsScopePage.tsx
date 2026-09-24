@@ -37,23 +37,23 @@ export const AimsScopePage: React.FC = () => {
         </p>
       </div>
 
-      {/* 1. JOURNAL KA PURPOSE (JOURNAL PURPOSE) */}
-      <section className="p-8 rounded-2xl border border-[var(--border-subtle)] bg-[var(--bg-card)] space-y-4">
+      {/* 1. PURPOSE OF THE JOURNAL */}
+      <section className="p-8 sm:p-10 rounded-2xl border border-[var(--border-subtle)] bg-[var(--bg-card)] space-y-4">
         <div className="flex items-center gap-2 text-xs font-mono uppercase font-bold text-[var(--accent-gold)]">
           <Target className="w-4 h-4" /> Section 1
         </div>
         <h2 className="font-serif text-2xl font-bold text-[var(--text-primary)]">
-          1. Journal Purpose
+          Purpose of the Journal
         </h2>
-        <div className="prose prose-slate dark:prose-invert max-w-none text-sm sm:text-base text-[var(--text-secondary)] font-serif leading-relaxed space-y-3">
+        <div className="prose prose-slate dark:prose-invert max-w-none text-sm sm:text-base text-[var(--text-secondary)] font-serif leading-relaxed space-y-4">
           <p>
-            <strong>The Crime &amp; Society Review</strong> is committed to advancing the systematic, critical, and evidence-informed study of crime, policing, forensic sciences, criminal jurisprudence, and their societal manifestations across India and the Global South.
+            The Crime &amp; Society Review is dedicated to advancing multidisciplinary scholarship that transcends conventional academic boundaries and examines complex phenomena through diverse intellectual perspectives. Inspired by the Rashomon Approach, the journal recognises that a single phenomenon may reveal different dimensions when examined through different disciplines, methodologies, forms of evidence, and positions of observation.
           </p>
           <p>
-            The fundamental purpose of the journal is to bridge the historical disconnect between statutory criminal law, empirical forensic validation, and social justice. In the era of the <strong>Bharatiya Nyaya Sanhita (BNS, 2023)</strong>, the <strong>Bharatiya Nagarik Suraksha Sanhita (BNSS, 2023)</strong>, and the <strong>Bharatiya Sakshya Adhiniyam (BSA, 2023)</strong>, the journal provides an objective platform where judicial precedents, laboratory science, police practices, and sociological insights converge.
+            The journal provides a scholarly platform for research that connects disciplines, brings diverse forms of knowledge into dialogue, and encourages the examination of subjects from multiple perspectives. Rather than approaching a phenomenon from a single vantage point, the journal seeks to examine the whole scene—from every corner—to develop a more comprehensive, nuanced, and meaningful understanding.
           </p>
           <p>
-            The journal aims to translate rigorous academic research into actionable insights for trial courts, High Courts, the Supreme Court of India, forensic science laboratories, police organizations, and policy architects.
+            Through this multidisciplinary orientation, The Crime &amp; Society Review welcomes rigorous and original scholarship that challenges conventional boundaries, encourages critical inquiry, connects perspectives, and brings to light dimensions of knowledge that may remain overlooked within a single discipline.
           </p>
         </div>
       </section>
@@ -165,46 +165,62 @@ export const AimsScopePage: React.FC = () => {
         </div>
       </section>
 
-      {/* 4. TYPES OF SCHOLARSHIP ACCEPTED */}
+      {/* 4. ARTICLES ACCEPTED */}
       <section className="space-y-6">
         <div className="space-y-1">
           <div className="flex items-center gap-2 text-xs font-mono uppercase font-bold text-[var(--accent-gold)]">
             <FileText className="w-4 h-4" /> Section 4
           </div>
           <h2 className="font-serif text-2xl sm:text-3xl font-bold text-[var(--text-primary)]">
-            4. Types of Scholarship Accepted
+            Articles Accepted
           </h2>
-          <p className="text-xs sm:text-sm text-[var(--text-muted)] font-serif">
-            Scholars may submit contributions across eight established formats:
+          <p className="text-xs sm:text-sm text-[var(--text-secondary)] font-serif">
+            The Crime &amp; Society Review welcomes submissions across the following scholarly article formats:
           </p>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-          {ACCEPTED_ARTICLE_TYPES_8.map((item, idx) => (
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
+          {[
+            "Original Research Articles",
+            "Review Articles",
+            "Systematic and Scoping Review Articles",
+            "Theoretical Articles",
+            "Conceptual Articles",
+            "Methodological Articles",
+            "Interdisciplinary and Multidisciplinary Articles",
+            "Empirical Articles",
+            "Case Study Articles",
+            "Comparative Research Articles",
+            "Short Research Articles",
+            "Research Notes",
+            "Critical Analysis Articles",
+            "Scholarly Commentary Articles",
+            "Policy and Practice Articles",
+            "Perspective Articles",
+            "Emerging and Contemporary Issues Articles",
+            "Literature Review Articles",
+            "Book Review Articles",
+            "Theoretical and Applied Research Articles",
+            "Interdisciplinary Review and Synthesis Articles"
+          ].map((item, idx) => (
             <div 
               key={idx}
-              className="p-5 rounded-xl border border-[var(--border-subtle)] bg-[var(--bg-card)] flex flex-col justify-between space-y-2 hover:border-[var(--accent-gold)] transition-colors"
+              className="p-3.5 rounded-xl border border-[var(--border-subtle)] bg-[var(--bg-card)] flex items-center gap-3 hover:border-[var(--accent-gold)] transition-colors shadow-2xs"
             >
-              <div>
-                <div className="flex items-center justify-between gap-2">
-                  <h4 className="font-serif font-bold text-sm text-[var(--text-primary)]">
-                    {item.type}
-                  </h4>
-                  <FileText className="w-4 h-4 text-[var(--accent-gold)] shrink-0" />
-                </div>
-                <span className="inline-block px-2 py-0.5 rounded bg-[var(--bg-card-hover)] border border-[var(--border-subtle)] font-mono text-[10px] text-[var(--accent-gold)] font-bold mt-1">
-                  {item.wordCount}
-                </span>
-                <p className="text-xs text-[var(--text-secondary)] mt-2 leading-relaxed font-serif">
-                  {item.desc}
-                </p>
+              <div className="w-7 h-7 rounded-lg bg-[var(--accent-navy)]/10 text-[var(--accent-navy)] flex items-center justify-center shrink-0">
+                <CheckCircle2 className="w-4 h-4 text-[var(--accent-gold)]" />
               </div>
-              <div className="pt-2 text-[10px] font-mono text-emerald-600 dark:text-emerald-400 font-semibold flex items-center gap-1 border-t border-[var(--border-subtle)]">
-                <CheckCircle2 className="w-3 h-3" />
-                <span>Double-Blind Peer Reviewed</span>
-              </div>
+              <span className="font-serif font-bold text-xs sm:text-sm text-[var(--text-primary)]">
+                {item}
+              </span>
             </div>
           ))}
+        </div>
+
+        <div className="p-4 rounded-xl border border-[var(--border-subtle)] bg-[var(--bg-card-hover)] text-xs text-[var(--text-secondary)] font-serif leading-relaxed">
+          <p>
+            The journal may also consider other scholarly article formats that demonstrate originality, academic rigour, sound methodology or analysis, and a meaningful contribution to knowledge within its multidisciplinary scope.
+          </p>
         </div>
       </section>
 
@@ -217,10 +233,10 @@ export const AimsScopePage: React.FC = () => {
           ← Return to About the Journal
         </Link>
         <Link
-          to="/rashomon-approach"
+          to="/submit"
           className="px-5 py-2.5 rounded-xl bg-[var(--accent-gold)] text-slate-950 font-bold text-xs hover:bg-[var(--accent-gold-hover)] transition-all flex items-center gap-1.5"
         >
-          <span>Continue to Rashomon Approach</span>
+          <span>Submit a Manuscript</span>
           <ArrowRight className="w-3.5 h-3.5" />
         </Link>
       </div>

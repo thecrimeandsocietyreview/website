@@ -27,20 +27,23 @@ export const AboutPage: React.FC = () => {
         </p>
       </div>
 
-      {/* 1. ABOUT THE CRIME & SOCIETY REVIEW */}
+      {/* 1. PURPOSE OF THE JOURNAL */}
       <section className="p-8 rounded-2xl border border-[var(--border-subtle)] bg-[var(--bg-card)] space-y-4">
         <div className="flex items-center gap-2 text-xs font-mono uppercase font-bold text-[var(--accent-gold)]">
-          <Scale className="w-4 h-4" /> Section 1
+          <Target className="w-4 h-4" /> Purpose of the Journal
         </div>
         <h2 className="font-serif text-2xl font-bold text-[var(--text-primary)]">
-          About The Crime &amp; Society Review
+          Purpose of the Journal
         </h2>
         <div className="prose prose-slate dark:prose-invert max-w-none text-sm sm:text-base text-[var(--text-secondary)] font-serif leading-relaxed space-y-4">
           <p>
-            <strong>The Crime &amp; Society Review</strong> is an independent, peer-reviewed, open-access academic rolling publication dedicated to advancing critical, evidence-informed, and multidimensional understandings of crime, criminality, victimisation, institutional justice, and society within India and the Global South.
+            The Crime &amp; Society Review is dedicated to advancing multidisciplinary scholarship that transcends conventional academic boundaries and examines complex phenomena through diverse intellectual perspectives. Inspired by the Rashomon Approach, the journal recognises that a single phenomenon may reveal different dimensions when examined through different disciplines, methodologies, forms of evidence, and positions of observation.
           </p>
           <p>
-            The journal operates as an interdisciplinary continuous publication forum, ensuring that validated scholarship on statutory reforms, forensic sciences, and constitutional criminal jurisprudence is published as an authoritative, publicly accessible Version of Record.
+            The journal provides a scholarly platform for research that connects disciplines, brings diverse forms of knowledge into dialogue, and encourages the examination of subjects from multiple perspectives. Rather than approaching a phenomenon from a single vantage point, the journal seeks to examine the whole scene—from every corner—to develop a more comprehensive, nuanced, and meaningful understanding.
+          </p>
+          <p>
+            Through this multidisciplinary orientation, The Crime &amp; Society Review welcomes rigorous and original scholarship that challenges conventional boundaries, encourages critical inquiry, connects perspectives, and brings to light dimensions of knowledge that may remain overlooked within a single discipline.
           </p>
         </div>
       </section>
@@ -98,7 +101,7 @@ export const AboutPage: React.FC = () => {
             },
             {
               title: "Interdisciplinarity",
-              desc: "Breaking institutional silos between the bench, the bar, the forensic laboratory, and the academy through the Rashomon Approach."
+              desc: "Breaking institutional silos between the bench, the bar, the forensic laboratory, and the academy through integrated scholarly inquiry."
             },
             {
               title: "Critical Inquiry",

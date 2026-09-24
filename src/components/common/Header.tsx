@@ -17,10 +17,12 @@ export const Header: React.FC = () => {
 
   const navLinks = [
     { label: 'Home', path: '/' },
-    { label: 'Editorial Board', path: '/editorial-board' },
+    { label: 'Submission', path: '/submit' },
     { label: 'About the Journal', path: '/about' },
+    { label: 'Editorial Board', path: '/editorial-board' },
+    { label: 'The Rashomon Approach', path: '/rashomon-approach' },
+    { label: 'Current Issue', path: '/current-issue' },
     { label: 'Aims & Scope', path: '/aims-scope' },
-    { label: 'Rashomon Approach', path: '/rashomon-approach' },
     { label: 'Contact Us', path: '/contact' },
   ];
 
@@ -29,31 +31,34 @@ export const Header: React.FC = () => {
       className="sticky top-0 z-40 w-full border-b border-[var(--border-subtle)] bg-[var(--bg-card)] transition-colors shadow-2xs"
       style={{ backgroundColor: 'var(--bg-card)' }}
     >
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 py-2.5 flex items-center justify-between gap-4">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 py-2.5 flex items-center justify-between gap-3">
         
         {/* Brand Logo & Title */}
-        <Link to="/" className="flex items-center gap-3 group shrink min-w-0 py-1">
+        <Link to="/" className="flex items-center gap-2.5 group shrink min-w-0 py-1">
           <img 
             src="/logo.png" 
             alt="The Crime & Society Review Logo" 
-            className="h-12 w-auto sm:h-14 md:h-15 object-contain bg-transparent group-hover:scale-105 transition-transform shrink-0" 
+            className="h-11 w-auto sm:h-12 md:h-13 object-contain bg-transparent group-hover:scale-105 transition-transform shrink-0" 
           />
           <span className="font-serif text-base sm:text-lg md:text-xl font-bold tracking-tight text-[var(--text-primary)] group-hover:text-[var(--accent-navy)] transition-colors leading-tight truncate">
             The Crime &amp; Society Review
           </span>
         </Link>
 
-        {/* Primary Desktop Navigation: ONLY 4 ITEMS */}
-        <nav className="hidden md:flex items-center gap-1 text-xs font-medium shrink-0">
+        {/* Primary Desktop Navigation: 7 Core Items */}
+        <nav className="hidden lg:flex items-center gap-0.5 text-xs font-medium shrink-0">
           {navLinks.map((item) => {
             const isActive = location.pathname === item.path;
+            const isSubmit = item.path === '/submit';
             return (
               <Link
                 key={item.path}
                 to={item.path}
-                className={`px-3 py-1.5 rounded-lg transition-colors ${
+                className={`px-2.5 py-1.5 rounded-lg transition-all ${
                   isActive
-                    ? 'text-[var(--accent-navy)] font-bold bg-[var(--accent-navy)]/10'
+                    ? 'text-[var(--accent-navy)] font-bold bg-[var(--accent-navy)]/10 shadow-2xs'
+                    : isSubmit
+                    ? 'text-[var(--accent-gold)] font-semibold hover:bg-[var(--accent-gold)]/10'
                     : 'text-[var(--text-secondary)] hover:text-[var(--text-primary)] hover:bg-[var(--bg-card-hover)]'
                 }`}
               >
@@ -126,7 +131,7 @@ export const Header: React.FC = () => {
           {/* Mobile Hamburger Button */}
           <button
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className="md:hidden p-2 rounded-lg border border-[var(--border-subtle)] text-[var(--text-secondary)] hover:bg-[var(--bg-card-hover)] cursor-pointer shrink-0"
+            className="lg:hidden p-2 rounded-lg border border-[var(--border-subtle)] text-[var(--text-secondary)] hover:bg-[var(--bg-card-hover)] cursor-pointer shrink-0"
             aria-label="Toggle Navigation Menu"
           >
             {mobileMenuOpen ? <X className="w-4 h-4" /> : <Menu className="w-4 h-4" />}
@@ -134,17 +139,20 @@ export const Header: React.FC = () => {
         </div>
       </div>
 
-      {/* Mobile Drawer Overlay (anchored below header so page content does not shift) */}
+      {/* Mobile Drawer Overlay */}
       {mobileMenuOpen && (
         <>
           <div 
-            className="fixed inset-0 top-[60px] bg-black/40 backdrop-blur-xs z-40 md:hidden animate-fadeIn"
+            className="fixed inset-0 top-[60px] bg-black/40 backdrop-blur-xs z-40 lg:hidden animate-fadeIn"
             onClick={() => setMobileMenuOpen(false)}
           />
           <div 
             style={{ backgroundColor: 'var(--bg-card)' }}
-            className="absolute top-full left-0 right-0 w-full md:hidden border-b border-[var(--border-subtle)] px-4 py-4 space-y-2 shadow-2xl z-50 animate-fadeIn"
+            className="absolute top-full left-0 right-0 w-full lg:hidden border-b border-[var(--border-subtle)] px-4 py-4 space-y-2 shadow-2xl z-50 animate-fadeIn"
           >
+            <div className="flex items-center justify-between pb-2 mb-2 border-b border-[var(--border-subtle)] px-1">
+              <span className="text-[11px] font-mono text-[var(--text-muted)] uppercase tracking-wider font-semibold">Journal Navigation</span>
+            </div>
             {navLinks.map((item) => {
               const isActive = location.pathname === item.path;
               return (

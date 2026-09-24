@@ -6,14 +6,14 @@ import {
   BookOpen, 
   Target, 
   Sparkles,
-  ShieldCheck, 
   Microscope,
   Brain,
   Landmark,
   ShieldAlert,
   HeartHandshake,
   CheckCircle2,
-  Award
+  Award,
+  FileText
 } from 'lucide-react';
 import { JOURNAL_METADATA } from '../data/mockJournalData';
 
@@ -38,13 +38,21 @@ export const HomePage: React.FC = () => {
           <div className="max-w-4xl lg:max-w-5xl space-y-6 text-left">
             
             {/* Badges */}
-            <div className="flex flex-wrap items-center justify-start gap-2 text-xs">
+            <div className="flex flex-wrap items-center justify-start gap-2.5 text-xs">
               <span className="px-3 py-1 rounded-full font-mono text-[11px] font-bold bg-amber-500/15 text-amber-900 dark:text-[var(--accent-gold)] border border-amber-500/30 flex items-center gap-1.5 shadow-2xs">
                 <Award className="w-3.5 h-3.5 text-amber-600 dark:text-[var(--accent-gold)]" /> Academic Journal
               </span>
-              <span className="px-3 py-1 rounded-full font-mono text-[11px] font-semibold bg-emerald-500/15 text-emerald-800 dark:text-emerald-400 border border-emerald-500/30 flex items-center gap-1.5 shadow-2xs">
-                <ShieldCheck className="w-3.5 h-3.5" /> Open Access
+              <span className="px-3 py-1 rounded-full font-mono text-[11px] font-semibold bg-amber-500/20 text-amber-900 dark:text-amber-300 border border-amber-500/40 flex items-center gap-1.5 shadow-2xs">
+                <span className="w-2 h-2 rounded-full bg-amber-500 animate-pulse"></span>
+                <span>ISSN: Coming Soon</span>
               </span>
+              <div className="px-3 py-1 rounded-full bg-white/95 dark:bg-slate-900/90 border border-orange-500/30 flex items-center shadow-2xs">
+                <img 
+                  src="/openaccess.png" 
+                  alt="Open Access" 
+                  className="h-7 sm:h-8 w-auto object-contain dark:bg-white dark:px-2 dark:py-1 dark:rounded-md" 
+                />
+              </div>
             </div>
 
             {/* 1. Journal Name - Single Line */}
@@ -72,11 +80,11 @@ export const HomePage: React.FC = () => {
                 <span>Aims &amp; Scope</span>
               </Link>
               <Link
-                to="/rashomon-approach"
+                to="/submit"
                 className="px-5 py-3 rounded-xl bg-[var(--accent-gold)] hover:bg-[var(--accent-gold-hover)] text-slate-950 font-bold text-xs sm:text-sm shadow-md transition-all flex items-center gap-2"
               >
-                <Scale className="w-4 h-4" />
-                <span>Rashomon Approach</span>
+                <FileText className="w-4 h-4" />
+                <span>Submit Manuscript</span>
               </Link>
             </div>
 
@@ -85,7 +93,7 @@ export const HomePage: React.FC = () => {
       </section>
 
       {/* ========================================================
-          4. RASHOMON APPROACH SHORT HIGHLIGHT
+          4. INTERDISCIPLINARY PILLARS HIGHLIGHT
       ======================================================== */}
       <section className="max-w-6xl mx-auto px-4 sm:px-6">
         <div className="rounded-3xl border border-[var(--border-subtle)] bg-gradient-to-br from-[var(--bg-card)] via-[var(--bg-card-hover)] to-[var(--bg-card)] p-6 sm:p-10 shadow-sm space-y-8">
@@ -94,21 +102,21 @@ export const HomePage: React.FC = () => {
             <div className="max-w-2xl space-y-2">
               <div className="flex items-center gap-2 text-xs font-mono uppercase font-bold text-[var(--accent-gold)]">
                 <Sparkles className="w-4 h-4" />
-                <span>Epistemological Innovation</span>
+                <span>Scholarly Taxonomy</span>
               </div>
               <h2 className="font-serif text-2xl sm:text-3xl font-bold text-[var(--text-primary)]">
-                The Rashomon Approach: One Crime, Multiple Perspectives
+                Interdisciplinary Pillars: Law, Forensics &amp; Society
               </h2>
               <p className="text-xs sm:text-sm text-[var(--text-secondary)] font-serif leading-relaxed">
-                Complex criminal justice phenomena cannot be resolved through one discipline alone. We triangulate justice across 6 synchronized lenses to connect evidence, human behaviour, law, and society.
+                Complex criminal justice phenomena cannot be resolved through one discipline alone. We synthesize statutory criminal codes, digital forensics, constitutional safeguards, and empirical realities.
               </p>
             </div>
 
             <Link
-              to="/rashomon-approach"
+              to="/aims-scope"
               className="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl bg-[var(--accent-navy)] text-white text-xs font-semibold hover:opacity-90 transition-opacity shrink-0"
             >
-              <span>Explore Rashomon Framework</span>
+              <span>Explore Scholarly Scope</span>
               <ArrowRight className="w-3.5 h-3.5" />
             </Link>
           </div>
@@ -237,24 +245,24 @@ export const HomePage: React.FC = () => {
             </Link>
           </div>
 
-          {/* Card 3: Rashomon Approach */}
+          {/* Card 3: Manuscript Submissions */}
           <div className="p-6 rounded-2xl border border-[var(--border-subtle)] bg-[var(--bg-card)] hover:border-[var(--accent-gold)] transition-colors flex flex-col justify-between space-y-4 shadow-2xs">
             <div className="space-y-2.5">
               <div className="w-10 h-10 rounded-xl bg-[var(--accent-navy)]/10 text-[var(--accent-navy)] flex items-center justify-center">
-                <Scale className="w-5 h-5 text-[var(--accent-gold)]" />
+                <FileText className="w-5 h-5 text-[var(--accent-gold)]" />
               </div>
               <h3 className="font-serif text-lg font-bold text-[var(--text-primary)]">
-                Rashomon Approach
+                Author Guidelines &amp; Submission
               </h3>
               <p className="text-xs text-[var(--text-secondary)] font-serif leading-relaxed">
-                Learn how legal, psychological, forensic, sociological, policing, and victimological lenses connect to resolve complex justice questions.
+                Word files (.doc/.docx max 5 MB), Garamond 12pt, APA 7th edition referencing, ₹0 APC Diamond Open Access model.
               </p>
             </div>
             <Link
-              to="/rashomon-approach"
+              to="/submit"
               className="text-xs font-semibold text-[var(--accent-navy)] hover:text-[var(--accent-gold)] transition-colors flex items-center gap-1.5 pt-2 border-t border-[var(--border-subtle)]"
             >
-              <span>Examine the Framework</span>
+              <span>View Guidelines &amp; Submit</span>
               <ArrowRight className="w-3.5 h-3.5" />
             </Link>
           </div>

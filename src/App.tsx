@@ -7,10 +7,12 @@ import { AlertCircle, ArrowLeft } from 'lucide-react';
 
 // Core Pages
 import { HomePage } from './pages/HomePage';
-import { EditorialBoardPage } from './pages/EditorialBoardPage';
+import { SubmitPage } from './pages/SubmitPage';
 import { AboutPage } from './pages/AboutPage';
-import { AimsScopePage } from './pages/AimsScopePage';
+import { EditorialBoardPage } from './pages/EditorialBoardPage';
 import { RashomonPage } from './pages/RashomonPage';
+import { IssuesPage } from './pages/IssuesPage';
+import { AimsScopePage } from './pages/AimsScopePage';
 import { ContactPage } from './pages/ContactPage';
 
 // Scroll to top automatically on route changes
@@ -53,40 +55,45 @@ export const App: React.FC = () => {
     <ThemeProvider>
       <Router>
         <ScrollToTop />
-        <div className="min-h-screen flex flex-col w-full overflow-x-hidden bg-[var(--bg-page)] text-[var(--text-primary)] transition-colors">
+        <div className="min-h-screen flex flex-col w-full bg-[var(--bg-page)] text-[var(--text-primary)] transition-colors">
           <Header />
-          <main className="flex-1 w-full overflow-x-hidden">
+          <main className="flex-1 w-full">
             <Routes>
               {/* 1. Home */}
               <Route path="/" element={<HomePage />} />
 
-              {/* 2. Editorial Board */}
-              <Route path="/editorial-board" element={<EditorialBoardPage />} />
+              {/* 2. Submission */}
+              <Route path="/submit" element={<SubmitPage />} />
 
               {/* 3. About the Journal */}
               <Route path="/about" element={<AboutPage />} />
 
-              {/* 4. Aims & Scope */}
-              <Route path="/aims-scope" element={<AimsScopePage />} />
+              {/* 4. Editorial Board */}
+              <Route path="/editorial-board" element={<EditorialBoardPage />} />
 
-              {/* 5. Rashomon Approach */}
+              {/* 5. The Rashomon Approach (New Page after Editorial Nav) */}
               <Route path="/rashomon-approach" element={<RashomonPage />} />
 
-              {/* 6. Contact Us */}
+              {/* 6. Current Issue */}
+              <Route path="/current-issue" element={<IssuesPage />} />
+
+              {/* 7. Aims & Scope */}
+              <Route path="/aims-scope" element={<AimsScopePage />} />
+
+              {/* 8. Contact Us */}
               <Route path="/contact" element={<ContactPage />} />
 
-              {/* Clean Redirects from previous paths to their corresponding core page */}
+              {/* Clean Redirects */}
+              <Route path="/issues" element={<Navigate to="/current-issue" replace />} />
+              <Route path="/articles" element={<Navigate to="/current-issue" replace />} />
+              <Route path="/archive" element={<Navigate to="/current-issue" replace />} />
+              <Route path="/for-authors" element={<Navigate to="/submit" replace />} />
+              <Route path="/for-reviewers" element={<Navigate to="/editorial-board" replace />} />
               <Route path="/history" element={<Navigate to="/about" replace />} />
               <Route path="/publisher" element={<Navigate to="/about" replace />} />
               <Route path="/editorial-philosophy" element={<Navigate to="/editorial-board" replace />} />
               <Route path="/ethics" element={<Navigate to="/about" replace />} />
-              <Route path="/articles" element={<Navigate to="/" replace />} />
-              <Route path="/issues" element={<Navigate to="/" replace />} />
-              <Route path="/archive" element={<Navigate to="/" replace />} />
               <Route path="/explore" element={<Navigate to="/aims-scope" replace />} />
-              <Route path="/for-authors" element={<Navigate to="/aims-scope" replace />} />
-              <Route path="/for-reviewers" element={<Navigate to="/editorial-board" replace />} />
-              <Route path="/submit" element={<Navigate to="/about" replace />} />
 
               {/* 404 Fallback */}
               <Route path="*" element={<NotFoundPage />} />

@@ -4,114 +4,242 @@ import {
   CheckCircle2, 
   UploadCloud, 
   FileText, 
-  ShieldCheck, 
-  Scale, 
-  UserCheck, 
-  Sparkles, 
-  ArrowRight, 
-  ArrowLeft, 
   AlertCircle,
   Copy,
   Check,
-  Award,
   Download,
-  X
+  BookOpen,
+  CheckSquare,
+  Square,
+  FileCheck,
+  User,
+  ShieldCheck,
+  MessageSquare
 } from 'lucide-react';
 import confetti from 'canvas-confetti';
-import { DisciplinaryLens, ArticleType, SubmissionDraft } from '../types/journal';
+import { SubmissionDraft } from '../types/journal';
 
 export const SubmitPage: React.FC = () => {
-  const [currentStep, setCurrentStep] = useState<number>(1);
-  const [isParsingFile, setIsParsingFile] = useState(false);
+  // Form State
+  const [title, setTitle] = useState('');
+  const [articleType, setArticleType] = useState('Research Article');
+  const [keywords, setKeywords] = useState('');
+  const [abstractText, setAbstractText] = useState('');
+  const [editorMessage, setEditorMessage] = useState('');
+
+  // Author Information File (.doc/.docx only, max 5MB)
+  const [authorInfoFile, setAuthorInfoFile] = useState<File | null>(null);
+  const [authorInfoFileName, setAuthorInfoFileName] = useState('');
+  const [authorInfoFileSize, setAuthorInfoFileSize] = useState('');
+  const [authorInfoFileError, setAuthorInfoFileError] = useState('');
+
+  // Blind Manuscript File (.doc/.docx only, max 5MB)
+  const [blindManuscriptFile, setBlindManuscriptFile] = useState<File | null>(null);
+  const [blindManuscriptFileName, setBlindManuscriptFileName] = useState('');
+  const [blindManuscriptFileSize, setBlindManuscriptFileSize] = useState('');
+  const [blindManuscriptFileError, setBlindManuscriptFileError] = useState('');
+
+  // 4 Declarations
+  const [declOriginal, setDeclOriginal] = useState(false);
+  const [declApproved, setDeclApproved] = useState(false);
+  const [declAccurate, setDeclAccurate] = useState(false);
+  const [declBlind, setDeclBlind] = useState(false);
+
+  // Status
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [trackingId, setTrackingId] = useState('');
   const [copiedTracking, setCopiedTracking] = useState(false);
-  const [isCertificateModalOpen, setIsCertificateModalOpen] = useState(false);
-  const [plagiarismChecked, setPlagiarismChecked] = useState(false);
+  const [validationError, setValidationError] = useState('');
 
-  // Form State
-  const [authorName, setAuthorName] = useState('Dr. Devika Ranade');
-  const [authorEmail, setAuthorEmail] = useState('d.ranade@nlsiu.ac.in');
-  const [authorOrcid, setAuthorOrcid] = useState('0000-0002-7711-3091');
-  const [authorAffiliation, setAuthorAffiliation] = useState('National Law School of India University (NLSIU), Bengaluru');
-  const [creditRoles, setCreditRoles] = useState<string[]>(['Conceptualization', 'Methodology', 'Writing – original draft']);
+  // Interactive Checklist State (18 items from guidelines)
+  const checklistItems = [
+    "The manuscript falls within the journal's aims and scope.",
+    "The manuscript is original and is not under consideration elsewhere.",
+    "The manuscript has been checked for plagiarism/similarity (threshold < 10%).",
+    "Substantive AI use has been appropriately disclosed.",
+    "AI-generated content complies with the journal's stated limit (< 10%).",
+    "Author information is provided in a separate file.",
+    "The manuscript is submitted as a separate blinded file.",
+    "Author identities and affiliations have been removed from the manuscript.",
+    "The manuscript follows the prescribed formatting requirements (Garamond 12pt, 1.2 spacing, A4, 1-inch margins).",
+    "APA 7th edition has been used consistently (Footnote or Endnote).",
+    "All references have been cited in the manuscript and appear in reference list.",
+    "Tables and figures are properly numbered, titled, and cited.",
+    "Ethical approval/consent information has been provided where applicable.",
+    "Conflict-of-interest information has been disclosed.",
+    "Funding information has been disclosed (if applicable).",
+    "Data-availability information has been provided where applicable.",
+    "All authors have approved the final manuscript and agree to the order of authorship.",
+    "The corresponding author has completed the submission declaration."
+  ];
 
-  const [manuscriptTitle, setManuscriptTitle] = useState('');
-  const [abstractText, setAbstractText] = useState('');
-  const [keywords, setKeywords] = useState('');
-  const [fileName, setFileName] = useState('');
-  const [fileSize, setFileSize] = useState('');
+  const [checkedItems, setCheckedItems] = useState<{ [key: number]: boolean }>({
+    0: true,
+    1: true,
+    2: true,
+    5: true,
+    6: true,
+    7: true,
+    8: true,
+    9: true,
+    16: true,
+    17: true
+  });
 
-  const [primaryLens, setPrimaryLens] = useState<DisciplinaryLens>('legal');
-  const [secondaryLenses, setSecondaryLenses] = useState<DisciplinaryLens[]>(['forensic']);
-  const [articleType, setArticleType] = useState<ArticleType>('Original Empirical Research');
+  const toggleChecklist = (index: number) => {
+    setCheckedItems(prev => ({
+      ...prev,
+      [index]: !prev[index]
+    }));
+  };
 
-  const [ethicsApproved, setEthicsApproved] = useState(false);
-  const [conflictDeclared, setConflictDeclared] = useState(false);
-  const [openAccessAgreed, setOpenAccessAgreed] = useState(false);
+  const handleSelectAllChecklist = () => {
+    const allChecked: { [key: number]: boolean } = {};
+    checklistItems.forEach((_, i) => {
+      allChecked[i] = true;
+    });
+    setCheckedItems(allChecked);
+  };
 
-  // Simulated drag-and-drop parsing
-  const handleSimulateFileUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+  // Word count helper for abstract
+  const abstractWordCount = abstractText.trim() === '' ? 0 : abstractText.trim().split(/\s+/).length;
+
+  // Handle Author Information Upload (doc/docx only, max 5MB)
+  const handleAuthorInfoUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setAuthorInfoFileError('');
     const file = e.target.files?.[0];
     if (!file) return;
 
-    setFileName(file.name);
-    setFileSize(`${(file.size / (1024 * 1024)).toFixed(2)} MB`);
-    setIsParsingFile(true);
+    const extension = file.name.split('.').pop()?.toLowerCase();
+    if (extension !== 'doc' && extension !== 'docx') {
+      setAuthorInfoFileError('Only Word files (.doc, .docx) are allowed.');
+      return;
+    }
 
-    // Simulate front-matter extraction
-    setTimeout(() => {
-      setIsParsingFile(false);
-      if (!manuscriptTitle) {
-        setManuscriptTitle("Electronic Evidence Certification Under Section 63 BSA: Assessing Hash-Log Integrity Across Indian Sessions Trials");
-        setAbstractText("This empirical investigation audits Section 63 Bharatiya Sakshya Adhiniyam compliance across 150 trial court proceedings, demonstrating practical chain-of-custody vulnerabilities.");
-        setKeywords("Bharatiya Sakshya Adhiniyam, Section 63 BSA, Article 21, Digital Evidence, Hash Verification, Indian Criminal Procedure");
-      }
-    }, 1200);
+    const MAX_BYTES = 5 * 1024 * 1024;
+    if (file.size > MAX_BYTES) {
+      const mbSize = (file.size / (1024 * 1024)).toFixed(2);
+      setAuthorInfoFileError(`File size is ${mbSize} MB. Maximum allowed size is 5 MB.`);
+      return;
+    }
+
+    setAuthorInfoFile(file);
+    setAuthorInfoFileName(file.name);
+    setAuthorInfoFileSize(`${(file.size / (1024 * 1024)).toFixed(2)} MB`);
   };
 
-  const handleFinalSubmit = (e: React.FormEvent) => {
+  // Handle Blind Manuscript Upload (doc/docx only, max 5MB)
+  const handleBlindManuscriptUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setBlindManuscriptFileError('');
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    const extension = file.name.split('.').pop()?.toLowerCase();
+    if (extension !== 'doc' && extension !== 'docx') {
+      setBlindManuscriptFileError('Only Word files (.doc, .docx) are allowed.');
+      return;
+    }
+
+    const MAX_BYTES = 5 * 1024 * 1024;
+    if (file.size > MAX_BYTES) {
+      const mbSize = (file.size / (1024 * 1024)).toFixed(2);
+      setBlindManuscriptFileError(`File size is ${mbSize} MB. Maximum allowed size is 5 MB.`);
+      return;
+    }
+
+    setBlindManuscriptFile(file);
+    setBlindManuscriptFileName(file.name);
+    setBlindManuscriptFileSize(`${(file.size / (1024 * 1024)).toFixed(2)} MB`);
+  };
+
+  // Submit Handler
+  const handleSubmitForm = (e: React.FormEvent) => {
     e.preventDefault();
-    const newTracking = `CSR-IND-2026-${Math.floor(1000 + Math.random() * 9000)}`;
-    setTrackingId(newTracking);
-    setIsSubmitted(true);
+    setValidationError('');
 
-    // Trigger celebration confetti
-    try {
-      confetti({
-        particleCount: 80,
-        spread: 70,
-        origin: { y: 0.6 }
-      });
-    } catch (err) {}
+    if (!title.trim()) {
+      setValidationError('Please enter the Manuscript Title.');
+      return;
+    }
 
-    // Save to localStorage for author dashboard simulation
-    const newSubmission: SubmissionDraft = {
-      id: `sub-${Date.now()}`,
-      trackingNumber: newTracking,
-      title: manuscriptTitle || "Forensic Epistemology and the Challenge of Probabilistic Due Process",
-      abstract: abstractText,
-      primaryLens,
-      secondaryLenses,
-      articleType,
-      authorName,
-      authorEmail,
-      authorOrcid,
-      authorAffiliation,
-      creditRoles,
-      ethicsApproved,
-      conflictDeclared,
-      openDataAccessAccepted: openAccessAgreed,
-      fileName: fileName || "manuscript_draft.docx",
-      fileSize: fileSize || "2.1 MB",
-      submittedAt: new Date().toISOString().split('T')[0],
-      status: 'Submitted',
-      currentStageNumber: 1
-    };
+    if (!keywords.trim()) {
+      setValidationError('Please provide 3–8 keywords.');
+      return;
+    }
 
-    const existing = localStorage.getItem('csr_user_submissions');
-    const list = existing ? JSON.parse(existing) : [];
-    localStorage.setItem('csr_user_submissions', JSON.stringify([newSubmission, ...list]));
+    if (!abstractText.trim()) {
+      setValidationError('Please enter the Abstract (maximum 300 words).');
+      return;
+    }
+
+    if (abstractWordCount > 300) {
+      setValidationError(`Abstract is currently ${abstractWordCount} words. Maximum allowed is 300 words.`);
+      return;
+    }
+
+    if (!authorInfoFile && !authorInfoFileName) {
+      setValidationError('Please upload the Author Information file (.doc/.docx only).');
+      return;
+    }
+
+    if (!blindManuscriptFile && !blindManuscriptFileName) {
+      setValidationError('Please upload the Blind Manuscript file (.doc/.docx only).');
+      return;
+    }
+
+    if (!declOriginal || !declApproved || !declAccurate || !declBlind) {
+      setValidationError('Please confirm all four mandatory declarations before submitting.');
+      return;
+    }
+
+    setIsSubmitting(true);
+
+    setTimeout(() => {
+      const newTracking = `CSR-IND-2026-${Math.floor(1000 + Math.random() * 9000)}`;
+      setTrackingId(newTracking);
+      setIsSubmitted(true);
+      setIsSubmitting(false);
+
+      // Save to localStorage
+      const newSubmission: SubmissionDraft = {
+        id: `sub-${Date.now()}`,
+        trackingNumber: newTracking,
+        title: title,
+        abstract: abstractText,
+        primaryLens: 'legal',
+        secondaryLenses: ['forensic'],
+        articleType: articleType as any,
+        authorName: "Corresponding Author (In Separate File)",
+        authorEmail: "author@university.edu",
+        authorOrcid: "Included in author file",
+        authorAffiliation: "Provided in author file",
+        creditRoles: ['Author'],
+        ethicsApproved: true,
+        conflictDeclared: true,
+        openDataAccessAccepted: true,
+        fileName: blindManuscriptFileName || 'blind_manuscript.docx',
+        fileSize: blindManuscriptFileSize || '2.1 MB',
+        submittedAt: new Date().toISOString().split('T')[0],
+        status: 'Submitted',
+        currentStageNumber: 1
+      };
+
+      try {
+        const existing = localStorage.getItem('csr_user_submissions');
+        const list = existing ? JSON.parse(existing) : [];
+        localStorage.setItem('csr_user_submissions', JSON.stringify([newSubmission, ...list]));
+      } catch (err) {}
+
+      // Trigger Confetti
+      try {
+        confetti({
+          particleCount: 85,
+          spread: 75,
+          origin: { y: 0.6 }
+        });
+      } catch (err) {}
+    }, 850);
   };
 
   const handleCopyTracking = () => {
@@ -120,15 +248,44 @@ export const SubmitPage: React.FC = () => {
     setTimeout(() => setCopiedTracking(false), 2000);
   };
 
-  const steps = [
-    { num: 1, label: 'Identity & ORCID' },
-    { num: 2, label: 'Front-Matter Ingestion' },
-    { num: 3, label: 'Rashomon Lenses' },
-    { num: 4, label: 'COPE Ethics' },
-    { num: 5, label: 'File Upload' },
-    { num: 6, label: 'Confirm & Submit' },
-  ];
+  const handleDownloadSlip = () => {
+    const slipText = `THE CRIME & SOCIETY REVIEW
+OFFICIAL MANUSCRIPT SUBMISSION RECEIPT
+=====================================================
+Submission Tracking ID: ${trackingId}
+Date of Submission: ${new Date().toLocaleDateString('en-IN', { dateStyle: 'full' })}
+Status: Stage 1 — Editorial Screening & Plagiarism Audit
 
+MANUSCRIPT DETAILS:
+Title: ${title}
+Article Type: ${articleType}
+Keywords: ${keywords}
+Blind Manuscript File: ${blindManuscriptFileName} (${blindManuscriptFileSize})
+Author Information File: ${authorInfoFileName} (${authorInfoFileSize})
+${editorMessage ? `Message to Editor: ${editorMessage}\n` : ''}
+CONFIRMATIONS:
+- Originality & Exclusivity: Confirmed
+- Author Approvals: Confirmed
+- Accurate Author Order: Confirmed
+- Blind Peer Review Preparation: Confirmed
+- Open Access: Diamond Open Access (CC BY 4.0, ₹0 APC)
+- ISSN: Coming Soon
+
+Editorial Desk: submissions@thecrimeandsocietyreview.org
+=====================================================`;
+
+    const blob = new Blob([slipText], { type: 'text/plain' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `TCSR_Submission_Receipt_${trackingId}.txt`;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+  };
+
+  // If submitted successfully
   if (isSubmitted) {
     return (
       <div className="max-w-3xl mx-auto px-4 py-16 text-center space-y-6 animate-fadeIn">
@@ -136,17 +293,21 @@ export const SubmitPage: React.FC = () => {
           <CheckCircle2 className="w-8 h-8" />
         </div>
 
-        <h1 className="font-serif text-3xl font-bold text-[var(--text-primary)]">
-          Manuscript Successfully Ingested
-        </h1>
-
-        <p className="text-sm text-[var(--text-secondary)] max-w-lg mx-auto leading-relaxed">
-          Your manuscript has been logged into <em>The Crime & Society Review</em> continuous editorial triage pipeline. The corresponding author has been notified via email.
-        </p>
+        <div className="space-y-2">
+          <span className="text-xs font-mono uppercase font-bold text-[var(--accent-gold)]">
+            Submission Received
+          </span>
+          <h1 className="font-serif text-3xl sm:text-4xl font-bold text-[var(--text-primary)]">
+            Manuscript Submitted Successfully
+          </h1>
+          <p className="text-sm text-[var(--text-secondary)] max-w-lg mx-auto leading-relaxed">
+            Your manuscript and author information files have been logged into <em>The Crime &amp; Society Review</em> editorial queue.
+          </p>
+        </div>
 
         {/* Tracking Card */}
-        <div className="p-6 rounded-xl border border-[var(--border-strong)] bg-[var(--bg-card)] max-w-md mx-auto space-y-3 shadow-sm">
-          <span className="font-mono text-xs uppercase font-bold text-[var(--text-muted)]">
+        <div className="p-6 rounded-2xl border border-[var(--border-strong)] bg-[var(--bg-card)] max-w-md mx-auto space-y-4 shadow-sm text-left">
+          <span className="font-mono text-xs uppercase font-bold text-[var(--text-muted)] block text-center">
             Permanent Submission Tracking Number
           </span>
           <div className="flex items-center justify-center gap-3">
@@ -155,633 +316,918 @@ export const SubmitPage: React.FC = () => {
             </span>
             <button
               onClick={handleCopyTracking}
-              className="p-1.5 rounded border border-[var(--border-subtle)] hover:bg-[var(--bg-card-hover)] text-xs text-[var(--text-secondary)] flex items-center gap-1"
+              className="p-1.5 rounded-lg border border-[var(--border-subtle)] hover:bg-[var(--bg-card-hover)] text-xs text-[var(--text-secondary)] flex items-center gap-1 cursor-pointer"
+              title="Copy Tracking ID"
             >
               {copiedTracking ? <Check className="w-4 h-4 text-emerald-500" /> : <Copy className="w-4 h-4" />}
             </button>
           </div>
-          <div className="text-[11px] font-mono text-emerald-600 dark:text-emerald-400">
-            ● Stage 1 of 6: Editorial Screening (2–4 Days Expected)
+
+          <div className="pt-3 border-t border-[var(--border-subtle)] space-y-2 text-xs">
+            <div className="flex justify-between text-[var(--text-secondary)]">
+              <span>Title:</span>
+              <span className="font-medium text-[var(--text-primary)] truncate max-w-[240px]">{title}</span>
+            </div>
+            <div className="flex justify-between text-[var(--text-secondary)]">
+              <span>Article Type:</span>
+              <span className="font-medium text-[var(--text-primary)]">{articleType}</span>
+            </div>
+            <div className="flex justify-between text-[var(--text-secondary)]">
+              <span>Blind Manuscript:</span>
+              <span className="font-mono font-medium text-[var(--text-primary)]">{blindManuscriptFileName}</span>
+            </div>
+            <div className="flex justify-between text-[var(--text-secondary)]">
+              <span>Author Info File:</span>
+              <span className="font-mono font-medium text-[var(--text-primary)]">{authorInfoFileName}</span>
+            </div>
+            <div className="flex justify-between text-[var(--text-secondary)]">
+              <span>Status:</span>
+              <span className="font-semibold text-amber-600 dark:text-amber-400">Stage 1: Editorial Screening</span>
+            </div>
           </div>
         </div>
 
-        <div className="flex items-center justify-center gap-4 pt-4">
+        {/* Action Buttons */}
+        <div className="flex flex-wrap items-center justify-center gap-3 pt-4">
+          <button
+            onClick={handleDownloadSlip}
+            className="px-5 py-2.5 rounded-xl border border-[var(--border-strong)] bg-[var(--bg-card)] hover:bg-[var(--bg-card-hover)] text-xs font-semibold text-[var(--text-primary)] flex items-center gap-2 cursor-pointer shadow-2xs"
+          >
+            <Download className="w-4 h-4 text-[var(--accent-navy)]" />
+            <span>Download Submission Slip (.txt)</span>
+          </button>
+
           <button
             onClick={() => {
               setIsSubmitted(false);
-              setCurrentStep(1);
+              setTitle('');
+              setKeywords('');
+              setAbstractText('');
+              setEditorMessage('');
+              setAuthorInfoFile(null);
+              setAuthorInfoFileName('');
+              setBlindManuscriptFile(null);
+              setBlindManuscriptFileName('');
+              setDeclOriginal(false);
+              setDeclApproved(false);
+              setDeclAccurate(false);
+              setDeclBlind(false);
             }}
-            className="px-4 py-2 rounded-lg border border-[var(--border-subtle)] bg-[var(--bg-card)] text-xs font-semibold hover:bg-[var(--bg-card-hover)]"
+            className="px-5 py-2.5 rounded-xl bg-[var(--accent-navy)] text-white text-xs font-semibold hover:opacity-90 transition-opacity cursor-pointer shadow-sm"
           >
             Submit Another Manuscript
           </button>
-
-          <a
-            href="/dashboard"
-            className="px-5 py-2 rounded-lg bg-[var(--accent-navy)] text-white text-xs font-semibold hover:opacity-90 transition-opacity"
-          >
-            Track in Author Dashboard →
-          </a>
         </div>
       </div>
     );
   }
 
-  const handleDownloadTemplate = (format: 'docx' | 'tex') => {
-    const textContent = format === 'docx'
-      ? `THE CRIME & SOCIETY REVIEW — OFFICIAL MANUSCRIPT TEMPLATE\n\nTitle: [Insert Manuscript Title]\nAuthors: [Author Name, Affiliation, ORCID]\nAbstract: [250-300 words]\nKeywords: [5-8 keywords]\n\n1. Introduction & Constitutional/Statutory Problem\n2. Literature Review & Precedential Analysis\n3. Empirical / Forensic Methodology\n4. Findings & Procedural Implications\n5. Institutional Policy Recommendations\n6. References (Bluebook 21st / APA 7th)`
-      : `% The Crime & Society Review LaTeX Template\n\\documentclass[11pt,a4paper]{article}\n\\usepackage{amsmath,amsfonts,amssymb}\n\\title{Your Title Here}\n\\author{Author Name}\n\\begin{document}\n\\maketitle\n\\begin{abstract}\nYour abstract here...\n\\end{abstract}\n\\section{Introduction}\n\\end{document}`;
-
-    const blob = new Blob([textContent], { type: 'text/plain' });
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement('a');
-    a.href = url;
-    a.download = `TCSR_Manuscript_Template.${format}`;
-    document.body.appendChild(a);
-    a.click();
-    document.body.removeChild(a);
-    URL.revokeObjectURL(url);
-  };
-
   return (
-    <div className="max-w-4xl mx-auto px-4 py-10 space-y-8 animate-fadeIn">
-      {/* Title & Author Toolkit */}
-      <div className="border-b border-[var(--border-subtle)] pb-6 space-y-4">
-        <div>
-          <span className="text-xs font-mono uppercase font-bold text-[var(--accent-gold)] flex items-center gap-1.5">
-            <Send className="w-3.5 h-3.5" /> Direct Scholarly Submission Portal
-          </span>
-          <h1 className="font-serif text-3xl sm:text-4xl font-bold text-[var(--text-primary)] mt-1">
-            Manuscript Ingestion Wizard
-          </h1>
-          <p className="text-xs sm:text-sm text-[var(--text-muted)] mt-1">
-            Continuous rolling peer review for the Bharatiya Nyaya Sanhita (BNS), BNSS, BSA, and forensic sciences.
-          </p>
-        </div>
-
-        {/* Author Resources Quick Action Strip (Nature + Veredas style) */}
-        <div className="p-4 rounded-xl border border-[var(--border-subtle)] bg-[var(--bg-card-hover)] flex flex-wrap items-center justify-between gap-3 text-xs">
-          <div className="flex items-center gap-2 text-[var(--text-secondary)]">
-            <span className="px-2 py-0.5 rounded bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 font-mono font-bold text-[10px]">
-              ₹0 APC (Diamond OA)
-            </span>
-            <span className="text-[var(--text-muted)]">•</span>
-            <span className="font-mono text-[11px]">Turnitin Plagiarism &lt; 10%</span>
-            <span className="text-[var(--text-muted)]">•</span>
-            <span className="font-mono text-[11px]">Review: 14–21 Days</span>
+    <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 py-8 animate-fadeIn">
+      
+      {/* 2-Column Desktop Grid: Left Scrolls with page, Right Form is Sticky */}
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+        
+        {/* ========================================================
+            LEFT COLUMN: SCROLLABLE GUIDELINES (7 cols)
+        ======================================================== */}
+        <div className="lg:col-span-7 space-y-10 text-[var(--text-secondary)] font-serif leading-relaxed text-sm">
+          
+          {/* Quick Jump Bar */}
+          <div className="p-3.5 rounded-xl border border-[var(--border-subtle)] bg-[var(--bg-card-hover)] flex flex-wrap items-center gap-2 text-xs font-mono">
+            <span className="text-[var(--text-muted)] font-bold uppercase text-[10px]">Jump to Section:</span>
+            <a href="#general-policy" className="hover:text-[var(--accent-navy)] hover:underline">1. Policy</a>
+            <span>•</span>
+            <a href="#originality" className="hover:text-[var(--accent-navy)] hover:underline">2. Originality</a>
+            <span>•</span>
+            <a href="#plagiarism" className="hover:text-[var(--accent-navy)] hover:underline">3. Plagiarism &amp; AI</a>
+            <span>•</span>
+            <a href="#authorship" className="hover:text-[var(--accent-navy)] hover:underline">4. Authorship</a>
+            <span>•</span>
+            <a href="#separate-files" className="hover:text-[var(--accent-navy)] hover:underline">5. Separate Files</a>
+            <span>•</span>
+            <a href="#formatting" className="hover:text-[var(--accent-navy)] hover:underline">8. Formatting</a>
+            <span>•</span>
+            <a href="#referencing" className="hover:text-[var(--accent-navy)] hover:underline">9. APA 7th</a>
+            <span>•</span>
+            <a href="#checklist" className="text-[var(--accent-gold)] font-bold hover:underline">16. Checklist</a>
           </div>
 
-          <div className="flex items-center gap-2">
-            <button
-              type="button"
-              onClick={() => handleDownloadTemplate('docx')}
-              className="px-2.5 py-1.5 rounded-lg border border-[var(--border-subtle)] bg-[var(--bg-card)] hover:border-[var(--accent-navy)] text-[11px] font-medium text-[var(--text-primary)] flex items-center gap-1.5 cursor-pointer"
-            >
-              <Download className="w-3 h-3 text-[var(--accent-navy)]" />
-              <span>Template (.docx)</span>
-            </button>
-
-            <button
-              type="button"
-              onClick={() => handleDownloadTemplate('tex')}
-              className="px-2.5 py-1.5 rounded-lg border border-[var(--border-subtle)] bg-[var(--bg-card)] hover:border-[var(--accent-navy)] text-[11px] font-medium text-[var(--text-primary)] flex items-center gap-1.5 cursor-pointer"
-            >
-              <Download className="w-3 h-3 text-[var(--accent-navy)]" />
-              <span>LaTeX (.tex)</span>
-            </button>
-
-            <button
-              type="button"
-              onClick={() => setIsCertificateModalOpen(true)}
-              className="px-2.5 py-1.5 rounded-lg border border-[var(--accent-gold)] bg-[var(--accent-gold)]/10 text-[11px] font-bold text-[var(--accent-gold)] flex items-center gap-1.5 cursor-pointer hover:bg-[var(--accent-gold)]/20"
-            >
-              <Award className="w-3 h-3" />
-              <span>Certificate Specimen</span>
-            </button>
-          </div>
-        </div>
-      </div>
-
-      {/* Stepper Bar */}
-      <div className="grid grid-cols-6 gap-2 text-center text-xs font-mono">
-        {steps.map(step => (
-          <div
-            key={step.num}
-            onClick={() => setCurrentStep(step.num)}
-            className={`p-2 rounded-lg border transition-all cursor-pointer ${
-              currentStep === step.num
-                ? 'border-[var(--accent-navy)] bg-[var(--accent-navy)]/10 font-bold text-[var(--accent-navy)]'
-                : currentStep > step.num
-                ? 'border-emerald-500/40 bg-emerald-500/5 text-emerald-600 dark:text-emerald-400'
-                : 'border-[var(--border-subtle)] bg-[var(--bg-card)] text-[var(--text-muted)]'
-            }`}
-          >
-            <div className="text-[10px]">{step.num < currentStep ? '✓' : `0${step.num}`}</div>
-            <div className="truncate hidden sm:block mt-0.5">{step.label}</div>
-          </div>
-        ))}
-      </div>
-
-      {/* STEP 1: Contributor Identity & ORCID */}
-      {currentStep === 1 && (
-        <div className="p-6 rounded-xl border border-[var(--border-subtle)] bg-[var(--bg-card)] space-y-6 animate-fadeIn">
-          <div className="border-b border-[var(--border-subtle)] pb-3">
-            <h2 className="font-serif font-bold text-lg text-[var(--text-primary)]">
-              Step 1: Corresponding Author & Persistent Identifiers
+          {/* Section 1: General Submission Policy */}
+          <section id="general-policy" className="space-y-3 pt-1">
+            <div className="flex items-center gap-2 text-xs font-mono font-bold uppercase text-[var(--accent-gold)]">
+              <span>Section 01</span>
+            </div>
+            <h2 className="font-serif text-2xl font-bold text-[var(--text-primary)]">
+              General Submission Policy
             </h2>
-            <p className="text-xs text-[var(--text-muted)] mt-0.5">
-              ORCID integration ensures permanent attribution across the global research graph.
+            <p>
+              <em>The Crime &amp; Society Review</em> welcomes original, scholarly, and methodologically rigorous contributions that fall within the aims and scope of the journal. Manuscripts should make a clear and substantive contribution to the existing body of knowledge and should demonstrate appropriate engagement with relevant theoretical, empirical, methodological, or conceptual literature.
             </p>
-          </div>
+            <p>
+              Submissions may include original research articles, review articles, theoretical and conceptual papers, methodological contributions, and other scholarly contributions considered appropriate by the Editorial Board. Authors are expected to ensure that their manuscripts comply with the journal's formatting, ethical, citation, and publication requirements before submission.
+            </p>
+            <div className="p-4 rounded-xl border border-[var(--border-subtle)] bg-[var(--bg-card)] space-y-1 text-xs">
+              <strong className="text-[var(--text-primary)] block font-sans">Official Intake Channel Only:</strong>
+              <p>
+                Manuscripts must be submitted exclusively through the journal's designated submission system. Submissions made through informal channels, including personal email or social-media platforms, may not be considered unless specifically requested by the Editorial Office.
+              </p>
+            </div>
+          </section>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs">
-            <div className="space-y-1">
-              <label className="font-semibold text-[var(--text-primary)]">Full Name (with Honorifics)</label>
-              <input
-                type="text"
-                value={authorName}
-                onChange={e => setAuthorName(e.target.value)}
-                className="w-full p-2.5 rounded-lg border border-[var(--border-subtle)] bg-[var(--bg-card-hover)] text-[var(--text-primary)] focus:outline-none focus:border-[var(--accent-gold)]"
-              />
+          {/* Section 2: Originality and Exclusivity */}
+          <section id="originality" className="space-y-3 border-t border-[var(--border-subtle)] pt-8">
+            <div className="flex items-center gap-2 text-xs font-mono font-bold uppercase text-[var(--accent-gold)]">
+              <span>Section 02</span>
+            </div>
+            <h2 className="font-serif text-2xl font-bold text-[var(--text-primary)]">
+              Originality and Exclusivity
+            </h2>
+            <p>
+              Manuscripts submitted to <em>The Crime &amp; Society Review</em> must be <strong>Original and Unpublished</strong>. A manuscript, or substantially similar version of the manuscript, should not simultaneously be under consideration by another journal, edited volume, conference proceeding, or other publication outlet.
+            </p>
+            <p>
+              Authors must confirm at the time of submission that the manuscript is not under simultaneous consideration elsewhere.
+            </p>
+          </section>
+
+          {/* Section 3: Plagiarism and Academic Integrity */}
+          <section id="plagiarism" className="space-y-3 border-t border-[var(--border-subtle)] pt-8">
+            <div className="flex items-center gap-2 text-xs font-mono font-bold uppercase text-[var(--accent-gold)]">
+              <span>Section 03</span>
+            </div>
+            <h2 className="font-serif text-2xl font-bold text-[var(--text-primary)]">
+              Plagiarism and Academic Integrity
+            </h2>
+            <p>
+              The journal maintains a zero-tolerance approach to plagiarism and other forms of academic misconduct. All submissions may be subjected to similarity and originality screening prior to or during the peer-review process. Authors must appropriately acknowledge and cite all ideas, arguments, data, language, figures, tables, and other material derived from previously published or unpublished sources.
+            </p>
+            <p>
+              Plagiarism includes, but is not limited to, direct copying without attribution, inadequate paraphrasing, mosaic or patchwork plagiarism, self-plagiarism, duplicate publication, and appropriation of another person's ideas or intellectual contributions. The journal may use recognised plagiarism/similarity-detection software as part of its editorial screening process.
+            </p>
+            
+            {/* Visual Callout for Thresholds */}
+            <div className="p-4 rounded-xl border border-amber-500/30 bg-amber-500/5 space-y-2 text-xs">
+              <div className="flex items-center gap-2 font-bold text-amber-700 dark:text-amber-400 font-sans">
+                <AlertCircle className="w-4 h-4 shrink-0" />
+                <span>Recommended Editorial Screening Thresholds</span>
+              </div>
+              <ul className="list-disc list-inside space-y-1 text-[var(--text-secondary)] pl-1">
+                <li><strong>Similarity Level:</strong> Manuscripts should ordinarily demonstrate a similarity level of <strong>less than 10%</strong>.</li>
+                <li><strong>AI-Generated Content:</strong> AI-generated substantive content should ordinarily <strong>not exceed 10%</strong> of the manuscript.</li>
+              </ul>
+              <p className="text-[11px] text-[var(--text-muted)] italic pt-1">
+                The Editorial Board reserves the right to examine manuscripts exceeding or falling below this threshold where the nature of the identified overlap warrants further investigation. Where plagiarism or other academic misconduct is established, the journal may reject the manuscript, withdraw it from consideration, notify the relevant institution, or retract a published article where necessary.
+              </p>
+            </div>
+          </section>
+
+          {/* Section 4: Authorship */}
+          <section id="authorship" className="space-y-3 border-t border-[var(--border-subtle)] pt-8">
+            <div className="flex items-center gap-2 text-xs font-mono font-bold uppercase text-[var(--accent-gold)]">
+              <span>Section 04</span>
+            </div>
+            <h2 className="font-serif text-2xl font-bold text-[var(--text-primary)]">
+              Authorship
+            </h2>
+            <p>
+              Authorship should be limited to individuals who have made a substantial intellectual or scholarly contribution to the work. All listed authors must have participated meaningfully in the research and/or preparation of the manuscript and must approve the final version submitted for publication.
+            </p>
+            <p>
+              The corresponding author is responsible for communicating with the journal and confirming that:
+            </p>
+            <ul className="list-disc list-inside space-y-1 pl-2 text-xs sm:text-sm">
+              <li>All listed authors have approved the manuscript.</li>
+              <li>All eligible contributors have been appropriately recognised.</li>
+              <li>All authors agree to the order of authorship.</li>
+              <li>The manuscript is original.</li>
+              <li>The submission is not under consideration elsewhere.</li>
+              <li>All required declarations have been provided.</li>
+            </ul>
+            <p className="text-xs text-[var(--text-muted)] italic">
+              Any change in authorship after submission including addition, removal, or alteration of author order must be justified and approved by all authors and accepted by the Editorial Office.
+            </p>
+          </section>
+
+          {/* Section 5: Separate Author Information and Manuscript Files */}
+          <section id="separate-files" className="space-y-4 border-t border-[var(--border-subtle)] pt-8">
+            <div className="flex items-center gap-2 text-xs font-mono font-bold uppercase text-[var(--accent-gold)]">
+              <span>Section 05</span>
+            </div>
+            <h2 className="font-serif text-2xl font-bold text-[var(--text-primary)]">
+              Separate Author Information and Manuscript Files
+            </h2>
+            <div className="p-3.5 rounded-xl bg-[var(--accent-navy)]/10 border border-[var(--accent-navy)]/20 text-xs flex items-start gap-2.5">
+              <ShieldCheck className="w-4 h-4 text-[var(--accent-navy)] shrink-0 mt-0.5" />
+              <span>
+                To facilitate <strong>double-blind peer review</strong>, <em>The Crime &amp; Society Review</em> requires authors to submit author information <strong>separately</strong> from the manuscript file. Author identities, affiliations, email addresses, acknowledgements, and identifying footnotes must not appear in the blinded manuscript.
+              </span>
             </div>
 
-            <div className="space-y-1">
-              <label className="font-semibold text-[var(--text-primary)]">Institutional Email</label>
-              <input
-                type="email"
-                value={authorEmail}
-                onChange={e => setAuthorEmail(e.target.value)}
-                className="w-full p-2.5 rounded-lg border border-[var(--border-subtle)] bg-[var(--bg-card-hover)] text-[var(--text-primary)] focus:outline-none focus:border-[var(--accent-gold)]"
-              />
-            </div>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2">
+              {/* First Author Box */}
+              <div className="p-4 rounded-xl border border-[var(--border-subtle)] bg-[var(--bg-card)] space-y-2 text-xs">
+                <div className="flex items-center gap-2 font-sans font-bold text-[var(--text-primary)]">
+                  <User className="w-4 h-4 text-[var(--accent-gold)]" />
+                  <span>First Author Information Page</span>
+                </div>
+                <ul className="space-y-1 text-[var(--text-secondary)] font-mono text-[11px]">
+                  <li>• Full name</li>
+                  <li>• Institutional affiliation</li>
+                  <li>• Department / School / Centre</li>
+                  <li>• Institution</li>
+                  <li>• City and country</li>
+                  <li>• Email Address</li>
+                  <li>• Highest academic qualification</li>
+                  <li>• Designation / academic position</li>
+                  <li>• Corresponding-author status</li>
+                  <li>• Brief biographical note (if requested)</li>
+                </ul>
+              </div>
 
-            <div className="space-y-1">
-              <label className="font-semibold text-[var(--text-primary)]">Primary Institutional Affiliation</label>
-              <input
-                type="text"
-                value={authorAffiliation}
-                onChange={e => setAuthorAffiliation(e.target.value)}
-                className="w-full p-2.5 rounded-lg border border-[var(--border-subtle)] bg-[var(--bg-card-hover)] text-[var(--text-primary)] focus:outline-none focus:border-[var(--accent-gold)]"
-              />
-            </div>
-
-            <div className="space-y-1">
-              <label className="font-semibold text-[var(--text-primary)] flex items-center justify-between">
-                <span>ORCID iD (Validated via OAuth)</span>
-                <span className="text-[10px] text-emerald-600 font-mono">● Verified</span>
-              </label>
-              <div className="flex gap-2">
-                <input
-                  type="text"
-                  value={authorOrcid}
-                  onChange={e => setAuthorOrcid(e.target.value)}
-                  className="w-full p-2.5 rounded-lg border border-[var(--border-subtle)] bg-[var(--bg-card-hover)] font-mono text-[var(--text-primary)] focus:outline-none"
-                />
+              {/* Co-Author Box */}
+              <div className="p-4 rounded-xl border border-[var(--border-subtle)] bg-[var(--bg-card)] space-y-2 text-xs">
+                <div className="flex items-center gap-2 font-sans font-bold text-[var(--text-primary)]">
+                  <User className="w-4 h-4 text-[var(--accent-gold)]" />
+                  <span>Second / Co-Author Information Page</span>
+                </div>
+                <ul className="space-y-1 text-[var(--text-secondary)] font-mono text-[11px]">
+                  <li>• Full name</li>
+                  <li>• Institutional affiliation</li>
+                  <li>• Department / School / Centre</li>
+                  <li>• Institution</li>
+                  <li>• City and country</li>
+                  <li>• Email Address</li>
+                  <li>• Highest academic qualification</li>
+                  <li>• Designation / academic position</li>
+                  <li>• Corresponding-author status</li>
+                  <li>• Brief biographical note (if requested)</li>
+                </ul>
               </div>
             </div>
-          </div>
+            <p className="text-xs text-[var(--text-muted)] italic">
+              The same structure should be followed for additional authors.
+            </p>
+          </section>
 
-          {/* CRediT Roles */}
-          <div className="space-y-2 pt-2 border-t border-[var(--border-subtle)]">
-            <label className="text-xs font-semibold text-[var(--text-primary)] block">
-              CRediT Contributor Roles (Select all that apply)
-            </label>
-            <div className="grid grid-cols-2 sm:grid-cols-3 gap-2 text-xs">
-              {[
-                'Conceptualization', 'Methodology', 'Formal Analysis', 
-                'Investigation', 'Data curation', 'Writing – original draft',
-                'Writing – review & editing', 'Supervision', 'Project administration'
-              ].map(role => (
-                <label key={role} className="flex items-center gap-2 p-2 rounded bg-[var(--bg-card-hover)] border border-[var(--border-subtle)] cursor-pointer text-[var(--text-secondary)] hover:text-[var(--text-primary)]">
-                  <input
-                    type="checkbox"
-                    checked={creditRoles.includes(role)}
-                    onChange={e => {
-                      if (e.target.checked) setCreditRoles([...creditRoles, role]);
-                      else setCreditRoles(creditRoles.filter(r => r !== role));
-                    }}
-                    className="accent-[var(--accent-navy)]"
-                  />
-                  <span>{role}</span>
-                </label>
-              ))}
+          {/* Section 6: Manuscript File */}
+          <section id="manuscript-file" className="space-y-3 border-t border-[var(--border-subtle)] pt-8">
+            <div className="flex items-center gap-2 text-xs font-mono font-bold uppercase text-[var(--accent-gold)]">
+              <span>Section 06</span>
             </div>
-          </div>
-        </div>
-      )}
-
-      {/* STEP 2: Front-Matter Parsing & Metadata */}
-      {currentStep === 2 && (
-        <div className="p-6 rounded-xl border border-[var(--border-subtle)] bg-[var(--bg-card)] space-y-6 animate-fadeIn">
-          <div className="border-b border-[var(--border-subtle)] pb-3">
-            <h2 className="font-serif font-bold text-lg text-[var(--text-primary)]">
-              Step 2: Manuscript Front-Matter
+            <h2 className="font-serif text-2xl font-bold text-[var(--text-primary)]">
+              Manuscript File (Blinded for Peer Review)
             </h2>
-            <p className="text-xs text-[var(--text-muted)] mt-0.5">
-              Enter title and abstract or drop your document below to auto-extract.
+            <p>
+              The manuscript must be uploaded as a separate file from the author-information pages. The manuscript should contain only the scholarly content necessary for peer review and should not disclose the identity or institutional affiliation of the authors.
             </p>
-          </div>
-
-          {/* Simulated Extraction Dropzone */}
-          <div className="p-6 rounded-xl border-2 border-dashed border-[var(--border-strong)] bg-[var(--bg-card-hover)] text-center space-y-2">
-            <UploadCloud className="w-8 h-8 text-[var(--accent-gold)] mx-auto" />
-            <div className="text-xs font-semibold text-[var(--text-primary)]">
-              Drag & Drop your Manuscript (.docx, .tex, .pdf) for Auto-Parsing
+            <p>
+              The manuscript should ordinarily include:
+            </p>
+            <div className="p-4 rounded-xl border border-[var(--border-subtle)] bg-[var(--bg-card)]">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-4 gap-y-1 text-xs font-mono">
+                <div>1. Title of the article</div>
+                <div>8. Results / Findings</div>
+                <div>2. Abstract (250–300 words)</div>
+                <div>9. Discussion</div>
+                <div>3. Keywords (3–8 terms)</div>
+                <div>10. Implications (where applicable)</div>
+                <div>4. Introduction</div>
+                <div>11. Limitations</div>
+                <div>5. Review of Literature / Theoretical Framework</div>
+                <div>12. Conclusion</div>
+                <div>6. Research Questions / Hypotheses</div>
+                <div>13. References (APA 7th)</div>
+                <div>7. Methodology</div>
+                <div>14. Tables and Figures (where applicable)</div>
+              </div>
             </div>
-            <p className="text-[11px] text-[var(--text-muted)]">
-              Our client-side parser automatically detects title, abstract, and keywords.
+          </section>
+
+          {/* Section 7: Manuscript Length & Abstract */}
+          <section id="length-abstract" className="space-y-4 border-t border-[var(--border-subtle)] pt-8">
+            <div className="flex items-center gap-2 text-xs font-mono font-bold uppercase text-[var(--accent-gold)]">
+              <span>Section 07</span>
+            </div>
+            <h2 className="font-serif text-2xl font-bold text-[var(--text-primary)]">
+              Manuscript Length and Abstract
+            </h2>
+            
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div className="p-4 rounded-xl border border-[var(--border-subtle)] bg-[var(--bg-card)] space-y-2">
+                <strong className="text-sm font-sans font-bold text-[var(--text-primary)] block">
+                  Manuscript Length
+                </strong>
+                <p className="text-xs">
+                  Research articles should ordinarily contain approximately <strong>5,000–8,000 words</strong>, excluding references, tables, figures, and supplementary material.
+                </p>
+                <p className="text-[11px] text-[var(--text-muted)] italic">
+                  Review articles, conceptual papers, methodological articles, and special contributions may have different length requirements subject to the approval of the Editorial Office.
+                </p>
+              </div>
+
+              <div className="p-4 rounded-xl border border-[var(--border-subtle)] bg-[var(--bg-card)] space-y-2">
+                <strong className="text-sm font-sans font-bold text-[var(--text-primary)] block">
+                  Abstract Specifications
+                </strong>
+                <p className="text-xs">
+                  Each manuscript should include a structured or sufficiently informative abstract of approximately <strong>250–300 words (Maximum 300 words)</strong>. The abstract should be understandable independently of the main manuscript without unnecessary citations.
+                </p>
+                <div className="text-[11px] font-mono text-[var(--text-secondary)] space-y-0.5 pt-1">
+                  <div>• Background / Context</div>
+                  <div>• Purpose or Research Problem</div>
+                  <div>• Methodology</div>
+                  <div>• Key Findings &amp; Implications/Conclusion</div>
+                </div>
+              </div>
+            </div>
+
+            <p className="text-xs">
+              <strong>Keywords:</strong> Please provide <strong>3–8 keywords</strong> that assist readers in discovering the article through academic databases.
             </p>
-            <label className="inline-block px-4 py-1.5 rounded-lg bg-[var(--accent-navy)] text-white text-xs font-semibold cursor-pointer hover:opacity-90">
-              Browse Files
-              <input type="file" onChange={handleSimulateFileUpload} className="hidden" accept=".docx,.pdf,.tex" />
-            </label>
-            {isParsingFile && (
-              <div className="text-xs text-[var(--accent-gold)] font-mono animate-pulse pt-2">
-                Extracting semantic front-matter...
+          </section>
+
+          {/* Section 8: Formatting Requirements */}
+          <section id="formatting" className="space-y-4 border-t border-[var(--border-subtle)] pt-8">
+            <div className="flex items-center gap-2 text-xs font-mono font-bold uppercase text-[var(--accent-gold)]">
+              <span>Section 08</span>
+            </div>
+            <h2 className="font-serif text-2xl font-bold text-[var(--text-primary)]">
+              Formatting Requirements
+            </h2>
+            <p>
+              Authors should avoid excessive formatting, decorative fonts, unnecessary text boxes, or design elements that may interfere with the review and production process. Unless otherwise specified by a particular article type, manuscripts should follow these basic formatting requirements:
+            </p>
+
+            <div className="rounded-xl border border-[var(--border-subtle)] overflow-hidden text-xs">
+              <table className="w-full text-left border-collapse">
+                <tbody>
+                  <tr className="border-b border-[var(--border-subtle)] bg-[var(--bg-card-hover)]">
+                    <td className="p-2.5 font-bold font-sans text-[var(--text-primary)] w-1/3">File format</td>
+                    <td className="p-2.5 font-mono text-[var(--accent-navy)] font-semibold">Microsoft Word (.doc / .docx) — Max 5 MB</td>
+                  </tr>
+                  <tr className="border-b border-[var(--border-subtle)]">
+                    <td className="p-2.5 font-bold font-sans text-[var(--text-primary)]">Font &amp; Size</td>
+                    <td className="p-2.5 font-mono">Garamond, 12 pt</td>
+                  </tr>
+                  <tr className="border-b border-[var(--border-subtle)] bg-[var(--bg-card-hover)]">
+                    <td className="p-2.5 font-bold font-sans text-[var(--text-primary)]">Line spacing &amp; Alignment</td>
+                    <td className="p-2.5 font-mono">1.2 Spacing, Justified</td>
+                  </tr>
+                  <tr className="border-b border-[var(--border-subtle)]">
+                    <td className="p-2.5 font-bold font-sans text-[var(--text-primary)]">Page size &amp; Margins</td>
+                    <td className="p-2.5 font-mono">A4, 1 inch (2.54 cm) on all sides</td>
+                  </tr>
+                  <tr className="border-b border-[var(--border-subtle)] bg-[var(--bg-card-hover)]">
+                    <td className="p-2.5 font-bold font-sans text-[var(--text-primary)]">Page numbers &amp; Paragraphs</td>
+                    <td className="p-2.5 font-mono">Consecutive numbers, Consistently formatted paragraphs</td>
+                  </tr>
+                  <tr className="border-b border-[var(--border-subtle)]">
+                    <td className="p-2.5 font-bold font-sans text-[var(--text-primary)]">Tables and figures</td>
+                    <td className="p-2.5 font-mono">Numbered consecutively with titles and captions</td>
+                  </tr>
+                  <tr>
+                    <td className="p-2.5 font-bold font-sans text-[var(--text-primary)]">Headings</td>
+                    <td className="p-2.5 font-mono">Clearly differentiated and consistently formatted</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </section>
+
+          {/* Section 9: Referencing and Citation Style */}
+          <section id="referencing" className="space-y-3 border-t border-[var(--border-subtle)] pt-8">
+            <div className="flex items-center gap-2 text-xs font-mono font-bold uppercase text-[var(--accent-gold)]">
+              <span>Section 09</span>
+            </div>
+            <h2 className="font-serif text-2xl font-bold text-[var(--text-primary)]">
+              Referencing and Citation Style (APA 7th Edition)
+            </h2>
+            <p>
+              <em>The Crime &amp; Society Review</em> follows the <strong>American Psychological Association (APA), 7th edition</strong> style for in-text citations and references.
+            </p>
+            <div className="p-4 rounded-xl border border-[var(--border-subtle)] bg-[var(--bg-card)] space-y-2 text-xs">
+              <div className="flex items-center gap-2 font-bold font-sans text-[var(--text-primary)]">
+                <BookOpen className="w-4 h-4 text-[var(--accent-gold)]" />
+                <span>Citation Placement: Footnote or Endnote</span>
+              </div>
+              <p>
+                The citation should be placed in <strong>footnote or Endnote</strong>. Authors must ensure that every source cited in the manuscript appears in the reference list and that every reference listed is cited in the manuscript.
+              </p>
+            </div>
+          </section>
+
+          {/* Section 10: Tables, Figures, and Illustrations */}
+          <section id="tables-figures" className="space-y-3 border-t border-[var(--border-subtle)] pt-8">
+            <div className="flex items-center gap-2 text-xs font-mono font-bold uppercase text-[var(--accent-gold)]">
+              <span>Section 10</span>
+            </div>
+            <h2 className="font-serif text-2xl font-bold text-[var(--text-primary)]">
+              Tables, Figures, and Illustrations
+            </h2>
+            <p>
+              Tables and figures should be relevant, necessary, clearly labelled, and appropriately referenced in the manuscript text. Each table should have a descriptive title, while figures should have an appropriate caption.
+            </p>
+            <p>
+              Authors must ensure that all tables, figures, photographs, diagrams, maps, and other visual materials are either original, appropriately licensed, or reproduced with the necessary written permission.
+            </p>
+          </section>
+
+          {/* Section 11: Research Methodology and Data Transparency */}
+          <section id="methodology-transparency" className="space-y-3 border-t border-[var(--border-subtle)] pt-8">
+            <div className="flex items-center gap-2 text-xs font-mono font-bold uppercase text-[var(--accent-gold)]">
+              <span>Section 11</span>
+            </div>
+            <h2 className="font-serif text-2xl font-bold text-[var(--text-primary)]">
+              Research Methodology and Data Transparency
+            </h2>
+            <p>
+              Empirical manuscripts must provide sufficient methodological information to enable readers to understand how the research was conducted and how the findings were derived. Authors should not fabricate, manipulate, selectively report, or misrepresent research data.
+            </p>
+            <div className="p-4 rounded-xl border border-[var(--border-subtle)] bg-[var(--bg-card)]">
+              <span className="text-xs font-bold font-sans text-[var(--text-primary)] block mb-2">
+                Where applicable, empirical manuscripts must clearly report:
+              </span>
+              <div className="grid grid-cols-2 sm:grid-cols-3 gap-2 text-xs font-mono text-[var(--text-secondary)]">
+                <div>• Research design</div>
+                <div>• Study setting</div>
+                <div>• Population &amp; sample</div>
+                <div>• Sampling strategy</div>
+                <div>• Data collection</div>
+                <div>• Instruments / measures</div>
+                <div>• Variables analyzed</div>
+                <div>• Analytical techniques</div>
+                <div>• Ethical safeguards</div>
+                <div>• Inclusion/exclusion</div>
+                <div>• Study limitations</div>
+                <div>• Validity &amp; reliability</div>
+              </div>
+            </div>
+          </section>
+
+          {/* Section 12: Research Ethics */}
+          <section id="research-ethics" className="space-y-3 border-t border-[var(--border-subtle)] pt-8">
+            <div className="flex items-center gap-2 text-xs font-mono font-bold uppercase text-[var(--accent-gold)]">
+              <span>Section 12</span>
+            </div>
+            <h2 className="font-serif text-2xl font-bold text-[var(--text-primary)]">
+              Research Ethics
+            </h2>
+            <p>
+              Research involving human participants must comply with applicable ethical standards and institutional requirements. Where applicable, authors should provide information concerning ethical approval, informed consent, confidentiality, anonymity, data protection, and participant safeguards.
+            </p>
+            <p>
+              For research involving vulnerable populations, additional safeguards should be clearly documented. Where ethical approval is not applicable, authors may be required to provide an appropriate statement explaining why.
+            </p>
+          </section>
+
+          {/* Section 13: Declaration of Originality */}
+          <section id="declaration-originality" className="space-y-3 border-t border-[var(--border-subtle)] pt-8">
+            <div className="flex items-center gap-2 text-xs font-mono font-bold uppercase text-[var(--accent-gold)]">
+              <span>Section 13</span>
+            </div>
+            <h2 className="font-serif text-2xl font-bold text-[var(--text-primary)]">
+              Declaration of Originality
+            </h2>
+            <p>
+              At submission, the corresponding author must confirm that:
+            </p>
+            <div className="p-4 rounded-xl border border-[var(--border-subtle)] bg-[var(--bg-card)] text-xs space-y-1.5">
+              <p>• The manuscript is original and has not been published previously in substantially similar form.</p>
+              <p>• The manuscript is not currently under consideration by another publication outlet.</p>
+              <p>• All sources, quotations, data, and intellectual contributions have been appropriately cited and acknowledged.</p>
+            </div>
+          </section>
+
+          {/* Section 14: Peer Review */}
+          <section id="peer-review" className="space-y-3 border-t border-[var(--border-subtle)] pt-8">
+            <div className="flex items-center gap-2 text-xs font-mono font-bold uppercase text-[var(--accent-gold)]">
+              <span>Section 14</span>
+            </div>
+            <h2 className="font-serif text-2xl font-bold text-[var(--text-primary)]">
+              Peer Review Process
+            </h2>
+            <p>
+              All manuscripts that pass the journal's initial editorial screening may be subjected to <strong>double-blind peer review</strong>, unless the Editorial Board determines that another review model is appropriate for a particular contribution. Passing the initial screening does not guarantee peer review or publication.
+            </p>
+            <div className="p-4 rounded-xl border border-[var(--border-subtle)] bg-[var(--bg-card)]">
+              <span className="text-xs font-bold font-sans text-[var(--text-primary)] block mb-2">
+                During the initial screening, the Editorial Office assesses:
+              </span>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs font-mono text-[var(--text-secondary)]">
+                <div>1. Relevance to aims &amp; scope</div>
+                <div>6. Ethical compliance</div>
+                <div>2. Originality of contribution</div>
+                <div>7. Plagiarism &amp; similarity check</div>
+                <div>3. Scholarly &amp; theoretical contribution</div>
+                <div>8. AI-use compliance (&lt; 10%)</div>
+                <div>4. Methodological quality &amp; rigor</div>
+                <div>9. Citation and referencing (APA 7th)</div>
+                <div>5. Academic writing &amp; coherence</div>
+                <div>10. Adherence to formatting requirements</div>
+              </div>
+            </div>
+          </section>
+
+          {/* Section 15: Language and Academic Writing */}
+          <section id="language" className="space-y-3 border-t border-[var(--border-subtle)] pt-8">
+            <div className="flex items-center gap-2 text-xs font-mono font-bold uppercase text-[var(--accent-gold)]">
+              <span>Section 15</span>
+            </div>
+            <h2 className="font-serif text-2xl font-bold text-[var(--text-primary)]">
+              Language and Academic Writing
+            </h2>
+            <p>
+              Manuscripts should be written in clear, precise, formal academic English. Authors are responsible for ensuring grammatical accuracy, coherence, terminology, and readability.
+            </p>
+            <p>
+              The journal encourages inclusive and respectful scholarly language and discourages language that is unnecessarily discriminatory, stigmatising, sensationalist, or unsupported by evidence.
+            </p>
+          </section>
+
+          {/* Section 16: Complete Interactive Submission Checklist */}
+          <section id="checklist" className="space-y-4 border-t border-[var(--border-subtle)] pt-8 pb-12">
+            <div className="flex items-center justify-between gap-4">
+              <div className="space-y-1">
+                <div className="flex items-center gap-2 text-xs font-mono font-bold uppercase text-[var(--accent-gold)]">
+                  <span>Section 16</span>
+                </div>
+                <h2 className="font-serif text-2xl font-bold text-[var(--text-primary)]">
+                  Submission Checklist
+                </h2>
+              </div>
+              <button
+                type="button"
+                onClick={handleSelectAllChecklist}
+                className="px-3 py-1.5 rounded-lg border border-[var(--border-subtle)] hover:bg-[var(--bg-card-hover)] text-xs font-mono text-[var(--accent-navy)] font-semibold cursor-pointer shrink-0"
+              >
+                Select All
+              </button>
+            </div>
+            <p className="text-xs text-[var(--text-secondary)]">
+              Authors must verify and complete each item before submitting their manuscript:
+            </p>
+
+            <div className="space-y-2 p-4 rounded-2xl border border-[var(--border-subtle)] bg-[var(--bg-card)]">
+              {checklistItems.map((item, idx) => {
+                const isChecked = !!checkedItems[idx];
+                return (
+                  <div
+                    key={idx}
+                    onClick={() => toggleChecklist(idx)}
+                    className="flex items-start gap-3 p-2 rounded-lg hover:bg-[var(--bg-card-hover)] cursor-pointer transition-colors"
+                  >
+                    <button
+                      type="button"
+                      className="mt-0.5 text-[var(--accent-navy)] shrink-0"
+                      aria-label="Toggle checkbox"
+                    >
+                      {isChecked ? (
+                        <CheckSquare className="w-4 h-4 text-emerald-600 dark:text-emerald-400" />
+                      ) : (
+                        <Square className="w-4 h-4 text-[var(--text-muted)]" />
+                      )}
+                    </button>
+                    <span className={`text-xs ${isChecked ? 'text-[var(--text-primary)] font-medium' : 'text-[var(--text-secondary)]'}`}>
+                      {item}
+                    </span>
+                  </div>
+                );
+              })}
+            </div>
+          </section>
+
+        </div>
+
+        {/* ========================================================
+            RIGHT COLUMN: STICKY SUBMISSION FORM (5 cols)
+            Locked in place on desktop - Only guidelines scroll
+        ======================================================== */}
+        <div className="lg:col-span-5 relative">
+          <div className="lg:sticky lg:top-24 lg:max-h-[calc(100vh-120px)] lg:overflow-y-auto pr-1 pb-4">
+            
+            <div className="p-6 rounded-2xl border border-[var(--border-strong)] bg-[var(--bg-card)] space-y-6 shadow-md">
+            
+            {/* Form Top Instruction */}
+            <div className="space-y-1.5 border-b border-[var(--border-subtle)] pb-4">
+              <h2 className="font-serif text-xl font-bold text-[var(--text-primary)]">
+                Manuscript Submission Form
+              </h2>
+              <p className="text-xs text-[var(--text-secondary)] leading-relaxed">
+                Please complete the submission form and upload the required files. For peer review, the Author Information and Blind Manuscript must be submitted separately.
+              </p>
+            </div>
+
+            {/* Validation Error Banner */}
+            {validationError && (
+              <div className="p-3 rounded-xl bg-red-500/10 border border-red-500/30 text-xs text-red-600 dark:text-red-400 flex items-start gap-2">
+                <AlertCircle className="w-4 h-4 shrink-0 mt-0.5" />
+                <span>{validationError}</span>
               </div>
             )}
-          </div>
 
-          <div className="space-y-4 text-xs">
-            <div className="space-y-1">
-              <label className="font-semibold text-[var(--text-primary)]">Manuscript Full Title</label>
-              <input
-                type="text"
-                value={manuscriptTitle}
-                onChange={e => setManuscriptTitle(e.target.value)}
-                placeholder="e.g., Forensic Epistemology in Trial Systems..."
-                className="w-full p-2.5 rounded-lg border border-[var(--border-subtle)] bg-[var(--bg-card-hover)] font-serif text-sm text-[var(--text-primary)] focus:outline-none focus:border-[var(--accent-gold)]"
-              />
-            </div>
+            <form onSubmit={handleSubmitForm} className="space-y-6">
+              
+              {/* 1. MANUSCRIPT DETAILS */}
+              <div className="space-y-4">
+                <div className="flex items-center gap-2 text-xs font-mono font-bold uppercase text-[var(--accent-gold)] border-b border-[var(--border-subtle)] pb-1.5">
+                  <FileText className="w-3.5 h-3.5" />
+                  <span>1. Manuscript Details</span>
+                </div>
 
-            <div className="space-y-1">
-              <label className="font-semibold text-[var(--text-primary)]">Abstract (Max 300 words)</label>
-              <textarea
-                rows={4}
-                value={abstractText}
-                onChange={e => setAbstractText(e.target.value)}
-                placeholder="Provide a comprehensive summary of the research questions, methodology, empirical findings, and implications..."
-                className="w-full p-2.5 rounded-lg border border-[var(--border-subtle)] bg-[var(--bg-card-hover)] font-serif text-xs text-[var(--text-primary)] focus:outline-none focus:border-[var(--accent-gold)] leading-relaxed"
-              />
-            </div>
-
-            <div className="space-y-1">
-              <label className="font-semibold text-[var(--text-primary)]">Keywords (Comma separated)</label>
-              <input
-                type="text"
-                value={keywords}
-                onChange={e => setKeywords(e.target.value)}
-                placeholder="Digital Forensics, Sixth Amendment, Evidence, Daubert Standard..."
-                className="w-full p-2.5 rounded-lg border border-[var(--border-subtle)] bg-[var(--bg-card-hover)] font-mono text-xs text-[var(--text-primary)] focus:outline-none"
-              />
-            </div>
-          </div>
-        </div>
-      )}
-
-      {/* STEP 3: Rashomon Disciplinary Lenses */}
-      {currentStep === 3 && (
-        <div className="p-6 rounded-xl border border-[var(--border-subtle)] bg-[var(--bg-card)] space-y-6 animate-fadeIn">
-          <div className="border-b border-[var(--border-subtle)] pb-3">
-            <h2 className="font-serif font-bold text-lg text-[var(--text-primary)]">
-              Step 3: The Rashomon Multi-Perspective Taxonomy
-            </h2>
-            <p className="text-xs text-[var(--text-muted)] mt-0.5">
-              Select which disciplinary lenses your manuscript bridges. This informs peer-reviewer matching.
-            </p>
-          </div>
-
-          <div className="space-y-3">
-            <label className="text-xs font-semibold text-[var(--text-primary)] block">
-              Primary Disciplinary Pillar
-            </label>
-            <div className="grid grid-cols-2 sm:grid-cols-3 gap-2 text-xs">
-              {[
-                { id: 'legal', label: '⚖️ Law & Legal Studies' },
-                { id: 'forensic', label: '🔬 Forensic Science' },
-                { id: 'psychological', label: '🧠 Behavioral Psychology' },
-                { id: 'sociological', label: '🏛️ Sociology & Society' },
-                { id: 'policing', label: '🛡️ Policing & Technology' },
-                { id: 'victimology', label: '🤝 Victimology & Redress' },
-              ].map(lens => (
-                <button
-                  type="button"
-                  key={lens.id}
-                  onClick={() => setPrimaryLens(lens.id as DisciplinaryLens)}
-                  className={`p-3 rounded-lg border text-left transition-colors cursor-pointer ${
-                    primaryLens === lens.id
-                      ? 'border-[var(--accent-gold)] bg-[var(--accent-gold)]/10 font-bold text-[var(--text-primary)]'
-                      : 'border-[var(--border-subtle)] bg-[var(--bg-card-hover)] text-[var(--text-secondary)]'
-                  }`}
-                >
-                  {lens.label}
-                </button>
-              ))}
-            </div>
-          </div>
-
-          <div className="space-y-3 pt-4 border-t border-[var(--border-subtle)]">
-            <label className="text-xs font-semibold text-[var(--text-primary)] block">
-              Article Submission Category
-            </label>
-            <select
-              value={articleType}
-              onChange={e => setArticleType(e.target.value as ArticleType)}
-              className="w-full p-2.5 rounded-lg border border-[var(--border-subtle)] bg-[var(--bg-card-hover)] text-xs text-[var(--text-primary)] focus:outline-none"
-            >
-              <option value="Original Empirical Research">Original Empirical Research (5,000–10,000 words)</option>
-              <option value="Theoretical Synthesis">Theoretical Synthesis (4,000–8,000 words)</option>
-              <option value="Methodological Innovation">Methodological Innovation (3,500–7,000 words)</option>
-              <option value="Forensic Case Commentary">Forensic Case Commentary (2,500–5,000 words)</option>
-              <option value="Policy & Practice Brief">Policy & Practice Brief (2,000–4,000 words)</option>
-            </select>
-          </div>
-        </div>
-      )}
-
-      {/* STEP 4: COPE Ethics & Malpractice */}
-      {currentStep === 4 && (
-        <div className="p-6 rounded-xl border border-[var(--border-subtle)] bg-[var(--bg-card)] space-y-6 animate-fadeIn">
-          <div className="border-b border-[var(--border-subtle)] pb-3">
-            <h2 className="font-serif font-bold text-lg text-[var(--text-primary)]">
-              Step 4: Research Ethics & Integrity Declarations (COPE)
-            </h2>
-            <p className="text-xs text-[var(--text-muted)] mt-0.5">
-              All submissions undergo double-blind review and automated Crossref Similarity screening.
-            </p>
-          </div>
-
-          <div className="space-y-3 text-xs">
-            <label className="flex items-start gap-3 p-3 rounded-lg border border-[var(--border-subtle)] bg-[var(--bg-card-hover)] cursor-pointer">
-              <input
-                type="checkbox"
-                checked={ethicsApproved}
-                onChange={e => setEthicsApproved(e.target.checked)}
-                className="mt-0.5 accent-[var(--accent-navy)]"
-              />
-              <div>
-                <span className="font-semibold text-[var(--text-primary)] block">Institutional Ethics Committee (IEC / IHEC) Approval</span>
-                <span className="text-[var(--text-muted)]">I certify that all empirical human participant research was approved by an institutional ethics committee in compliance with Indian Council of Medical Research (ICMR) ethical guidelines.</span>
-              </div>
-            </label>
-
-            <label className="flex items-start gap-3 p-3 rounded-lg border border-[var(--border-subtle)] bg-[var(--bg-card-hover)] cursor-pointer">
-              <input
-                type="checkbox"
-                checked={conflictDeclared}
-                onChange={e => setConflictDeclared(e.target.checked)}
-                className="mt-0.5 accent-[var(--accent-navy)]"
-              />
-              <div>
-                <span className="font-semibold text-[var(--text-primary)] block">Conflict of Interest & Funding Disclosure</span>
-                <span className="text-[var(--text-muted)]">All financial support, consulting relationships, and forensic software associations have been fully disclosed in accordance with Bar Council and UGC guidelines.</span>
-              </div>
-            </label>
-
-            <label className="flex items-start gap-3 p-3 rounded-lg border border-[var(--border-subtle)] bg-[var(--bg-card-hover)] cursor-pointer">
-              <input
-                type="checkbox"
-                checked={plagiarismChecked}
-                onChange={e => setPlagiarismChecked(e.target.checked)}
-                className="mt-0.5 accent-[var(--accent-navy)]"
-              />
-              <div>
-                <span className="font-semibold text-[var(--text-primary)] block">UGC Academic Integrity & Turnitin Plagiarism Declaration</span>
-                <span className="text-[var(--text-muted)]">I certify that the manuscript similarity index is strictly below 10% (excluding references, quotations, and statutory provisions) in full compliance with UGC (Promotion of Academic Integrity and Prevention of Plagiarism in Higher Educational Institutions) Regulations, 2018.</span>
-              </div>
-            </label>
-
-            <label className="flex items-start gap-3 p-3 rounded-lg border border-[var(--border-subtle)] bg-[var(--bg-card-hover)] cursor-pointer">
-              <input
-                type="checkbox"
-                checked={openAccessAgreed}
-                onChange={e => setOpenAccessAgreed(e.target.checked)}
-                className="mt-0.5 accent-[var(--accent-navy)]"
-              />
-              <div>
-                <span className="font-semibold text-[var(--text-primary)] block">Diamond Open Access Agreement (CC-BY 4.0)</span>
-                <span className="text-[var(--text-muted)]">I agree that the Version of Record will be licensed under CC-BY 4.0 and accessible to all Indian researchers, judges, police cadres, and students without paywalls.</span>
-              </div>
-            </label>
-          </div>
-        </div>
-      )}
-
-      {/* STEP 5: File & Galley Upload */}
-      {currentStep === 5 && (
-        <div className="p-6 rounded-xl border border-[var(--border-subtle)] bg-[var(--bg-card)] space-y-6 animate-fadeIn">
-          <div className="border-b border-[var(--border-subtle)] pb-3">
-            <h2 className="font-serif font-bold text-lg text-[var(--text-primary)]">
-              Step 5: File Package Upload
-            </h2>
-            <p className="text-xs text-[var(--text-muted)] mt-0.5">
-              Attach the blinded manuscript, high-resolution figures, and tabular datasets.
-            </p>
-          </div>
-
-          <div className="space-y-3 text-xs">
-            <div className="p-4 rounded-lg border border-[var(--border-subtle)] bg-[var(--bg-card-hover)] flex items-center justify-between">
-              <div className="flex items-center gap-3">
-                <FileText className="w-5 h-5 text-[var(--accent-navy)]" />
+                {/* Manuscript Title */}
                 <div>
-                  <div className="font-semibold text-[var(--text-primary)]">
-                    {fileName || 'manuscript_anonymized_core.docx'}
+                  <label className="block text-xs font-medium text-[var(--text-primary)] mb-1">
+                    Manuscript Title *
+                  </label>
+                  <input
+                    type="text"
+                    required
+                    value={title}
+                    onChange={(e) => setTitle(e.target.value)}
+                    placeholder="Enter complete manuscript title"
+                    className="w-full text-xs p-2.5 rounded-lg border border-[var(--border-subtle)] bg-[var(--bg-page)] text-[var(--text-primary)] focus:outline-hidden focus:ring-1 focus:ring-[var(--accent-navy)]"
+                  />
+                </div>
+
+                {/* Article Type */}
+                <div>
+                  <label className="block text-xs font-medium text-[var(--text-primary)] mb-1">
+                    Article Type *
+                  </label>
+                  <select
+                    value={articleType}
+                    onChange={(e) => setArticleType(e.target.value)}
+                    className="w-full text-xs p-2.5 rounded-lg border border-[var(--border-subtle)] bg-[var(--bg-page)] text-[var(--text-primary)] focus:outline-hidden focus:ring-1 focus:ring-[var(--accent-navy)]"
+                  >
+                    <option value="Research Article">Research Article</option>
+                    <option value="Review Article">Review Article</option>
+                    <option value="Theoretical & Conceptual Article">Theoretical &amp; Conceptual Article</option>
+                    <option value="Methodological Article">Methodological Article</option>
+                    <option value="Short Communication & Research Note">Short Communication &amp; Research Note</option>
+                    <option value="Case Study & Case Report">Case Study &amp; Case Report</option>
+                    <option value="Policy & Practice Article">Policy &amp; Practice Article</option>
+                    <option value="Commentary & Perspective">Commentary &amp; Perspective</option>
+                    <option value="Book Review">Book Review</option>
+                  </select>
+                </div>
+
+                {/* Keywords */}
+                <div>
+                  <label className="block text-xs font-medium text-[var(--text-primary)] mb-1">
+                    Keywords *
+                  </label>
+                  <input
+                    type="text"
+                    required
+                    value={keywords}
+                    onChange={(e) => setKeywords(e.target.value)}
+                    placeholder="e.g. Criminal Law, Section 63 BSA, Due Process"
+                    className="w-full text-xs p-2.5 rounded-lg border border-[var(--border-subtle)] bg-[var(--bg-page)] text-[var(--text-primary)] focus:outline-hidden focus:ring-1 focus:ring-[var(--accent-navy)]"
+                  />
+                  <span className="text-[11px] text-[var(--text-muted)] font-mono block mt-1">
+                    Please provide 3–8 keywords.
+                  </span>
+                </div>
+
+                {/* Abstract */}
+                <div>
+                  <div className="flex items-center justify-between mb-1">
+                    <label className="text-xs font-medium text-[var(--text-primary)]">
+                      Abstract *
+                    </label>
+                    <span className={`text-[10px] font-mono ${abstractWordCount > 300 ? 'text-red-500 font-bold' : 'text-[var(--text-muted)]'}`}>
+                      {abstractWordCount} / 300 words
+                    </span>
                   </div>
-                  <div className="text-[10px] font-mono text-[var(--text-muted)]">
-                    {fileSize || '2.4 MB'} • Primary Anonymized Narrative
-                  </div>
+                  <textarea
+                    rows={4}
+                    required
+                    value={abstractText}
+                    onChange={(e) => setAbstractText(e.target.value)}
+                    placeholder="Enter abstract text..."
+                    className="w-full text-xs p-2.5 rounded-lg border border-[var(--border-subtle)] bg-[var(--bg-page)] text-[var(--text-primary)] focus:outline-hidden focus:ring-1 focus:ring-[var(--accent-navy)] leading-relaxed"
+                  />
+                  <span className="text-[11px] text-[var(--text-muted)] font-mono block mt-0.5">
+                    Maximum 300 words.
+                  </span>
                 </div>
               </div>
-              <span className="text-emerald-600 font-mono text-xs font-bold">✓ Attached</span>
-            </div>
 
-            <div className="p-4 rounded-lg border border-dashed border-[var(--border-subtle)] bg-[var(--bg-card)] flex items-center justify-between">
-              <div className="flex items-center gap-3 text-[var(--text-muted)]">
-                <UploadCloud className="w-5 h-5 text-[var(--accent-gold)]" />
-                <span>Optional: Supplementary Forensic Datasets (.csv, .xlsx, .json)</span>
+              {/* 2. AUTHOR INFORMATION */}
+              <div className="space-y-3 pt-2 border-t border-[var(--border-subtle)]">
+                <div className="flex items-center gap-2 text-xs font-mono font-bold uppercase text-[var(--accent-gold)] border-b border-[var(--border-subtle)] pb-1.5">
+                  <User className="w-3.5 h-3.5" />
+                  <span>2. Author Information</span>
+                </div>
+
+                <div className="p-3.5 rounded-xl border border-[var(--border-subtle)] bg-[var(--bg-page)] text-xs space-y-1">
+                  <span className="font-semibold text-[var(--text-primary)] block">
+                    Please upload a separate Author Information file containing:
+                  </span>
+                  <ul className="list-disc list-inside text-[var(--text-secondary)] space-y-0.5 pl-1 text-[11px]">
+                    <li>Full name of the corresponding author</li>
+                    <li>Designation</li>
+                    <li>Affiliation</li>
+                    <li>Email</li>
+                    <li>Full details of all co-authors (Name, Designation, Affiliation, Email)</li>
+                  </ul>
+                </div>
+
+                <div>
+                  <label className="block text-xs font-medium text-[var(--text-primary)] mb-1">
+                    Upload Author Information *
+                  </label>
+                  <div className="relative border border-[var(--border-subtle)] hover:border-[var(--accent-navy)] rounded-xl p-3 bg-[var(--bg-page)] transition-colors">
+                    <input
+                      type="file"
+                      accept=".doc,.docx,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+                      onChange={handleAuthorInfoUpload}
+                      className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
+                    />
+                    <div className="flex items-center justify-between gap-2 text-xs">
+                      {authorInfoFileName ? (
+                        <div className="flex items-center gap-2 text-emerald-600 dark:text-emerald-400 font-mono truncate">
+                          <FileCheck className="w-4 h-4 shrink-0" />
+                          <span className="truncate">{authorInfoFileName}</span>
+                          <span className="text-[10px] text-[var(--text-muted)] shrink-0">({authorInfoFileSize})</span>
+                        </div>
+                      ) : (
+                        <div className="flex items-center gap-2 text-[var(--text-secondary)]">
+                          <UploadCloud className="w-4 h-4 text-[var(--accent-navy)]" />
+                          <span>Choose File (doc file only)</span>
+                        </div>
+                      )}
+                      <span className="px-2 py-1 rounded bg-[var(--bg-card)] border border-[var(--border-subtle)] text-[10px] font-mono text-[var(--text-muted)] shrink-0">
+                        Max 5 MB
+                      </span>
+                    </div>
+                  </div>
+                  {authorInfoFileError && (
+                    <p className="text-[11px] font-mono text-red-600 dark:text-red-400 mt-1">
+                      {authorInfoFileError}
+                    </p>
+                  )}
+                </div>
               </div>
-              <button type="button" className="text-xs text-[var(--accent-navy)] font-semibold hover:underline">
-                Upload Data
-              </button>
-            </div>
+
+              {/* 3. BLIND MANUSCRIPT */}
+              <div className="space-y-3 pt-2 border-t border-[var(--border-subtle)]">
+                <div className="flex items-center gap-2 text-xs font-mono font-bold uppercase text-[var(--accent-gold)] border-b border-[var(--border-subtle)] pb-1.5">
+                  <ShieldCheck className="w-3.5 h-3.5" />
+                  <span>3. Blind Manuscript</span>
+                </div>
+
+                <div className="p-3.5 rounded-xl border border-[var(--border-subtle)] bg-[var(--bg-page)] text-xs space-y-1">
+                  <span className="font-semibold text-[var(--text-primary)] block">
+                    Please upload the complete manuscript without any author-identifying information.
+                  </span>
+                  <p className="text-[11px] text-[var(--text-secondary)]">
+                    The manuscript should not contain author names, affiliations, email addresses, acknowledgements, or other information that may reveal the identity of the authors.
+                  </p>
+                </div>
+
+                <div>
+                  <label className="block text-xs font-medium text-[var(--text-primary)] mb-1">
+                    Upload Blind Manuscript *
+                  </label>
+                  <div className="relative border border-[var(--border-subtle)] hover:border-[var(--accent-navy)] rounded-xl p-3 bg-[var(--bg-page)] transition-colors">
+                    <input
+                      type="file"
+                      accept=".doc,.docx,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+                      onChange={handleBlindManuscriptUpload}
+                      className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
+                    />
+                    <div className="flex items-center justify-between gap-2 text-xs">
+                      {blindManuscriptFileName ? (
+                        <div className="flex items-center gap-2 text-emerald-600 dark:text-emerald-400 font-mono truncate">
+                          <FileCheck className="w-4 h-4 shrink-0" />
+                          <span className="truncate">{blindManuscriptFileName}</span>
+                          <span className="text-[10px] text-[var(--text-muted)] shrink-0">({blindManuscriptFileSize})</span>
+                        </div>
+                      ) : (
+                        <div className="flex items-center gap-2 text-[var(--text-secondary)]">
+                          <UploadCloud className="w-4 h-4 text-[var(--accent-navy)]" />
+                          <span>Choose File (doc file only)</span>
+                        </div>
+                      )}
+                      <span className="px-2 py-1 rounded bg-[var(--bg-card)] border border-[var(--border-subtle)] text-[10px] font-mono text-[var(--text-muted)] shrink-0">
+                        Max 5 MB
+                      </span>
+                    </div>
+                  </div>
+                  {blindManuscriptFileError && (
+                    <p className="text-[11px] font-mono text-red-600 dark:text-red-400 mt-1">
+                      {blindManuscriptFileError}
+                    </p>
+                  )}
+                </div>
+              </div>
+
+              {/* 4. DECLARATION & SUBMISSION */}
+              <div className="space-y-3 pt-2 border-t border-[var(--border-subtle)]">
+                <div className="flex items-center gap-2 text-xs font-mono font-bold uppercase text-[var(--accent-gold)] border-b border-[var(--border-subtle)] pb-1.5">
+                  <CheckSquare className="w-3.5 h-3.5" />
+                  <span>4. Declaration &amp; Submission</span>
+                </div>
+
+                <div className="space-y-2.5 text-xs">
+                  <label className="flex items-start gap-2.5 cursor-pointer">
+                    <input
+                      type="checkbox"
+                      required
+                      checked={declOriginal}
+                      onChange={(e) => setDeclOriginal(e.target.checked)}
+                      className="mt-0.5 rounded text-[var(--accent-navy)] focus:ring-[var(--accent-navy)] shrink-0"
+                    />
+                    <span className="text-[var(--text-secondary)]">
+                      I confirm that the manuscript is original and is not currently under consideration by another journal.
+                    </span>
+                  </label>
+
+                  <label className="flex items-start gap-2.5 cursor-pointer">
+                    <input
+                      type="checkbox"
+                      required
+                      checked={declApproved}
+                      onChange={(e) => setDeclApproved(e.target.checked)}
+                      className="mt-0.5 rounded text-[var(--accent-navy)] focus:ring-[var(--accent-navy)] shrink-0"
+                    />
+                    <span className="text-[var(--text-secondary)]">
+                      I confirm that all authors have approved the manuscript and agreed to its submission.
+                    </span>
+                  </label>
+
+                  <label className="flex items-start gap-2.5 cursor-pointer">
+                    <input
+                      type="checkbox"
+                      required
+                      checked={declAccurate}
+                      onChange={(e) => setDeclAccurate(e.target.checked)}
+                      className="mt-0.5 rounded text-[var(--accent-navy)] focus:ring-[var(--accent-navy)] shrink-0"
+                    />
+                    <span className="text-[var(--text-secondary)]">
+                      I confirm that the author information and author order provided are accurate.
+                    </span>
+                  </label>
+
+                  <label className="flex items-start gap-2.5 cursor-pointer">
+                    <input
+                      type="checkbox"
+                      required
+                      checked={declBlind}
+                      onChange={(e) => setDeclBlind(e.target.checked)}
+                      className="mt-0.5 rounded text-[var(--accent-navy)] focus:ring-[var(--accent-navy)] shrink-0"
+                    />
+                    <span className="text-[var(--text-secondary)]">
+                      I confirm that the manuscript has been prepared for blind peer review.
+                    </span>
+                  </label>
+                </div>
+
+                {/* Message to the Editor (Optional) */}
+                <div className="pt-2">
+                  <label className="block text-xs font-medium text-[var(--text-primary)] mb-1 flex items-center gap-1.5">
+                    <MessageSquare className="w-3.5 h-3.5 text-[var(--accent-gold)]" />
+                    <span>Message to the Editor (Optional)</span>
+                  </label>
+                  <textarea
+                    rows={3}
+                    value={editorMessage}
+                    onChange={(e) => setEditorMessage(e.target.value)}
+                    placeholder="Enter any additional remarks or notes for the editorial desk..."
+                    className="w-full text-xs p-2.5 rounded-lg border border-[var(--border-subtle)] bg-[var(--bg-page)] text-[var(--text-primary)] focus:outline-hidden focus:ring-1 focus:ring-[var(--accent-navy)] leading-relaxed"
+                  />
+                </div>
+              </div>
+
+              {/* Submit Button */}
+              <div className="pt-2">
+                <button
+                  type="submit"
+                  disabled={isSubmitting}
+                  className="w-full py-3 px-4 rounded-xl bg-[var(--accent-navy)] text-white text-xs font-bold hover:opacity-95 transition-opacity flex items-center justify-center gap-2 cursor-pointer shadow-sm disabled:opacity-50"
+                >
+                  <Send className="w-4 h-4" />
+                  <span>{isSubmitting ? 'Submitting Manuscript...' : 'Submit Manuscript'}</span>
+                </button>
+                <p className="text-[10px] font-mono text-center text-[var(--text-muted)] mt-2">
+                  Diamond Open Access • ₹0 APC • Doc Files Only (Max 5 MB)
+                </p>
+              </div>
+
+            </form>
+
           </div>
+
         </div>
-      )}
 
-      {/* STEP 6: Review & Final Submit */}
-      {currentStep === 6 && (
-        <div className="p-6 rounded-xl border border-[var(--border-subtle)] bg-[var(--bg-card)] space-y-6 animate-fadeIn text-xs">
-          <div className="border-b border-[var(--border-subtle)] pb-3">
-            <h2 className="font-serif font-bold text-lg text-[var(--text-primary)]">
-              Step 6: Final Pre-Flight Verification
-            </h2>
-            <p className="text-xs text-[var(--text-muted)] mt-0.5">
-              Review your submission package details before committing to the editorial queue.
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            <div className="p-3 rounded-lg bg-[var(--bg-card-hover)] space-y-1">
-              <div className="text-[10px] font-mono uppercase text-[var(--text-muted)]">Corresponding Author</div>
-              <div className="font-bold text-[var(--text-primary)]">{authorName}</div>
-              <div className="text-[var(--text-secondary)]">{authorAffiliation}</div>
-              <div className="font-mono text-emerald-600">ORCID: {authorOrcid}</div>
-            </div>
-
-            <div className="p-3 rounded-lg bg-[var(--bg-card-hover)] space-y-1">
-              <div className="text-[10px] font-mono uppercase text-[var(--text-muted)]">Category & Pillars</div>
-              <div className="font-bold text-[var(--text-primary)]">{articleType}</div>
-              <div className="text-[var(--text-secondary)]">Primary: <span className="capitalize font-semibold">{primaryLens}</span></div>
-              <div className="text-[var(--text-secondary)]">Continuous Publication: Vol. 1 (2026)</div>
-            </div>
-          </div>
-
-          <div className="p-3 rounded-lg bg-[var(--bg-card-hover)] space-y-1">
-            <div className="text-[10px] font-mono uppercase text-[var(--text-muted)]">Manuscript Title</div>
-            <div className="font-serif font-bold text-sm text-[var(--text-primary)] leading-snug">
-              {manuscriptTitle || "Forensic Epistemology and the Challenge of Probabilistic Due Process in Appellate Review"}
-            </div>
-          </div>
-        </div>
-      )}
-
-      {/* Nav Buttons */}
-      <div className="flex items-center justify-between pt-4 border-t border-[var(--border-subtle)]">
-        <button
-          type="button"
-          disabled={currentStep === 1}
-          onClick={() => setCurrentStep(prev => Math.max(1, prev - 1))}
-          className="px-4 py-2 rounded-lg border border-[var(--border-subtle)] bg-[var(--bg-card)] text-xs font-semibold text-[var(--text-secondary)] hover:bg-[var(--bg-card-hover)] disabled:opacity-30 disabled:cursor-not-allowed flex items-center gap-1.5"
-        >
-          <ArrowLeft className="w-3.5 h-3.5" /> Previous Step
-        </button>
-
-        {currentStep < 6 ? (
-          <button
-            type="button"
-            onClick={() => setCurrentStep(prev => Math.min(6, prev + 1))}
-            className="px-5 py-2 rounded-lg bg-[var(--accent-navy)] text-white text-xs font-semibold hover:opacity-90 transition-opacity flex items-center gap-1.5 shadow-sm"
-          >
-            <span>Next: {steps[currentStep].label}</span>
-            <ArrowRight className="w-3.5 h-3.5" />
-          </button>
-        ) : (
-          <button
-            type="button"
-            onClick={handleFinalSubmit}
-            className="px-6 py-2 rounded-lg bg-[var(--accent-gold)] hover:bg-[var(--accent-gold-hover)] text-slate-950 font-bold text-xs shadow-md flex items-center gap-2 transition-transform hover:scale-102"
-          >
-            <Send className="w-4 h-4" />
-            <span>Submit to Editorial Triage</span>
-          </button>
-        )}
       </div>
 
-      {/* OFFICIAL DIGITAL PUBLICATION CERTIFICATE SPECIMEN MODAL */}
-      {isCertificateModalOpen && (
-        <div className="fixed inset-0 z-50 bg-black/70 backdrop-blur-xs flex items-center justify-center p-4 animate-fadeIn">
-          <div className="bg-[var(--bg-card)] border border-[var(--border-strong)] rounded-2xl max-w-3xl w-full p-6 shadow-2xl space-y-4 max-h-[90vh] overflow-y-auto">
-            <div className="flex items-start justify-between gap-4">
-              <div>
-                <span className="text-xs font-mono uppercase font-bold text-[var(--accent-gold)]">
-                  Specimen Copy • UGC CAS & PhD API Compliant
-                </span>
-                <h3 className="font-serif text-xl font-bold text-[var(--text-primary)] mt-1">
-                  Official Digital Certificate of Publication
-                </h3>
-              </div>
-              <button
-                type="button"
-                onClick={() => setIsCertificateModalOpen(false)}
-                className="p-1 rounded-lg text-[var(--text-muted)] hover:text-[var(--text-primary)] hover:bg-[var(--bg-card-hover)] cursor-pointer"
-              >
-                <X className="w-5 h-5" />
-              </button>
-            </div>
+    </div>
 
-            {/* Rendered Certificate Specimen Card */}
-            <div className="p-8 rounded-xl border-4 border-double border-[var(--accent-gold)] bg-gradient-to-b from-[#FFFDF9] via-[#FAF7F0] to-[#FFFDF9] text-slate-900 shadow-inner relative space-y-6 text-center">
-              <div className="flex items-center justify-center gap-3">
-                <div className="w-12 h-12 rounded-full bg-slate-900 text-[var(--accent-gold)] flex items-center justify-center border-2 border-[var(--accent-gold)] shadow-sm">
-                  <Scale className="w-6 h-6" />
-                </div>
-              </div>
-
-              <div>
-                <span className="text-[11px] font-mono uppercase tracking-widest text-[#8C6D37] font-bold block">
-                  COUNCIL OF SCIENTIFIC & LEGAL EDITORS • REGISTERED ISSN 2998-4122
-                </span>
-                <h2 className="font-serif text-2xl sm:text-3xl font-extrabold text-slate-950 mt-1 tracking-tight">
-                  The Crime & Society Review
-                </h2>
-                <div className="text-xs font-serif italic text-slate-600 mt-0.5">
-                  An Interdisciplinary Indian Scholarly Journal of Law, Forensics & Criminology
-                </div>
-              </div>
-
-              <div className="py-1">
-                <div className="inline-block border-y-2 border-[#8C6D37]/40 py-1 px-8 text-xs font-mono font-bold tracking-widest text-[#8C6D37] uppercase">
-                  CERTIFICATE OF SCHOLARLY PUBLICATION
-                </div>
-              </div>
-
-              <p className="text-sm font-serif text-slate-800 max-w-xl mx-auto leading-relaxed">
-                This is to certify that the original research manuscript submitted by
-              </p>
-
-              <div className="p-3 bg-[#F4EFE6] rounded-lg border border-[#DCD3C1] max-w-xl mx-auto">
-                <span className="font-bold text-slate-950 text-base">
-                  {authorName || "Dr. Devika Ranade"}
-                </span>
-                <div className="text-xs text-slate-600 mt-0.5 font-sans">
-                  {authorAffiliation || "National Law School of India University (NLSIU), Bengaluru"}
-                </div>
-              </div>
-
-              <p className="text-sm font-serif text-slate-800 max-w-xl mx-auto">
-                entitled <em>"{manuscriptTitle || "Electronic Evidence Certification Under Section 63 BSA: Assessing Hash-Log Integrity Across Indian Sessions Trials"}"</em> has successfully completed double-blind peer review and will be issued with a verified Crossref DOI and elocation-id upon final publication.
-              </p>
-
-              {/* Bottom Signatures & Seal */}
-              <div className="pt-6 border-t border-[#DCD3C1] grid grid-cols-3 items-center gap-4 text-xs font-serif text-slate-700">
-                <div>
-                  <div className="font-script text-lg text-slate-900 font-bold italic">Hon. Devendra Pathak</div>
-                  <div className="border-t border-slate-400 mt-1 pt-1 text-[10px] font-sans font-medium text-slate-600">
-                    Chief Editor & Former Judge
-                  </div>
-                </div>
-
-                <div className="flex flex-col items-center">
-                  <div className="w-14 h-14 rounded-full border-2 border-emerald-700 flex items-center justify-center p-1 bg-emerald-50 text-emerald-800">
-                    <ShieldCheck className="w-8 h-8" />
-                  </div>
-                  <span className="text-[9px] font-mono text-emerald-800 font-bold mt-1">UGC-CARE VERIFIED</span>
-                </div>
-
-                <div>
-                  <div className="font-script text-lg text-slate-900 font-bold italic">Dr. Aarav Sengupta</div>
-                  <div className="border-t border-slate-400 mt-1 pt-1 text-[10px] font-sans font-medium text-slate-600">
-                    Managing Registrar
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div className="flex flex-wrap items-center justify-between gap-3 pt-2">
-              <span className="text-xs text-[var(--text-muted)] font-mono">
-                Official certificates include a live cryptographic QR code validating UGC-CARE compliance.
-              </span>
-              <button
-                type="button"
-                onClick={() => setIsCertificateModalOpen(false)}
-                className="px-4 py-2 rounded-lg bg-[var(--accent-navy)] text-white font-medium text-xs hover:opacity-90 cursor-pointer"
-              >
-                Close Specimen
-              </button>
-            </div>
-          </div>
-        </div>
-      )}
     </div>
   );
 };
+
+export default SubmitPage;

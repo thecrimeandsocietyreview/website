@@ -3,9 +3,9 @@ import { Article, BoardMember, ConceptNode, ConceptEdge, SubmissionDraft } from 
 export const JOURNAL_METADATA = {
   name: "The Crime & Society Review",
   tagline: "Indian Journal of Interdisciplinary Criminology, Forensics & Criminal Law",
-  subtagline: "Advancing evidence-informed scholarship on the Bharatiya Nyaya Sanhita (BNS), BNSS, BSA, forensic science, policing, and societal justice through the Rashomon Approach.",
-  issnOnline: "2998-4122",
-  issnPrint: "2998-4114",
+  subtagline: "Advancing evidence-informed scholarship on the Bharatiya Nyaya Sanhita (BNS), BNSS, BSA, forensic science, policing, and societal justice.",
+  issnOnline: "Coming Soon",
+  issnPrint: "Coming Soon",
   doiPrefix: "10.59821/csr",
   currentVolume: 1,
   currentYear: 2026,
@@ -740,7 +740,7 @@ export const MOCK_SUBMISSIONS: SubmissionDraft[] = [
 ];
 
 export const OFFICIAL_DOCUMENT_TEXTS = {
-  about: `The Crime & Society Review is an interdisciplinary academic rolling publication journal dedicated to advancing critical, evidence-based, and multidimensional understandings of crime, criminality, victimisation, institutional justice, and society within India and the Global South. The journal recognises that crime and justice in India cannot be adequately understood through a single disciplinary lens. Drawing upon the Rashomon Effect as an analytical foundation, The Crime & Society Review examines Indian criminal jurisprudence and criminological realities through multiple intersecting perspectives: the newly enacted criminal statutory codes (Bharatiya Nyaya Sanhita, Bharatiya Nagarik Suraksha Sanhita, and Bharatiya Sakshya Adhiniyam), forensic sciences and digital extraction (NFSU and CFSL standards), constitutional safeguards under Articles 20 and 21, institutional police practices, and carceral sociology. It welcomes original empirical research, theoretical scholarship, forensic case commentaries, and policy briefs from legal academics, judges, forensic scientists, police officers, and social researchers across India.`,
+  about: `The Crime & Society Review is an interdisciplinary academic rolling publication journal dedicated to advancing critical, evidence-based, and multidimensional understandings of crime, criminality, victimisation, institutional justice, and society within India and the Global South. The journal recognises that crime and justice in India cannot be adequately understood through a single disciplinary lens. The Crime & Society Review examines Indian criminal jurisprudence and criminological realities through multiple intersecting perspectives: the newly enacted criminal statutory codes (Bharatiya Nyaya Sanhita, Bharatiya Nagarik Suraksha Sanhita, and Bharatiya Sakshya Adhiniyam), forensic sciences and digital extraction (NFSU and CFSL standards), constitutional safeguards under Articles 20 and 21, institutional police practices, and carceral sociology. It welcomes original empirical research, theoretical scholarship, forensic case commentaries, and policy briefs from legal academics, judges, forensic scientists, police officers, and social researchers across India.`,
 
   aimsAndScope: `The Crime & Society Review is committed to advancing the systematic, critical, and evidence-informed study of crime, policing, forensic sciences, criminal law, and their complex societal manifestations across India. The journal seeks to provide a high-impact scholarly forum for research examining the implementation, impact, and constitutional validity of the Bharatiya Nyaya Sanhita (BNS, 2023), the Bharatiya Nagarik Suraksha Sanhita (BNSS, 2023), and the Bharatiya Sakshya Adhiniyam (BSA, 2023). The scope encompasses, but is not limited to: Indian criminal law, constitutional criminal procedure, cyber fraud and financial crimes (PMLA, IT Act 2000, 1930 portal operations), forensic pathology, DNA phenotyping and digital forensics, policing practices and Section 105 BNSS videography, victimology and POCSO courtroom trauma, carceral penology and undertrial pendency, mob violence, gender justice, and emerging computational crime diagnostics. Particular priority is accorded to scholarship that translates empirical research into concrete institutional implications for Indian trial courts, High Courts, the Supreme Court of India, state police cadres, and the Union Ministry of Home Affairs.`,
 
@@ -779,9 +779,9 @@ export const INDEXING_CREDENTIALS = [
   {
     name: "CSIR-NIScPR New Delhi",
     acronym: "National Science Library",
-    badge: "ISSN 2998-4122 (Online)",
-    description: "Registered by the National Science Library, Council of Scientific and Industrial Research - National Institute of Science Communication and Policy Research, New Delhi, India.",
-    status: "Officially Registered",
+    badge: "ISSN: Coming Soon",
+    description: "ISSN assignment underway with the National Science Library, Council of Scientific and Industrial Research - National Institute of Science Communication and Policy Research (CSIR-NIScPR), New Delhi, India.",
+    status: "Coming Soon",
     icon: "landmark"
   },
   {
@@ -1045,8 +1045,8 @@ export const JOURNAL_HISTORY_TIMELINE = [
   {
     phase: "Establishment",
     period: "2024 – 2025",
-    title: "Chartering The Rashomon Framework & Advisory Board",
-    desc: "The journal’s editorial charter was formalized around the Rashomon Approach—the epistemological commitment to evaluate every criminal phenomenon through six synchronized lenses. International ISSN registration (Online: 2998-4122, Print: 2998-4114) was secured via the Council of Scientific and Industrial Research - National Institute of Science Communication and Policy Research (CSIR-NIScPR), New Delhi."
+    title: "Chartering Interdisciplinary Editorial Board & Governance",
+    desc: "The journal’s editorial charter was formalized around interdisciplinary rigor—uniting legal jurists, forensic scientists, and criminologists. International ISSN registration is currently underway with the National Science Library (CSIR-NIScPR), New Delhi."
   },
   {
     phase: "First Publications",
