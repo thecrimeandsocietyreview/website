@@ -3,11 +3,10 @@ import { Link } from 'react-router-dom';
 import { 
   Scale, 
   ArrowRight, 
-  Layers, 
   BookOpen, 
   Target, 
   Sparkles,
-  ShieldCheck,
+  ShieldCheck, 
   Microscope,
   Brain,
   Landmark,
@@ -36,7 +35,7 @@ export const HomePage: React.FC = () => {
         <div className="absolute inset-0 bg-gradient-to-r from-white/95 via-white/90 to-white/40 dark:from-slate-950/95 dark:via-slate-950/90 dark:to-slate-950/50"></div>
 
         <div className="relative z-10 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-20 lg:py-24 space-y-8">
-          <div className="max-w-3xl space-y-6 text-left">
+          <div className="max-w-4xl lg:max-w-5xl space-y-6 text-left">
             
             {/* Badges */}
             <div className="flex flex-wrap items-center justify-start gap-2 text-xs">
@@ -51,29 +50,11 @@ export const HomePage: React.FC = () => {
               </span>
             </div>
 
-            {/* 1. Journal Name */}
-            <div className="space-y-3">
-              <h1 className="font-serif text-3xl sm:text-5xl md:text-6xl font-extrabold text-slate-950 dark:text-white tracking-tight leading-[1.12]">
+            {/* 1. Journal Name - Single Line */}
+            <div>
+              <h1 className="font-serif text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold text-slate-950 dark:text-white tracking-tight leading-tight sm:whitespace-nowrap">
                 {JOURNAL_METADATA.name}
               </h1>
-              <p className="font-serif italic text-base sm:text-xl md:text-2xl text-amber-900 dark:text-[var(--accent-gold)] font-bold leading-snug">
-                {JOURNAL_METADATA.tagline}
-              </p>
-            </div>
-
-            {/* 2. Short Introduction */}
-            <p className="text-base sm:text-lg text-slate-800 dark:text-slate-200 font-serif leading-relaxed max-w-2xl">
-              An independent, peer-reviewed academic publication dedicated to advancing evidence-informed scholarship across criminal jurisprudence, forensic investigation, policing systems, and social justice in India and the Global South.
-            </p>
-
-            {/* 3. Interdisciplinary Focus */}
-            <div className="p-4 rounded-xl border border-slate-300/80 dark:border-slate-700/80 bg-white/80 dark:bg-slate-900/80 backdrop-blur-xs max-w-2xl space-y-2">
-              <div className="flex items-center gap-2 text-xs font-mono font-bold uppercase text-[var(--accent-gold)]">
-                <Layers className="w-4 h-4" /> Interdisciplinary Focus
-              </div>
-              <p className="text-xs sm:text-sm text-slate-700 dark:text-slate-300 font-serif leading-relaxed">
-                Breaking traditional academic silos by synthesizing criminal law doctrines (Bharatiya Nyaya Sanhita, BNSS, BSA) with empirical forensic science, cognitive psychology, carceral sociology, policing practices, and victimology.
-              </p>
             </div>
 
             {/* Primary Action Buttons */}

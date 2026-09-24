@@ -5,11 +5,13 @@ import { Header } from './components/common/Header';
 import { Footer } from './components/common/Footer';
 import { AlertCircle, ArrowLeft } from 'lucide-react';
 
-// The 4 Core Pages
+// Core Pages
 import { HomePage } from './pages/HomePage';
+import { EditorialBoardPage } from './pages/EditorialBoardPage';
 import { AboutPage } from './pages/AboutPage';
 import { AimsScopePage } from './pages/AimsScopePage';
 import { RashomonPage } from './pages/RashomonPage';
+import { ContactPage } from './pages/ContactPage';
 
 // Scroll to top automatically on route changes
 const ScrollToTop: React.FC = () => {
@@ -58,29 +60,33 @@ export const App: React.FC = () => {
               {/* 1. Home */}
               <Route path="/" element={<HomePage />} />
 
-              {/* 2. About the Journal */}
+              {/* 2. Editorial Board */}
+              <Route path="/editorial-board" element={<EditorialBoardPage />} />
+
+              {/* 3. About the Journal */}
               <Route path="/about" element={<AboutPage />} />
 
-              {/* 3. Aims & Scope */}
+              {/* 4. Aims & Scope */}
               <Route path="/aims-scope" element={<AimsScopePage />} />
 
-              {/* 4. Rashomon Approach */}
+              {/* 5. Rashomon Approach */}
               <Route path="/rashomon-approach" element={<RashomonPage />} />
+
+              {/* 6. Contact Us */}
+              <Route path="/contact" element={<ContactPage />} />
 
               {/* Clean Redirects from previous paths to their corresponding core page */}
               <Route path="/history" element={<Navigate to="/about" replace />} />
               <Route path="/publisher" element={<Navigate to="/about" replace />} />
-              <Route path="/editorial-philosophy" element={<Navigate to="/about" replace />} />
-              <Route path="/editorial-board" element={<Navigate to="/about" replace />} />
+              <Route path="/editorial-philosophy" element={<Navigate to="/editorial-board" replace />} />
               <Route path="/ethics" element={<Navigate to="/about" replace />} />
               <Route path="/articles" element={<Navigate to="/" replace />} />
               <Route path="/issues" element={<Navigate to="/" replace />} />
               <Route path="/archive" element={<Navigate to="/" replace />} />
               <Route path="/explore" element={<Navigate to="/aims-scope" replace />} />
               <Route path="/for-authors" element={<Navigate to="/aims-scope" replace />} />
-              <Route path="/for-reviewers" element={<Navigate to="/about" replace />} />
+              <Route path="/for-reviewers" element={<Navigate to="/editorial-board" replace />} />
               <Route path="/submit" element={<Navigate to="/about" replace />} />
-              <Route path="/contact" element={<Navigate to="/about" replace />} />
 
               {/* 404 Fallback */}
               <Route path="*" element={<NotFoundPage />} />

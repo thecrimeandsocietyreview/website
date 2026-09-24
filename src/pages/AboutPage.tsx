@@ -4,19 +4,11 @@ import {
   Scale, 
   Target, 
   Compass, 
-  Users, 
-  Award, 
-  ShieldCheck, 
   BookOpen, 
   ArrowRight,
-  Clock,
-  Calendar,
-  Building2,
-  Globe,
-  CheckCircle2,
-  Sparkles
+  CheckCircle2
 } from 'lucide-react';
-import { JOURNAL_METADATA, PUBLISHER_PROFILE, JOURNAL_HISTORY_TIMELINE } from '../data/mockJournalData';
+import { JOURNAL_METADATA } from '../data/mockJournalData';
 
 export const AboutPage: React.FC = () => {
   return (
@@ -50,25 +42,6 @@ export const AboutPage: React.FC = () => {
           <p>
             The journal operates as an interdisciplinary continuous publication forum, ensuring that validated scholarship on statutory reforms, forensic sciences, and constitutional criminal jurisprudence is published as an authoritative, publicly accessible Version of Record.
           </p>
-        </div>
-
-        <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 pt-3 text-xs font-mono">
-          <div className="p-3 rounded-lg bg-[var(--bg-card-hover)] border border-[var(--border-subtle)]">
-            <span className="text-[var(--text-muted)] block text-[10px]">ONLINE ISSN</span>
-            <span className="font-bold text-[var(--text-primary)]">{JOURNAL_METADATA.issnOnline}</span>
-          </div>
-          <div className="p-3 rounded-lg bg-[var(--bg-card-hover)] border border-[var(--border-subtle)]">
-            <span className="text-[var(--text-muted)] block text-[10px]">PRINT ISSN</span>
-            <span className="font-bold text-[var(--text-primary)]">{JOURNAL_METADATA.issnPrint}</span>
-          </div>
-          <div className="p-3 rounded-lg bg-[var(--bg-card-hover)] border border-[var(--border-subtle)]">
-            <span className="text-[var(--text-muted)] block text-[10px]">ACCESS MODEL</span>
-            <span className="font-bold text-emerald-600 dark:text-emerald-400">Diamond Open Access</span>
-          </div>
-          <div className="p-3 rounded-lg bg-[var(--bg-card-hover)] border border-[var(--border-subtle)]">
-            <span className="text-[var(--text-muted)] block text-[10px]">PUBLICATION</span>
-            <span className="font-bold text-[var(--accent-gold)]">Continuous Rolling</span>
-          </div>
         </div>
       </section>
 
@@ -167,109 +140,6 @@ export const AboutPage: React.FC = () => {
             <CheckCircle2 className="w-4 h-4 text-emerald-500" />
             <span>ICMR Ethical Guidelines</span>
           </span>
-        </div>
-      </section>
-
-      {/* 4. JOURNAL HISTORY */}
-      <section className="space-y-6">
-        <div className="space-y-1">
-          <div className="flex items-center gap-2 text-xs font-mono uppercase font-bold text-[var(--accent-gold)]">
-            <Clock className="w-4 h-4" /> Section 4
-          </div>
-          <h2 className="font-serif text-2xl sm:text-3xl font-bold text-[var(--text-primary)]">
-            Journal History
-          </h2>
-          <p className="text-xs sm:text-sm text-[var(--text-secondary)] font-serif">
-            Conception, founding charter, and response to statutory transformation in Indian criminal law.
-          </p>
-        </div>
-
-        <div className="p-6 rounded-2xl border border-[var(--border-subtle)] bg-[var(--bg-card)] space-y-4">
-          <h3 className="font-serif text-lg font-bold text-[var(--text-primary)]">
-            The Genesis: Responding to Historic Statutory Reform
-          </h3>
-          <p className="text-sm text-[var(--text-secondary)] font-serif leading-relaxed">
-            The Crime &amp; Society Review was conceived during a pivotal historical juncture in Indian legal history: the legislative repeal of the colonial Indian Penal Code of 1860, the Code of Criminal Procedure of 1973, and the Indian Evidence Act of 1872, and their replacement by the <strong>Bharatiya Nyaya Sanhita, 2023 (BNS)</strong>, the <strong>Bharatiya Nagarik Suraksha Sanhita, 2023 (BNSS)</strong>, and the <strong>Bharatiya Sakshya Adhiniyam, 2023 (BSA)</strong>.
-          </p>
-          <p className="text-sm text-[var(--text-secondary)] font-serif leading-relaxed">
-            As these historic statutes transformed the architecture of Indian criminal justice, legal scholars, forensic practitioners, and police researchers recognized that scholarly inquiry remained deeply fragmented. To bridge these divides, a collaborative collective founded <em>The Crime &amp; Society Review</em> as an independent, diamond open-access forum anchored in the <strong>Rashomon Approach</strong>.
-          </p>
-        </div>
-
-        {/* Timeline */}
-        <div className="relative border-l-2 border-[var(--accent-gold)]/30 ml-4 sm:ml-6 pl-6 sm:pl-8 space-y-6">
-          {JOURNAL_HISTORY_TIMELINE.map((step, idx) => (
-            <div key={idx} className="relative group">
-              <div className="absolute -left-[31px] sm:-left-[39px] top-1.5 w-6 h-6 rounded-full bg-[var(--bg-page)] border-2 border-[var(--accent-gold)] text-[var(--accent-gold)] flex items-center justify-center shadow-xs">
-                <span className="w-2 h-2 rounded-full bg-[var(--accent-gold)]"></span>
-              </div>
-              <div className="p-5 rounded-xl border border-[var(--border-subtle)] bg-[var(--bg-card)] space-y-2">
-                <div className="flex flex-wrap items-center justify-between gap-2 text-xs">
-                  <span className="px-2 py-0.5 rounded-full font-mono text-[10px] font-bold uppercase bg-[var(--accent-navy)]/10 text-[var(--accent-navy)]">
-                    Phase 0{idx + 1}: {step.phase}
-                  </span>
-                  <span className="font-mono text-[11px] text-[var(--accent-gold)] font-bold flex items-center gap-1">
-                    <Calendar className="w-3.5 h-3.5" />
-                    {step.period}
-                  </span>
-                </div>
-                <h4 className="font-serif text-base font-bold text-[var(--text-primary)]">
-                  {step.title}
-                </h4>
-                <p className="text-xs text-[var(--text-secondary)] font-serif leading-relaxed">
-                  {step.desc}
-                </p>
-              </div>
-            </div>
-          ))}
-        </div>
-      </section>
-
-      {/* 5. PUBLISHER */}
-      <section className="p-8 rounded-2xl border border-[var(--border-subtle)] bg-[var(--bg-card)] space-y-6">
-        <div className="space-y-1">
-          <div className="flex items-center gap-2 text-xs font-mono uppercase font-bold text-[var(--accent-gold)]">
-            <Building2 className="w-4 h-4" /> Section 5
-          </div>
-          <h2 className="font-serif text-2xl sm:text-3xl font-bold text-[var(--text-primary)]">
-            Publisher: {PUBLISHER_PROFILE.name}
-          </h2>
-          <p className="text-xs sm:text-sm text-[var(--text-secondary)] font-serif">
-            Non-Profit Scholarly Publishing Infrastructure &amp; Institutional Governance
-          </p>
-        </div>
-
-        <div className="prose prose-slate dark:prose-invert max-w-none text-sm text-[var(--text-secondary)] font-serif leading-relaxed space-y-3">
-          <p>
-            <strong>{PUBLISHER_PROFILE.name}</strong> is an independent non-profit academic publishing entity registered under Indian educational trust statutes in New Delhi. The Press was established specifically to maintain the technological, archival, and editorial infrastructure of <em>The Crime &amp; Society Review</em> without commercial shareholder obligations or paywall incentives.
-          </p>
-          <p>
-            Unlike commercial journal conglomerates that levy high Article Processing Charges on scholars, the Press operates under a sustained <strong>Diamond Open Access endowment framework</strong> funded by non-profit philanthropic grants and academic consortium agreements.
-          </p>
-        </div>
-
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 text-xs font-mono">
-          <div className="p-3.5 rounded-xl bg-[var(--bg-card-hover)] border border-[var(--border-subtle)]">
-            <span className="text-[var(--text-muted)] block text-[10px] uppercase">Entity Classification</span>
-            <strong className="text-[var(--text-primary)]">{PUBLISHER_PROFILE.entityType}</strong>
-          </div>
-          <div className="p-3.5 rounded-xl bg-[var(--bg-card-hover)] border border-[var(--border-subtle)]">
-            <span className="text-[var(--text-muted)] block text-[10px] uppercase">Registered Offices</span>
-            <strong className="text-[var(--text-primary)]">{PUBLISHER_PROFILE.location}</strong>
-          </div>
-          <div className="p-3.5 rounded-xl bg-[var(--bg-card-hover)] border border-[var(--border-subtle)]">
-            <span className="text-[var(--text-muted)] block text-[10px] uppercase">Financial Model</span>
-            <strong className="text-emerald-600 dark:text-emerald-400">100% Non-Commercial / ₹0 APC</strong>
-          </div>
-        </div>
-
-        <div className="p-5 rounded-xl border border-emerald-500/20 bg-emerald-500/5 space-y-2">
-          <div className="flex items-center gap-2 text-xs font-bold text-emerald-700 dark:text-emerald-400">
-            <ShieldCheck className="w-4 h-4" /> Academic Independence &amp; Editorial Firewall
-          </div>
-          <p className="text-xs text-[var(--text-secondary)] font-serif leading-relaxed">
-            The publisher strictly enforces an institutional firewall between business administration and editorial judgment. Neither trustees nor funding patrons possess authority over manuscript acceptance, rejection, or editorial policy, which remains under the complete independence of the editorial board.
-          </p>
         </div>
       </section>
 
