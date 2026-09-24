@@ -139,37 +139,54 @@ export const Header: React.FC = () => {
         </div>
       </div>
 
-      {/* Mobile Drawer Overlay */}
+      {/* Mobile Dropdown Box Menu (Floating card with soft animation, not full screen) */}
       {mobileMenuOpen && (
         <>
+          {/* Subtle click-outside backdrop */}
           <div 
-            className="fixed inset-0 top-[60px] bg-black/40 backdrop-blur-xs z-40 lg:hidden animate-fadeIn"
+            className="fixed inset-0 top-[60px] bg-black/20 backdrop-blur-[2px] z-40 lg:hidden animate-fadeIn"
             onClick={() => setMobileMenuOpen(false)}
+            aria-hidden="true"
           />
+          {/* Dropdown Card */}
           <div 
             style={{ backgroundColor: 'var(--bg-card)' }}
-            className="absolute top-full left-0 right-0 w-full lg:hidden border-b border-[var(--border-subtle)] px-4 py-4 space-y-2 shadow-2xl z-50 animate-fadeIn"
+            className="absolute top-[calc(100%+8px)] right-4 w-[min(320px,calc(100vw-32px))] lg:hidden rounded-2xl border border-[var(--border-strong)] p-3 shadow-2xl z-50 animate-nav-dropdown backdrop-blur-md"
           >
-            <div className="flex items-center justify-between pb-2 mb-2 border-b border-[var(--border-subtle)] px-1">
-              <span className="text-[11px] font-mono text-[var(--text-muted)] uppercase tracking-wider font-semibold">Journal Navigation</span>
+            <div className="flex items-center justify-between pb-2 mb-1.5 border-b border-[var(--border-subtle)] px-2">
+              <span className="text-[10px] font-mono text-[var(--text-muted)] uppercase tracking-wider font-semibold">Journal Menu</span>
+              <button 
+                onClick={() => setMobileMenuOpen(false)}
+                className="text-[11px] font-mono text-[var(--text-muted)] hover:text-[var(--text-primary)] cursor-pointer"
+              >
+                Close ✕
+              </button>
             </div>
-            {navLinks.map((item) => {
-              const isActive = location.pathname === item.path;
-              return (
-                <Link
-                  key={item.path}
-                  to={item.path}
-                  onClick={() => setMobileMenuOpen(false)}
-                  className={`block px-3.5 py-2.5 rounded-lg text-sm font-medium transition-colors ${
-                    isActive
-                      ? 'bg-[var(--accent-navy)]/10 text-[var(--accent-navy)] font-bold'
-                      : 'text-[var(--text-secondary)] hover:bg-[var(--bg-card-hover)] hover:text-[var(--text-primary)]'
-                  }`}
-                >
-                  {item.label}
-                </Link>
-              );
-            })}
+            <div className="space-y-1 max-h-[70vh] overflow-y-auto pr-0.5">
+              {navLinks.map((item) => {
+                const isActive = location.pathname === item.path;
+                const isSubmit = item.path === '/submit';
+                return (
+                  <Link
+                    key={item.path}
+                    to={item.path}
+                    onClick={() => setMobileMenuOpen(false)}
+                    className={`flex items-center justify-between px-3 py-2 rounded-xl text-sm font-medium transition-all ${
+                      isActive
+                        ? 'bg-[var(--accent-navy)]/10 text-[var(--accent-navy)] font-bold'
+                        : isSubmit
+                        ? 'text-[var(--accent-gold)] font-semibold hover:bg-[var(--accent-gold)]/10'
+                        : 'text-[var(--text-secondary)] hover:bg-[var(--bg-card-hover)] hover:text-[var(--text-primary)]'
+                    }`}
+                  >
+                    <span>{item.label}</span>
+                    {isActive && (
+                      <span className="w-1.5 h-1.5 rounded-full bg-[var(--accent-navy)]"></span>
+                    )}
+                  </Link>
+                );
+              })}
+            </div>
           </div>
         </>
       )}

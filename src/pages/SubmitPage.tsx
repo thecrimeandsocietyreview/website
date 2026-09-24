@@ -385,13 +385,13 @@ Editorial Desk: submissions@thecrimeandsocietyreview.org
   return (
     <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 py-8 animate-fadeIn">
       
-      {/* 2-Column Desktop Grid: Left Scrolls with page, Right Form is Sticky */}
+      {/* 2-Column Desktop Grid: Left Guidelines (order-2 on mobile, order-1 on desktop), Right Form (order-1 on mobile, order-2 on desktop) */}
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
         
         {/* ========================================================
-            LEFT COLUMN: SCROLLABLE GUIDELINES (7 cols)
+            GUIDELINES COLUMN: (7 cols on desktop, order-2 on mobile)
         ======================================================== */}
-        <div className="lg:col-span-7 space-y-10 text-[var(--text-secondary)] font-serif leading-relaxed text-sm">
+        <div className="order-2 lg:order-1 lg:col-span-7 space-y-10 text-[var(--text-secondary)] font-serif leading-relaxed text-sm">
           
           {/* Quick Jump Bar */}
           <div className="p-3.5 rounded-xl border border-[var(--border-subtle)] bg-[var(--bg-card-hover)] flex flex-wrap items-center gap-2 text-xs font-mono">
@@ -900,10 +900,10 @@ Editorial Desk: submissions@thecrimeandsocietyreview.org
         </div>
 
         {/* ========================================================
-            RIGHT COLUMN: STICKY SUBMISSION FORM (5 cols)
+            SUBMISSION FORM COLUMN: (5 cols on desktop, order-1 on mobile)
             Locked in place on desktop - Only guidelines scroll
         ======================================================== */}
-        <div className="lg:col-span-5 relative">
+        <div className="order-1 lg:order-2 lg:col-span-5 relative">
           <div className="lg:sticky lg:top-24 lg:max-h-[calc(100vh-120px)] lg:overflow-y-auto pr-1 pb-4">
             
             <div className="p-6 rounded-2xl border border-[var(--border-strong)] bg-[var(--bg-card)] space-y-6 shadow-md">
