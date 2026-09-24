@@ -3,56 +3,61 @@ import { Link } from 'react-router-dom';
 import { 
   Users, 
   Award, 
-  BookOpen, 
-  ExternalLink, 
-  Mail, 
   ShieldCheck, 
   Search, 
   GraduationCap, 
   Building2, 
-  Globe, 
   CheckCircle2,
-  Scale
+  Scale,
+  Microscope,
+  Brain,
+  Landmark,
+  ShieldAlert,
+  HeartHandshake,
+  Clock
 } from 'lucide-react';
-import { MOCK_BOARD_MEMBERS, JOURNAL_METADATA } from '../data/mockJournalData';
+import { MOCK_BOARD_MEMBERS } from '../data/mockJournalData';
 
 export const EditorialBoardPage: React.FC = () => {
   const [filterQuery, setFilterQuery] = useState('');
   const [selectedRole, setSelectedRole] = useState<string>('all');
 
-  // Additional advisory board luminaries
-  const advisoryMembers = [
+  const editorialTracks = [
     {
-      id: "adv-1",
-      name: "Prof. (Dr.) Upendra Baxi",
-      role: "Advisory Board Member",
-      institution: "Emeritus Professor of Law, University of Delhi & Warwick Law School",
-      discipline: "Constitutional Theory, Human Rights & Sociology of Law",
-      bio: "Internationally renowned scholar of constitutionalism, human rights jurisprudence, and transformative judicial activism in South Asia."
+      discipline: "Criminal Jurisprudence & Statutory Review",
+      focus: "Bharatiya Nyaya Sanhita (BNS), BNSS procedural codification, and BSA evidentiary standards.",
+      icon: Scale,
+      status: "Inaugural Appointment Underway"
     },
     {
-      id: "adv-2",
-      name: "Dr. J.M. Vyas",
-      role: "Advisory Board Member",
-      institution: "Vice-Chancellor, National Forensic Sciences University (NFSU), Gandhinagar",
-      discipline: "Forensic Chemistry, Ballistics & National Forensic Infrastructure",
-      bio: "Pioneer of modern institutional forensic science education and laboratory modernization in India."
+      discipline: "Forensic Sciences & Evidentiary Proof",
+      focus: "Digital hashes, DNA profiling, electronic records validation under Section 63 BSA, and laboratory protocols.",
+      icon: Microscope,
+      status: "Inaugural Appointment Underway"
     },
     {
-      id: "adv-3",
-      name: "Prof. (Dr.) Nicole Westmarland",
-      role: "International Advisory Board",
-      institution: "Durham University, United Kingdom",
-      discipline: "Gender Violence, Criminology & Restorative Justice",
-      bio: "Leading comparative researcher on gender-based violence, sexual offence court experiences, and victim advocacy."
+      discipline: "Behavioural Psychology & Cognitive Science",
+      focus: "Interrogation psychology, witness reliability, memory decay, and suspect examination safeguards.",
+      icon: Brain,
+      status: "Inaugural Appointment Underway"
     },
     {
-      id: "adv-4",
-      name: "Hon. Justice (Retd.) Madan B. Lokur",
-      role: "Advisory Board Member",
-      institution: "Former Judge, Supreme Court of India",
-      discipline: "Juvenile Justice, Prison Reforms & Legal Aid Access",
-      bio: "Architect of landmark Indian prison monitoring directives, Juvenile Justice Committee reforms, and legal services empowerment."
+      discipline: "Carceral Sociology & Penology",
+      focus: "Undertrial pendency, prison reform directives, carceral sociology, and rehabilitative justice models.",
+      icon: Landmark,
+      status: "Inaugural Appointment Underway"
+    },
+    {
+      discipline: "Frontline Policing & Cyber Intelligence",
+      focus: "Section 105 BNSS videography protocols, automated law enforcement technologies, and cyber forensic standards.",
+      icon: ShieldAlert,
+      status: "Inaugural Appointment Underway"
+    },
+    {
+      discipline: "Victimology & Constitutional Due Process",
+      focus: "Article 21 fair trial guarantees, vulnerable witness protection, and restorative justice mechanisms.",
+      icon: HeartHandshake,
+      status: "Inaugural Appointment Underway"
     }
   ];
 
@@ -77,7 +82,7 @@ export const EditorialBoardPage: React.FC = () => {
           Editorial Board &amp; Advisory Council
         </h1>
         <p className="font-serif italic text-base sm:text-xl text-[var(--accent-gold)]">
-          Distinguished Jurists, Forensic Scientists, and Criminologists Guiding The Crime &amp; Society Review
+          Scholarly Governance &amp; Multi-Perspective Peer Review Leadership
         </p>
       </div>
 
@@ -89,14 +94,14 @@ export const EditorialBoardPage: React.FC = () => {
             <span>COPE-Aligned Editorial Independence &amp; Integrity</span>
           </h3>
           <p className="text-xs sm:text-sm text-[var(--text-secondary)] font-serif">
-            Editorial decision-making is insulated from publisher, financial, or political influence. Board members evaluate all submissions on scholarly merit, empirical rigour, and statutory relevance.
+            Editorial decision-making is insulated from publisher, financial, or institutional influence. Board members evaluate all manuscripts solely on scholarly merit, empirical rigour, and constitutional relevance.
           </p>
         </div>
         <Link
-          to="/editorial-philosophy"
+          to="/about"
           className="shrink-0 px-4 py-2 rounded-lg bg-[var(--accent-navy)] text-white text-xs font-semibold hover:opacity-90 transition-opacity"
         >
-          Editorial Philosophy
+          About Journal
         </Link>
       </section>
 
@@ -106,138 +111,126 @@ export const EditorialBoardPage: React.FC = () => {
           <div>
             <h2 className="font-serif text-2xl font-bold text-[var(--text-primary)] flex items-center gap-2">
               <Award className="w-5 h-5 text-[var(--accent-gold)]" />
-              <span>Editorial Leadership</span>
+              <span>Editorial Leadership &amp; Subject Tracks</span>
             </h2>
             <p className="text-xs text-[var(--text-muted)] mt-0.5">
-              Editors-in-Chief, Senior Associate Editors, and Section Editors.
+              Editors-in-Chief, Senior Associate Editors, Section Editors, and Track Convenors.
             </p>
           </div>
 
-          <div className="flex items-center gap-2">
-            <div className="relative">
-              <Search className="w-3.5 h-3.5 absolute left-3 top-2.5 text-[var(--text-muted)]" />
-              <input
-                type="text"
-                value={filterQuery}
-                onChange={(e) => setFilterQuery(e.target.value)}
-                placeholder="Filter by name, institution..."
-                className="pl-8 pr-3 py-1.5 rounded-lg border border-[var(--border-subtle)] bg-[var(--bg-card)] text-xs text-[var(--text-primary)] placeholder-[var(--text-muted)] focus:outline-hidden focus:ring-1 focus:ring-[var(--accent-navy)]"
-              />
+          {filteredBoard.length > 0 && (
+            <div className="flex items-center gap-2">
+              <div className="relative">
+                <Search className="w-3.5 h-3.5 absolute left-3 top-2.5 text-[var(--text-muted)]" />
+                <input
+                  type="text"
+                  value={filterQuery}
+                  onChange={(e) => setFilterQuery(e.target.value)}
+                  placeholder="Filter by name, institution..."
+                  className="pl-8 pr-3 py-1.5 rounded-lg border border-[var(--border-subtle)] bg-[var(--bg-card)] text-xs text-[var(--text-primary)] placeholder-[var(--text-muted)] focus:outline-hidden focus:ring-1 focus:ring-[var(--accent-navy)]"
+                />
+              </div>
             </div>
-          </div>
+          )}
         </div>
 
-        {/* Board Profiles Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          {filteredBoard.map((member) => (
-            <div
-              key={member.id}
-              className="p-6 sm:p-7 rounded-2xl border border-[var(--border-subtle)] bg-[var(--bg-card)] hover:border-[var(--accent-gold)]/50 transition-all space-y-4 shadow-2xs group flex flex-col justify-between"
-            >
-              <div className="space-y-3">
-                {/* Role badge & ORCID */}
-                <div className="flex items-center justify-between text-xs">
-                  <span className="px-2.5 py-0.5 rounded-full text-[10px] font-mono font-bold uppercase tracking-wide bg-[var(--accent-navy)]/10 text-[var(--accent-navy)]">
-                    {member.role}
-                  </span>
-                  {member.orcid && (
-                    <a
-                      href={`https://orcid.org/${member.orcid}`}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="inline-flex items-center gap-1 font-mono text-[10px] text-emerald-600 dark:text-emerald-400 hover:underline"
-                    >
-                      <CheckCircle2 className="w-3 h-3" />
-                      <span>ORCID: {member.orcid}</span>
-                    </a>
-                  )}
-                </div>
-
-                {/* Name & Title */}
-                <div>
-                  <h3 className="font-serif text-xl font-bold text-[var(--text-primary)] group-hover:text-[var(--accent-navy)] transition-colors">
-                    {member.name}
-                  </h3>
-                  <div className="flex items-center gap-1.5 text-xs text-[var(--text-muted)] mt-1 font-mono">
-                    <Building2 className="w-3.5 h-3.5 shrink-0 text-[var(--accent-gold)]" />
-                    <span>{member.affiliation}</span>
+        {/* Board Profiles Grid (when members are present) */}
+        {filteredBoard.length > 0 ? (
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            {filteredBoard.map((member) => (
+              <div
+                key={member.id}
+                className="p-6 sm:p-7 rounded-2xl border border-[var(--border-subtle)] bg-[var(--bg-card)] hover:border-[var(--accent-gold)]/50 transition-all space-y-4 shadow-2xs group flex flex-col justify-between"
+              >
+                <div className="space-y-3">
+                  <div className="flex items-center justify-between text-xs">
+                    <span className="px-2.5 py-0.5 rounded-full text-[10px] font-mono font-bold uppercase tracking-wide bg-[var(--accent-navy)]/10 text-[var(--accent-navy)]">
+                      {member.role}
+                    </span>
+                    {member.orcid && (
+                      <a
+                        href={`https://orcid.org/${member.orcid}`}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center gap-1 font-mono text-[10px] text-emerald-600 dark:text-emerald-400 hover:underline"
+                      >
+                        <CheckCircle2 className="w-3 h-3" />
+                        <span>ORCID: {member.orcid}</span>
+                      </a>
+                    )}
                   </div>
-                </div>
 
-                {/* Discipline Tag */}
-                <div className="inline-block px-2.5 py-1 rounded-md bg-[var(--bg-page)] text-[var(--text-secondary)] text-xs font-medium border border-[var(--border-subtle)]">
-                  Discipline: <strong className="text-[var(--text-primary)]">{member.discipline}</strong>
-                </div>
-
-                {/* Biography */}
-                <p className="text-xs sm:text-sm text-[var(--text-secondary)] font-serif leading-relaxed">
-                  {member.bio}
-                </p>
-
-                {/* Editorial Focus */}
-                {member.editorialFocus && (
-                  <div className="text-xs text-[var(--text-muted)] font-serif pt-1 border-t border-[var(--border-subtle)]">
-                    <strong className="text-[var(--text-primary)] font-mono">Editorial Focus:</strong> {member.editorialFocus}
-                  </div>
-                )}
-              </div>
-
-              {/* Recent Publications / Links */}
-              {member.recentPublications && member.recentPublications.length > 0 && (
-                <div className="pt-2 border-t border-[var(--border-subtle)] text-[11px] text-[var(--text-muted)] font-serif space-y-1">
-                  <span className="font-mono font-bold text-[10px] uppercase block text-[var(--accent-gold)]">
-                    Selected Scholarship:
-                  </span>
-                  {member.recentPublications.map((pub, idx) => (
-                    <div key={idx} className="line-clamp-1 italic text-[var(--text-secondary)]">
-                      • {pub}
+                  <div>
+                    <h3 className="font-serif text-xl font-bold text-[var(--text-primary)] group-hover:text-[var(--accent-navy)] transition-colors">
+                      {member.name}
+                    </h3>
+                    <div className="flex items-center gap-1.5 text-xs text-[var(--text-muted)] mt-1 font-mono">
+                      <Building2 className="w-3.5 h-3.5 shrink-0 text-[var(--accent-gold)]" />
+                      <span>{member.affiliation}</span>
                     </div>
-                  ))}
+                  </div>
+
+                  <div className="inline-block px-2.5 py-1 rounded-md bg-[var(--bg-page)] text-[var(--text-secondary)] text-xs font-medium border border-[var(--border-subtle)]">
+                    Discipline: <strong className="text-[var(--text-primary)]">{member.discipline}</strong>
+                  </div>
+
+                  <p className="text-xs sm:text-sm text-[var(--text-secondary)] font-serif leading-relaxed">
+                    {member.bio}
+                  </p>
                 </div>
-              )}
-            </div>
-          ))}
-        </div>
-      </section>
-
-      {/* Advisory Board Council */}
-      <section className="space-y-6 pt-6 border-t border-[var(--border-subtle)]">
-        <div className="space-y-1">
-          <h2 className="font-serif text-2xl font-bold text-[var(--text-primary)] flex items-center gap-2">
-            <GraduationCap className="w-5 h-5 text-[var(--accent-gold)]" />
-            <span>Advisory Council &amp; Senior Fellows</span>
-          </h2>
-          <p className="text-xs sm:text-sm text-[var(--text-secondary)] font-serif">
-            Distinguished senior jurists, former appellate judges, and forensic institutional leaders providing strategic and ethical counsel.
-          </p>
-        </div>
-
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          {advisoryMembers.map((adv) => (
-            <div
-              key={adv.id}
-              className="p-5 rounded-xl border border-[var(--border-subtle)] bg-[var(--bg-card)] space-y-2 shadow-2xs"
-            >
-              <div className="flex items-center justify-between text-xs">
-                <span className="font-serif font-bold text-base text-[var(--text-primary)]">
-                  {adv.name}
-                </span>
-                <span className="text-[10px] font-mono px-2 py-0.5 rounded-full bg-[var(--bg-page)] text-[var(--text-muted)] border border-[var(--border-subtle)]">
-                  {adv.role}
-                </span>
               </div>
-              <div className="text-xs font-mono text-[var(--accent-gold)]">
-                {adv.institution}
+            ))}
+          </div>
+        ) : (
+          /* Formal Status: Board Under Constitution */
+          <div className="space-y-6">
+            <div className="p-8 rounded-2xl border border-[var(--border-subtle)] bg-[var(--bg-card)] space-y-4">
+              <div className="flex items-center gap-2 text-xs font-mono uppercase font-bold text-[var(--accent-gold)]">
+                <Clock className="w-4 h-4" />
+                <span>Notice of Governance</span>
               </div>
-              <div className="text-xs text-[var(--text-secondary)] font-serif">
-                <strong>Area:</strong> {adv.discipline}
-              </div>
-              <p className="text-xs text-[var(--text-muted)] font-serif pt-1">
-                {adv.bio}
+              <h3 className="font-serif text-2xl font-bold text-[var(--text-primary)]">
+                Editorial Board &amp; Advisory Council Under Constitution
+              </h3>
+              <p className="text-sm text-[var(--text-secondary)] font-serif leading-relaxed max-w-3xl">
+                The inaugural Editorial Board and Advisory Council for <em>The Crime &amp; Society Review</em> are currently being formalized. The verified roster of jurists, forensic scientists, criminologists, and legal scholars will be officially published here following the confirmation of appointments.
               </p>
             </div>
-          ))}
-        </div>
+
+            {/* Editorial Portfolios Breakdown */}
+            <div className="space-y-3">
+              <h3 className="font-serif text-lg font-bold text-[var(--text-primary)]">
+                Editorial Subject Tracks &amp; Review Portfolios
+              </h3>
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                {editorialTracks.map((track, i) => {
+                  const Icon = track.icon;
+                  return (
+                    <div 
+                      key={i} 
+                      className="p-5 rounded-2xl border border-[var(--border-subtle)] bg-[var(--bg-card)] space-y-3 flex flex-col justify-between"
+                    >
+                      <div className="space-y-2">
+                        <div className="w-8 h-8 rounded-lg bg-[var(--accent-navy)]/10 text-[var(--accent-navy)] flex items-center justify-center">
+                          <Icon className="w-4 h-4 text-[var(--accent-gold)]" />
+                        </div>
+                        <h4 className="font-serif font-bold text-sm text-[var(--text-primary)]">
+                          {track.discipline}
+                        </h4>
+                        <p className="text-xs text-[var(--text-secondary)] font-serif leading-relaxed">
+                          {track.focus}
+                        </p>
+                      </div>
+                      <div className="pt-2 border-t border-[var(--border-subtle)] font-mono text-[11px] text-[var(--accent-gold)] font-medium">
+                        {track.status}
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+          </div>
+        )}
       </section>
 
       {/* Institutional Join Notice */}
@@ -246,23 +239,25 @@ export const EditorialBoardPage: React.FC = () => {
           Join the Peer Reviewer &amp; Editorial Pool
         </h3>
         <p className="text-xs sm:text-sm text-[var(--text-secondary)] font-serif max-w-xl mx-auto">
-          We welcome expressions of interest from active legal academics, forensic examiners at CFSL/FSLs, and criminological researchers holding a PhD or substantive institutional trial experience.
+          We welcome expressions of interest from active legal academics, forensic examiners, and criminological researchers holding doctoral qualifications or substantive institutional trial expertise.
         </p>
         <div className="flex flex-wrap justify-center gap-3 pt-2">
           <Link
-            to="/for-reviewers"
+            to="/contact"
             className="px-5 py-2.5 rounded-lg bg-[var(--accent-navy)] text-white text-xs font-semibold hover:opacity-90 transition-opacity"
           >
-            Reviewer Guidelines &amp; Registration
+            Contact Editorial Office
           </Link>
           <Link
-            to="/contact"
+            to="/about"
             className="px-5 py-2.5 rounded-lg border border-[var(--border-strong)] bg-[var(--bg-card)] text-[var(--text-primary)] text-xs font-semibold hover:bg-[var(--bg-card-hover)]"
           >
-            Contact Editorial Office
+            Read Journal Mission
           </Link>
         </div>
       </section>
     </div>
   );
 };
+
+export default EditorialBoardPage;

@@ -639,80 +639,8 @@ export const MOCK_ARTICLES: Article[] = [
   }
 ];
 
-export const MOCK_BOARD_MEMBERS: BoardMember[] = [
-  {
-    id: "bm-1",
-    name: "Prof. (Dr.) Ved Prakash Sharma",
-    role: "Editor-in-Chief",
-    discipline: "Criminal Jurisprudence & Forensic Epistemology",
-    affiliation: "National Law School of India University (NLSIU), Bengaluru",
-    rorId: "https://ror.org/01nlsiu",
-    orcid: "0000-0002-9901-4432",
-    bio: "Prof. Sharma is a renowned Indian jurist who has served on multiple Law Commission consultative panels on criminal law reform. His research examines the intersection of constitutional due process, the Bharatiya Sakshya Adhiniyam (BSA), and scientific proof.",
-    editorialFocus: "Doctrinal criminal law, statutory interpretation, interdisciplinary evidence standards, and editorial triage.",
-    recentPublications: [
-      "The Law of Evidence in India: From Colonial Act to BSA (Eastern Book Company, 2024)",
-      "Re-examining Section 63 BSA in the Digital Era (Supreme Court Cases, 2025)"
-    ]
-  },
-  {
-    id: "bm-2",
-    name: "Hon. Justice (Retd.) Anandita Sen",
-    role: "Senior Associate Editor",
-    discipline: "Constitutional Law & Judicial Administration",
-    affiliation: "Former Judge, Supreme Court of India / Distinguished Visiting Professor, NLU Delhi",
-    rorId: "https://ror.org/05nlud02",
-    orcid: "0000-0003-2194-0012",
-    bio: "Justice Sen authored benchmark judgments on undertrial rights, custodial bail jurisprudence, and digital privacy under Article 21. She oversees the journal's judicial studies and procedural fairness review tracks.",
-    editorialFocus: "Constitutional criminal justice, bail jurisprudence, judicial administration, and trial procedures.",
-    recentPublications: [
-      "Bail as a Right: Deconstructing Undertrial Incarceration in India (Journal of the Indian Law Institute, 2023)",
-      "The Constitutional Dimensions of the BNSS (SCC Journal, 2025)"
-    ]
-  },
-  {
-    id: "bm-3",
-    name: "Dr. Harshwardhan Parikh",
-    role: "Section Editor",
-    discipline: "Forensic Science & DNA Phenotyping",
-    affiliation: "School of Forensic Sciences, National Forensic Sciences University (NFSU), Gandhinagar",
-    rorId: "https://ror.org/03nfsu01",
-    orcid: "0000-0001-7729-1054",
-    bio: "Dr. Parikh is a leading forensic scientist specializing in complex biological mixtures, probabilistic genotyping, and standard operating procedures for crime scene investigation under the BNSS.",
-    editorialFocus: "Forensic biology, DNA validation, chain of custody verification, and physical evidence admissibility.",
-    recentPublications: [
-      "Probabilistic Calibration in Indian FSLs: Overcoming Low-Template DNA Ambiguities (Forensic Sci Int, 2024)"
-    ]
-  },
-  {
-    id: "bm-4",
-    name: "Prof. Kavita Krishnamurthy",
-    role: "Section Editor",
-    discipline: "Criminology, Penology & Victim Studies",
-    affiliation: "Centre for Criminology & Justice, Tata Institute of Social Sciences (TISS), Mumbai",
-    rorId: "https://ror.org/02tiss99",
-    orcid: "0000-0002-3901-8840",
-    bio: "Prof. Krishnamurthy leads ground-breaking field investigations on prison overcrowding, carceral sociology, prison mental health, and the rehabilitation of women and juvenile offenders.",
-    editorialFocus: "Penology, carceral sociology, POCSO court processes, and restorative Lok Adalat models.",
-    recentPublications: [
-      "Carceral Realities: An Audit of Central Prisons across Maharashtra and UP (Economic & Political Weekly, 2024)"
-    ]
-  },
-  {
-    id: "bm-5",
-    name: "Shri Arvind Shrivastava, IPS (Retd.)",
-    role: "Section Editor",
-    discipline: "Policing, Cyber Intelligence & Internal Security",
-    affiliation: "Former Director General of Police / Senior Research Fellow, BPR&D, New Delhi",
-    rorId: "https://ror.org/04bprd",
-    orcid: "0000-0002-6612-9901",
-    bio: "Shri Shrivastava served for 35 years in the Indian Police Service, heading state cyber divisions and counter-terror task forces. He advises the journal on investigative ethics, AFRS deployment, and police reforms.",
-    editorialFocus: "Police investigation techniques, Section 105 BNSS videography implementation, cyber fraud containment, and police welfare.",
-    recentPublications: [
-      "Operationalizing the Bharatiya Nagarik Suraksha Sanhita: A Field Manual for Investigating Officers (BPR&D, 2024)"
-    ]
-  }
-];
+// Real editorial board members can be added here
+export const MOCK_BOARD_MEMBERS: BoardMember[] = [];
 
 export const MOCK_CONCEPT_NODES: ConceptNode[] = [
   { id: "c1", label: "BSA Section 63 Evidence", category: "Law", articlesCount: 28, x: 220, y: 150 },

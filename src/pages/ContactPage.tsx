@@ -190,7 +190,7 @@ export const ContactPage: React.FC = () => {
                     required
                     value={form.name}
                     onChange={(e) => setForm({ ...form, name: e.target.value })}
-                    placeholder="Prof. / Dr. / Advocate / Scholar"
+                    placeholder="Enter your full name"
                     className="w-full text-xs sm:text-sm p-2.5 rounded-lg border border-[var(--border-subtle)] bg-[var(--bg-page)] text-[var(--text-primary)] focus:outline-hidden focus:ring-1 focus:ring-[var(--accent-navy)]"
                   />
                 </div>
