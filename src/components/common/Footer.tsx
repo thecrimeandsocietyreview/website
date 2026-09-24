@@ -20,9 +20,6 @@ export const Footer: React.FC = () => {
               <span className="font-serif font-bold text-base sm:text-lg text-[var(--text-primary)] block leading-tight">
                 {JOURNAL_METADATA.name}
               </span>
-              <span className="text-[11px] font-mono text-[var(--accent-gold)] font-bold">
-                Online ISSN {JOURNAL_METADATA.issnOnline} • Print ISSN {JOURNAL_METADATA.issnPrint}
-              </span>
             </div>
           </div>
         </div>

@@ -37,7 +37,7 @@ export const AboutPage: React.FC = () => {
         </h2>
         <div className="prose prose-slate dark:prose-invert max-w-none text-sm sm:text-base text-[var(--text-secondary)] font-serif leading-relaxed space-y-4">
           <p>
-            <strong>The Crime &amp; Society Review</strong> (Online ISSN: {JOURNAL_METADATA.issnOnline}, Print ISSN: {JOURNAL_METADATA.issnPrint}) is an independent, peer-reviewed, open-access academic rolling publication dedicated to advancing critical, evidence-informed, and multidimensional understandings of crime, criminality, victimisation, institutional justice, and society within India and the Global South.
+            <strong>The Crime &amp; Society Review</strong> is an independent, peer-reviewed, open-access academic rolling publication dedicated to advancing critical, evidence-informed, and multidimensional understandings of crime, criminality, victimisation, institutional justice, and society within India and the Global South.
           </p>
           <p>
             The journal operates as an interdisciplinary continuous publication forum, ensuring that validated scholarship on statutory reforms, forensic sciences, and constitutional criminal jurisprudence is published as an authoritative, publicly accessible Version of Record.
