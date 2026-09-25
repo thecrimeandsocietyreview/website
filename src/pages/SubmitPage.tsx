@@ -502,7 +502,7 @@ Editorial Desk: submissions@thecrimeandsocietyreview.org
     <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 py-8 animate-fadeIn">
       
       {/* 2-Column Desktop Grid: Left Guidelines (order-2 on mobile, order-1 on desktop), Right Form (order-1 on mobile, order-2 on desktop) */}
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch">
         
         {/* ========================================================
             GUIDELINES COLUMN: (7 cols on desktop, order-2 on mobile)
@@ -1017,10 +1017,10 @@ Editorial Desk: submissions@thecrimeandsocietyreview.org
 
         {/* ========================================================
             SUBMISSION FORM COLUMN: (5 cols on desktop, order-1 on mobile)
-            Locked in place on desktop - Only guidelines scroll
+            Locked in place on desktop - Stays sticky throughout entire page scroll
         ======================================================== */}
-        <div className="order-1 lg:order-2 lg:col-span-5 relative">
-          <div className="lg:sticky lg:top-24 lg:max-h-[calc(100vh-120px)] lg:overflow-y-auto pr-1 pb-4">
+        <div className="order-1 lg:order-2 lg:col-span-5 relative self-stretch">
+          <div className="lg:sticky lg:top-20 lg:max-h-[calc(100vh-5.5rem)] lg:overflow-y-auto overscroll-contain pr-1 pb-4">
             
             <div className="p-6 rounded-2xl border border-[var(--border-strong)] bg-[var(--bg-card)] space-y-6 shadow-md">
             
