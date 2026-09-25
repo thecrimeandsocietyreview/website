@@ -33,5 +33,27 @@
   <body class="bg-parchment-50 text-slate-900 font-sans antialiased transition-colors duration-200">
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
+
+    <!-- Cloudflare Web Analytics (Privacy-First, Cookie-Free) -->
+    <!-- 
+      Note: If your custom domain is connected via Cloudflare DNS (Orange cloud),
+      Cloudflare can automatically inject analytics without any token needed.
+      If using manual JS beacon, replace the token below with your site's token from:
+      Cloudflare Dashboard -> Web Analytics -> Manage Site.
+    -->
+    <script>
+      (function() {
+        // Optional: Paste your Cloudflare Web Analytics token below if not using Cloudflare Proxy Automatic Injection
+        var cfToken = window.CF_BEACON_TOKEN || "";
+        if (cfToken && cfToken !== "YOUR_CLOUDFLARE_ANALYTICS_TOKEN") {
+          var cfScript = document.createElement("script");
+          cfScript.defer = true;
+          cfScript.src = "https://static.cloudflareinsights.com/beacon.min.js";
+          cfScript.setAttribute("data-cf-beacon", '{"token": "' + cfToken + '"}');
+          document.head.appendChild(cfScript);
+        }
+      })();
+    </script>
+    <!-- End Cloudflare Web Analytics -->
   </body>
 </html>

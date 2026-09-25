@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { JOURNAL_METADATA } from '../../data/mockJournalData';
+import { VisitorCounter } from './VisitorCounter';
 
 export const Footer: React.FC = () => {
   return (
@@ -8,7 +9,7 @@ export const Footer: React.FC = () => {
       {/* Main Footer Links */}
       <div className="max-w-6xl mx-auto px-4 py-10 grid grid-cols-1 md:grid-cols-4 gap-8">
         
-        {/* Brand Info (Col 1-2) */}
+        {/* Brand Info & Visitor Metrics (Col 1-2) */}
         <div className="md:col-span-2 space-y-4">
           <div className="flex items-center gap-3.5">
             <img 
@@ -20,7 +21,18 @@ export const Footer: React.FC = () => {
               <span className="font-serif font-bold text-base sm:text-lg text-[var(--text-primary)] block leading-tight">
                 {JOURNAL_METADATA.name}
               </span>
+              <p className="text-xs text-[var(--text-muted)] font-serif mt-1">
+                {JOURNAL_METADATA.tagline}
+              </p>
             </div>
+          </div>
+          <p className="text-xs text-[var(--text-secondary)] leading-relaxed font-sans pr-4">
+            {JOURNAL_METADATA.subtagline}
+          </p>
+
+          {/* Visitor Counter */}
+          <div className="pt-1">
+            <VisitorCounter />
           </div>
         </div>
 
