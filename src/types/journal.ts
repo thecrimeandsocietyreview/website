@@ -174,6 +174,20 @@ export interface ConceptEdge {
   strength: number;
 }
 
+export interface AuthorSubmissionDetail {
+  id?: string;
+  fullName: string;
+  email: string;
+  designation?: string;
+  affiliation: string;
+  department?: string;
+  cityCountry?: string;
+  qualification?: string;
+  orcid?: string;
+  isCorresponding?: boolean;
+  bio?: string;
+}
+
 export interface SubmissionDraft {
   id: string;
   trackingNumber: string;
@@ -195,4 +209,9 @@ export interface SubmissionDraft {
   submittedAt: string;
   status: 'Submitted' | 'Editorial Triage' | 'Under Peer Review' | 'Revisions Required' | 'Accepted' | 'Published';
   currentStageNumber: number; // 1 to 6
+  authorMode?: 'manual' | 'upload';
+  authorDetails?: AuthorSubmissionDetail[];
+  authorInfoFileName?: string;
+  authorInfoFileSize?: string;
+  keywords?: string;
 }
