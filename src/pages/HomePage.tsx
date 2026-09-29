@@ -11,7 +11,6 @@ import {
   Landmark,
   ShieldAlert,
   HeartHandshake,
-  CheckCircle2,
   Award,
   FileText
 } from 'lucide-react';
@@ -183,9 +182,6 @@ export const HomePage: React.FC = () => {
                     <p className="text-[11px] text-[var(--text-muted)] mt-1 leading-tight font-serif">
                       {lens.desc}
                     </p>
-                  </div>
-                  <div className="pt-2 border-t border-[var(--border-subtle)] text-[10px] font-mono text-[var(--accent-gold)] font-semibold flex items-center gap-1">
-                    <CheckCircle2 className="w-3 h-3 text-emerald-500" /> Lens 0{i + 1}
                   </div>
                 </div>
               );
