@@ -18,7 +18,7 @@ export const Header: React.FC = () => {
   const navLinks = [
     { label: 'Home', path: '/' },
     { label: 'About the Journal', path: '/about' },
-    { label: 'Aims & Scope', path: '/aims-scope' },
+    { label: 'Aim and Scope', path: '/aims-scope' },
     { label: 'Editorial Board', path: '/editorial-board' },
     { label: 'The Rashomon Approach', path: '/rashomon-approach' },
     { label: 'Current Issue', path: '/current-issue' },

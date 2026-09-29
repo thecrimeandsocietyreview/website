@@ -44,7 +44,7 @@ export const Footer: React.FC = () => {
           <ul className="space-y-2 text-xs font-serif">
             <li><Link to="/" className="hover:text-[var(--accent-navy)] transition-colors">1. Home</Link></li>
             <li><Link to="/about" className="hover:text-[var(--accent-navy)] transition-colors">2. About the Journal</Link></li>
-            <li><Link to="/aims-scope" className="hover:text-[var(--accent-navy)] transition-colors">3. Aims &amp; Scope</Link></li>
+            <li><Link to="/aims-scope" className="hover:text-[var(--accent-navy)] transition-colors">3. Aim and Scope</Link></li>
             <li><Link to="/editorial-board" className="hover:text-[var(--accent-navy)] transition-colors">4. Editorial Board</Link></li>
             <li><Link to="/rashomon-approach" className="hover:text-[var(--accent-navy)] transition-colors font-medium text-[var(--accent-gold)]">5. The Rashomon Approach</Link></li>
             <li><Link to="/current-issue" className="hover:text-[var(--accent-navy)] transition-colors">6. Current Issue</Link></li>
@@ -80,7 +80,7 @@ export const Footer: React.FC = () => {
             <span>•</span>
             <Link to="/about" className="hover:text-[var(--text-primary)]">About</Link>
             <span>•</span>
-            <Link to="/aims-scope" className="hover:text-[var(--text-primary)]">Aims &amp; Scope</Link>
+            <Link to="/aims-scope" className="hover:text-[var(--text-primary)]">Aim and Scope</Link>
             <span>•</span>
             <Link to="/editorial-board" className="hover:text-[var(--text-primary)]">Editorial Board</Link>
             <span>•</span>
