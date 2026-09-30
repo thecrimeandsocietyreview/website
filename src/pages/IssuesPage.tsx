@@ -102,57 +102,58 @@ export const IssuesPage: React.FC = () => {
           </div>
         </div>
 
-        {/* Right Side: COMING SOON CONTAINER (8 cols) */}
-        <div className="lg:col-span-8 bg-[var(--bg-card)] p-8 sm:p-10 rounded-2xl border border-[var(--border-subtle)] space-y-8 shadow-xs">
+        {/* Right Side: COMING SOON CONTAINER (8 cols - FEATURED DARK CARD) */}
+        <div className="lg:col-span-8 bg-gradient-to-br from-slate-950 via-slate-900 to-indigo-950 text-white p-8 sm:p-10 rounded-3xl border border-slate-800 space-y-8 shadow-xl relative overflow-hidden">
+          <div className="absolute top-0 right-0 w-96 h-96 bg-amber-500/5 rounded-full blur-3xl pointer-events-none" />
           
           {/* Coming Soon Spotlight */}
-          <div className="space-y-4 text-center sm:text-left">
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-mono font-bold uppercase tracking-wider bg-amber-500/10 text-amber-700 dark:text-amber-400 border border-amber-500/20">
-              <Clock className="w-3.5 h-3.5 text-amber-600 dark:text-amber-400" />
+          <div className="space-y-4 text-center sm:text-left relative z-10">
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-mono font-bold uppercase tracking-wider bg-amber-500/15 text-amber-400 border border-amber-500/30">
+              <Clock className="w-3.5 h-3.5 text-amber-400" />
               <span>Coming Soon • Scheduled for Oct – Dec 2026</span>
             </div>
 
-            <h2 className="font-serif text-2xl sm:text-3xl font-bold text-[var(--text-primary)]">
+            <h2 className="font-serif text-2xl sm:text-3xl font-bold text-white tracking-tight">
               Inaugural Issue In Preparation
             </h2>
 
-            <p className="text-sm text-[var(--text-secondary)] font-serif leading-relaxed">
-              The inaugural issue of <em>The Crime &amp; Society Review</em> (Volume 01, Issue 01) is scheduled for formal publication in <strong>October – December 2026</strong>. Submissions are currently open for empirical articles, theoretical inquiries, methodological reviews, and policy perspectives across criminal law, forensics, and criminological sciences.
+            <p className="text-sm text-slate-300 font-serif leading-relaxed">
+              The inaugural issue of <em>The Crime &amp; Society Review</em> (Volume 01, Issue 01) is scheduled for formal publication in <strong className="text-white">October – December 2026</strong>. Submissions are currently open for empirical articles, theoretical inquiries, methodological reviews, and policy perspectives across criminal law, forensics, and criminological sciences.
             </p>
           </div>
 
           {/* Issue Thematic Tracks in Peer Review */}
-          <div className="space-y-3 pt-2 border-t border-[var(--border-subtle)]">
-            <h3 className="font-serif font-bold text-base text-[var(--text-primary)] flex items-center gap-2">
-              <Sparkles className="w-4 h-4 text-[var(--accent-gold)]" />
+          <div className="space-y-3 pt-2 border-t border-slate-800 relative z-10">
+            <h3 className="font-serif font-bold text-base text-white flex items-center gap-2">
+              <Sparkles className="w-4 h-4 text-amber-400" />
               <span>Priority Editorial Tracks for Inaugural Issue:</span>
             </h3>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs font-serif">
-              <div className="p-3.5 rounded-xl border border-[var(--border-subtle)] bg-[var(--bg-page)] space-y-1">
-                <strong className="text-[var(--text-primary)] block font-sans">1. Statutory Criminal Law Reforms</strong>
-                <p className="text-[var(--text-secondary)] text-[11px]">
+              <div className="p-4 rounded-xl border border-slate-800 bg-slate-900/90 text-slate-300 hover:border-amber-400/40 transition-colors space-y-1">
+                <strong className="text-white block font-sans">1. Statutory Criminal Law Reforms</strong>
+                <p className="text-slate-400 text-[11px]">
                   Doctrinal &amp; empirical evaluations under Bharatiya Nyaya Sanhita (BNS), BNSS procedure, and BSA evidentiary rules.
                 </p>
               </div>
 
-              <div className="p-3.5 rounded-xl border border-[var(--border-subtle)] bg-[var(--bg-page)] space-y-1">
-                <strong className="text-[var(--text-primary)] block font-sans">2. Forensic Science &amp; Digital Hash Proof</strong>
-                <p className="text-[var(--text-secondary)] text-[11px]">
+              <div className="p-4 rounded-xl border border-slate-800 bg-slate-900/90 text-slate-300 hover:border-amber-400/40 transition-colors space-y-1">
+                <strong className="text-white block font-sans">2. Forensic Science &amp; Digital Hash Proof</strong>
+                <p className="text-slate-400 text-[11px]">
                   Electronic evidence certification under Section 63 BSA, DNA mixture reliability, and scientific error rates.
                 </p>
               </div>
 
-              <div className="p-3.5 rounded-xl border border-[var(--border-subtle)] bg-[var(--bg-page)] space-y-1">
-                <strong className="text-[var(--text-primary)] block font-sans">3. Frontline Policing &amp; Audio-Visual Records</strong>
-                <p className="text-[var(--text-secondary)] text-[11px]">
+              <div className="p-4 rounded-xl border border-slate-800 bg-slate-900/90 text-slate-300 hover:border-amber-400/40 transition-colors space-y-1">
+                <strong className="text-white block font-sans">3. Frontline Policing &amp; Audio-Visual Records</strong>
+                <p className="text-slate-400 text-[11px]">
                   Section 105 BNSS videography implementation, forensic custody chains, and law enforcement technologies.
                 </p>
               </div>
 
-              <div className="p-3.5 rounded-xl border border-[var(--border-subtle)] bg-[var(--bg-page)] space-y-1">
-                <strong className="text-[var(--text-primary)] block font-sans">4. Undertrial Justice &amp; Due Process</strong>
-                <p className="text-[var(--text-secondary)] text-[11px]">
+              <div className="p-4 rounded-xl border border-slate-800 bg-slate-900/90 text-slate-300 hover:border-amber-400/40 transition-colors space-y-1">
+                <strong className="text-white block font-sans">4. Undertrial Justice &amp; Due Process</strong>
+                <p className="text-slate-400 text-[11px]">
                   Carceral sociology, undertrial pendency, Article 21 constitutional safeguards, and restorative penology models.
                 </p>
               </div>
@@ -160,24 +161,24 @@ export const IssuesPage: React.FC = () => {
           </div>
 
           {/* Submission Call to Action */}
-          <div className="p-6 rounded-2xl bg-[var(--bg-card-hover)] border border-[var(--border-subtle)] space-y-3">
-            <h4 className="font-serif font-bold text-base text-[var(--text-primary)]">
+          <div className="p-6 rounded-2xl bg-slate-900/80 border border-slate-800 space-y-3 relative z-10">
+            <h4 className="font-serif font-bold text-base text-white">
               Submit Your Research for the Inaugural Issue
             </h4>
-            <p className="text-xs text-[var(--text-secondary)] font-serif leading-relaxed">
+            <p className="text-xs text-slate-300 font-serif leading-relaxed">
               Manuscripts received will undergo double-blind peer review on a rolling continuous basis. Accepted papers will be assigned persistent identifiers and published immediately upon copyediting completion.
             </p>
             <div className="pt-2 flex flex-wrap gap-3">
               <Link
                 to="/submit"
-                className="px-5 py-2.5 rounded-xl bg-[var(--accent-navy)] text-white text-xs font-semibold hover:opacity-90 transition-opacity flex items-center gap-1.5"
+                className="px-5 py-2.5 rounded-xl bg-[var(--accent-gold)] hover:bg-[var(--accent-gold-hover)] text-slate-950 text-xs font-bold transition-all flex items-center gap-1.5 shadow-md"
               >
                 <span>Submit Manuscript</span>
                 <ArrowRight className="w-3.5 h-3.5" />
               </Link>
               <Link
                 to="/contact"
-                className="px-5 py-2.5 rounded-xl border border-[var(--border-strong)] bg-[var(--bg-card)] text-xs font-semibold text-[var(--text-primary)] hover:bg-[var(--bg-card-hover)]"
+                className="px-5 py-2.5 rounded-xl border border-slate-700 bg-slate-900 text-xs font-semibold text-slate-200 hover:border-amber-400 hover:text-white transition-all"
               >
                 Contact Editorial Office
               </Link>

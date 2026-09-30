@@ -828,34 +828,38 @@ Editorial Desk: submissions@thecrimeandsocietyreview.org
             </p>
           </section>
 
-          {/* Section 16: Submission Checklist (No tick boxes) */}
+          {/* Section 16: Submission Checklist (DARK LUXURY CARD) */}
           <section id="checklist" className="space-y-4 border-t border-[var(--border-subtle)] pt-8 pb-12">
-            <div className="space-y-1">
-              <div className="flex items-center gap-2 text-xs font-mono font-bold uppercase text-[var(--accent-gold)]">
-                <span>Section 16</span>
-              </div>
-              <h2 className="font-serif text-2xl font-bold text-[var(--text-primary)]">
-                Submission Checklist
-              </h2>
-            </div>
-            <p className="text-xs text-[var(--text-secondary)]">
-              Authors must verify and adhere to each requirement before submitting their manuscript:
-            </p>
-
-            <div className="space-y-2.5 p-4 rounded-2xl border border-[var(--border-subtle)] bg-[var(--bg-card)]">
-              {checklistItems.map((item, idx) => (
-                <div
-                  key={idx}
-                  className="flex items-start gap-3 p-2 rounded-lg hover:bg-[var(--bg-card-hover)] transition-colors"
-                >
-                  <span className="w-5 h-5 rounded-full bg-[var(--accent-navy)]/10 text-[var(--accent-navy)] font-mono text-[10px] flex items-center justify-center font-bold shrink-0 mt-0.5">
-                    {idx + 1}
-                  </span>
-                  <span className="text-xs text-[var(--text-primary)] font-sans leading-relaxed">
-                    {item}
-                  </span>
+            <div className="p-6 sm:p-8 rounded-3xl border border-slate-800 bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950 text-white space-y-4 shadow-xl relative overflow-hidden">
+              <div className="absolute top-0 right-0 w-80 h-80 bg-amber-500/5 rounded-full blur-3xl pointer-events-none" />
+              
+              <div className="space-y-1 relative z-10 border-b border-slate-800 pb-3">
+                <div className="inline-flex items-center gap-2 px-2.5 py-0.5 rounded-full text-[10px] font-mono font-bold uppercase text-amber-400 bg-amber-500/10 border border-amber-500/20">
+                  <span>Section 16 • Final Verification</span>
                 </div>
-              ))}
+                <h2 className="font-serif text-2xl font-bold text-white tracking-tight">
+                  Submission Checklist
+                </h2>
+                <p className="text-xs text-slate-300 font-serif">
+                  Authors must verify and adhere to each requirement before submitting their manuscript:
+                </p>
+              </div>
+
+              <div className="space-y-2 p-4 sm:p-5 rounded-2xl border border-slate-800 bg-slate-900/90 relative z-10">
+                {checklistItems.map((item, idx) => (
+                  <div
+                    key={idx}
+                    className="flex items-start gap-3 p-2 rounded-lg hover:bg-slate-800/80 transition-colors"
+                  >
+                    <span className="w-5 h-5 rounded-full bg-amber-500/20 text-amber-400 border border-amber-500/30 font-mono text-[10px] flex items-center justify-center font-bold shrink-0 mt-0.5">
+                      {idx + 1}
+                    </span>
+                    <span className="text-xs text-slate-200 font-sans leading-relaxed">
+                      {item}
+                    </span>
+                  </div>
+                ))}
+              </div>
             </div>
           </section>
 

@@ -102,21 +102,24 @@ export const AimsScopePage: React.FC = () => {
         </div>
       </section>
 
-      {/* 3. DISCIPLINES COVERED */}
-      <section className="p-8 rounded-2xl border border-[var(--border-subtle)] bg-[var(--bg-card-hover)] space-y-6">
-        <div className="space-y-1">
-          <div className="flex items-center gap-2 text-xs font-mono uppercase font-bold text-[var(--accent-gold)]">
-            <Sparkles className="w-4 h-4" /> Section 3
+      {/* 3. DISCIPLINES COVERED (FEATURED DARK CONTAINER) */}
+      <section className="p-8 sm:p-10 rounded-3xl border border-slate-800 bg-gradient-to-br from-slate-950 via-slate-900 to-indigo-950 text-white space-y-8 shadow-xl relative overflow-hidden">
+        <div className="absolute top-0 right-0 w-96 h-96 bg-amber-500/5 rounded-full blur-3xl pointer-events-none" />
+        
+        <div className="space-y-2 relative z-10 border-b border-slate-800 pb-5">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-mono uppercase font-bold text-amber-400 bg-amber-500/10 border border-amber-500/20">
+            <Sparkles className="w-3.5 h-3.5 text-amber-400" />
+            <span>Section 3 • Disciplinary Scope</span>
           </div>
-          <h2 className="font-serif text-2xl sm:text-3xl font-bold text-[var(--text-primary)]">
-            3. Disciplines Covered
+          <h2 className="font-serif text-2xl sm:text-3xl font-bold text-white tracking-tight">
+            Disciplines Covered
           </h2>
-          <p className="text-xs sm:text-sm text-[var(--text-secondary)] font-serif">
-            The journal spans six primary disciplinary pillars and their multi-way intersections.
+          <p className="text-xs sm:text-sm text-slate-300 font-serif leading-relaxed">
+            The journal spans six primary disciplinary pillars and their multidisciplinary intersections.
           </p>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 relative z-10">
           {[
             {
               title: "Criminal Law & Constitutional Jurisprudence",
@@ -143,14 +146,14 @@ export const AimsScopePage: React.FC = () => {
               desc: "Victim rights, compensation frameworks under Section 395 BNSS, vulnerable witness protection, POCSO trial safeguards, trauma-informed adjudication."
             }
           ].map((disc, idx) => (
-            <div key={idx} className="p-5 rounded-xl border border-[var(--border-subtle)] bg-[var(--bg-card)] space-y-2">
-              <span className="font-mono text-[10px] font-bold text-[var(--accent-gold)] uppercase block">
+            <div key={idx} className="p-5 rounded-2xl border border-slate-800 bg-slate-900/80 hover:border-amber-400/50 hover:bg-slate-850 transition-all space-y-2 group shadow-sm">
+              <span className="font-mono text-[10px] font-bold text-amber-400 uppercase tracking-wider block">
                 Discipline 0{idx + 1}
               </span>
-              <h4 className="font-serif font-bold text-sm text-[var(--text-primary)]">
+              <h4 className="font-serif font-bold text-sm text-white group-hover:text-amber-400 transition-colors">
                 {disc.title}
               </h4>
-              <p className="text-xs text-[var(--text-secondary)] font-serif leading-relaxed">
+              <p className="text-xs text-slate-300 font-serif leading-relaxed">
                 {disc.desc}
               </p>
             </div>

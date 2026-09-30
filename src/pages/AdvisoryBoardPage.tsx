@@ -48,18 +48,25 @@ export const AdvisoryBoardPage: React.FC = () => {
         </h1>
       </div>
 
-      {/* Advisory Mandate Overview */}
-      <section className="p-6 sm:p-8 rounded-2xl border border-[var(--border-subtle)] bg-[var(--bg-card)] space-y-4 shadow-xs">
-        <h2 className="font-serif text-xl sm:text-2xl font-bold text-[var(--text-primary)]">
-          Scholarly Counsel &amp; Strategic Oversight
-        </h2>
-        <div className="text-xs sm:text-sm text-[var(--text-secondary)] font-serif leading-relaxed space-y-3">
-          <p>
-            The Advisory Board of <em>The Crime &amp; Society Review</em> brings together distinguished jurists, legal scholars, criminologists, forensic examiners, and policy leaders. Members of the Advisory Board provide non-executive strategic counsel on journal priorities, special thematic issues, peer-review standards, and international indexing benchmarks.
-          </p>
-          <p>
-            Operating in alignment with the Committee on Publication Ethics (COPE) core practices, the Board ensures the journal remains insulated from external commercial or partisan influences while maintaining academic excellence across multidisciplinary inquiries.
-          </p>
+      {/* Advisory Mandate Overview (DARK FEATURE CARD) */}
+      <section className="p-7 sm:p-9 rounded-3xl border border-slate-800 bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950 text-white space-y-4 shadow-xl relative overflow-hidden">
+        <div className="absolute top-0 right-0 w-80 h-80 bg-amber-500/5 rounded-full blur-3xl pointer-events-none" />
+        <div className="relative z-10 space-y-3">
+          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[10px] font-mono uppercase tracking-wider bg-amber-500/15 text-amber-400 border border-amber-500/30 font-bold">
+            <Award className="w-3.5 h-3.5 text-amber-400" />
+            <span>Strategic Governance</span>
+          </div>
+          <h2 className="font-serif text-xl sm:text-2xl font-bold text-white tracking-tight">
+            Scholarly Counsel &amp; Strategic Oversight
+          </h2>
+          <div className="text-xs sm:text-sm text-slate-300 font-serif leading-relaxed space-y-3">
+            <p>
+              The Advisory Board of <em>The Crime &amp; Society Review</em> brings together distinguished jurists, legal scholars, criminologists, forensic examiners, and policy leaders. Members of the Advisory Board provide non-executive strategic counsel on journal priorities, special thematic issues, peer-review standards, and international indexing benchmarks.
+            </p>
+            <p>
+              Operating in alignment with the Committee on Publication Ethics (COPE) core practices, the Board ensures the journal remains insulated from external commercial or partisan influences while maintaining academic excellence across multidisciplinary inquiries.
+            </p>
+          </div>
         </div>
       </section>
 
@@ -109,25 +116,25 @@ export const AdvisoryBoardPage: React.FC = () => {
         </div>
       </section>
 
-      {/* Nomination & Invitation Notice */}
-      <section className="p-8 rounded-2xl bg-[var(--bg-card-hover)] border border-[var(--border-subtle)] text-center space-y-4">
-        <h3 className="font-serif text-xl font-bold text-[var(--text-primary)]">
+      {/* Nomination & Invitation Notice (DARK CARD) */}
+      <section className="p-8 sm:p-10 rounded-3xl bg-slate-900 border border-slate-800 text-center space-y-4 shadow-lg text-white">
+        <h3 className="font-serif text-xl sm:text-2xl font-bold text-white">
           Advisory Nominations &amp; Academic Expressions of Interest
         </h3>
-        <p className="text-xs sm:text-sm text-[var(--text-secondary)] font-serif max-w-xl mx-auto leading-relaxed">
+        <p className="text-xs sm:text-sm text-slate-300 font-serif max-w-xl mx-auto leading-relaxed">
           Nominations and expressions of interest for the Advisory Board are invited from senior professors, research directors, and institutional heads across law, forensic sciences, and criminology.
         </p>
         <div className="flex flex-wrap justify-center gap-3 pt-2">
           <Link
             to="/contact"
-            className="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg bg-[var(--accent-navy)] text-white text-xs font-semibold hover:opacity-90 transition-opacity"
+            className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-[var(--accent-gold)] hover:bg-[var(--accent-gold-hover)] text-slate-950 text-xs font-bold transition-all shadow-sm"
           >
             <Mail className="w-3.5 h-3.5" />
             <span>Contact Editorial Office</span>
           </Link>
           <Link
             to="/editorial-board"
-            className="px-5 py-2.5 rounded-lg border border-[var(--border-strong)] bg-[var(--bg-card)] text-[var(--text-primary)] text-xs font-semibold hover:bg-[var(--bg-card-hover)]"
+            className="px-5 py-2.5 rounded-xl border border-slate-700 bg-slate-800 text-slate-200 text-xs font-semibold hover:border-amber-400 hover:text-white transition-all"
           >
             View Editorial Board
           </Link>

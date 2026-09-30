@@ -120,20 +120,20 @@ export const EditorialBoardPage: React.FC = () => {
         </h1>
       </div>
 
-      {/* COPE Editorial Independence Charter Notice */}
-      <section className="p-6 rounded-2xl border border-[var(--border-subtle)] bg-[var(--bg-card)] flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
-        <div className="space-y-1">
-          <h3 className="font-serif font-bold text-base text-[var(--text-primary)] flex items-center gap-2">
-            <ShieldCheck className="w-5 h-5 text-emerald-500" />
+      {/* COPE Editorial Independence Charter Notice (DARK BANNER) */}
+      <section className="p-6 sm:p-7 rounded-2xl border border-slate-800 bg-gradient-to-r from-slate-950 via-slate-900 to-slate-950 text-white flex flex-col md:flex-row items-start md:items-center justify-between gap-4 shadow-md relative overflow-hidden">
+        <div className="space-y-1 relative z-10 max-w-3xl">
+          <h3 className="font-serif font-bold text-base text-white flex items-center gap-2">
+            <ShieldCheck className="w-5 h-5 text-emerald-400" />
             <span>COPE-Aligned Editorial Independence &amp; Academic Rigour</span>
           </h3>
-          <p className="text-xs sm:text-sm text-[var(--text-secondary)] font-serif leading-relaxed">
+          <p className="text-xs sm:text-sm text-slate-300 font-serif leading-relaxed">
             Editorial decision-making is insulated from commercial, political, or institutional influence. The Board assesses all manuscripts solely on scholarly merit, empirical integrity, and constitutional relevance through double-blind peer review.
           </p>
         </div>
         <Link
           to="/advisory-board"
-          className="shrink-0 px-4 py-2 rounded-lg bg-[var(--accent-navy)] text-white text-xs font-semibold hover:opacity-90 transition-opacity"
+          className="shrink-0 px-4 py-2 rounded-xl bg-[var(--accent-gold)] hover:bg-[var(--accent-gold-hover)] text-slate-950 text-xs font-bold transition-all shadow-sm relative z-10"
         >
           View Advisory Board
         </Link>
@@ -355,30 +355,30 @@ export const EditorialBoardPage: React.FC = () => {
           </h2>
         </div>
 
-        <div className="p-6 rounded-2xl border border-[var(--border-subtle)] bg-[var(--bg-card)] hover:border-[var(--accent-gold)]/40 transition-all space-y-4 shadow-2xs">
+        <div className="p-6 sm:p-7 rounded-2xl border border-slate-800 bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950 text-white hover:border-amber-400/40 transition-all space-y-4 shadow-xl relative overflow-hidden">
           <div className="flex flex-col sm:flex-row items-center sm:items-start gap-5">
             <DummyPhoto size="md" label="Tech Lead" />
 
             <div className="flex-1 text-center sm:text-left space-y-2">
               <div className="flex flex-wrap items-center justify-center sm:justify-start gap-2">
-                <span className="px-2.5 py-0.5 rounded text-[10px] font-mono font-bold uppercase tracking-wider bg-[var(--accent-navy)] text-white">
+                <span className="px-2.5 py-0.5 rounded text-[10px] font-mono font-bold uppercase tracking-wider bg-amber-500/20 text-amber-300 border border-amber-500/30">
                   Technical Lead &amp; Web Systems Editor
                 </span>
-                <span className="px-2.5 py-0.5 rounded text-[10px] font-mono font-bold uppercase tracking-wider bg-blue-500/10 text-blue-600 dark:text-blue-400 border border-blue-500/20">
+                <span className="px-2.5 py-0.5 rounded text-[10px] font-mono font-bold uppercase tracking-wider bg-cyan-500/15 text-cyan-300 border border-cyan-500/30">
                   Digital Systems &amp; Web Architecture
                 </span>
               </div>
 
               <div>
-                <h3 className="font-serif text-2xl font-bold text-[var(--text-primary)]">
+                <h3 className="font-serif text-2xl font-bold text-white">
                   Abhinav Kumar
                 </h3>
-                <p className="text-xs sm:text-sm font-serif text-[var(--accent-gold)] font-semibold mt-0.5">
+                <p className="text-xs sm:text-sm font-serif text-amber-400 font-semibold mt-0.5">
                   Technical &amp; Web Systems Lead • Digital Production Editor
                 </p>
               </div>
 
-              <p className="text-xs sm:text-sm text-[var(--text-secondary)] font-serif leading-relaxed max-w-3xl">
+              <p className="text-xs sm:text-sm text-slate-300 font-serif leading-relaxed max-w-3xl">
                 Oversees journal platform engineering, digital manuscript submission infrastructure, web security, content management, accessibility compliance, and technological implementation of <em>The Crime &amp; Society Review</em> digital publishing systems.
               </p>
             </div>

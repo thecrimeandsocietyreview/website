@@ -156,39 +156,41 @@ export const ContactPage: React.FC = () => {
         {/* Physical Address & Hours (5 cols) */}
         <div className="lg:col-span-5 space-y-6">
           
-          <div className="p-6 rounded-2xl border border-[var(--border-subtle)] bg-[var(--bg-card)] space-y-4">
-            <div className="flex items-center gap-2 text-xs font-mono uppercase font-bold text-[var(--accent-gold)]">
-              <MapPin className="w-4 h-4" />
+          {/* Editorial Office Card (FEATURED DARK CARD) */}
+          <div className="p-6 sm:p-7 rounded-3xl border border-slate-800 bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950 text-white space-y-5 shadow-xl relative overflow-hidden">
+            <div className="absolute top-0 right-0 w-48 h-48 bg-amber-500/5 rounded-full blur-2xl pointer-events-none" />
+            <div className="flex items-center gap-2 text-xs font-mono uppercase font-bold text-amber-400 relative z-10">
+              <MapPin className="w-4 h-4 text-amber-400" />
               <span>Editorial Office &amp; Secretariat</span>
             </div>
             
-            <div className="space-y-3 text-xs sm:text-sm font-serif text-[var(--text-secondary)]">
+            <div className="space-y-3.5 text-xs sm:text-sm font-serif text-slate-300 relative z-10">
               <div>
-                <strong className="text-[var(--text-primary)] block">
+                <strong className="text-white block font-sans text-base">
                   The Crime &amp; Society Review Editorial Office
                 </strong>
-                <p className="mt-0.5">
+                <p className="mt-1 text-slate-300">
                   Sector 9, Institutional Area, New Delhi – 110003, India
                 </p>
               </div>
 
               {/* Official Emails */}
-              <div className="pt-2 border-t border-[var(--border-subtle)] space-y-1.5 font-mono text-xs">
-                <div className="flex items-start gap-2">
-                  <Mail className="w-3.5 h-3.5 text-[var(--accent-gold)] shrink-0 mt-0.5" />
+              <div className="pt-3 border-t border-slate-800 space-y-2 font-mono text-xs">
+                <div className="flex items-start gap-2.5">
+                  <Mail className="w-4 h-4 text-amber-400 shrink-0 mt-0.5" />
                   <div>
-                    <span className="text-[var(--text-muted)] block text-[10px] uppercase">Editorial Office:</span>
-                    <a href="mailto:editor@thecrimeandsocietyreview.org" className="text-[var(--accent-navy)] hover:underline">
+                    <span className="text-slate-400 block text-[10px] uppercase font-bold">Editorial Office:</span>
+                    <a href="mailto:editor@thecrimeandsocietyreview.org" className="text-sky-400 hover:text-sky-300 transition-colors font-medium">
                       editor@thecrimeandsocietyreview.org
                     </a>
                   </div>
                 </div>
 
-                <div className="flex items-start gap-2 pt-1">
-                  <Mail className="w-3.5 h-3.5 text-[var(--accent-gold)] shrink-0 mt-0.5" />
+                <div className="flex items-start gap-2.5 pt-1.5">
+                  <Mail className="w-4 h-4 text-amber-400 shrink-0 mt-0.5" />
                   <div>
-                    <span className="text-[var(--text-muted)] block text-[10px] uppercase">Manuscript Submissions:</span>
-                    <a href="mailto:submissions@thecrimeandsocietyreview.org" className="text-[var(--accent-navy)] hover:underline">
+                    <span className="text-slate-400 block text-[10px] uppercase font-bold">Manuscript Submissions:</span>
+                    <a href="mailto:submissions@thecrimeandsocietyreview.org" className="text-sky-400 hover:text-sky-300 transition-colors font-medium">
                       submissions@thecrimeandsocietyreview.org
                     </a>
                   </div>
@@ -196,13 +198,13 @@ export const ContactPage: React.FC = () => {
               </div>
             </div>
 
-            <div className="pt-3 border-t border-[var(--border-subtle)] space-y-1 text-xs font-mono text-[var(--text-muted)]">
-              <div className="flex items-center gap-2 text-[var(--text-primary)] font-semibold">
-                <Clock className="w-3.5 h-3.5 text-[var(--accent-gold)]" />
+            <div className="pt-3 border-t border-slate-800 space-y-1 text-xs font-mono text-slate-400 relative z-10">
+              <div className="flex items-center gap-2 text-slate-200 font-semibold">
+                <Clock className="w-3.5 h-3.5 text-amber-400" />
                 <span>Editorial Desk Hours</span>
               </div>
               <p>{CONTACT_DETAILS.submissions.deskHours}</p>
-              <p>Closed on Sundays and National Gazette Holidays.</p>
+              <p className="text-[11px] text-slate-500">Closed on Sundays and National Gazette Holidays.</p>
             </div>
           </div>
 

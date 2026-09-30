@@ -92,24 +92,30 @@ export const HomePage: React.FC = () => {
       </section>
 
       {/* ========================================================
-          4. INTERDISCIPLINARY PILLARS HIGHLIGHT
+          4. INTERDISCIPLINARY PILLARS HIGHLIGHT (DARK LUXURY CARD)
       ======================================================== */}
       <section className="max-w-6xl mx-auto px-4 sm:px-6">
-        <div className="rounded-3xl border border-[var(--border-subtle)] bg-gradient-to-br from-[var(--bg-card)] via-[var(--bg-card-hover)] to-[var(--bg-card)] p-6 sm:p-10 shadow-sm space-y-8">
+        <div className="rounded-3xl border border-slate-800 bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950 p-6 sm:p-10 shadow-xl space-y-8 text-white relative overflow-hidden">
+          {/* Subtle gold ambient glow */}
+          <div className="absolute top-0 right-0 w-96 h-96 bg-amber-500/5 rounded-full blur-3xl pointer-events-none" />
           
-          <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 border-b border-[var(--border-subtle)] pb-6">
+          <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 border-b border-slate-800 pb-6 relative z-10">
             <div className="max-w-2xl space-y-2">
-              <h2 className="font-serif text-2xl sm:text-3xl font-bold text-[var(--text-primary)]">
+              <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-[10px] font-mono uppercase tracking-wider bg-amber-500/10 text-amber-400 border border-amber-500/30 font-bold">
+                <Sparkles className="w-3 h-3 text-amber-400" />
+                <span>Multidisciplinary Synthesis</span>
+              </div>
+              <h2 className="font-serif text-2xl sm:text-3xl font-bold text-white">
                 Interdisciplinary Pillars: Law, Forensics &amp; Society
               </h2>
-              <p className="text-xs sm:text-sm text-[var(--text-secondary)] font-serif leading-relaxed">
+              <p className="text-xs sm:text-sm text-slate-300 font-serif leading-relaxed">
                 Complex criminal justice phenomena cannot be resolved through one discipline alone. We synthesize statutory criminal codes, digital forensics, constitutional safeguards, and empirical realities.
               </p>
             </div>
 
             <Link
               to="/aims-scope"
-              className="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl bg-[var(--accent-navy)] text-white text-xs font-semibold hover:opacity-90 transition-opacity shrink-0"
+              className="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl bg-[var(--accent-gold)] hover:bg-[var(--accent-gold-hover)] text-slate-950 text-xs font-bold transition-all shrink-0 shadow-md"
             >
               <span>Explore Scholarly Scope</span>
               <ArrowRight className="w-3.5 h-3.5" />
@@ -117,48 +123,48 @@ export const HomePage: React.FC = () => {
           </div>
 
           {/* 6 Lenses Preview Grid */}
-          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3.5">
+          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3.5 relative z-10">
             {[
               {
                 name: 'Legal',
                 icon: Scale,
-                color: 'text-amber-600 dark:text-amber-400',
-                bg: 'bg-amber-500/10',
+                color: 'text-amber-400',
+                bg: 'bg-amber-500/15 border border-amber-500/30',
                 desc: 'BNS provisions, BSA evidentiary proof, Article 21 due process'
               },
               {
                 name: 'Psychological',
                 icon: Brain,
-                color: 'text-purple-600 dark:text-purple-400',
-                bg: 'bg-purple-500/10',
+                color: 'text-purple-400',
+                bg: 'bg-purple-500/15 border border-purple-500/30',
                 desc: 'Cognitive bias, interrogation trauma, memory reliability'
               },
               {
                 name: 'Forensic',
                 icon: Microscope,
-                color: 'text-blue-600 dark:text-blue-400',
-                bg: 'bg-blue-500/10',
+                color: 'text-blue-400',
+                bg: 'bg-blue-500/15 border border-blue-500/30',
                 desc: 'Digital hash validation, DNA mixtures, scientific error rates'
               },
               {
                 name: 'Sociological',
                 icon: Landmark,
-                color: 'text-emerald-600 dark:text-emerald-400',
-                bg: 'bg-emerald-500/10',
+                color: 'text-emerald-400',
+                bg: 'bg-emerald-500/15 border border-emerald-500/30',
                 desc: 'Structural harms, undertrial pendency, carceral dynamics'
               },
               {
                 name: 'Policing',
                 icon: ShieldAlert,
-                color: 'text-rose-600 dark:text-rose-400',
-                bg: 'bg-rose-500/10',
+                color: 'text-rose-400',
+                bg: 'bg-rose-500/15 border border-rose-500/30',
                 desc: 'Section 105 BNSS videography, frontline field constraints'
               },
               {
                 name: 'Victimology',
                 icon: HeartHandshake,
-                color: 'text-teal-600 dark:text-teal-400',
-                bg: 'bg-teal-500/10',
+                color: 'text-teal-400',
+                bg: 'bg-teal-500/15 border border-teal-500/30',
                 desc: 'Secondary victimization, witness protection, restitution'
               },
             ].map((lens, i) => {
@@ -166,16 +172,16 @@ export const HomePage: React.FC = () => {
               return (
                 <div 
                   key={i} 
-                  className="p-3.5 rounded-2xl border border-[var(--border-subtle)] bg-[var(--bg-card)] hover:border-[var(--accent-gold)] transition-all flex flex-col justify-between space-y-2"
+                  className="p-3.5 rounded-2xl border border-slate-800 bg-slate-900/90 hover:border-amber-400/50 hover:bg-slate-850 transition-all flex flex-col justify-between space-y-2 group shadow-sm"
                 >
                   <div>
-                    <div className={`w-8 h-8 rounded-lg flex items-center justify-center ${lens.bg} ${lens.color} mb-2`}>
+                    <div className={`w-8 h-8 rounded-lg flex items-center justify-center ${lens.bg} ${lens.color} mb-2 group-hover:scale-105 transition-transform`}>
                       <Icon className="w-4 h-4" />
                     </div>
-                    <h3 className="font-serif font-bold text-xs sm:text-sm text-[var(--text-primary)]">
+                    <h3 className="font-serif font-bold text-xs sm:text-sm text-white group-hover:text-amber-400 transition-colors">
                       {lens.name}
                     </h3>
-                    <p className="text-[11px] text-[var(--text-muted)] mt-1 leading-tight font-serif">
+                    <p className="text-[11px] text-slate-400 mt-1 leading-tight font-serif">
                       {lens.desc}
                     </p>
                   </div>
@@ -237,25 +243,31 @@ export const HomePage: React.FC = () => {
             </Link>
           </div>
 
-          {/* Card 3: Manuscript Submissions */}
-          <div className="p-6 rounded-2xl border border-[var(--border-subtle)] bg-[var(--bg-card)] hover:border-[var(--accent-gold)] transition-colors flex flex-col justify-between space-y-4 shadow-2xs">
-            <div className="space-y-2.5">
-              <div className="w-10 h-10 rounded-xl bg-[var(--accent-navy)]/10 text-[var(--accent-navy)] flex items-center justify-center">
-                <FileText className="w-5 h-5 text-[var(--accent-gold)]" />
+          {/* Card 3: Manuscript Submissions (Featured Dark Card) */}
+          <div className="p-6 rounded-2xl border border-amber-500/30 bg-gradient-to-br from-slate-950 via-slate-900 to-indigo-950 text-white hover:border-amber-400/60 transition-all flex flex-col justify-between space-y-4 shadow-md relative overflow-hidden group">
+            <div className="absolute top-0 right-0 w-32 h-32 bg-amber-500/10 rounded-full blur-2xl pointer-events-none" />
+            <div className="space-y-2.5 relative z-10">
+              <div className="flex items-center justify-between">
+                <div className="w-10 h-10 rounded-xl bg-amber-500/15 border border-amber-500/30 text-amber-400 flex items-center justify-center">
+                  <FileText className="w-5 h-5 text-amber-400" />
+                </div>
+                <span className="px-2 py-0.5 rounded text-[10px] font-mono font-bold uppercase tracking-wider bg-emerald-500/20 text-emerald-400 border border-emerald-500/30">
+                  ₹0 APC
+                </span>
               </div>
-              <h3 className="font-serif text-lg font-bold text-[var(--text-primary)]">
+              <h3 className="font-serif text-lg font-bold text-white group-hover:text-amber-400 transition-colors">
                 Author Guidelines &amp; Submission
               </h3>
-              <p className="text-xs text-[var(--text-secondary)] font-serif leading-relaxed">
+              <p className="text-xs text-slate-300 font-serif leading-relaxed">
                 Word files (.doc/.docx up to 20 MB), Garamond 12pt, APA 7th edition referencing, ₹0 APC Diamond Open Access model.
               </p>
             </div>
             <Link
               to="/submit"
-              className="text-xs font-semibold text-[var(--accent-navy)] hover:text-[var(--accent-gold)] transition-colors flex items-center gap-1.5 pt-2 border-t border-[var(--border-subtle)]"
+              className="text-xs font-bold text-amber-400 hover:text-amber-300 transition-colors flex items-center gap-1.5 pt-2 border-t border-slate-800 relative z-10"
             >
               <span>View Guidelines &amp; Submit</span>
-              <ArrowRight className="w-3.5 h-3.5" />
+              <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
             </Link>
           </div>
 

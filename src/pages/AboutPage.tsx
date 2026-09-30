@@ -20,24 +20,28 @@ export const AboutPage: React.FC = () => {
         </h1>
       </div>
 
-      {/* 1. PURPOSE OF THE JOURNAL */}
-      <section className="p-8 rounded-2xl border border-[var(--border-subtle)] bg-[var(--bg-card)] space-y-4">
-        <div className="flex items-center gap-2 text-xs font-mono uppercase font-bold text-[var(--accent-gold)]">
-          <Target className="w-4 h-4" /> Purpose of the Journal
-        </div>
-        <h2 className="font-serif text-2xl font-bold text-[var(--text-primary)]">
-          Purpose of the Journal
-        </h2>
-        <div className="prose prose-slate dark:prose-invert max-w-none text-sm sm:text-base text-[var(--text-secondary)] font-serif leading-relaxed space-y-4">
-          <p>
-            The Crime &amp; Society Review is dedicated to advancing multidisciplinary scholarship that transcends conventional academic boundaries and examines complex phenomena through diverse intellectual perspectives. Inspired by the Rashomon Approach, the journal recognises that a single phenomenon may reveal different dimensions when examined through different disciplines, methodologies, forms of evidence, and positions of observation.
-          </p>
-          <p>
-            The journal provides a scholarly platform for research that connects disciplines, brings diverse forms of knowledge into dialogue, and encourages the examination of subjects from multiple perspectives. Rather than approaching a phenomenon from a single vantage point, the journal seeks to examine the whole scene—from every corner—to develop a more comprehensive, nuanced, and meaningful understanding.
-          </p>
-          <p>
-            Through this multidisciplinary orientation, The Crime &amp; Society Review welcomes rigorous and original scholarship that challenges conventional boundaries, encourages critical inquiry, connects perspectives, and brings to light dimensions of knowledge that may remain overlooked within a single discipline.
-          </p>
+      {/* 1. PURPOSE OF THE JOURNAL (FEATURED DARK CARD) */}
+      <section className="p-8 sm:p-10 rounded-3xl border border-slate-800 bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950 text-white space-y-4 shadow-xl relative overflow-hidden">
+        <div className="absolute top-0 right-0 w-80 h-80 bg-amber-500/5 rounded-full blur-3xl pointer-events-none" />
+        <div className="relative z-10 space-y-4">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-mono uppercase font-bold text-amber-400 bg-amber-500/10 border border-amber-500/20">
+            <Target className="w-3.5 h-3.5 text-amber-400" />
+            <span>Core Scholarly Mandate</span>
+          </div>
+          <h2 className="font-serif text-2xl sm:text-3xl font-bold text-white tracking-tight">
+            Purpose of the Journal
+          </h2>
+          <div className="max-w-none text-sm sm:text-base text-slate-300 font-serif leading-relaxed space-y-4">
+            <p>
+              The Crime &amp; Society Review is dedicated to advancing multidisciplinary scholarship that transcends conventional academic boundaries and examines complex phenomena through diverse intellectual perspectives. Inspired by the Rashomon Approach, the journal recognises that a single phenomenon may reveal different dimensions when examined through different disciplines, methodologies, forms of evidence, and positions of observation.
+            </p>
+            <p>
+              The journal provides a scholarly platform for research that connects disciplines, brings diverse forms of knowledge into dialogue, and encourages the examination of subjects from multiple perspectives. Rather than approaching a phenomenon from a single vantage point, the journal seeks to examine the whole scene—from every corner—to develop a more comprehensive, nuanced, and meaningful understanding.
+            </p>
+            <p>
+              Through this multidisciplinary orientation, The Crime &amp; Society Review welcomes rigorous and original scholarship that challenges conventional boundaries, encourages critical inquiry, connects perspectives, and brings to light dimensions of knowledge that may remain overlooked within a single discipline.
+            </p>
+          </div>
         </div>
       </section>
 

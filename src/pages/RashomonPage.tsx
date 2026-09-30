@@ -88,11 +88,17 @@ export const RashomonPage: React.FC = () => {
         </h1>
       </div>
 
-      {/* 1. SIMPLE STARTING PARAGRAPH */}
-      <section className="p-6 sm:p-8 rounded-2xl border border-[var(--border-subtle)] bg-[var(--bg-card)] shadow-xs">
-        <p className="text-sm sm:text-base text-[var(--text-secondary)] font-serif leading-relaxed">
-          At the intellectual heart of <em>The Crime &amp; Society Review</em> is the <strong>Rashomon Approach</strong>—the idea that no complex phenomenon can always be fully understood from a single perspective. Like observing a scene from every corner, the journal encourages researchers to examine subjects through multiple disciplines, viewpoints, methodologies, and forms of evidence to develop a comprehensive, nuanced, and meaningful understanding.
-        </p>
+      {/* 1. SIMPLE STARTING PARAGRAPH (DARK CONTEMPLATIVE CARD) */}
+      <section className="p-7 sm:p-9 rounded-3xl border border-slate-800 bg-gradient-to-br from-slate-950 via-slate-900 to-indigo-950 text-white shadow-xl relative overflow-hidden">
+        <div className="absolute top-0 right-0 w-80 h-80 bg-amber-500/5 rounded-full blur-3xl pointer-events-none" />
+        <div className="relative z-10 space-y-2">
+          <span className="text-[10px] font-mono uppercase tracking-widest text-amber-400 font-bold block">
+            Theoretical Epistemology
+          </span>
+          <p className="text-sm sm:text-base text-slate-200 font-serif leading-relaxed">
+            At the intellectual heart of <em>The Crime &amp; Society Review</em> is the <strong className="text-amber-400">Rashomon Approach</strong>—the recognition that complex criminal justice phenomena cannot be adequately investigated from a single perspective. Like observing an event from every corner, the journal encourages researchers to examine subjects through diverse disciplines, viewpoints, methodologies, and forms of evidence to develop a comprehensive, nuanced, and meaningful understanding.
+          </p>
+        </div>
       </section>
 
       {/* 2. DIVERSE LENSES BOXES (Boxes only, no dropdown or expanded detail card below) */}
@@ -137,29 +143,35 @@ export const RashomonPage: React.FC = () => {
         </div>
       </section>
 
-      {/* 3. MULTIDISCIPLINARY SYNTHESIS CALLOUT */}
-      <section className="p-8 rounded-2xl border border-[var(--border-subtle)] bg-[var(--bg-card-hover)] space-y-4">
-        <h3 className="font-serif text-xl font-bold text-[var(--text-primary)]">
-          Connecting Disciplines, Broadening Inquiry
-        </h3>
-        <p className="text-sm text-[var(--text-secondary)] font-serif leading-relaxed">
-          Rather than approaching a phenomenon from a single vantage point, <em>The Crime &amp; Society Review</em> seeks to examine the whole scene—from every corner—to develop a more comprehensive, nuanced, and meaningful understanding. We encourage authors to bridge disciplines and bring diverse empirical, doctrinal, and conceptual perspectives into collaborative synthesis.
-        </p>
-        <div className="pt-2 flex flex-wrap items-center gap-3">
-          <Link
-            to="/submit"
-            className="px-5 py-2.5 rounded-xl bg-[var(--accent-navy)] text-white text-xs font-semibold hover:opacity-90 transition-opacity flex items-center gap-2"
-          >
-            <FileText className="w-3.5 h-3.5" />
-            <span>Submit Manuscript</span>
-          </Link>
-          <Link
-            to="/aims-scope"
-            className="px-5 py-2.5 rounded-xl border border-[var(--border-subtle)] bg-[var(--bg-card)] text-xs font-semibold text-[var(--text-primary)] hover:bg-[var(--bg-card-hover)] flex items-center gap-2"
-          >
-            <span>Explore Aims &amp; Scope</span>
-            <ArrowRight className="w-3.5 h-3.5" />
-          </Link>
+      {/* 3. MULTIDISCIPLINARY SYNTHESIS CALLOUT (DARK FEATURE CARD) */}
+      <section className="p-8 sm:p-10 rounded-3xl border border-slate-800 bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950 text-white space-y-4 shadow-xl relative overflow-hidden">
+        <div className="absolute bottom-0 right-0 w-96 h-96 bg-amber-500/5 rounded-full blur-3xl pointer-events-none" />
+        <div className="relative z-10 space-y-3">
+          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[10px] font-mono uppercase tracking-wider bg-amber-500/10 text-amber-400 border border-amber-500/20 font-bold">
+            <span>Interdisciplinary Synergy</span>
+          </div>
+          <h3 className="font-serif text-2xl font-bold text-white tracking-tight">
+            Connecting Disciplines, Broadening Inquiry
+          </h3>
+          <p className="text-sm text-slate-300 font-serif leading-relaxed max-w-3xl">
+            Rather than approaching a phenomenon from a single vantage point, <em>The Crime &amp; Society Review</em> seeks to examine the whole scene—from every corner—to develop a more comprehensive, nuanced, and meaningful understanding. We encourage authors to bridge disciplines and bring diverse empirical, doctrinal, and conceptual perspectives into collaborative synthesis.
+          </p>
+          <div className="pt-3 flex flex-wrap items-center gap-3">
+            <Link
+              to="/submit"
+              className="px-6 py-2.5 rounded-xl bg-[var(--accent-gold)] hover:bg-[var(--accent-gold-hover)] text-slate-950 text-xs font-bold transition-all flex items-center gap-2 shadow-md"
+            >
+              <FileText className="w-3.5 h-3.5" />
+              <span>Submit Manuscript</span>
+            </Link>
+            <Link
+              to="/aims-scope"
+              className="px-5 py-2.5 rounded-xl border border-slate-700 bg-slate-900/90 text-xs font-semibold text-slate-200 hover:border-amber-400 hover:text-white transition-all flex items-center gap-2"
+            >
+              <span>Explore Aims &amp; Scope</span>
+              <ArrowRight className="w-3.5 h-3.5" />
+            </Link>
+          </div>
         </div>
       </section>
     </div>
