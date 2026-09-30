@@ -12,11 +12,8 @@ export const JOURNAL_METADATA = {
   publicationModel: "Continuous Rolling Publication (UGC-CARE Category II Aligned • Immediate Version of Record)",
   license: "Creative Commons Attribution 4.0 International (CC BY 4.0)",
   indexingTargets: [
-    "UGC-CARE List (Group II)",
-    "Indian Citation Index (ICI)",
-    "DOAJ",
-    "Google Scholar",
-    "Crossref",
+    "Google Scholar (Coming Soon)",
+    "UGC-CARE (In Progress)",
     "National Science Library (CSIR-NIScPR)"
   ],
   ethicsStandard: "COPE Core Practices & ICMR National Ethical Guidelines Aligned",
@@ -949,55 +946,19 @@ export const MOCK_ISSUES = [
     id: "vol-1-iss-1",
     volume: 1,
     issue: 1,
-    title: "Volume 01 — Issue 01 (Inaugural Issue)",
+    title: "Volume 01 Issue 01 (Inaugural Issue) (Oct – Dec 2026)",
     year: 2026,
-    date: "January – March 2026",
-    status: "Published / Complete",
-    coverTag: "INAUGURAL VOLUME",
+    date: "October – December 2026",
+    status: "Submissions Open / Peer Review in Progress",
+    coverTag: "INAUGURAL ISSUE",
     theme: "Criminal Justice in Transition: Foundational Paradigms under BNS, BNSS & BSA",
     editorialTitle: "Editorial: Reconciling Statutory Innovation with Constitutional Restraint in Modern India",
-    editorialAuthor: "Prof. (Dr.) Vikramaditya Sharma & Editorial Board",
-    editorialExcerpt: "The launch of The Crime & Society Review represents an epistemic milestone for Indian criminological and legal scholarship. As the three new criminal enactments take effect, this inaugural issue establishes the Rashomon Framework as a primary analytical model for evaluating digital forensics, undertrial rights, and institutional enforcement.",
-    articlesCount: 5,
-    downloadsCount: 3840,
-    pdfSize: "8.4 MB",
-    articleIds: ["e2026-0492", "e2026-0501", "e2026-0518", "e2026-0524", "e2026-0530"]
-  },
-  {
-    id: "vol-1-iss-2",
-    volume: 1,
-    issue: 2,
-    title: "Volume 01 — Issue 02 (Current Issue)",
-    year: 2026,
-    date: "April – June 2026",
-    status: "Active / Continuous Submissions Open",
-    coverTag: "CURRENT ROLLING ISSUE",
-    theme: "Digital Evidence, Algorithmic Interrogation & Forensic Due Process",
-    editorialTitle: "Editorial: Electronic Evidence Certification under Section 63 BSA and the Integrity of Hash Logs",
-    editorialAuthor: "Hon. Justice (Retd.) Anandita Sen & Dr. Harshwardhan Parikh",
-    editorialExcerpt: "The second issue focuses on practical implementation problems: audio-visual seizure protocols under Section 105 BNSS, CFSL forensic calibration limits, and algorithmic surveillance safeguards under Article 21.",
-    articlesCount: 4,
-    downloadsCount: 1920,
-    pdfSize: "6.2 MB",
-    articleIds: ["e2026-0492", "e2026-0501"]
-  },
-  {
-    id: "vol-2-iss-1",
-    volume: 2,
-    issue: 1,
-    title: "Volume 02 — Issue 01 (Special Call)",
-    year: 2027,
-    date: "January – March 2027",
-    status: "Forthcoming / Advance Call for Papers",
-    coverTag: "SPECIAL ISSUE",
-    theme: "Carceral Penology, Undertrial Reforms & Restorative Justice in the Global South",
-    editorialTitle: "Guest Editorial: Beyond Retribution — Structural Decarceration in Indian Central Prisons",
-    editorialAuthor: "Prof. Kavita Krishnamurthy (TISS) & Dr. Priya Raghavan",
-    editorialExcerpt: "This forthcoming thematic issue explores prison mental health, bail system digitalization, open prisons, and community restorative alternatives.",
+    editorialAuthor: "Editorial Board",
+    editorialExcerpt: "The launch of The Crime & Society Review represents an epistemic milestone for Indian criminological and legal scholarship. As the new criminal enactments take effect, this inaugural issue establishes the Rashomon Framework as a primary analytical model for evaluating digital forensics, undertrial rights, and institutional enforcement.",
     articlesCount: 0,
     downloadsCount: 0,
     pdfSize: "Pending",
-    articleIds: []
+    articleIds: [] as string[]
   }
 ];
 
@@ -1104,8 +1065,8 @@ export const CONTACT_DETAILS = {
   editorialOffice: {
     title: "Editorial Office",
     email: "editor@thecrimeandsocietyreview.org",
-    phone: "+91 (011) 2998-4122",
-    address: "The Crime & Society Review Editorial Chambers, Sector 9, Institutional Area, New Delhi – 110003, India"
+    phone: "",
+    address: "Sector 9, Institutional Area, New Delhi – 110003, India"
   },
   submissions: {
     title: "Submissions & Editorial Triage",
@@ -1119,7 +1080,7 @@ export const CONTACT_DETAILS = {
   publisher: {
     title: "Publisher & Institutional Relations",
     email: "publisher@thecrimeandsocietyreview.org",
-    entity: "The Crime & Society Review Press (Non-Profit Foundation)"
+    entity: "The Crime & Society Review Press"
   }
 };
 

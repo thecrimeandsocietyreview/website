@@ -1,20 +1,13 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
 import { 
-  Eye, 
   Scale, 
   Microscope, 
   Brain, 
   Users, 
   ShieldAlert, 
-  HeartHandshake, 
-  Sparkles, 
-  ArrowRight, 
-  BookOpen,
-  Layers,
-  History,
   Cpu,
-  Globe2,
+  ArrowRight, 
   FileText
 } from 'lucide-react';
 
@@ -22,12 +15,10 @@ interface LensData {
   id: string;
   name: string;
   discipline: string;
-  coreQuestion: string;
-  description: string;
+  focus: string;
   icon: React.ElementType;
   color: string;
   bgLight: string;
-  borderLight: string;
 }
 
 const PERSPECTIVES: LensData[] = [
@@ -35,203 +26,119 @@ const PERSPECTIVES: LensData[] = [
     id: 'law',
     name: 'Law & Jurisprudence',
     discipline: 'Legal Doctrine',
-    coreQuestion: 'How do statutory codes, procedural due process, and constitutional rights govern this issue?',
-    description: 'Statutory provisions (BNS, BNSS, BSA), constitutional fair trial safeguards under Article 21, evidentiary burdens, and judicial precedents.',
+    focus: 'Statutory codes (BNS, BNSS, BSA), Article 21 due process, evidentiary rules & judicial precedent.',
     icon: Scale,
     color: 'text-amber-600 dark:text-amber-400',
-    bgLight: 'bg-amber-500/10',
-    borderLight: 'border-amber-500/30'
+    bgLight: 'bg-amber-500/10'
   },
   {
     id: 'sociology',
     name: 'Sociology & Criminology',
     discipline: 'Social Structures',
-    coreQuestion: 'How do socioeconomic status, caste, gender, and marginalisation shape criminalisation and justice?',
-    description: 'Systemic inequalities, carceral penology, institutional biases, victimisation patterns, and community restorative justice.',
+    focus: 'Systemic inequalities, carceral penology, institutional bias, victimology & restorative justice.',
     icon: Users,
     color: 'text-blue-600 dark:text-blue-400',
-    bgLight: 'bg-blue-500/10',
-    borderLight: 'border-blue-500/30'
+    bgLight: 'bg-blue-500/10'
   },
   {
     id: 'psychology',
     name: 'Psychology & Behaviour',
     discipline: 'Human Cognition',
-    coreQuestion: 'What cognitive biases, trauma responses, or coercive factors influenced the actors?',
-    description: 'Forensic psychology, eyewitness reliability, trauma-informed courtroom procedures, custodial coercion, and decision-making under stress.',
+    focus: 'Eyewitness reliability, custodial interrogation psychology, trauma response & cognitive bias.',
     icon: Brain,
     color: 'text-purple-600 dark:text-purple-400',
-    bgLight: 'bg-purple-500/10',
-    borderLight: 'border-purple-500/30'
+    bgLight: 'bg-purple-500/10'
   },
   {
     id: 'science',
     name: 'Forensic Science',
-    discipline: 'Physical & Natural Evidence',
-    coreQuestion: 'What does scientific and empirical validation substantiate beyond human perception?',
-    description: 'DNA phenotyping, forensic pathology, toxicology calibration limits, chain of custody verification, and forensic error rates.',
+    discipline: 'Empirical Evidence',
+    focus: 'DNA phenotyping, toxicology calibration limits, chain of custody verification & forensic error rates.',
     icon: Microscope,
     color: 'text-emerald-600 dark:text-emerald-400',
-    bgLight: 'bg-emerald-500/10',
-    borderLight: 'border-emerald-500/30'
+    bgLight: 'bg-emerald-500/10'
   },
   {
     id: 'technology',
     name: 'Technology & Cyber',
     discipline: 'Digital Diagnostics',
-    coreQuestion: 'How do algorithmic systems, biometric scanners, and digital extractions alter evidentiary truth?',
-    description: 'Section 63 BSA electronic hash verification, facial recognition accuracy, digital surveillance, automated policing, and cyber forensics.',
+    focus: 'Section 63 BSA electronic hash verification, facial recognition accuracy, digital surveillance & cyber forensics.',
     icon: Cpu,
     color: 'text-cyan-600 dark:text-cyan-400',
-    bgLight: 'bg-cyan-500/10',
-    borderLight: 'border-cyan-500/30'
+    bgLight: 'bg-cyan-500/10'
   },
   {
     id: 'policy',
     name: 'Policy & Governance',
     discipline: 'Institutional Reform',
-    coreQuestion: 'What institutional, budgetary, and operational reforms are required to implement justice?',
-    description: 'Police reforms, prison infrastructure, legal aid delivery, public accountability, and evidence-informed administrative policymaking.',
+    focus: 'Section 105 BNSS audio-visual protocols, police modernization, prison capacity & legal aid access.',
     icon: ShieldAlert,
     color: 'text-rose-600 dark:text-rose-400',
-    bgLight: 'bg-rose-500/10',
-    borderLight: 'border-rose-500/30'
+    bgLight: 'bg-rose-500/10'
   }
 ];
 
 export const RashomonPage: React.FC = () => {
-  const [activeLensId, setActiveLensId] = useState<string>('law');
-  const activeLens = PERSPECTIVES.find(p => p.id === activeLensId) || PERSPECTIVES[0];
-
   return (
-    <div className="max-w-5xl mx-auto px-4 py-12 space-y-16 animate-fadeIn">
-      {/* Page Header */}
-      <div className="border-b border-[var(--border-subtle)] pb-8 space-y-3">
-        <div className="flex items-center gap-2 text-xs font-mono uppercase font-bold text-[var(--accent-gold)]">
-          <Sparkles className="w-4 h-4" />
-          <span>Multidisciplinary Analytical Inquiry</span>
-        </div>
+    <div className="max-w-5xl mx-auto px-4 py-12 space-y-12 animate-fadeIn">
+      {/* Page Header (Clean title without above/under heading clutter) */}
+      <div className="border-b border-[var(--border-subtle)] pb-6">
         <h1 className="font-serif text-3xl sm:text-5xl font-bold text-[var(--text-primary)] tracking-tight">
           The Rashomon Approach
         </h1>
-        <p className="font-serif italic text-base sm:text-xl text-[var(--accent-gold)]">
-          Examining Complex Phenomena Through Diverse Intellectual Perspectives
-        </p>
       </div>
 
-      {/* 1. OFFICIAL STATEMENT: THE RASHOMON APPROACH */}
-      <section className="p-8 sm:p-10 rounded-3xl border border-[var(--border-subtle)] bg-[var(--bg-card)] space-y-6 shadow-sm">
-        <div className="flex items-center gap-2 text-xs font-mono uppercase font-bold text-[var(--accent-gold)]">
-          <Layers className="w-4 h-4" />
-          <span>Intellectual Foundation</span>
-        </div>
-        
-        <div className="prose prose-slate dark:prose-invert max-w-none text-base sm:text-lg text-[var(--text-primary)] font-serif leading-relaxed space-y-5">
-          <p className="first-letter:text-5xl first-letter:font-bold first-letter:float-left first-letter:mr-3 first-letter:text-[var(--accent-navy)] first-letter:leading-none">
-            At the intellectual heart of <em>The Crime &amp; Society Review</em> is the <strong>Rashomon Approach</strong>—the idea that no complex phenomenon can always be fully understood from a single perspective. Like observing a scene from every corner, the approach encourages researchers to examine a subject through multiple disciplines, viewpoints, methods, experiences, and forms of evidence.
-          </p>
-
-          <p>
-            A phenomenon may look different when viewed through the lenses of law, sociology, psychology, science, technology, history, philosophy, economics, culture, policy, or lived experience. These perspectives may complement, challenge, or deepen one another, revealing dimensions that a single disciplinary approach may overlook.
-          </p>
-
-          <p>
-            The Rashomon Approach therefore represents the journal's commitment to multidisciplinary inquiry: bringing different ways of seeing into dialogue to develop a more comprehensive, nuanced, and meaningful understanding of complex subjects.
-          </p>
-        </div>
+      {/* 1. SIMPLE STARTING PARAGRAPH */}
+      <section className="p-6 sm:p-8 rounded-2xl border border-[var(--border-subtle)] bg-[var(--bg-card)] shadow-xs">
+        <p className="text-sm sm:text-base text-[var(--text-secondary)] font-serif leading-relaxed">
+          At the intellectual heart of <em>The Crime &amp; Society Review</em> is the <strong>Rashomon Approach</strong>—the idea that no complex phenomenon can always be fully understood from a single perspective. Like observing a scene from every corner, the journal encourages researchers to examine subjects through multiple disciplines, viewpoints, methodologies, and forms of evidence to develop a comprehensive, nuanced, and meaningful understanding.
+        </p>
       </section>
 
-      {/* 2. THE MULTIDISCIPLINARY LENSES IN DIALOGUE */}
+      {/* 2. DIVERSE LENSES BOXES (Boxes only, no dropdown or expanded detail card below) */}
       <section className="space-y-6">
-        <div className="space-y-1">
-          <div className="flex items-center gap-2 text-xs font-mono uppercase font-bold text-[var(--accent-gold)]">
-            <Eye className="w-4 h-4" />
-            <span>Interactive Multi-Perspective Explorer</span>
-          </div>
-          <h2 className="font-serif text-2xl sm:text-3xl font-bold text-[var(--text-primary)]">
+        <div className="border-b border-[var(--border-subtle)] pb-3">
+          <h2 className="font-serif text-2xl font-bold text-[var(--text-primary)]">
             Diverse Lenses in Scholarly Dialogue
           </h2>
-          <p className="text-xs sm:text-sm text-[var(--text-secondary)] font-serif">
-            Select a disciplinary lens to examine how different perspectives reveal hidden dimensions of legal, criminological, and societal phenomena:
-          </p>
         </div>
 
-        {/* Lens Selectors */}
-        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3">
+        {/* Diverse Lenses Showcase Grid */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
           {PERSPECTIVES.map((p) => {
             const Icon = p.icon;
-            const isSelected = p.id === activeLensId;
             return (
-              <button
+              <div
                 key={p.id}
-                onClick={() => setActiveLensId(p.id)}
-                className={`p-4 rounded-2xl border text-left transition-all cursor-pointer flex flex-col justify-between space-y-3 ${
-                  isSelected
-                    ? `border-amber-500 bg-[var(--accent-navy)] text-white shadow-md scale-102`
-                    : `border-[var(--border-subtle)] bg-[var(--bg-card)] hover:border-[var(--border-strong)] text-[var(--text-primary)]`
-                }`}
+                className="p-5 rounded-2xl border border-[var(--border-subtle)] bg-[var(--bg-card)] hover:border-[var(--accent-gold)]/50 transition-all flex flex-col justify-between space-y-3 shadow-2xs group"
               >
-                <div className="flex items-center justify-between">
-                  <div className={`w-8 h-8 rounded-lg flex items-center justify-center ${isSelected ? 'bg-white/15 text-[var(--accent-gold)]' : `${p.bgLight} ${p.color}`}`}>
-                    <Icon className="w-4 h-4" />
+                <div className="space-y-3">
+                  <div className="flex items-center justify-between">
+                    <div className={`w-10 h-10 rounded-xl flex items-center justify-center ${p.bgLight} ${p.color}`}>
+                      <Icon className="w-5 h-5" />
+                    </div>
+                    <span className="text-[10px] font-mono text-[var(--accent-gold)] uppercase font-semibold">
+                      {p.discipline}
+                    </span>
                   </div>
-                  {isSelected && (
-                    <span className="w-2 h-2 rounded-full bg-[var(--accent-gold)] animate-pulse"></span>
-                  )}
+
+                  <div>
+                    <h3 className="font-serif font-bold text-base text-[var(--text-primary)] group-hover:text-[var(--accent-navy)] transition-colors">
+                      {p.name}
+                    </h3>
+                    <p className="text-xs text-[var(--text-secondary)] font-serif leading-relaxed mt-1.5">
+                      {p.focus}
+                    </p>
+                  </div>
                 </div>
-                <div>
-                  <span className="block font-serif font-bold text-xs sm:text-sm leading-tight">
-                    {p.name.split(' & ')[0]}
-                  </span>
-                  <span className={`text-[10px] font-mono mt-0.5 block ${isSelected ? 'text-slate-300' : 'text-[var(--text-muted)]'}`}>
-                    {p.discipline}
-                  </span>
-                </div>
-              </button>
+              </div>
             );
           })}
-        </div>
-
-        {/* Active Lens Detail Card */}
-        <div className="p-6 sm:p-8 rounded-2xl border border-[var(--border-strong)] bg-[var(--bg-card)] shadow-sm space-y-5">
-          <div className="flex items-center gap-3 border-b border-[var(--border-subtle)] pb-4">
-            <div className={`w-12 h-12 rounded-xl flex items-center justify-center ${activeLens.bgLight} ${activeLens.color}`}>
-              <activeLens.icon className="w-6 h-6" />
-            </div>
-            <div>
-              <h3 className="font-serif text-xl sm:text-2xl font-bold text-[var(--text-primary)]">
-                {activeLens.name}
-              </h3>
-              <span className="text-xs font-mono text-[var(--accent-gold)] font-semibold">
-                Perspective Domain: {activeLens.discipline}
-              </span>
-            </div>
-          </div>
-
-          <div className="space-y-4 text-xs sm:text-sm">
-            <div>
-              <span className="text-[11px] font-mono uppercase text-[var(--text-muted)] font-bold block mb-1">
-                Central Inquiry Question:
-              </span>
-              <p className="font-serif italic font-semibold text-[var(--text-primary)] text-sm sm:text-base bg-[var(--bg-card-hover)] p-3 rounded-xl border border-[var(--border-subtle)]">
-                "{activeLens.coreQuestion}"
-              </p>
-            </div>
-
-            <div>
-              <span className="text-[11px] font-mono uppercase text-[var(--text-muted)] font-bold block mb-1">
-                Scope &amp; Dimensions Analyzed:
-              </span>
-              <p className="font-serif text-[var(--text-secondary)] leading-relaxed">
-                {activeLens.description}
-              </p>
-            </div>
-          </div>
         </div>
       </section>
 
       {/* 3. MULTIDISCIPLINARY SYNTHESIS CALLOUT */}
-      <section className="p-8 rounded-3xl border border-[var(--border-subtle)] bg-[var(--bg-card-hover)] space-y-4">
+      <section className="p-8 rounded-2xl border border-[var(--border-subtle)] bg-[var(--bg-card-hover)] space-y-4">
         <h3 className="font-serif text-xl font-bold text-[var(--text-primary)]">
           Connecting Disciplines, Broadening Inquiry
         </h3>
@@ -244,7 +151,7 @@ export const RashomonPage: React.FC = () => {
             className="px-5 py-2.5 rounded-xl bg-[var(--accent-navy)] text-white text-xs font-semibold hover:opacity-90 transition-opacity flex items-center gap-2"
           >
             <FileText className="w-3.5 h-3.5" />
-            <span>Submit Multidisciplinary Manuscript</span>
+            <span>Submit Manuscript</span>
           </Link>
           <Link
             to="/aims-scope"

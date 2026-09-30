@@ -10,6 +10,7 @@ import { HomePage } from './pages/HomePage';
 import { SubmitPage } from './pages/SubmitPage';
 import { AboutPage } from './pages/AboutPage';
 import { EditorialBoardPage } from './pages/EditorialBoardPage';
+import { AdvisoryBoardPage } from './pages/AdvisoryBoardPage';
 import { RashomonPage } from './pages/RashomonPage';
 import { IssuesPage } from './pages/IssuesPage';
 import { AimsScopePage } from './pages/AimsScopePage';
@@ -62,25 +63,28 @@ export const App: React.FC = () => {
               {/* 1. Home */}
               <Route path="/" element={<HomePage />} />
 
-              {/* 2. Submission */}
-              <Route path="/submit" element={<SubmitPage />} />
-
-              {/* 3. About the Journal */}
+              {/* 2. About the Journal */}
               <Route path="/about" element={<AboutPage />} />
+
+              {/* 3. Aim and Scope */}
+              <Route path="/aims-scope" element={<AimsScopePage />} />
 
               {/* 4. Editorial Board */}
               <Route path="/editorial-board" element={<EditorialBoardPage />} />
 
-              {/* 5. The Rashomon Approach (New Page after Editorial Nav) */}
+              {/* 5. Advisory Board */}
+              <Route path="/advisory-board" element={<AdvisoryBoardPage />} />
+
+              {/* 6. The Rashomon Approach */}
               <Route path="/rashomon-approach" element={<RashomonPage />} />
 
-              {/* 6. Current Issue */}
+              {/* 7. Current Issue */}
               <Route path="/current-issue" element={<IssuesPage />} />
 
-              {/* 7. Aims & Scope */}
-              <Route path="/aims-scope" element={<AimsScopePage />} />
+              {/* 8. Submission */}
+              <Route path="/submit" element={<SubmitPage />} />
 
-              {/* 8. Contact Us */}
+              {/* 9. Contact Us */}
               <Route path="/contact" element={<ContactPage />} />
 
               {/* Clean Redirects */}

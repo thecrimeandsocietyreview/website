@@ -20,6 +20,7 @@ export const Header: React.FC = () => {
     { label: 'About the Journal', path: '/about' },
     { label: 'Aim and Scope', path: '/aims-scope' },
     { label: 'Editorial Board', path: '/editorial-board' },
+    { label: 'Advisory Board', path: '/advisory-board' },
     { label: 'The Rashomon Approach', path: '/rashomon-approach' },
     { label: 'Current Issue', path: '/current-issue' },
     { label: 'Submission', path: '/submit' },
@@ -31,22 +32,22 @@ export const Header: React.FC = () => {
       className="sticky top-0 z-40 w-full border-b border-[var(--border-subtle)] bg-[var(--bg-card)] transition-colors shadow-2xs"
       style={{ backgroundColor: 'var(--bg-card)' }}
     >
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 py-2.5 flex items-center justify-between gap-3">
+      <div className="max-w-[1440px] mx-auto px-3 sm:px-5 py-2 flex items-center justify-between gap-2 xl:gap-4">
         
         {/* Brand Logo & Title */}
-        <Link to="/" className="flex items-center gap-2.5 group shrink min-w-0 py-1">
+        <Link to="/" className="flex items-center gap-2 group shrink-0 py-1">
           <img 
             src="/logo.png" 
             alt="The Crime & Society Review Logo" 
-            className="h-11 w-auto sm:h-12 md:h-13 object-contain bg-transparent group-hover:scale-105 transition-transform shrink-0" 
+            className="h-10 w-auto sm:h-11 md:h-12 object-contain bg-transparent group-hover:scale-105 transition-transform shrink-0" 
           />
-          <span className="font-serif text-base sm:text-lg md:text-xl font-bold tracking-tight text-[var(--text-primary)] group-hover:text-[var(--accent-navy)] transition-colors leading-tight truncate">
+          <span className="font-serif text-sm sm:text-base xl:text-lg font-bold tracking-tight text-[var(--text-primary)] group-hover:text-[var(--accent-navy)] transition-colors leading-tight whitespace-nowrap">
             The Crime &amp; Society Review
           </span>
         </Link>
 
-        {/* Primary Desktop Navigation: 7 Core Items */}
-        <nav className="hidden lg:flex items-center gap-0.5 text-xs font-medium shrink-0">
+        {/* Primary Desktop Navigation */}
+        <nav className="hidden lg:flex items-center gap-0.5 xl:gap-1 text-[11px] xl:text-xs font-medium shrink-0">
           {navLinks.map((item) => {
             const isActive = location.pathname === item.path;
             const isSubmit = item.path === '/submit';
@@ -54,7 +55,7 @@ export const Header: React.FC = () => {
               <Link
                 key={item.path}
                 to={item.path}
-                className={`px-2.5 py-1.5 rounded-lg transition-all ${
+                className={`px-1.5 xl:px-2.5 py-1 rounded-lg transition-all whitespace-nowrap ${
                   isActive
                     ? 'text-[var(--accent-navy)] font-bold bg-[var(--accent-navy)]/10 shadow-2xs'
                     : isSubmit

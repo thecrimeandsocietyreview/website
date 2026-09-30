@@ -99,10 +99,6 @@ export const HomePage: React.FC = () => {
           
           <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 border-b border-[var(--border-subtle)] pb-6">
             <div className="max-w-2xl space-y-2">
-              <div className="flex items-center gap-2 text-xs font-mono uppercase font-bold text-[var(--accent-gold)]">
-                <Sparkles className="w-4 h-4" />
-                <span>Scholarly Taxonomy</span>
-              </div>
               <h2 className="font-serif text-2xl sm:text-3xl font-bold text-[var(--text-primary)]">
                 Interdisciplinary Pillars: Law, Forensics &amp; Society
               </h2>
@@ -251,7 +247,7 @@ export const HomePage: React.FC = () => {
                 Author Guidelines &amp; Submission
               </h3>
               <p className="text-xs text-[var(--text-secondary)] font-serif leading-relaxed">
-                Word files (.doc/.docx max 5 MB), Garamond 12pt, APA 7th edition referencing, ₹0 APC Diamond Open Access model.
+                Word files (.doc/.docx up to 20 MB), Garamond 12pt, APA 7th edition referencing, ₹0 APC Diamond Open Access model.
               </p>
             </div>
             <Link

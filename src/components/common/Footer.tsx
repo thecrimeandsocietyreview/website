@@ -21,14 +21,24 @@ export const Footer: React.FC = () => {
               <span className="font-serif font-bold text-base sm:text-lg text-[var(--text-primary)] block leading-tight">
                 {JOURNAL_METADATA.name}
               </span>
-              <p className="text-xs text-[var(--text-muted)] font-serif mt-1">
-                {JOURNAL_METADATA.tagline}
-              </p>
             </div>
           </div>
-          <p className="text-xs text-[var(--text-secondary)] leading-relaxed font-sans pr-4">
-            {JOURNAL_METADATA.subtagline}
-          </p>
+
+          {/* Social Links (LinkedIn) */}
+          <div className="flex items-center gap-3 pt-1">
+            <a 
+              href="https://www.linkedin.com/company/146605282/" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              aria-label="The Crime & Society Review LinkedIn Profile"
+              className="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg border border-[var(--border-subtle)] bg-[var(--bg-card-hover)] hover:border-[#0A66C2] hover:text-[#0A66C2] transition-colors text-xs font-mono text-[var(--text-secondary)]"
+            >
+              <svg className="w-4 h-4 fill-current text-[#0A66C2]" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.28 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.75M6.46 8.76a1.62 1.62 0 1 0 0-3.24 1.62 1.62 0 0 0 0 3.24M7.86 18.5V10.13H5.07V18.5h2.79Z"/>
+              </svg>
+              <span>Follow on LinkedIn</span>
+            </a>
+          </div>
 
           {/* Visitor Counter */}
           <div className="pt-1">
@@ -46,10 +56,11 @@ export const Footer: React.FC = () => {
             <li><Link to="/about" className="hover:text-[var(--accent-navy)] transition-colors">2. About the Journal</Link></li>
             <li><Link to="/aims-scope" className="hover:text-[var(--accent-navy)] transition-colors">3. Aim and Scope</Link></li>
             <li><Link to="/editorial-board" className="hover:text-[var(--accent-navy)] transition-colors">4. Editorial Board</Link></li>
-            <li><Link to="/rashomon-approach" className="hover:text-[var(--accent-navy)] transition-colors font-medium text-[var(--accent-gold)]">5. The Rashomon Approach</Link></li>
-            <li><Link to="/current-issue" className="hover:text-[var(--accent-navy)] transition-colors">6. Current Issue</Link></li>
-            <li><Link to="/submit" className="hover:text-[var(--accent-navy)] transition-colors font-semibold text-[var(--accent-gold)]">7. Submission Guidelines</Link></li>
-            <li><Link to="/contact" className="hover:text-[var(--accent-navy)] transition-colors">8. Contact Us</Link></li>
+            <li><Link to="/advisory-board" className="hover:text-[var(--accent-navy)] transition-colors font-medium text-[var(--accent-gold)]">5. Advisory Board</Link></li>
+            <li><Link to="/rashomon-approach" className="hover:text-[var(--accent-navy)] transition-colors">6. The Rashomon Approach</Link></li>
+            <li><Link to="/current-issue" className="hover:text-[var(--accent-navy)] transition-colors">7. Current Issue</Link></li>
+            <li><Link to="/submit" className="hover:text-[var(--accent-navy)] transition-colors font-semibold text-[var(--accent-gold)]">8. Submission Guidelines</Link></li>
+            <li><Link to="/contact" className="hover:text-[var(--accent-navy)] transition-colors">9. Contact Us</Link></li>
           </ul>
         </div>
 
@@ -63,6 +74,7 @@ export const Footer: React.FC = () => {
             <li>• Continuous Rolling Publication</li>
             <li>• ₹0 Article Processing Charges</li>
             <li>• Double-Blind Peer Review</li>
+            <li>• Google Scholar: Coming Soon</li>
             <li>• ISSN: Coming Soon</li>
           </ul>
         </div>
@@ -83,6 +95,8 @@ export const Footer: React.FC = () => {
             <Link to="/aims-scope" className="hover:text-[var(--text-primary)]">Aim and Scope</Link>
             <span>•</span>
             <Link to="/editorial-board" className="hover:text-[var(--text-primary)]">Editorial Board</Link>
+            <span>•</span>
+            <Link to="/advisory-board" className="hover:text-[var(--text-primary)]">Advisory Board</Link>
             <span>•</span>
             <Link to="/rashomon-approach" className="hover:text-[var(--text-primary)]">The Rashomon Approach</Link>
             <span>•</span>

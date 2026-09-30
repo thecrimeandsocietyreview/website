@@ -9,20 +9,13 @@ import {
   Check,
   Download,
   BookOpen,
-  CheckSquare,
-  Square,
   FileCheck,
   User,
   ShieldCheck,
-  MessageSquare,
-  Plus,
-  Trash2,
-  PenLine,
-  FileUp,
-  Users
+  MessageSquare
 } from 'lucide-react';
 import confetti from 'canvas-confetti';
-import { SubmissionDraft, AuthorSubmissionDetail } from '../types/journal';
+import { SubmissionDraft } from '../types/journal';
 
 export const SubmitPage: React.FC = () => {
   // Form State
@@ -32,24 +25,7 @@ export const SubmitPage: React.FC = () => {
   const [abstractText, setAbstractText] = useState('');
   const [editorMessage, setEditorMessage] = useState('');
 
-  // Author Information Mode: 'manual' (form fill) or 'upload' (doc file)
-  const [authorMode, setAuthorMode] = useState<'manual' | 'upload'>('manual');
-
-  // Manual Authors List (First author + optional co-authors)
-  const [manualAuthors, setManualAuthors] = useState<AuthorSubmissionDetail[]>([
-    {
-      fullName: '',
-      email: '',
-      affiliation: '',
-      designation: '',
-      department: '',
-      cityCountry: '',
-      qualification: '',
-      orcid: '',
-      isCorresponding: true,
-      bio: ''
-    }
-  ]);
+  // Author Information File (.doc/.docx only, max 5MB)
 
   // Author Information File (.doc/.docx only, max 5MB)
   const [authorInfoFile, setAuthorInfoFile] = useState<File | null>(null);
@@ -98,68 +74,8 @@ export const SubmitPage: React.FC = () => {
     "The corresponding author has completed the submission declaration."
   ];
 
-  const [checkedItems, setCheckedItems] = useState<{ [key: number]: boolean }>({
-    0: true,
-    1: true,
-    2: true,
-    5: true,
-    6: true,
-    7: true,
-    8: true,
-    9: true,
-    16: true,
-    17: true
-  });
-
-  const toggleChecklist = (index: number) => {
-    setCheckedItems(prev => ({
-      ...prev,
-      [index]: !prev[index]
-    }));
-  };
-
-  const handleSelectAllChecklist = () => {
-    const allChecked: { [key: number]: boolean } = {};
-    checklistItems.forEach((_, i) => {
-      allChecked[i] = true;
-    });
-    setCheckedItems(allChecked);
-  };
-
   // Word count helper for abstract
   const abstractWordCount = abstractText.trim() === '' ? 0 : abstractText.trim().split(/\s+/).length;
-
-  // Author Management Handlers (Manual Mode)
-  const handleAddAuthor = () => {
-    setManualAuthors(prev => [
-      ...prev,
-      {
-        fullName: '',
-        email: '',
-        affiliation: '',
-        designation: '',
-        department: '',
-        cityCountry: '',
-        qualification: '',
-        orcid: '',
-        isCorresponding: false,
-        bio: ''
-      }
-    ]);
-  };
-
-  const handleRemoveAuthor = (index: number) => {
-    if (manualAuthors.length <= 1) return;
-    setManualAuthors(prev => prev.filter((_, i) => i !== index));
-  };
-
-  const handleAuthorChange = (index: number, field: keyof AuthorSubmissionDetail, value: any) => {
-    setManualAuthors(prev => {
-      const updated = [...prev];
-      updated[index] = { ...updated[index], [field]: value };
-      return updated;
-    });
-  };
 
   // Handle Author Information Upload (doc/docx only, max 5MB)
   const handleAuthorInfoUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -197,10 +113,10 @@ export const SubmitPage: React.FC = () => {
       return;
     }
 
-    const MAX_BYTES = 5 * 1024 * 1024;
+    const MAX_BYTES = 20 * 1024 * 1024;
     if (file.size > MAX_BYTES) {
       const mbSize = (file.size / (1024 * 1024)).toFixed(2);
-      setBlindManuscriptFileError(`File size is ${mbSize} MB. Maximum allowed size is 5 MB.`);
+      setBlindManuscriptFileError(`File size is ${mbSize} MB. Maximum allowed size is 20 MB.`);
       return;
     }
 
@@ -219,11 +135,6 @@ export const SubmitPage: React.FC = () => {
       return;
     }
 
-    if (!keywords.trim()) {
-      setValidationError('Please provide 3–8 keywords.');
-      return;
-    }
-
     if (!abstractText.trim()) {
       setValidationError('Please enter the Abstract (maximum 300 words).');
       return;
@@ -234,38 +145,19 @@ export const SubmitPage: React.FC = () => {
       return;
     }
 
-    // Author Information Validation
-    if (authorMode === 'upload') {
-      if (!authorInfoFile && !authorInfoFileName) {
-        setValidationError('Please upload the Author Information file (.doc/.docx only).');
-        return;
-      }
-    } else {
-      // Manual author validation
-      if (!manualAuthors[0].fullName.trim()) {
-        setValidationError('Please enter the Full Name for Author 1 (Corresponding Author).');
-        return;
-      }
-      if (!manualAuthors[0].email.trim()) {
-        setValidationError('Please enter the Email Address for Author 1 (Corresponding Author).');
-        return;
-      }
-      if (!manualAuthors[0].affiliation.trim()) {
-        setValidationError('Please enter the Institutional Affiliation for Author 1.');
-        return;
-      }
-      // Check co-authors
-      for (let i = 1; i < manualAuthors.length; i++) {
-        const a = manualAuthors[i];
-        if (!a.fullName.trim() || !a.email.trim() || !a.affiliation.trim()) {
-          setValidationError(`Please complete Full Name, Email, and Affiliation for Co-Author ${i + 1} (or click Remove).`);
-          return;
-        }
-      }
+    if (!keywords.trim()) {
+      setValidationError('Please provide 3–8 keywords.');
+      return;
+    }
+
+    // Author Information File Validation (Required, Max 5MB)
+    if (!authorInfoFile && !authorInfoFileName) {
+      setValidationError('Please upload the Author Information file (.doc/.docx only, max 5MB).');
+      return;
     }
 
     if (!blindManuscriptFile && !blindManuscriptFileName) {
-      setValidationError('Please upload the Blind Manuscript file (.doc/.docx only).');
+      setValidationError('Please upload the Blind Manuscript file (.doc/.docx only, max 20MB).');
       return;
     }
 
@@ -282,8 +174,6 @@ export const SubmitPage: React.FC = () => {
       setIsSubmitted(true);
       setIsSubmitting(false);
 
-      const correspondingAuthor = manualAuthors.find(a => a.isCorresponding) || manualAuthors[0];
-
       // Save to localStorage
       const newSubmission: SubmissionDraft = {
         id: `sub-${Date.now()}`,
@@ -293,10 +183,10 @@ export const SubmitPage: React.FC = () => {
         primaryLens: 'legal',
         secondaryLenses: ['forensic'],
         articleType: articleType as any,
-        authorName: authorMode === 'manual' ? correspondingAuthor.fullName : "Corresponding Author (In Separate File)",
-        authorEmail: authorMode === 'manual' ? correspondingAuthor.email : "author@university.edu",
-        authorOrcid: authorMode === 'manual' ? (correspondingAuthor.orcid || "Not specified") : "Included in author file",
-        authorAffiliation: authorMode === 'manual' ? correspondingAuthor.affiliation : "Provided in author file",
+        authorName: "Corresponding Author (In Author Info File)",
+        authorEmail: "author@university.edu",
+        authorOrcid: "Included in author file",
+        authorAffiliation: "Provided in author file",
         creditRoles: ['Author'],
         ethicsApproved: true,
         conflictDeclared: true,
@@ -306,10 +196,9 @@ export const SubmitPage: React.FC = () => {
         submittedAt: new Date().toISOString().split('T')[0],
         status: 'Submitted',
         currentStageNumber: 1,
-        authorMode: authorMode,
-        authorDetails: authorMode === 'manual' ? manualAuthors : undefined,
-        authorInfoFileName: authorMode === 'upload' ? authorInfoFileName : undefined,
-        authorInfoFileSize: authorMode === 'upload' ? authorInfoFileSize : undefined,
+        authorMode: 'upload',
+        authorInfoFileName: authorInfoFileName,
+        authorInfoFileSize: authorInfoFileSize,
         keywords: keywords
       };
 
@@ -337,14 +226,7 @@ export const SubmitPage: React.FC = () => {
   };
 
   const handleDownloadSlip = () => {
-    const authorSlipDetails = authorMode === 'manual'
-      ? `AUTHOR INFORMATION (${manualAuthors.length} Author${manualAuthors.length > 1 ? 's' : ''} - Filled Manually):
-` + manualAuthors.map((a, idx) => `  Author ${idx + 1}${a.isCorresponding ? ' [Corresponding Author]' : ''}:
-    - Full Name: ${a.fullName}
-    - Email: ${a.email}
-    - Institutional Affiliation: ${a.affiliation}
-    ${a.designation ? `- Designation: ${a.designation}\n    ` : ''}${a.department ? `- Department: ${a.department}\n    ` : ''}${a.cityCountry ? `- City/Country: ${a.cityCountry}\n    ` : ''}${a.qualification ? `- Highest Qualification: ${a.qualification}\n    ` : ''}${a.orcid ? `- ORCID: ${a.orcid}\n    ` : ''}`).join('\n')
-      : `Author Information File: ${authorInfoFileName} (${authorInfoFileSize})`;
+    const authorSlipDetails = `Author Information File: ${authorInfoFileName || 'Author_Information.docx'} (${authorInfoFileSize || '5 MB'})`;
 
     const slipText = `THE CRIME & SOCIETY REVIEW
 OFFICIAL MANUSCRIPT SUBMISSION RECEIPT
@@ -436,9 +318,7 @@ Editorial Desk: submissions@thecrimeandsocietyreview.org
             <div className="flex justify-between text-[var(--text-secondary)]">
               <span>Author Details:</span>
               <span className="font-mono font-medium text-[var(--text-primary)]">
-                {authorMode === 'manual'
-                  ? `${manualAuthors[0].fullName || 'Author'} (${manualAuthors.length} Author${manualAuthors.length > 1 ? 's' : ''})`
-                  : authorInfoFileName}
+                {authorInfoFileName || 'Author Information File (.docx)'}
               </span>
             </div>
             <div className="flex justify-between text-[var(--text-secondary)]">
@@ -467,23 +347,10 @@ Editorial Desk: submissions@thecrimeandsocietyreview.org
               setEditorMessage('');
               setAuthorInfoFile(null);
               setAuthorInfoFileName('');
+              setAuthorInfoFileSize('');
               setBlindManuscriptFile(null);
               setBlindManuscriptFileName('');
-              setAuthorMode('manual');
-              setManualAuthors([
-                {
-                  fullName: '',
-                  email: '',
-                  affiliation: '',
-                  designation: '',
-                  department: '',
-                  cityCountry: '',
-                  qualification: '',
-                  orcid: '',
-                  isCorresponding: true,
-                  bio: ''
-                }
-              ]);
+              setBlindManuscriptFileSize('');
               setDeclOriginal(false);
               setDeclApproved(false);
               setDeclAccurate(false);
@@ -961,55 +828,34 @@ Editorial Desk: submissions@thecrimeandsocietyreview.org
             </p>
           </section>
 
-          {/* Section 16: Complete Interactive Submission Checklist */}
+          {/* Section 16: Submission Checklist (No tick boxes) */}
           <section id="checklist" className="space-y-4 border-t border-[var(--border-subtle)] pt-8 pb-12">
-            <div className="flex items-center justify-between gap-4">
-              <div className="space-y-1">
-                <div className="flex items-center gap-2 text-xs font-mono font-bold uppercase text-[var(--accent-gold)]">
-                  <span>Section 16</span>
-                </div>
-                <h2 className="font-serif text-2xl font-bold text-[var(--text-primary)]">
-                  Submission Checklist
-                </h2>
+            <div className="space-y-1">
+              <div className="flex items-center gap-2 text-xs font-mono font-bold uppercase text-[var(--accent-gold)]">
+                <span>Section 16</span>
               </div>
-              <button
-                type="button"
-                onClick={handleSelectAllChecklist}
-                className="px-3 py-1.5 rounded-lg border border-[var(--border-subtle)] hover:bg-[var(--bg-card-hover)] text-xs font-mono text-[var(--accent-navy)] font-semibold cursor-pointer shrink-0"
-              >
-                Select All
-              </button>
+              <h2 className="font-serif text-2xl font-bold text-[var(--text-primary)]">
+                Submission Checklist
+              </h2>
             </div>
             <p className="text-xs text-[var(--text-secondary)]">
-              Authors must verify and complete each item before submitting their manuscript:
+              Authors must verify and adhere to each requirement before submitting their manuscript:
             </p>
 
-            <div className="space-y-2 p-4 rounded-2xl border border-[var(--border-subtle)] bg-[var(--bg-card)]">
-              {checklistItems.map((item, idx) => {
-                const isChecked = !!checkedItems[idx];
-                return (
-                  <div
-                    key={idx}
-                    onClick={() => toggleChecklist(idx)}
-                    className="flex items-start gap-3 p-2 rounded-lg hover:bg-[var(--bg-card-hover)] cursor-pointer transition-colors"
-                  >
-                    <button
-                      type="button"
-                      className="mt-0.5 text-[var(--accent-navy)] shrink-0"
-                      aria-label="Toggle checkbox"
-                    >
-                      {isChecked ? (
-                        <CheckSquare className="w-4 h-4 text-emerald-600 dark:text-emerald-400" />
-                      ) : (
-                        <Square className="w-4 h-4 text-[var(--text-muted)]" />
-                      )}
-                    </button>
-                    <span className={`text-xs ${isChecked ? 'text-[var(--text-primary)] font-medium' : 'text-[var(--text-secondary)]'}`}>
-                      {item}
-                    </span>
-                  </div>
-                );
-              })}
+            <div className="space-y-2.5 p-4 rounded-2xl border border-[var(--border-subtle)] bg-[var(--bg-card)]">
+              {checklistItems.map((item, idx) => (
+                <div
+                  key={idx}
+                  className="flex items-start gap-3 p-2 rounded-lg hover:bg-[var(--bg-card-hover)] transition-colors"
+                >
+                  <span className="w-5 h-5 rounded-full bg-[var(--accent-navy)]/10 text-[var(--accent-navy)] font-mono text-[10px] flex items-center justify-center font-bold shrink-0 mt-0.5">
+                    {idx + 1}
+                  </span>
+                  <span className="text-xs text-[var(--text-primary)] font-sans leading-relaxed">
+                    {item}
+                  </span>
+                </div>
+              ))}
             </div>
           </section>
 
@@ -1088,24 +934,6 @@ Editorial Desk: submissions@thecrimeandsocietyreview.org
                   </select>
                 </div>
 
-                {/* Keywords */}
-                <div>
-                  <label className="block text-xs font-medium text-[var(--text-primary)] mb-1">
-                    Keywords *
-                  </label>
-                  <input
-                    type="text"
-                    required
-                    value={keywords}
-                    onChange={(e) => setKeywords(e.target.value)}
-                    placeholder="e.g. Criminal Law, Section 63 BSA, Due Process"
-                    className="w-full text-xs p-2.5 rounded-lg border border-[var(--border-subtle)] bg-[var(--bg-page)] text-[var(--text-primary)] focus:outline-hidden focus:ring-1 focus:ring-[var(--accent-navy)]"
-                  />
-                  <span className="text-[11px] text-[var(--text-muted)] font-mono block mt-1">
-                    Please provide 3–8 keywords.
-                  </span>
-                </div>
-
                 {/* Abstract */}
                 <div>
                   <div className="flex items-center justify-between mb-1">
@@ -1128,281 +956,87 @@ Editorial Desk: submissions@thecrimeandsocietyreview.org
                     Maximum 300 words.
                   </span>
                 </div>
+
+                {/* Keywords */}
+                <div>
+                  <label className="block text-xs font-medium text-[var(--text-primary)] mb-1">
+                    Keywords *
+                  </label>
+                  <input
+                    type="text"
+                    required
+                    value={keywords}
+                    onChange={(e) => setKeywords(e.target.value)}
+                    placeholder="e.g. Criminal Law, Section 63 BSA, Due Process"
+                    className="w-full text-xs p-2.5 rounded-lg border border-[var(--border-subtle)] bg-[var(--bg-page)] text-[var(--text-primary)] focus:outline-hidden focus:ring-1 focus:ring-[var(--accent-navy)]"
+                  />
+                  <span className="text-[11px] text-[var(--text-muted)] font-mono block mt-1">
+                    Please provide 3–8 keywords.
+                  </span>
+                </div>
               </div>
 
-              {/* 2. AUTHOR INFORMATION */}
+              {/* 2. AUTHOR INFORMATION (Document Upload Only, Max 5MB) */}
               <div className="space-y-4 pt-2 border-t border-[var(--border-subtle)]">
                 <div className="flex items-center justify-between border-b border-[var(--border-subtle)] pb-1.5">
                   <div className="flex items-center gap-2 text-xs font-mono font-bold uppercase text-[var(--accent-gold)]">
                     <User className="w-3.5 h-3.5" />
                     <span>2. Author Information</span>
                   </div>
-                  <span className="text-[10px] font-mono text-[var(--text-muted)]">
-                    {authorMode === 'manual' ? `${manualAuthors.length} Author${manualAuthors.length > 1 ? 's' : ''}` : 'Document Upload'}
+                  <span className="text-[10px] font-mono text-[var(--accent-gold)] font-bold">
+                    File Upload (.doc / .docx)
                   </span>
                 </div>
 
-                {/* Option Toggle Switch */}
-                <div className="grid grid-cols-2 p-1 rounded-xl bg-[var(--bg-page)] border border-[var(--border-subtle)] gap-1">
-                  <button
-                    type="button"
-                    onClick={() => setAuthorMode('manual')}
-                    className={`flex items-center justify-center gap-2 py-2 px-3 rounded-lg text-xs font-semibold transition-all cursor-pointer ${
-                      authorMode === 'manual'
-                        ? 'bg-[var(--accent-navy)] text-white shadow-xs'
-                        : 'text-[var(--text-secondary)] hover:text-[var(--text-primary)] hover:bg-[var(--bg-card-hover)]'
-                    }`}
-                  >
-                    <PenLine className="w-3.5 h-3.5" />
-                    <span>Manually Fill</span>
-                  </button>
-                  <button
-                    type="button"
-                    onClick={() => setAuthorMode('upload')}
-                    className={`flex items-center justify-center gap-2 py-2 px-3 rounded-lg text-xs font-semibold transition-all cursor-pointer ${
-                      authorMode === 'upload'
-                        ? 'bg-[var(--accent-navy)] text-white shadow-xs'
-                        : 'text-[var(--text-secondary)] hover:text-[var(--text-primary)] hover:bg-[var(--bg-card-hover)]'
-                    }`}
-                  >
-                    <FileUp className="w-3.5 h-3.5" />
-                    <span>Upload File (.docx)</span>
-                  </button>
+                <div className="p-3.5 rounded-xl border border-[var(--border-subtle)] bg-[var(--bg-page)] text-xs space-y-1">
+                  <span className="font-semibold text-[var(--text-primary)] block">
+                    Please upload a separate Author Information file containing:
+                  </span>
+                  <ul className="list-disc list-inside text-[var(--text-secondary)] space-y-0.5 pl-1 text-[11px]">
+                    <li>Full name of the corresponding author &amp; co-authors</li>
+                    <li>Designation, Institutional Affiliation, Department</li>
+                    <li>City, Country, Email Address &amp; ORCID iDs</li>
+                  </ul>
                 </div>
 
-                {authorMode === 'manual' ? (
-                  /* Option A: Manually Fill Author Details */
-                  <div className="space-y-3.5">
-                    <div className="p-3 rounded-xl bg-[var(--accent-gold)]/10 border border-[var(--accent-gold)]/20 text-xs text-[var(--text-secondary)] flex items-start gap-2">
-                      <ShieldCheck className="w-4 h-4 text-[var(--accent-gold)] shrink-0 mt-0.5" />
-                      <span>
-                        Author details are held confidentially by the Editorial Office to safeguard <strong>double-blind review</strong>. Reviewers will only receive the blinded manuscript.
-                      </span>
-                    </div>
-
-                    {manualAuthors.map((author, index) => (
-                      <div 
-                        key={index} 
-                        className="p-3.5 rounded-xl border border-[var(--border-subtle)] bg-[var(--bg-page)] space-y-3 relative"
-                      >
-                        <div className="flex items-center justify-between pb-1 border-b border-[var(--border-subtle)]">
-                          <div className="flex items-center gap-1.5">
-                            <span className="text-xs font-mono font-bold text-[var(--accent-navy)]">
-                              {index === 0 ? 'Author 1 (Primary Author)' : `Author ${index + 1} (Co-Author)`}
-                            </span>
-                            {author.isCorresponding && (
-                              <span className="px-1.5 py-0.5 rounded text-[10px] font-mono bg-[var(--accent-navy)]/10 text-[var(--accent-navy)] font-semibold">
-                                Corresponding
-                              </span>
-                            )}
-                          </div>
-                          {index > 0 && (
-                            <button
-                              type="button"
-                              onClick={() => handleRemoveAuthor(index)}
-                              className="text-red-500 hover:text-red-700 text-xs flex items-center gap-1 cursor-pointer font-mono"
-                              title="Remove co-author"
-                            >
-                              <Trash2 className="w-3.5 h-3.5" />
-                              <span>Remove</span>
-                            </button>
-                          )}
+                <div>
+                  <label className="block text-xs font-medium text-[var(--text-primary)] mb-1">
+                    Upload Author Information (.doc / .docx) *
+                  </label>
+                  <div className="relative border border-[var(--border-subtle)] hover:border-[var(--accent-navy)] rounded-xl p-3 bg-[var(--bg-page)] transition-colors">
+                    <input
+                      type="file"
+                      accept=".doc,.docx,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+                      onChange={handleAuthorInfoUpload}
+                      className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
+                    />
+                    <div className="flex items-center justify-between gap-2 text-xs">
+                      {authorInfoFileName ? (
+                        <div className="flex items-center gap-2 text-emerald-600 dark:text-emerald-400 font-mono truncate">
+                          <FileCheck className="w-4 h-4 shrink-0" />
+                          <span className="truncate">{authorInfoFileName}</span>
+                          <span className="text-[10px] text-[var(--text-muted)] shrink-0">({authorInfoFileSize})</span>
                         </div>
-
-                        {/* Name and Email */}
-                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
-                          <div>
-                            <label className="block text-[11px] font-medium text-[var(--text-primary)] mb-1">
-                              Full Name *
-                            </label>
-                            <input
-                              type="text"
-                              required={index === 0}
-                              value={author.fullName}
-                              onChange={(e) => handleAuthorChange(index, 'fullName', e.target.value)}
-                              placeholder="e.g. Dr. Rajesh Sharma"
-                              className="w-full text-xs p-2 rounded-lg border border-[var(--border-subtle)] bg-[var(--bg-card)] text-[var(--text-primary)] focus:outline-hidden focus:ring-1 focus:ring-[var(--accent-navy)]"
-                            />
-                          </div>
-                          <div>
-                            <label className="block text-[11px] font-medium text-[var(--text-primary)] mb-1">
-                              Email Address *
-                            </label>
-                            <input
-                              type="email"
-                              required={index === 0}
-                              value={author.email}
-                              onChange={(e) => handleAuthorChange(index, 'email', e.target.value)}
-                              placeholder="e.g. r.sharma@nlu.ac.in"
-                              className="w-full text-xs p-2 rounded-lg border border-[var(--border-subtle)] bg-[var(--bg-card)] text-[var(--text-primary)] focus:outline-hidden focus:ring-1 focus:ring-[var(--accent-navy)]"
-                            />
-                          </div>
+                      ) : (
+                        <div className="flex items-center gap-2 text-[var(--text-secondary)]">
+                          <UploadCloud className="w-4 h-4 text-[var(--accent-navy)]" />
+                          <span>Choose File (Word doc only)</span>
                         </div>
-
-                        {/* Institutional Affiliation & Department */}
-                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
-                          <div>
-                            <label className="block text-[11px] font-medium text-[var(--text-primary)] mb-1">
-                              Institutional Affiliation *
-                            </label>
-                            <input
-                              type="text"
-                              required={index === 0}
-                              value={author.affiliation}
-                              onChange={(e) => handleAuthorChange(index, 'affiliation', e.target.value)}
-                              placeholder="e.g. National Law University, Delhi"
-                              className="w-full text-xs p-2 rounded-lg border border-[var(--border-subtle)] bg-[var(--bg-card)] text-[var(--text-primary)] focus:outline-hidden focus:ring-1 focus:ring-[var(--accent-navy)]"
-                            />
-                          </div>
-                          <div>
-                            <label className="block text-[11px] font-medium text-[var(--text-primary)] mb-1">
-                              Department / School / Centre
-                            </label>
-                            <input
-                              type="text"
-                              value={author.department || ''}
-                              onChange={(e) => handleAuthorChange(index, 'department', e.target.value)}
-                              placeholder="e.g. Department of Criminal Law"
-                              className="w-full text-xs p-2 rounded-lg border border-[var(--border-subtle)] bg-[var(--bg-card)] text-[var(--text-primary)] focus:outline-hidden focus:ring-1 focus:ring-[var(--accent-navy)]"
-                            />
-                          </div>
-                        </div>
-
-                        {/* Designation & City/Country */}
-                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
-                          <div>
-                            <label className="block text-[11px] font-medium text-[var(--text-primary)] mb-1">
-                              Designation / Position
-                            </label>
-                            <input
-                              type="text"
-                              value={author.designation || ''}
-                              onChange={(e) => handleAuthorChange(index, 'designation', e.target.value)}
-                              placeholder="e.g. Assistant Professor / PhD Scholar"
-                              className="w-full text-xs p-2 rounded-lg border border-[var(--border-subtle)] bg-[var(--bg-card)] text-[var(--text-primary)] focus:outline-hidden focus:ring-1 focus:ring-[var(--accent-navy)]"
-                            />
-                          </div>
-                          <div>
-                            <label className="block text-[11px] font-medium text-[var(--text-primary)] mb-1">
-                              City &amp; Country
-                            </label>
-                            <input
-                              type="text"
-                              value={author.cityCountry || ''}
-                              onChange={(e) => handleAuthorChange(index, 'cityCountry', e.target.value)}
-                              placeholder="e.g. New Delhi, India"
-                              className="w-full text-xs p-2 rounded-lg border border-[var(--border-subtle)] bg-[var(--bg-card)] text-[var(--text-primary)] focus:outline-hidden focus:ring-1 focus:ring-[var(--accent-navy)]"
-                            />
-                          </div>
-                        </div>
-
-                        {/* Qualification & ORCID */}
-                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
-                          <div>
-                            <label className="block text-[11px] font-medium text-[var(--text-primary)] mb-1">
-                              Highest Qualification
-                            </label>
-                            <input
-                              type="text"
-                              value={author.qualification || ''}
-                              onChange={(e) => handleAuthorChange(index, 'qualification', e.target.value)}
-                              placeholder="e.g. Ph.D. in Criminology, LL.M."
-                              className="w-full text-xs p-2 rounded-lg border border-[var(--border-subtle)] bg-[var(--bg-card)] text-[var(--text-primary)] focus:outline-hidden focus:ring-1 focus:ring-[var(--accent-navy)]"
-                            />
-                          </div>
-                          <div>
-                            <label className="block text-[11px] font-medium text-[var(--text-primary)] mb-1">
-                              ORCID iD (Optional)
-                            </label>
-                            <input
-                              type="text"
-                              value={author.orcid || ''}
-                              onChange={(e) => handleAuthorChange(index, 'orcid', e.target.value)}
-                              placeholder="e.g. 0000-0002-1825-0097"
-                              className="w-full text-xs p-2 rounded-lg border border-[var(--border-subtle)] bg-[var(--bg-card)] text-[var(--text-primary)] focus:outline-hidden focus:ring-1 focus:ring-[var(--accent-navy)] font-mono"
-                            />
-                          </div>
-                        </div>
-
-                        {/* Corresponding Author toggle */}
-                        <label className="flex items-center gap-2 cursor-pointer pt-1">
-                          <input
-                            type="checkbox"
-                            checked={!!author.isCorresponding}
-                            onChange={(e) => handleAuthorChange(index, 'isCorresponding', e.target.checked)}
-                            className="rounded text-[var(--accent-navy)] focus:ring-[var(--accent-navy)] shrink-0"
-                          />
-                          <span className="text-[11px] text-[var(--text-secondary)]">
-                            Designate as Corresponding Author
-                          </span>
-                        </label>
-                      </div>
-                    ))}
-
-                    {/* Add Co-author Button */}
-                    <button
-                      type="button"
-                      onClick={handleAddAuthor}
-                      className="w-full py-2.5 px-3 rounded-xl border border-dashed border-[var(--border-strong)] hover:border-[var(--accent-navy)] hover:bg-[var(--bg-card-hover)] text-xs text-[var(--accent-navy)] font-semibold flex items-center justify-center gap-1.5 transition-colors cursor-pointer"
-                    >
-                      <Plus className="w-3.5 h-3.5" />
-                      <span>Add Co-Author</span>
-                    </button>
-                  </div>
-                ) : (
-                  /* Option B: Upload Author Information File */
-                  <div className="space-y-3">
-                    <div className="p-3.5 rounded-xl border border-[var(--border-subtle)] bg-[var(--bg-page)] text-xs space-y-1">
-                      <span className="font-semibold text-[var(--text-primary)] block">
-                        Please upload a separate Author Information file containing:
-                      </span>
-                      <ul className="list-disc list-inside text-[var(--text-secondary)] space-y-0.5 pl-1 text-[11px]">
-                        <li>Full name of the corresponding author &amp; co-authors</li>
-                        <li>Designation, Institutional Affiliation, Department</li>
-                        <li>City, Country, Email &amp; ORCID iDs</li>
-                      </ul>
-                    </div>
-
-                    <div>
-                      <label className="block text-xs font-medium text-[var(--text-primary)] mb-1">
-                        Upload Author Information (.doc / .docx) *
-                      </label>
-                      <div className="relative border border-[var(--border-subtle)] hover:border-[var(--accent-navy)] rounded-xl p-3 bg-[var(--bg-page)] transition-colors">
-                        <input
-                          type="file"
-                          accept=".doc,.docx,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document"
-                          onChange={handleAuthorInfoUpload}
-                          className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
-                        />
-                        <div className="flex items-center justify-between gap-2 text-xs">
-                          {authorInfoFileName ? (
-                            <div className="flex items-center gap-2 text-emerald-600 dark:text-emerald-400 font-mono truncate">
-                              <FileCheck className="w-4 h-4 shrink-0" />
-                              <span className="truncate">{authorInfoFileName}</span>
-                              <span className="text-[10px] text-[var(--text-muted)] shrink-0">({authorInfoFileSize})</span>
-                            </div>
-                          ) : (
-                            <div className="flex items-center gap-2 text-[var(--text-secondary)]">
-                              <UploadCloud className="w-4 h-4 text-[var(--accent-navy)]" />
-                              <span>Choose File (Word doc only)</span>
-                            </div>
-                          )}
-                          <span className="px-2 py-1 rounded bg-[var(--bg-card)] border border-[var(--border-subtle)] text-[10px] font-mono text-[var(--text-muted)] shrink-0">
-                            Max 5 MB
-                          </span>
-                        </div>
-                      </div>
-                      {authorInfoFileError && (
-                        <p className="text-[11px] font-mono text-red-600 dark:text-red-400 mt-1">
-                          {authorInfoFileError}
-                        </p>
                       )}
+                      <span className="px-2 py-1 rounded bg-[var(--bg-card)] border border-[var(--border-subtle)] text-[10px] font-mono text-[var(--text-muted)] shrink-0">
+                        Max 5 MB
+                      </span>
                     </div>
                   </div>
-                )}
+                  {authorInfoFileError && (
+                    <p className="text-[11px] font-mono text-red-600 dark:text-red-400 mt-1">
+                      {authorInfoFileError}
+                    </p>
+                  )}
+                </div>
               </div>
 
-              {/* 3. BLIND MANUSCRIPT */}
+              {/* 3. BLIND MANUSCRIPT (Max 20MB) */}
               <div className="space-y-3 pt-2 border-t border-[var(--border-subtle)]">
                 <div className="flex items-center gap-2 text-xs font-mono font-bold uppercase text-[var(--accent-gold)] border-b border-[var(--border-subtle)] pb-1.5">
                   <ShieldCheck className="w-3.5 h-3.5" />
@@ -1420,7 +1054,7 @@ Editorial Desk: submissions@thecrimeandsocietyreview.org
 
                 <div>
                   <label className="block text-xs font-medium text-[var(--text-primary)] mb-1">
-                    Upload Blind Manuscript *
+                    Upload Blind Manuscript (.doc / .docx) *
                   </label>
                   <div className="relative border border-[var(--border-subtle)] hover:border-[var(--accent-navy)] rounded-xl p-3 bg-[var(--bg-page)] transition-colors">
                     <input
@@ -1443,7 +1077,7 @@ Editorial Desk: submissions@thecrimeandsocietyreview.org
                         </div>
                       )}
                       <span className="px-2 py-1 rounded bg-[var(--bg-card)] border border-[var(--border-subtle)] text-[10px] font-mono text-[var(--text-muted)] shrink-0">
-                        Max 5 MB
+                        Max 20 MB
                       </span>
                     </div>
                   </div>
@@ -1458,7 +1092,7 @@ Editorial Desk: submissions@thecrimeandsocietyreview.org
               {/* 4. DECLARATION & SUBMISSION */}
               <div className="space-y-3 pt-2 border-t border-[var(--border-subtle)]">
                 <div className="flex items-center gap-2 text-xs font-mono font-bold uppercase text-[var(--accent-gold)] border-b border-[var(--border-subtle)] pb-1.5">
-                  <CheckSquare className="w-3.5 h-3.5" />
+                  <ShieldCheck className="w-3.5 h-3.5" />
                   <span>4. Declaration &amp; Submission</span>
                 </div>
 

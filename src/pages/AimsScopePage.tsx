@@ -24,17 +24,10 @@ export const AimsScopePage: React.FC = () => {
   return (
     <div className="max-w-6xl mx-auto px-4 py-12 space-y-16 animate-fadeIn">
       {/* Header */}
-      <div className="border-b border-[var(--border-subtle)] pb-8 space-y-3">
-        <div className="flex items-center gap-2 text-xs font-mono uppercase font-bold text-[var(--accent-gold)]">
-          <Target className="w-4 h-4" />
-          <span>Mandate &amp; Research Parameters</span>
-        </div>
+      <div className="border-b border-[var(--border-subtle)] pb-6">
         <h1 className="font-serif text-3xl sm:text-5xl font-bold text-[var(--text-primary)] tracking-tight">
           Aims &amp; Scope
         </h1>
-        <p className="font-serif italic text-base sm:text-xl text-[var(--accent-gold)]">
-          The Comprehensive Scholarly Domain of The Crime &amp; Society Review
-        </p>
       </div>
 
       {/* 1. PURPOSE OF THE JOURNAL */}

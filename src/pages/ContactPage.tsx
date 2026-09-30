@@ -28,17 +28,10 @@ export const ContactPage: React.FC = () => {
   return (
     <div className="max-w-6xl mx-auto px-4 py-12 space-y-16 animate-fadeIn">
       {/* Header */}
-      <div className="border-b border-[var(--border-subtle)] pb-8 space-y-3">
-        <div className="flex items-center gap-2 text-xs font-mono uppercase font-bold text-[var(--accent-gold)]">
-          <Mail className="w-4 h-4" />
-          <span>Editorial Communications • Contact &amp; Enquiries</span>
-        </div>
+      <div className="border-b border-[var(--border-subtle)] pb-6">
         <h1 className="font-serif text-3xl sm:text-5xl font-bold text-[var(--text-primary)] tracking-tight">
           Contact The Crime &amp; Society Review
         </h1>
-        <p className="font-serif italic text-base sm:text-xl text-[var(--accent-gold)]">
-          Direct Inquiries to the Editorial Chambers, Peer Review Desk, and Publisher Office
-        </p>
       </div>
 
       {/* Main Form & Postal Chambers */}
@@ -166,19 +159,41 @@ export const ContactPage: React.FC = () => {
           <div className="p-6 rounded-2xl border border-[var(--border-subtle)] bg-[var(--bg-card)] space-y-4">
             <div className="flex items-center gap-2 text-xs font-mono uppercase font-bold text-[var(--accent-gold)]">
               <MapPin className="w-4 h-4" />
-              <span>Editorial Chambers &amp; Registry</span>
+              <span>Editorial Office &amp; Secretariat</span>
             </div>
             
-            <div className="space-y-2 text-xs sm:text-sm font-serif text-[var(--text-secondary)]">
-              <strong className="text-[var(--text-primary)] block">
-                The Crime &amp; Society Review Editorial Chambers
-              </strong>
-              <p>
-                {CONTACT_DETAILS.editorialOffice.address}
-              </p>
-              <p className="font-mono text-xs text-[var(--text-muted)] pt-1">
-                Telephone: {CONTACT_DETAILS.editorialOffice.phone}
-              </p>
+            <div className="space-y-3 text-xs sm:text-sm font-serif text-[var(--text-secondary)]">
+              <div>
+                <strong className="text-[var(--text-primary)] block">
+                  The Crime &amp; Society Review Editorial Office
+                </strong>
+                <p className="mt-0.5">
+                  Sector 9, Institutional Area, New Delhi – 110003, India
+                </p>
+              </div>
+
+              {/* Official Emails */}
+              <div className="pt-2 border-t border-[var(--border-subtle)] space-y-1.5 font-mono text-xs">
+                <div className="flex items-start gap-2">
+                  <Mail className="w-3.5 h-3.5 text-[var(--accent-gold)] shrink-0 mt-0.5" />
+                  <div>
+                    <span className="text-[var(--text-muted)] block text-[10px] uppercase">Editorial Office:</span>
+                    <a href="mailto:editor@thecrimeandsocietyreview.org" className="text-[var(--accent-navy)] hover:underline">
+                      editor@thecrimeandsocietyreview.org
+                    </a>
+                  </div>
+                </div>
+
+                <div className="flex items-start gap-2 pt-1">
+                  <Mail className="w-3.5 h-3.5 text-[var(--accent-gold)] shrink-0 mt-0.5" />
+                  <div>
+                    <span className="text-[var(--text-muted)] block text-[10px] uppercase">Manuscript Submissions:</span>
+                    <a href="mailto:submissions@thecrimeandsocietyreview.org" className="text-[var(--accent-navy)] hover:underline">
+                      submissions@thecrimeandsocietyreview.org
+                    </a>
+                  </div>
+                </div>
+              </div>
             </div>
 
             <div className="pt-3 border-t border-[var(--border-subtle)] space-y-1 text-xs font-mono text-[var(--text-muted)]">
@@ -191,29 +206,19 @@ export const ContactPage: React.FC = () => {
             </div>
           </div>
 
-          {/* Academic & Bibliographic Links */}
+          {/* Academic & Bibliographic Repositories */}
           <div className="p-6 rounded-2xl border border-[var(--border-subtle)] bg-[var(--bg-card)] space-y-3">
             <h3 className="font-serif font-bold text-base text-[var(--text-primary)] flex items-center gap-2">
               <Globe className="w-4 h-4 text-[var(--accent-gold)]" />
-              <span>Academic Discovery &amp; Repositories</span>
+              <span>Academic Indexing &amp; Repositories</span>
             </h3>
-            <div className="grid grid-cols-2 gap-2 text-xs font-mono text-[var(--accent-navy)]">
-              <a href="https://crossref.org" target="_blank" rel="noopener noreferrer" className="p-2 rounded-lg bg-[var(--bg-page)] border border-[var(--border-subtle)] hover:border-[var(--accent-gold)] flex items-center justify-between">
-                <span>Crossref</span>
-                <ExternalLink className="w-3 h-3 text-[var(--text-muted)]" />
-              </a>
-              <a href="https://orcid.org" target="_blank" rel="noopener noreferrer" className="p-2 rounded-lg bg-[var(--bg-page)] border border-[var(--border-subtle)] hover:border-[var(--accent-gold)] flex items-center justify-between">
-                <span>ORCID Hub</span>
-                <ExternalLink className="w-3 h-3 text-[var(--text-muted)]" />
-              </a>
-              <a href="https://scholar.google.com" target="_blank" rel="noopener noreferrer" className="p-2 rounded-lg bg-[var(--bg-page)] border border-[var(--border-subtle)] hover:border-[var(--accent-gold)] flex items-center justify-between">
-                <span>Google Scholar</span>
-                <ExternalLink className="w-3 h-3 text-[var(--text-muted)]" />
-              </a>
-              <a href="https://doaj.org" target="_blank" rel="noopener noreferrer" className="p-2 rounded-lg bg-[var(--bg-page)] border border-[var(--border-subtle)] hover:border-[var(--accent-gold)] flex items-center justify-between">
-                <span>DOAJ Directory</span>
-                <ExternalLink className="w-3 h-3 text-[var(--text-muted)]" />
-              </a>
+            <div className="space-y-2 text-xs font-mono">
+              <div className="p-3 rounded-lg bg-[var(--bg-page)] border border-[var(--border-subtle)] flex items-center justify-between">
+                <span className="font-medium text-[var(--text-primary)]">Google Scholar</span>
+                <span className="px-2 py-0.5 rounded text-[10px] font-bold uppercase bg-amber-500/10 text-amber-600 dark:text-amber-400 border border-amber-500/20">
+                  Coming Soon
+                </span>
+              </div>
             </div>
           </div>
 

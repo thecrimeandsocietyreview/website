@@ -14,17 +14,10 @@ export const AboutPage: React.FC = () => {
   return (
     <div className="max-w-5xl mx-auto px-4 py-12 space-y-16 animate-fadeIn">
       {/* Header Banner */}
-      <div className="border-b border-[var(--border-subtle)] pb-8 space-y-3">
-        <div className="flex items-center gap-2 text-xs font-mono uppercase font-bold text-[var(--accent-gold)]">
-          <BookOpen className="w-4 h-4" />
-          <span>Institutional Profile • About the Journal</span>
-        </div>
+      <div className="border-b border-[var(--border-subtle)] pb-6">
         <h1 className="font-serif text-3xl sm:text-5xl font-bold text-[var(--text-primary)] tracking-tight">
           About The Crime &amp; Society Review
         </h1>
-        <p className="font-serif italic text-base sm:text-xl text-[var(--accent-gold)]">
-          An Interdisciplinary Scholarly Forum for Law, Forensics, Policing, and Criminology
-        </p>
       </div>
 
       {/* 1. PURPOSE OF THE JOURNAL */}
@@ -130,20 +123,7 @@ export const AboutPage: React.FC = () => {
           ))}
         </div>
 
-        <div className="pt-2 flex flex-wrap items-center gap-4 text-xs font-mono text-[var(--text-muted)] border-t border-[var(--border-subtle)]">
-          <span className="flex items-center gap-1">
-            <CheckCircle2 className="w-4 h-4 text-emerald-500" />
-            <span>COPE Core Practices Aligned</span>
-          </span>
-          <span className="flex items-center gap-1">
-            <CheckCircle2 className="w-4 h-4 text-emerald-500" />
-            <span>Double-Blind Peer Review</span>
-          </span>
-          <span className="flex items-center gap-1">
-            <CheckCircle2 className="w-4 h-4 text-emerald-500" />
-            <span>ICMR Ethical Guidelines</span>
-          </span>
-        </div>
+
       </section>
 
       {/* Navigation Footer */}
