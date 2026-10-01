@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { 
   Send, 
   CheckCircle2, 
@@ -18,6 +18,38 @@ import confetti from 'canvas-confetti';
 import { SubmissionDraft } from '../types/journal';
 
 export const SubmitPage: React.FC = () => {
+  // Guidelines Scroll Container Ref & Jump handler
+  const guidelinesContainerRef = useRef<HTMLDivElement>(null);
+  const [activeJumpId, setActiveJumpId] = useState('general-policy');
+
+  const handleJump = (e: React.MouseEvent, targetId: string) => {
+    e.preventDefault();
+    setActiveJumpId(targetId);
+    
+    const container = guidelinesContainerRef.current;
+    const targetEl = document.getElementById(targetId);
+
+    if (container && targetEl && window.innerWidth >= 1024) {
+      // Desktop: Scroll the inner guidelines container smoothly
+      const containerRect = container.getBoundingClientRect();
+      const targetRect = targetEl.getBoundingClientRect();
+      const scrollPosition = targetRect.top - containerRect.top + container.scrollTop;
+      
+      container.scrollTo({
+        top: Math.max(0, scrollPosition - 8),
+        behavior: 'smooth'
+      });
+    } else if (targetEl) {
+      // Mobile or fallback: Scroll window with header offset
+      const yOffset = -120;
+      const y = targetEl.getBoundingClientRect().top + window.pageYOffset + yOffset;
+      window.scrollTo({
+        top: y,
+        behavior: 'smooth'
+      });
+    }
+  };
+
   // Form State
   const [title, setTitle] = useState('');
   const [articleType, setArticleType] = useState('Research Article');
@@ -250,7 +282,7 @@ CONFIRMATIONS:
 - Open Access: Diamond Open Access (CC BY 4.0, ₹0 APC)
 - ISSN: Coming Soon
 
-Editorial Desk: submissions@thecrimeandsocietyreview.org
+Editorial Desk: thecrimeandsocietyreview@gmail.com
 =====================================================`;
 
     const blob = new Blob([slipText], { type: 'text/plain' });
@@ -366,36 +398,89 @@ Editorial Desk: submissions@thecrimeandsocietyreview.org
   }
 
   return (
-    <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 py-8 animate-fadeIn">
+    <div className="w-full max-w-[1440px] mx-auto px-4 sm:px-6 py-4 animate-fadeIn lg:h-[calc(100vh-4.25rem)] lg:overflow-hidden">
       
-      {/* 2-Column Desktop Grid: Left Guidelines (order-2 on mobile, order-1 on desktop), Right Form (order-1 on mobile, order-2 on desktop) */}
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch">
+      {/* 2-Column Desktop Grid: Left Guidelines (7 cols), Right Form (5 cols) */}
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:h-full lg:overflow-hidden items-start">
         
         {/* ========================================================
             GUIDELINES COLUMN: (7 cols on desktop, order-2 on mobile)
         ======================================================== */}
-        <div className="order-2 lg:order-1 lg:col-span-7 space-y-10 text-[var(--text-secondary)] font-serif leading-relaxed text-sm">
+        <div className="order-2 lg:order-1 lg:col-span-7 flex flex-col lg:h-full lg:overflow-hidden">
           
-          {/* Quick Jump Bar */}
-          <div className="p-3.5 rounded-xl border border-[var(--border-subtle)] bg-[var(--bg-card-hover)] flex flex-wrap items-center gap-2 text-xs font-mono">
-            <span className="text-[var(--text-muted)] font-bold uppercase text-[10px]">Jump to Section:</span>
-            <a href="#general-policy" className="hover:text-[var(--accent-navy)] hover:underline">1. Policy</a>
-            <span>•</span>
-            <a href="#originality" className="hover:text-[var(--accent-navy)] hover:underline">2. Originality</a>
-            <span>•</span>
-            <a href="#plagiarism" className="hover:text-[var(--accent-navy)] hover:underline">3. Plagiarism &amp; AI</a>
-            <span>•</span>
-            <a href="#authorship" className="hover:text-[var(--accent-navy)] hover:underline">4. Authorship</a>
-            <span>•</span>
-            <a href="#separate-files" className="hover:text-[var(--accent-navy)] hover:underline">5. Separate Files</a>
-            <span>•</span>
-            <a href="#formatting" className="hover:text-[var(--accent-navy)] hover:underline">8. Formatting</a>
-            <span>•</span>
-            <a href="#referencing" className="hover:text-[var(--accent-navy)] hover:underline">9. APA 7th</a>
-            <span>•</span>
-            <a href="#checklist" className="text-[var(--accent-gold)] font-bold hover:underline">16. Checklist</a>
+          {/* Quick Jump Bar - Stays stuck / pinned at top */}
+          <div className="shrink-0 mb-3 p-3 rounded-xl border border-[var(--border-subtle)] bg-[var(--bg-card)] shadow-xs flex flex-wrap items-center gap-x-2 gap-y-1.5 text-xs font-mono sticky top-14 lg:static z-20">
+            <span className="text-[var(--text-muted)] font-bold uppercase text-[10px] mr-0.5">Jump to Section:</span>
+            <button 
+              type="button"
+              onClick={(e) => handleJump(e, 'general-policy')} 
+              className={`transition-colors cursor-pointer ${activeJumpId === 'general-policy' ? 'text-[var(--accent-navy)] font-bold underline' : 'hover:text-[var(--accent-navy)] hover:underline'}`}
+            >
+              1. Policy
+            </button>
+            <span className="text-[var(--border-strong)]">•</span>
+            <button 
+              type="button"
+              onClick={(e) => handleJump(e, 'originality')} 
+              className={`transition-colors cursor-pointer ${activeJumpId === 'originality' ? 'text-[var(--accent-navy)] font-bold underline' : 'hover:text-[var(--accent-navy)] hover:underline'}`}
+            >
+              2. Originality
+            </button>
+            <span className="text-[var(--border-strong)]">•</span>
+            <button 
+              type="button"
+              onClick={(e) => handleJump(e, 'plagiarism')} 
+              className={`transition-colors cursor-pointer ${activeJumpId === 'plagiarism' ? 'text-[var(--accent-navy)] font-bold underline' : 'hover:text-[var(--accent-navy)] hover:underline'}`}
+            >
+              3. Plagiarism &amp; AI
+            </button>
+            <span className="text-[var(--border-strong)]">•</span>
+            <button 
+              type="button"
+              onClick={(e) => handleJump(e, 'authorship')} 
+              className={`transition-colors cursor-pointer ${activeJumpId === 'authorship' ? 'text-[var(--accent-navy)] font-bold underline' : 'hover:text-[var(--accent-navy)] hover:underline'}`}
+            >
+              4. Authorship
+            </button>
+            <span className="text-[var(--border-strong)]">•</span>
+            <button 
+              type="button"
+              onClick={(e) => handleJump(e, 'separate-files')} 
+              className={`transition-colors cursor-pointer ${activeJumpId === 'separate-files' ? 'text-[var(--accent-navy)] font-bold underline' : 'hover:text-[var(--accent-navy)] hover:underline'}`}
+            >
+              5. Separate Files
+            </button>
+            <span className="text-[var(--border-strong)]">•</span>
+            <button 
+              type="button"
+              onClick={(e) => handleJump(e, 'formatting')} 
+              className={`transition-colors cursor-pointer ${activeJumpId === 'formatting' ? 'text-[var(--accent-navy)] font-bold underline' : 'hover:text-[var(--accent-navy)] hover:underline'}`}
+            >
+              8. Formatting
+            </button>
+            <span className="text-[var(--border-strong)]">•</span>
+            <button 
+              type="button"
+              onClick={(e) => handleJump(e, 'referencing')} 
+              className={`transition-colors cursor-pointer ${activeJumpId === 'referencing' ? 'text-[var(--accent-navy)] font-bold underline' : 'hover:text-[var(--accent-navy)] hover:underline'}`}
+            >
+              9. APA 7th
+            </button>
+            <span className="text-[var(--border-strong)]">•</span>
+            <button 
+              type="button"
+              onClick={(e) => handleJump(e, 'checklist')} 
+              className={`text-[var(--accent-gold)] font-bold cursor-pointer transition-colors ${activeJumpId === 'checklist' ? 'underline' : 'hover:underline'}`}
+            >
+              16. Checklist
+            </button>
           </div>
 
+          {/* Guidelines Content Scroll Container */}
+          <div 
+            ref={guidelinesContainerRef}
+            className="flex-1 lg:overflow-y-auto lg:pr-3 space-y-10 text-[var(--text-secondary)] font-serif leading-relaxed text-sm scroll-smooth custom-scrollbar pb-16"
+          >
           {/* Section 1: General Submission Policy */}
           <section id="general-policy" className="space-y-3 pt-1">
             <div className="flex items-center gap-2 text-xs font-mono font-bold uppercase text-[var(--accent-gold)]">
@@ -863,16 +948,15 @@ Editorial Desk: submissions@thecrimeandsocietyreview.org
             </div>
           </section>
 
+          </div>
         </div>
 
         {/* ========================================================
             SUBMISSION FORM COLUMN: (5 cols on desktop, order-1 on mobile)
             Locked in place on desktop - Stays sticky throughout entire page scroll
         ======================================================== */}
-        <div className="order-1 lg:order-2 lg:col-span-5 relative self-stretch">
-          <div className="lg:sticky lg:top-20 lg:max-h-[calc(100vh-5.5rem)] lg:overflow-y-auto overscroll-contain pr-1 pb-4">
-            
-            <div className="p-6 rounded-2xl border border-[var(--border-strong)] bg-[var(--bg-card)] space-y-6 shadow-md">
+        <div className="order-1 lg:order-2 lg:col-span-5 lg:h-full lg:overflow-y-auto pr-1 pb-4 custom-scrollbar">
+          <div className="p-6 rounded-2xl border border-[var(--border-strong)] bg-[var(--bg-card)] space-y-6 shadow-md">
             
             {/* Form Top Instruction */}
             <div className="space-y-1.5 border-b border-[var(--border-subtle)] pb-4">
@@ -1192,8 +1276,6 @@ Editorial Desk: submissions@thecrimeandsocietyreview.org
         </div>
 
       </div>
-
-    </div>
 
     </div>
   );

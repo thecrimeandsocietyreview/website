@@ -1064,22 +1064,22 @@ export const FOR_REVIEWERS_DATA = {
 export const CONTACT_DETAILS = {
   editorialOffice: {
     title: "Editorial Office",
-    email: "editor@thecrimeandsocietyreview.org",
+    email: "thecrimeandsocietyreview@gmail.com",
     phone: "",
-    address: "Sector 9, Institutional Area, New Delhi – 110003, India"
+    address: ""
   },
   submissions: {
     title: "Submissions & Editorial Triage",
-    email: "submissions@thecrimeandsocietyreview.org",
+    email: "thecrimeandsocietyreview@gmail.com",
     deskHours: "Monday – Saturday, 09:30 AM – 06:00 PM IST"
   },
   reviewers: {
     title: "Reviewer & Editorial Board Enquiries",
-    email: "reviewers@thecrimeandsocietyreview.org"
+    email: "thecrimeandsocietyreview@gmail.com"
   },
   publisher: {
     title: "Publisher & Institutional Relations",
-    email: "publisher@thecrimeandsocietyreview.org",
+    email: "thecrimeandsocietyreview@gmail.com",
     entity: "The Crime & Society Review Press"
   }
 };

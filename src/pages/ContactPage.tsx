@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { 
   Mail, 
-  MapPin, 
   Send, 
   CheckCircle2, 
   Clock, 
@@ -160,38 +159,28 @@ export const ContactPage: React.FC = () => {
           <div className="p-6 sm:p-7 rounded-3xl border border-slate-800 bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950 text-white space-y-5 shadow-xl relative overflow-hidden">
             <div className="absolute top-0 right-0 w-48 h-48 bg-amber-500/5 rounded-full blur-2xl pointer-events-none" />
             <div className="flex items-center gap-2 text-xs font-mono uppercase font-bold text-amber-400 relative z-10">
-              <MapPin className="w-4 h-4 text-amber-400" />
-              <span>Editorial Office &amp; Secretariat</span>
+              <Mail className="w-4 h-4 text-amber-400" />
+              <span>Official Correspondence</span>
             </div>
             
             <div className="space-y-3.5 text-xs sm:text-sm font-serif text-slate-300 relative z-10">
               <div>
                 <strong className="text-white block font-sans text-base">
-                  The Crime &amp; Society Review Editorial Office
+                  The Crime &amp; Society Review
                 </strong>
-                <p className="mt-1 text-slate-300">
-                  Sector 9, Institutional Area, New Delhi – 110003, India
+                <p className="mt-1 text-slate-400 text-xs font-serif">
+                  For all editorial queries, manuscript submissions, reviewer correspondences, and general academic inquiries:
                 </p>
               </div>
 
-              {/* Official Emails */}
+              {/* Single Official Email */}
               <div className="pt-3 border-t border-slate-800 space-y-2 font-mono text-xs">
-                <div className="flex items-start gap-2.5">
+                <div className="flex items-start gap-2.5 p-3 rounded-xl bg-slate-900/90 border border-slate-800">
                   <Mail className="w-4 h-4 text-amber-400 shrink-0 mt-0.5" />
                   <div>
-                    <span className="text-slate-400 block text-[10px] uppercase font-bold">Editorial Office:</span>
-                    <a href="mailto:editor@thecrimeandsocietyreview.org" className="text-sky-400 hover:text-sky-300 transition-colors font-medium">
-                      editor@thecrimeandsocietyreview.org
-                    </a>
-                  </div>
-                </div>
-
-                <div className="flex items-start gap-2.5 pt-1.5">
-                  <Mail className="w-4 h-4 text-amber-400 shrink-0 mt-0.5" />
-                  <div>
-                    <span className="text-slate-400 block text-[10px] uppercase font-bold">Manuscript Submissions:</span>
-                    <a href="mailto:submissions@thecrimeandsocietyreview.org" className="text-sky-400 hover:text-sky-300 transition-colors font-medium">
-                      submissions@thecrimeandsocietyreview.org
+                    <span className="text-slate-400 block text-[10px] uppercase font-bold">Official Email:</span>
+                    <a href="mailto:thecrimeandsocietyreview@gmail.com" className="text-sky-400 hover:text-sky-300 transition-colors font-medium text-xs sm:text-sm break-all">
+                      thecrimeandsocietyreview@gmail.com
                     </a>
                   </div>
                 </div>

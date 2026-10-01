@@ -15,6 +15,7 @@ import {
   FileText
 } from 'lucide-react';
 import { JOURNAL_METADATA } from '../data/mockJournalData';
+import { GlobalNetworkSection } from '../components/common/GlobalNetworkSection';
 
 export const HomePage: React.FC = () => {
   return (
@@ -273,6 +274,11 @@ export const HomePage: React.FC = () => {
 
         </div>
       </section>
+
+      {/* ========================================================
+          GLOBAL EDGE NETWORK / INTERACTIVE GLOBE SECTION
+      ======================================================== */}
+      <GlobalNetworkSection />
 
     </div>
   );

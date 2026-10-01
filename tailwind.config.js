@@ -8,6 +8,17 @@ export default {
   theme: {
     extend: {
       colors: {
+        border: 'var(--border-subtle)',
+        background: 'var(--bg-page)',
+        foreground: 'var(--text-primary)',
+        card: {
+          DEFAULT: 'var(--bg-card)',
+          foreground: 'var(--text-primary)',
+        },
+        muted: {
+          DEFAULT: 'var(--bg-card-hover)',
+          foreground: 'var(--text-muted)',
+        },
         obsidian: {
           950: '#04070D',
           900: '#080C14',
