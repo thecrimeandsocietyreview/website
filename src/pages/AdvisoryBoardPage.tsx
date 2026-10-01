@@ -12,6 +12,24 @@ import {
 } from 'lucide-react';
 
 export const AdvisoryBoardPage: React.FC = () => {
+  const advisoryBoardMembers = [
+    {
+      name: "Prof. (Dr) Priya Sepaha",
+      designation: "Professor",
+      institution: "National Law Institute University (NLIU), Bhopal"
+    },
+    {
+      name: "Prof. Arvind Tiwari",
+      designation: "Professor, School of Law, Rights and Constitutional Governance",
+      institution: "Tata Institute of Social Sciences (TISS), Mumbai"
+    },
+    {
+      name: "Dr. Hassan Imam",
+      designation: "Professor",
+      institution: "Aligarh Muslim University (AMU)"
+    }
+  ];
+
   const advisoryTracks = [
     {
       domain: "Constitutional Jurisprudence & Judicial Reforms",
@@ -67,6 +85,45 @@ export const AdvisoryBoardPage: React.FC = () => {
               Operating in alignment with the Committee on Publication Ethics (COPE) core practices, the Board ensures the journal remains insulated from external commercial or partisan influences while maintaining academic excellence across multidisciplinary inquiries.
             </p>
           </div>
+        </div>
+      </section>
+
+      {/* Appointed Advisory Board Members */}
+      <section className="space-y-6">
+        <div className="border-b border-[var(--border-subtle)] pb-3 flex items-center justify-between">
+          <h2 className="font-serif text-2xl font-bold text-[var(--text-primary)] flex items-center gap-2">
+            <Award className="w-5 h-5 text-[var(--accent-gold)]" />
+            <span>Distinguished Advisory Board Members</span>
+          </h2>
+          <span className="text-xs font-mono text-[var(--text-muted)]">
+            {advisoryBoardMembers.length} Appointed Members
+          </span>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          {advisoryBoardMembers.map((member, idx) => (
+            <div
+              key={idx}
+              className="p-6 rounded-2xl border border-[var(--border-subtle)] bg-[var(--bg-card)] hover:border-[var(--accent-gold)]/40 transition-all flex flex-col justify-between space-y-4 shadow-sm group"
+            >
+              <div className="space-y-2">
+                <span className="inline-block px-2.5 py-0.5 rounded text-[10px] font-mono font-bold uppercase tracking-wider bg-amber-500/10 text-amber-700 dark:text-amber-400 border border-amber-500/20">
+                  Advisory Board
+                </span>
+                <h3 className="font-serif font-bold text-lg text-[var(--text-primary)] group-hover:text-[var(--accent-navy)] transition-colors leading-snug">
+                  {member.name}
+                </h3>
+                <p className="text-xs font-serif text-[var(--accent-gold)] font-medium leading-tight">
+                  {member.designation}
+                </p>
+              </div>
+
+              <div className="pt-3 border-t border-[var(--border-subtle)] flex items-center gap-2 text-xs text-[var(--text-secondary)] font-mono">
+                <Building2 className="w-4 h-4 text-[var(--accent-gold)] shrink-0" />
+                <span className="truncate">{member.institution}</span>
+              </div>
+            </div>
+          ))}
         </div>
       </section>
 

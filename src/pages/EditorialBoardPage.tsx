@@ -81,19 +81,43 @@ export const EditorialBoardPage: React.FC = () => {
       institution: "Chitkara University, Punjab"
     },
     {
-      name: "Dr. Ashif Hasan",
+      name: "Dr. Asif Hasan",
       designation: "Assistant Professor, Department of Psychology",
       institution: "Aligarh Muslim University (AMU)"
     },
     {
-      name: "Dr. Erfan Ahmed",
+      name: "Dr. Shekh Belal Ahmad",
       designation: "Assistant Professor",
-      institution: "D. S. College, Aligarh"
+      institution: "Aligarh Muslim University (AMU)"
+    },
+    {
+      name: "Dr. Neha Tanwar",
+      designation: "Assistant Professor",
+      institution: "IILM University, Gurugram"
     },
     {
       name: "Mr. Gaurav Kumar Mishra",
       designation: "Senior Analyst (Public Policy)",
       institution: "Public Policy & Strategic Affairs"
+    }
+  ];
+
+  // Advisory Board Members
+  const advisoryBoardMembers = [
+    {
+      name: "Prof. (Dr) Priya Sepaha",
+      designation: "Professor",
+      institution: "National Law Institute University (NLIU), Bhopal"
+    },
+    {
+      name: "Prof. Arvind Tiwari",
+      designation: "Professor, School of Law, Rights and Constitutional Governance",
+      institution: "Tata Institute of Social Sciences (TISS), Mumbai"
+    },
+    {
+      name: "Dr. Hassan Imam",
+      designation: "Professor",
+      institution: "Aligarh Muslim University (AMU)"
     }
   ];
 
@@ -345,7 +369,51 @@ export const EditorialBoardPage: React.FC = () => {
       </section>
 
       {/* ========================================================
-          TIER 4: TECHNICAL & WEB SYSTEMS LEAD (ABHINAV KUMAR)
+          TIER 4: ADVISORY BOARD
+      ======================================================== */}
+      <section className="space-y-6">
+        <div className="border-b border-[var(--border-subtle)] pb-3 flex items-center justify-between">
+          <h2 className="font-serif text-2xl font-bold text-[var(--text-primary)] flex items-center gap-2">
+            <Award className="w-5 h-5 text-[var(--accent-gold)]" />
+            <span>Advisory Board</span>
+          </h2>
+          <span className="text-xs font-mono text-[var(--text-muted)]">
+            {advisoryBoardMembers.length} Appointed Members
+          </span>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
+          {advisoryBoardMembers.map((member, idx) => (
+            <div
+              key={idx}
+              className="p-5 rounded-2xl border border-[var(--border-subtle)] bg-[var(--bg-card)] hover:border-[var(--accent-gold)]/40 transition-all flex flex-col justify-between space-y-4 shadow-2xs group"
+            >
+              <div className="flex items-start gap-3.5">
+                <DummyPhoto size="sm" label="Advisory" />
+                <div className="space-y-1 min-w-0 flex-1">
+                  <span className="inline-block px-2 py-0.5 rounded text-[9px] font-mono font-bold uppercase tracking-wider bg-amber-500/10 text-amber-700 dark:text-amber-400 border border-amber-500/20">
+                    Advisory Board
+                  </span>
+                  <h3 className="font-serif font-bold text-base text-[var(--text-primary)] group-hover:text-[var(--accent-navy)] transition-colors leading-snug">
+                    {member.name}
+                  </h3>
+                  <p className="text-xs font-serif text-[var(--accent-gold)] leading-tight">
+                    {member.designation}
+                  </p>
+                </div>
+              </div>
+
+              <div className="pt-2.5 border-t border-[var(--border-subtle)] flex items-center gap-1.5 text-xs text-[var(--text-secondary)] font-mono">
+                <Building2 className="w-3.5 h-3.5 text-[var(--accent-gold)] shrink-0" />
+                <span className="truncate">{member.institution}</span>
+              </div>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* ========================================================
+          TIER 5: TECHNICAL & WEB SYSTEMS LEAD (ABHINAV KUMAR)
       ======================================================== */}
       <section className="space-y-4">
         <div className="border-b border-[var(--border-subtle)] pb-3">
