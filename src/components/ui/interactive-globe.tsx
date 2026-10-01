@@ -196,8 +196,11 @@ export function Component({
   return (
     <canvas
       ref={canvasRef}
-      className={cn("w-full h-full cursor-grab active:cursor-grabbing select-none touch-none", className)}
-      style={{ width: size, height: size }}
+      className={cn(
+        "w-full h-full max-w-full aspect-square cursor-grab active:cursor-grabbing select-none touch-none",
+        className
+      )}
+      style={size ? { maxWidth: size, maxHeight: size } : undefined}
       onPointerDown={onPointerDown}
       onPointerMove={onPointerMove}
       onPointerUp={onPointerUp}

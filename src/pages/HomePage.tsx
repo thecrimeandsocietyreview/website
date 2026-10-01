@@ -49,10 +49,12 @@ export const HomePage: React.FC = () => {
               </div>
             </div>
 
-            {/* 1. Journal Name - Single Line */}
+            {/* 1. Journal Name */}
             <div>
-              <h1 className="font-serif text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold text-slate-950 dark:text-white tracking-tight leading-tight sm:whitespace-nowrap">
-                {JOURNAL_METADATA.name}
+              <h1 className="font-serif text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold text-slate-950 dark:text-white tracking-tight leading-tight">
+                The Crime &amp;
+                <br />
+                Society Review
               </h1>
             </div>
 

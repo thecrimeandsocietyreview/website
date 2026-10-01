@@ -283,8 +283,7 @@ export default function Feature() {
                       height="120"
                       className="overflow-visible"
                     >
-                      <Link
-                        to="/aims-scope"
+                      <div
                         className="group relative flex h-[120px] w-[185px] flex-col justify-between rounded-[14px] border border-slate-200/90 bg-white p-3 text-left shadow-[0_4px_16px_rgba(0,0,0,0.06)] transition-all duration-200 hover:border-slate-300 hover:shadow-[0_8px_24px_rgba(0,0,0,0.1)] hover:scale-[1.03] select-none block"
                       >
                         <div>
@@ -310,7 +309,7 @@ export default function Feature() {
                             {card.desc}
                           </p>
                         </div>
-                      </Link>
+                      </div>
                     </foreignObject>
                   </g>
                 );
@@ -325,10 +324,9 @@ export default function Feature() {
               {SCOPE_CARDS_20.map((card, i) => {
                 const Icon = card.icon;
                 return (
-                  <Link
+                  <div
                     key={`reduced-${card.id}`}
-                    to="/aims-scope"
-                    className="flex h-[120px] w-[180px] shrink-0 flex-col justify-between rounded-[14px] border border-slate-200 bg-white p-3 text-left shadow-sm"
+                    className="flex h-[120px] w-[180px] shrink-0 flex-col justify-between rounded-[14px] border border-slate-200 bg-white p-3 text-left shadow-sm select-none"
                   >
                     <div>
                       <div className="flex items-center justify-between">
@@ -351,7 +349,7 @@ export default function Feature() {
                         {card.desc}
                       </p>
                     </div>
-                  </Link>
+                  </div>
                 );
               })}
             </div>
