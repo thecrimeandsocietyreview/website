@@ -1,21 +1,15 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { 
-  Scale, 
   ArrowRight, 
   BookOpen, 
   Target, 
-  Sparkles,
-  Microscope,
-  Brain,
-  Landmark,
-  ShieldAlert,
-  HeartHandshake,
-  Award,
+  Award, 
   FileText
 } from 'lucide-react';
 import { JOURNAL_METADATA } from '../data/mockJournalData';
 import { GlobalNetworkSection } from '../components/common/GlobalNetworkSection';
+import Feature from '@/components/ui/block-feature';
 
 export const HomePage: React.FC = () => {
   return (
@@ -93,106 +87,9 @@ export const HomePage: React.FC = () => {
       </section>
 
       {/* ========================================================
-          4. INTERDISCIPLINARY PILLARS HIGHLIGHT (DARK LUXURY CARD)
+          INTERDISCIPLINARY PILLARS (ANIMATED FEATURE)
       ======================================================== */}
-      <section className="max-w-6xl mx-auto px-4 sm:px-6">
-        <div className="rounded-3xl border border-slate-800 bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950 p-6 sm:p-10 shadow-xl space-y-8 text-white relative overflow-hidden">
-          {/* Subtle gold ambient glow */}
-          <div className="absolute top-0 right-0 w-96 h-96 bg-amber-500/5 rounded-full blur-3xl pointer-events-none" />
-          
-          <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 border-b border-slate-800 pb-6 relative z-10">
-            <div className="max-w-2xl space-y-2">
-              <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-[10px] font-mono uppercase tracking-wider bg-amber-500/10 text-amber-400 border border-amber-500/30 font-bold">
-                <Sparkles className="w-3 h-3 text-amber-400" />
-                <span>Multidisciplinary Synthesis</span>
-              </div>
-              <h2 className="font-serif text-2xl sm:text-3xl font-bold text-white">
-                Interdisciplinary Pillars: Law, Forensics &amp; Society
-              </h2>
-              <p className="text-xs sm:text-sm text-slate-300 font-serif leading-relaxed">
-                Complex criminal justice phenomena cannot be resolved through one discipline alone. We synthesize statutory criminal codes, digital forensics, constitutional safeguards, and empirical realities.
-              </p>
-            </div>
-
-            <Link
-              to="/aims-scope"
-              className="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl bg-[var(--accent-gold)] hover:bg-[var(--accent-gold-hover)] text-slate-950 text-xs font-bold transition-all shrink-0 shadow-md"
-            >
-              <span>Explore Scholarly Scope</span>
-              <ArrowRight className="w-3.5 h-3.5" />
-            </Link>
-          </div>
-
-          {/* 6 Lenses Preview Grid */}
-          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3.5 relative z-10">
-            {[
-              {
-                name: 'Legal',
-                icon: Scale,
-                color: 'text-amber-400',
-                bg: 'bg-amber-500/15 border border-amber-500/30',
-                desc: 'BNS provisions, BSA evidentiary proof, Article 21 due process'
-              },
-              {
-                name: 'Psychological',
-                icon: Brain,
-                color: 'text-purple-400',
-                bg: 'bg-purple-500/15 border border-purple-500/30',
-                desc: 'Cognitive bias, interrogation trauma, memory reliability'
-              },
-              {
-                name: 'Forensic',
-                icon: Microscope,
-                color: 'text-blue-400',
-                bg: 'bg-blue-500/15 border border-blue-500/30',
-                desc: 'Digital hash validation, DNA mixtures, scientific error rates'
-              },
-              {
-                name: 'Sociological',
-                icon: Landmark,
-                color: 'text-emerald-400',
-                bg: 'bg-emerald-500/15 border border-emerald-500/30',
-                desc: 'Structural harms, undertrial pendency, carceral dynamics'
-              },
-              {
-                name: 'Policing',
-                icon: ShieldAlert,
-                color: 'text-rose-400',
-                bg: 'bg-rose-500/15 border border-rose-500/30',
-                desc: 'Section 105 BNSS videography, frontline field constraints'
-              },
-              {
-                name: 'Victimology',
-                icon: HeartHandshake,
-                color: 'text-teal-400',
-                bg: 'bg-teal-500/15 border border-teal-500/30',
-                desc: 'Secondary victimization, witness protection, restitution'
-              },
-            ].map((lens, i) => {
-              const Icon = lens.icon;
-              return (
-                <div 
-                  key={i} 
-                  className="p-3.5 rounded-2xl border border-slate-800 bg-slate-900/90 hover:border-amber-400/50 hover:bg-slate-850 transition-all flex flex-col justify-between space-y-2 group shadow-sm"
-                >
-                  <div>
-                    <div className={`w-8 h-8 rounded-lg flex items-center justify-center ${lens.bg} ${lens.color} mb-2 group-hover:scale-105 transition-transform`}>
-                      <Icon className="w-4 h-4" />
-                    </div>
-                    <h3 className="font-serif font-bold text-xs sm:text-sm text-white group-hover:text-amber-400 transition-colors">
-                      {lens.name}
-                    </h3>
-                    <p className="text-[11px] text-slate-400 mt-1 leading-tight font-serif">
-                      {lens.desc}
-                    </p>
-                  </div>
-                </div>
-              );
-            })}
-          </div>
-
-        </div>
-      </section>
+      <Feature />
 
       {/* ========================================================
           FAST ACCESS TO CORE JOURNAL SECTIONS

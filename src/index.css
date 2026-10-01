@@ -228,3 +228,24 @@
   animation: navFadeIn 0.2s ease-out forwards;
 }
 
+/* Continuous Horizontal Scrolling Strip */
+@keyframes continuousScroll {
+  0% {
+    transform: translate3d(0, 0, 0);
+  }
+  100% {
+    transform: translate3d(-50%, 0, 0);
+  }
+}
+
+.animate-continuous-scroll {
+  display: flex;
+  width: max-content;
+  animation: continuousScroll 50s linear infinite;
+  will-change: transform;
+}
+
+.animate-continuous-scroll:hover {
+  animation-play-state: paused;
+}
+
