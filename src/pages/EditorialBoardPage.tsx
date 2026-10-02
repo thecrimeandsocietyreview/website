@@ -122,7 +122,8 @@ export const EditorialBoardPage: React.FC = () => {
     {
       name: "Mohit Charan",
       designation: "Assistant Professor",
-      institution: "Hemvati Nandan Bahuguna Garhwal University"
+      institution: "Hemvati Nandan Bahuguna Garhwal University",
+      photo: "/editorial-board/MohitCharan.jpeg"
     },
     {
       name: "Ms. Kanika Gaur",
