@@ -88,16 +88,6 @@ export const RashomonPage: React.FC = () => {
         </h1>
       </div>
 
-      {/* 1. SIMPLE STARTING PARAGRAPH (DARK CONTEMPLATIVE CARD) */}
-      <section className="p-6 sm:p-8 rounded-2xl border border-slate-800 bg-gradient-to-br from-slate-950 via-slate-900 to-indigo-950 text-white shadow-xl relative overflow-hidden">
-        <div className="absolute top-0 right-0 w-80 h-80 bg-amber-500/5 rounded-full blur-3xl pointer-events-none" />
-        <div className="relative z-10">
-          <p className="text-sm sm:text-base text-slate-200 font-serif leading-relaxed">
-            At the intellectual heart of <em>The Crime &amp; Society Review</em> is the <strong className="text-amber-400">Rashomon Approach</strong>—the recognition that complex criminal justice phenomena cannot be adequately investigated from a single perspective. Like observing an event from every corner, the journal encourages researchers to examine subjects through diverse disciplines, viewpoints, methodologies, and forms of evidence to develop a comprehensive, nuanced, and meaningful understanding.
-          </p>
-        </div>
-      </section>
-
       {/* 2. DIVERSE LENSES BOXES (Boxes only, no dropdown or expanded detail card below) */}
       <section className="space-y-4">
         <div>

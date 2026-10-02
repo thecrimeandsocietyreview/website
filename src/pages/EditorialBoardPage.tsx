@@ -3,7 +3,6 @@ import { Link } from 'react-router-dom';
 import { 
   Building2, 
   Award, 
-  ShieldCheck, 
   BookOpen, 
   Mail, 
   UserCheck,
@@ -124,25 +123,6 @@ export const EditorialBoardPage: React.FC = () => {
           Editorial Board
         </h1>
       </div>
-
-      {/* COPE Editorial Independence Charter Notice (DARK BANNER) */}
-      <section className="p-5 sm:p-6 rounded-2xl border border-slate-800 bg-gradient-to-r from-slate-950 via-slate-900 to-slate-950 text-white flex flex-col md:flex-row items-start md:items-center justify-between gap-4 shadow-md relative overflow-hidden">
-        <div className="space-y-1 relative z-10 max-w-3xl">
-          <h3 className="font-serif font-bold text-base text-white flex items-center gap-2">
-            <ShieldCheck className="w-5 h-5 text-emerald-400" />
-            <span>COPE-Aligned Editorial Independence &amp; Academic Rigour</span>
-          </h3>
-          <p className="text-xs sm:text-sm text-slate-300 font-serif leading-relaxed">
-            Editorial decision-making is insulated from commercial, political, or institutional influence. The Board assesses all manuscripts solely on scholarly merit, empirical integrity, and constitutional relevance through double-blind peer review.
-          </p>
-        </div>
-        <Link
-          to="/advisory-board"
-          className="shrink-0 px-4 py-2 rounded-xl bg-[var(--accent-gold)] hover:bg-[var(--accent-gold-hover)] text-slate-950 text-xs font-bold transition-all shadow-sm relative z-10"
-        >
-          View Advisory Board
-        </Link>
-      </section>
 
       {/* ========================================================
           TIER 1: CHIEF EDITOR & CO-EDITOR-IN-CHIEF (SIDE BY SIDE)

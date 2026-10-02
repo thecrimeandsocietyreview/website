@@ -66,24 +66,6 @@ export const AdvisoryBoardPage: React.FC = () => {
         </h1>
       </div>
 
-      {/* Advisory Mandate Overview (DARK FEATURE CARD) */}
-      <section className="p-6 sm:p-8 rounded-2xl border border-slate-800 bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950 text-white space-y-4 shadow-xl relative overflow-hidden">
-        <div className="absolute top-0 right-0 w-80 h-80 bg-amber-500/5 rounded-full blur-3xl pointer-events-none" />
-        <div className="relative z-10 space-y-2">
-          <h2 className="font-serif text-xl sm:text-2xl font-bold text-white tracking-tight">
-            Scholarly Counsel &amp; Strategic Oversight
-          </h2>
-          <div className="text-xs sm:text-sm text-slate-300 font-serif leading-relaxed space-y-3">
-            <p>
-              The Advisory Board of <em>The Crime &amp; Society Review</em> brings together distinguished jurists, legal scholars, criminologists, forensic examiners, and policy leaders. Members of the Advisory Board provide non-executive strategic counsel on journal priorities, special thematic issues, peer-review standards, and international indexing benchmarks.
-            </p>
-            <p>
-              Operating in alignment with the Committee on Publication Ethics (COPE) core practices, the Board ensures the journal remains insulated from external commercial or partisan influences while maintaining academic excellence across multidisciplinary inquiries.
-            </p>
-          </div>
-        </div>
-      </section>
-
       {/* Appointed Advisory Board Members */}
       <section className="space-y-4">
         <div className="pb-1 flex items-center justify-between">
