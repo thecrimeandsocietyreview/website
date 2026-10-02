@@ -64,26 +64,26 @@ export const AimsScopePage: React.FC = () => {
           </div>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-2.5 sm:gap-4">
           {filteredCategories.map((cat) => (
             <div 
               key={cat.id}
-              className="p-4 rounded-2xl border border-[var(--border-subtle)] bg-[var(--bg-card)] hover:border-[var(--accent-gold)] transition-all flex flex-col justify-between shadow-2xs hover:shadow-md group"
+              className="p-3 sm:p-4 rounded-xl sm:rounded-2xl border border-[var(--border-subtle)] bg-[var(--bg-card)] hover:border-[var(--accent-gold)] transition-all flex flex-col justify-between shadow-2xs hover:shadow-md group"
             >
-              <div className="space-y-3">
+              <div className="space-y-2 sm:space-y-3">
                 {/* Handcrafted Illustration without container, no hover zoom */}
                 <img 
                   src={`/core-research-areas/${cat.id}.png`}
                   alt={cat.name}
-                  className="w-full h-32 object-contain"
+                  className="w-full h-24 sm:h-32 object-contain"
                   loading="lazy"
                 />
 
                 <div>
-                  <h3 className="font-serif font-bold text-base text-[var(--text-primary)] group-hover:text-[var(--accent-navy)] transition-colors">
+                  <h3 className="font-serif font-bold text-xs sm:text-base text-[var(--text-primary)] group-hover:text-[var(--accent-navy)] transition-colors leading-snug">
                     {cat.name}
                   </h3>
-                  <p className="text-xs text-[var(--text-secondary)] mt-1.5 leading-relaxed font-serif text-justify">
+                  <p className="text-[11px] sm:text-xs text-[var(--text-secondary)] mt-1 sm:mt-1.5 leading-relaxed font-serif text-justify">
                     {cat.desc}
                   </p>
                 </div>
