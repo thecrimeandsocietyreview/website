@@ -137,7 +137,7 @@ export const RashomonPage: React.FC = () => {
           <h3 className="font-serif text-2xl font-bold text-white tracking-tight">
             Connecting Disciplines, Broadening Inquiry
           </h3>
-          <p className="text-sm text-slate-300 font-serif leading-relaxed max-w-3xl">
+          <p className="text-sm text-slate-100 font-serif leading-relaxed max-w-3xl">
             Rather than approaching a phenomenon from a single vantage point, <em>The Crime &amp; Society Review</em> seeks to examine the whole scene—from every corner—to develop a more comprehensive, nuanced, and meaningful understanding. We encourage authors to bridge disciplines and bring diverse empirical, doctrinal, and conceptual perspectives into collaborative synthesis.
           </p>
           <div className="pt-2 flex flex-wrap items-center gap-3">

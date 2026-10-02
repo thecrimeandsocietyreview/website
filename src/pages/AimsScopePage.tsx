@@ -73,23 +73,36 @@ export const AimsScopePage: React.FC = () => {
           </div>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3.5">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
           {filteredCategories.map((cat, idx) => (
             <div 
               key={cat.id}
-              className="p-4 rounded-xl border border-[var(--border-subtle)] bg-[var(--bg-card)] hover:border-[var(--accent-gold)] transition-colors flex flex-col justify-between"
+              className="p-4 rounded-2xl border border-[var(--border-subtle)] bg-[var(--bg-card)] hover:border-[var(--accent-gold)] transition-all flex flex-col justify-between shadow-2xs hover:shadow-md group"
             >
-              <div>
-                <div className="flex items-center justify-between text-[10px] font-mono text-[var(--text-muted)] mb-1.5">
+              <div className="space-y-3">
+                <div className="flex items-center justify-between text-[10px] font-mono text-[var(--text-muted)]">
                   <span className="font-bold text-[var(--accent-gold)]">#{String(idx + 1).padStart(2, '0')}</span>
                   <span>Research Area</span>
                 </div>
-                <h3 className="font-serif font-bold text-sm text-[var(--text-primary)]">
-                  {cat.name}
-                </h3>
-                <p className="text-xs text-[var(--text-secondary)] mt-1.5 leading-relaxed font-serif">
-                  {cat.desc}
-                </p>
+
+                {/* Handcrafted Illustration */}
+                <div className="w-full h-36 rounded-xl overflow-hidden bg-neutral-50/80 dark:bg-slate-900/60 flex items-center justify-center p-2 border border-[var(--border-subtle)]/70">
+                  <img 
+                    src={`/core-research-areas/${cat.id}.png`}
+                    alt={cat.name}
+                    className="max-h-full max-w-full object-contain group-hover:scale-105 transition-transform duration-300"
+                    loading="lazy"
+                  />
+                </div>
+
+                <div>
+                  <h3 className="font-serif font-bold text-base text-[var(--text-primary)] group-hover:text-[var(--accent-navy)] transition-colors">
+                    {cat.name}
+                  </h3>
+                  <p className="text-xs text-[var(--text-secondary)] mt-1.5 leading-relaxed font-serif text-justify">
+                    {cat.desc}
+                  </p>
+                </div>
               </div>
             </div>
           ))}
@@ -104,7 +117,7 @@ export const AimsScopePage: React.FC = () => {
           <h2 className="font-serif text-2xl sm:text-3xl font-bold text-white tracking-tight">
             Disciplines Covered
           </h2>
-          <p className="text-xs sm:text-sm text-slate-300 font-serif leading-relaxed">
+          <p className="text-xs sm:text-sm text-slate-100 font-serif leading-relaxed">
             The journal spans six primary disciplinary pillars and their multidisciplinary intersections.
           </p>
         </div>
@@ -143,7 +156,7 @@ export const AimsScopePage: React.FC = () => {
               <h4 className="font-serif font-bold text-sm text-white group-hover:text-amber-400 transition-colors">
                 {disc.title}
               </h4>
-              <p className="text-xs text-slate-300 font-serif leading-relaxed">
+              <p className="text-xs text-slate-100 font-serif leading-relaxed">
                 {disc.desc}
               </p>
             </div>

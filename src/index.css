@@ -7,16 +7,16 @@
     --bg-page: #FDFBF7;
     --bg-card: #FFFFFF;
     --bg-card-hover: #F7F4EB;
-    --border-subtle: #E5DECE;
-    --border-strong: #C7BEAB;
-    --text-primary: #1D1A18;
-    --text-secondary: #57524A;
-    --text-muted: #847C70;
-    --accent-gold: #C5A059;
-    --accent-gold-hover: #D4AF37;
-    --accent-crimson: #B91C1C;
-    --accent-navy: #1D4ED8;
-    --reading-ink: #1F1C1A;
+    --border-subtle: #E2D9C8;
+    --border-strong: #BEB49E;
+    --text-primary: #0F172A;
+    --text-secondary: #1E293B;
+    --text-muted: #475569;
+    --accent-gold: #B4842D;
+    --accent-gold-hover: #C59838;
+    --accent-crimson: #991B1B;
+    --accent-navy: #1E40AF;
+    --reading-ink: #0F172A;
   }
 
   .theme-sepia {
@@ -25,14 +25,14 @@
     --bg-card-hover: #E3DACE;
     --border-subtle: #D8CCC0;
     --border-strong: #C2B3A3;
-    --text-primary: #2C2523;
-    --text-secondary: #5C524E;
-    --text-muted: #7E726C;
-    --accent-gold: #B38E46;
-    --accent-gold-hover: #C5A059;
-    --accent-crimson: #A71D1D;
-    --accent-navy: #1E40AF;
-    --reading-ink: #26201E;
+    --text-primary: #1C1917;
+    --text-secondary: #292524;
+    --text-muted: #57534E;
+    --accent-gold: #A16207;
+    --accent-gold-hover: #B4842D;
+    --accent-crimson: #991B1B;
+    --accent-navy: #1E3A8A;
+    --reading-ink: #1C1917;
   }
 
   .theme-dark {
@@ -42,13 +42,13 @@
     --border-subtle: #1E293B;
     --border-strong: #334155;
     --text-primary: #F8FAFC;
-    --text-secondary: #94A3B8;
-    --text-muted: #64748B;
-    --accent-gold: #D4AF37;
-    --accent-gold-hover: #E5C358;
+    --text-secondary: #E2E8F0;
+    --text-muted: #94A3B8;
+    --accent-gold: #F59E0B;
+    --accent-gold-hover: #FBBF24;
     --accent-crimson: #EF4444;
-    --accent-navy: #3B82F6;
-    --reading-ink: #E2E8F0;
+    --accent-navy: #60A5FA;
+    --reading-ink: #F1F5F9;
   }
 
   html, body {
@@ -64,6 +64,14 @@
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     transition: background-color 0.25s ease, color 0.25s ease;
+  }
+
+  p {
+    text-align: justify;
+    text-justify: inter-word;
+    hyphens: none;
+    -webkit-hyphens: none;
+    word-break: normal;
   }
 }
 

@@ -13,12 +13,12 @@ import Feature from '@/components/ui/block-feature';
 
 export const HomePage: React.FC = () => {
   return (
-    <div className="space-y-10 sm:space-y-12 pb-12 animate-fadeIn">
+    <div className="space-y-6 sm:space-y-10 pb-12 animate-fadeIn">
 
       {/* ========================================================
           HERO SECTION: Journal Name, Intro, Interdisciplinary Focus
       ======================================================== */}
-      <section className="relative w-full overflow-hidden bg-[var(--bg-card)] border-b border-[var(--border-subtle)]">
+      <section className="relative w-full overflow-hidden bg-[var(--bg-card)]">
         {/* Background Artwork */}
         <img 
           src="/hero-bg.png" 
@@ -28,7 +28,7 @@ export const HomePage: React.FC = () => {
         {/* Ambient Overlay */}
         <div className="absolute inset-0 bg-gradient-to-r from-white/95 via-white/90 to-white/40 dark:from-slate-950/95 dark:via-slate-950/90 dark:to-slate-950/50"></div>
 
-        <div className="relative z-10 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16 lg:py-20 space-y-7">
+        <div className="relative z-10 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-20 lg:py-24 space-y-7">
           <div className="max-w-4xl lg:max-w-5xl space-y-6 text-left">
             
             {/* Badges */}
@@ -108,7 +108,7 @@ export const HomePage: React.FC = () => {
               <h3 className="font-serif text-lg font-bold text-[var(--text-primary)]">
                 About the Journal
               </h3>
-              <p className="text-xs text-[var(--text-secondary)] font-serif leading-relaxed">
+              <p className="text-xs text-[var(--text-secondary)] font-serif leading-relaxed text-justify">
                 Discover the institutional profile, mission, editorial philosophy, historical founding journey, and publisher governance of The Crime &amp; Society Review.
               </p>
             </div>
@@ -130,7 +130,7 @@ export const HomePage: React.FC = () => {
               <h3 className="font-serif text-lg font-bold text-[var(--text-primary)]">
                 Aims &amp; Scope
               </h3>
-              <p className="text-xs text-[var(--text-secondary)] font-serif leading-relaxed">
+              <p className="text-xs text-[var(--text-secondary)] font-serif leading-relaxed text-justify">
                 Explore the journal's mandate, 20 research subject areas, interdisciplinary disciplines covered, and accepted formats of scholarly contributions.
               </p>
             </div>
@@ -143,31 +143,30 @@ export const HomePage: React.FC = () => {
             </Link>
           </div>
 
-          {/* Card 3: Manuscript Submissions (Featured Dark Card) */}
-          <div className="p-6 rounded-2xl border border-amber-500/30 bg-gradient-to-br from-slate-950 via-slate-900 to-indigo-950 text-white hover:border-amber-400/60 transition-all flex flex-col justify-between space-y-4 shadow-md relative overflow-hidden group">
-            <div className="absolute top-0 right-0 w-32 h-32 bg-amber-500/10 rounded-full blur-2xl pointer-events-none" />
-            <div className="space-y-2.5 relative z-10">
+          {/* Card 3: Manuscript Submissions (Author Guidelines & Submission) */}
+          <div className="p-6 rounded-2xl border border-[var(--border-subtle)] bg-[var(--bg-card)] hover:border-[var(--accent-gold)] transition-colors flex flex-col justify-between space-y-4 shadow-2xs">
+            <div className="space-y-2.5">
               <div className="flex items-center justify-between">
-                <div className="w-10 h-10 rounded-xl bg-amber-500/15 border border-amber-500/30 text-amber-400 flex items-center justify-center">
-                  <FileText className="w-5 h-5 text-amber-400" />
+                <div className="w-10 h-10 rounded-xl bg-[var(--accent-navy)]/10 text-[var(--accent-navy)] flex items-center justify-center">
+                  <FileText className="w-5 h-5 text-[var(--accent-gold)]" />
                 </div>
-                <span className="px-2 py-0.5 rounded text-[10px] font-mono font-bold uppercase tracking-wider bg-emerald-500/20 text-emerald-400 border border-emerald-500/30">
+                <span className="px-2 py-0.5 rounded text-[10px] font-mono font-bold uppercase tracking-wider bg-emerald-500/10 text-emerald-700 dark:text-emerald-400 border border-emerald-500/20">
                   ₹0 APC
                 </span>
               </div>
-              <h3 className="font-serif text-lg font-bold text-white group-hover:text-amber-400 transition-colors">
+              <h3 className="font-serif text-lg font-bold text-[var(--text-primary)]">
                 Author Guidelines &amp; Submission
               </h3>
-              <p className="text-xs text-slate-300 font-serif leading-relaxed">
+              <p className="text-xs text-[var(--text-secondary)] font-serif leading-relaxed text-justify">
                 Word files (.doc/.docx up to 20 MB), Garamond 12pt, APA 7th edition referencing, ₹0 APC Diamond Open Access model.
               </p>
             </div>
             <Link
               to="/submit"
-              className="text-xs font-bold text-amber-400 hover:text-amber-300 transition-colors flex items-center gap-1.5 pt-2 border-t border-slate-800 relative z-10"
+              className="text-xs font-semibold text-[var(--accent-navy)] hover:text-[var(--accent-gold)] transition-colors flex items-center gap-1.5 pt-2 border-t border-[var(--border-subtle)]"
             >
               <span>View Guidelines &amp; Submit</span>
-              <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
+              <ArrowRight className="w-3.5 h-3.5" />
             </Link>
           </div>
 

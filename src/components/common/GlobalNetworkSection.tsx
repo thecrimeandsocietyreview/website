@@ -20,7 +20,7 @@ export const GlobalNetworkSection: React.FC = () => {
               </span>
             </h2>
 
-            <p className="text-[10.5px] sm:text-xs md:text-sm lg:text-base text-slate-300 max-w-md leading-relaxed mb-3 sm:mb-6 md:mb-8 font-serif line-clamp-3 sm:line-clamp-none">
+            <p className="text-[11px] sm:text-xs md:text-sm lg:text-base text-slate-100 max-w-md leading-relaxed mb-3 sm:mb-6 md:mb-8 font-serif text-justify font-normal">
               Connecting legal scholars, forensic scientists, criminologists, and judicial academies across premier institutions worldwide. Advancing evidence-based scholarship on the BNS, BNSS, and BSA. Drag the globe to explore international research collaborations.
             </p>
 
@@ -28,17 +28,17 @@ export const GlobalNetworkSection: React.FC = () => {
             <div className="flex items-center gap-2 sm:gap-4 md:gap-6 pt-1">
               <div>
                 <p className="text-xs sm:text-lg md:text-2xl font-bold text-amber-400 font-mono">₹0 APC</p>
-                <p className="text-[8px] sm:text-[10.5px] md:text-xs text-slate-400 font-sans whitespace-nowrap">Diamond Open Access</p>
+                <p className="text-[8.5px] sm:text-[10.5px] md:text-xs text-slate-300 font-sans font-medium whitespace-nowrap">Diamond Open Access</p>
               </div>
               <div className="w-px h-5 sm:h-7 md:h-8 bg-slate-800 shrink-0" />
               <div>
                 <p className="text-xs sm:text-lg md:text-2xl font-bold text-white font-mono">20+</p>
-                <p className="text-[8px] sm:text-[10.5px] md:text-xs text-slate-400 font-sans whitespace-nowrap">Subject Domains</p>
+                <p className="text-[8.5px] sm:text-[10.5px] md:text-xs text-slate-300 font-sans font-medium whitespace-nowrap">Subject Domains</p>
               </div>
               <div className="w-px h-5 sm:h-7 md:h-8 bg-slate-800 shrink-0" />
               <div>
                 <p className="text-xs sm:text-lg md:text-2xl font-bold text-white font-mono">Double-Blind</p>
-                <p className="text-[8px] sm:text-[10.5px] md:text-xs text-slate-400 font-sans whitespace-nowrap">Peer Review</p>
+                <p className="text-[8.5px] sm:text-[10.5px] md:text-xs text-slate-300 font-sans font-medium whitespace-nowrap">Peer Review</p>
               </div>
             </div>
           </div>

@@ -84,10 +84,7 @@ export const AdvisoryBoardPage: React.FC = () => {
               key={idx}
               className="p-5 rounded-2xl border border-[var(--border-subtle)] bg-[var(--bg-card)] hover:border-[var(--accent-gold)]/40 transition-all flex flex-col justify-between space-y-4 shadow-sm group"
             >
-              <div className="space-y-2">
-                <span className="inline-block px-2.5 py-0.5 rounded text-[10px] font-mono font-bold uppercase tracking-wider bg-amber-500/10 text-amber-700 dark:text-amber-400 border border-amber-500/20">
-                  Advisory Board
-                </span>
+              <div className="space-y-1">
                 <h3 className="font-serif font-bold text-lg text-[var(--text-primary)] group-hover:text-[var(--accent-navy)] transition-colors leading-snug">
                   {member.name}
                 </h3>
@@ -98,7 +95,7 @@ export const AdvisoryBoardPage: React.FC = () => {
 
               <div className="pt-2.5 border-t border-[var(--border-subtle)] flex items-center gap-2 text-xs text-[var(--text-secondary)] font-mono">
                 <Building2 className="w-4 h-4 text-[var(--accent-gold)] shrink-0" />
-                <span className="truncate">{member.institution}</span>
+                <span className="leading-snug">{member.institution}</span>
               </div>
             </div>
           ))}
@@ -135,13 +132,13 @@ export const AdvisoryBoardPage: React.FC = () => {
                   </div>
                 </div>
 
-                <p className="text-xs text-[var(--text-secondary)] font-serif leading-relaxed">
+                <p className="text-xs text-[var(--text-secondary)] font-serif leading-relaxed text-justify">
                   {track.focus}
                 </p>
 
-                <div className="pt-3 border-t border-[var(--border-subtle)] flex items-center justify-between text-[11px] font-mono">
-                  <span className="text-[var(--text-muted)]">Target Profile:</span>
-                  <span className="text-[var(--text-primary)] font-medium text-right max-w-[65%] truncate">
+                <div className="pt-3 border-t border-[var(--border-subtle)] flex items-center justify-between text-[11px] font-mono gap-3">
+                  <span className="text-[var(--text-muted)] shrink-0">Target Profile:</span>
+                  <span className="text-[var(--text-primary)] font-medium text-right leading-snug">
                     {track.targetProfile}
                   </span>
                 </div>
@@ -156,7 +153,7 @@ export const AdvisoryBoardPage: React.FC = () => {
         <h3 className="font-serif text-xl sm:text-2xl font-bold text-white">
           Advisory Nominations &amp; Academic Expressions of Interest
         </h3>
-        <p className="text-xs sm:text-sm text-slate-300 font-serif max-w-xl mx-auto leading-relaxed">
+        <p className="text-xs sm:text-sm text-slate-300 font-serif max-w-xl mx-auto leading-relaxed text-justify">
           Nominations and expressions of interest for the Advisory Board are invited from senior professors, research directors, and institutional heads across law, forensic sciences, and criminology.
         </p>
         <div className="flex flex-wrap justify-center gap-3 pt-2">

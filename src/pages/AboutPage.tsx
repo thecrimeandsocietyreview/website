@@ -27,7 +27,7 @@ export const AboutPage: React.FC = () => {
           <h2 className="font-serif text-2xl sm:text-3xl font-bold text-white tracking-tight">
             Purpose of the Journal
           </h2>
-          <div className="max-w-none text-sm sm:text-base text-slate-300 font-serif leading-relaxed space-y-4">
+          <div className="max-w-none text-sm sm:text-base text-slate-100 font-serif leading-relaxed space-y-4">
             <p>
               The Crime &amp; Society Review is dedicated to advancing multidisciplinary scholarship that transcends conventional academic boundaries and examines complex phenomena through diverse intellectual perspectives. Inspired by the Rashomon Approach, the journal recognises that a single phenomenon may reveal different dimensions when examined through different disciplines, methodologies, forms of evidence, and positions of observation.
             </p>

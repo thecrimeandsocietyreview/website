@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React, { useRef, useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { cn } from "@/lib/utils";
 import {
@@ -210,6 +210,18 @@ const BELT_RIDERS = SCOPE_CARDS_20.length; // 20 cards
 export default function Feature() {
   const step = BELT_DURATION / BELT_RIDERS;
   const svgRef = useRef<SVGSVGElement>(null);
+  const [isMobile, setIsMobile] = useState(() => 
+    typeof window !== 'undefined' ? window.innerWidth < 640 : false
+  );
+
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 640);
+    };
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
 
   // Pause ONLY when hovering directly on an actual card (no zoom, pure stop)
   const handleMouseEnter = () => {
@@ -229,26 +241,26 @@ export default function Feature() {
   };
 
   return (
-    <section className="w-full px-4 py-5 sm:px-6">
+    <section className="w-full px-3.5 sm:px-6 pt-1 pb-4 sm:pt-3 sm:pb-6">
       {/* Expanded larger container max-w-7xl */}
       <div className="mx-auto w-full max-w-7xl">
-        <div className="relative w-full overflow-hidden rounded-[28px] border border-slate-200/90 bg-white shadow-[0_12px_40px_rgba(0,0,0,0.05)] p-6 sm:p-9 lg:p-11 space-y-4">
+        <div className="relative w-full overflow-hidden rounded-[22px] sm:rounded-[28px] border border-slate-200/90 bg-white shadow-[0_12px_40px_rgba(0,0,0,0.05)] p-4 sm:p-9 lg:p-11 space-y-2.5 sm:space-y-4">
           {/* Subtle Ambient Light Glows */}
           <div className="absolute -top-24 right-1/4 h-96 w-96 rounded-full bg-blue-100/35 blur-3xl pointer-events-none" />
           <div className="absolute -bottom-24 left-1/4 h-96 w-96 rounded-full bg-amber-100/40 blur-3xl pointer-events-none" />
 
           {/* 1. TOP HEADING */}
-          <div className="relative z-10 text-center max-w-4xl mx-auto pt-1 pb-1">
+          <div className="relative z-10 text-center max-w-4xl mx-auto pt-0.5 pb-0.5">
             <h2 className="font-serif text-2xl sm:text-3xl md:text-4xl lg:text-[40px] font-bold text-slate-900 tracking-tight leading-tight">
               Interdisciplinary Pillars: Law, Forensics &amp; Society
             </h2>
           </div>
 
           {/* 2. OVAL TRAVELING CARDS TRACK (Curved oval path, larger track & cards) */}
-          <div className="relative h-[270px] sm:h-[295px] w-full [mask-image:linear-gradient(to_right,transparent,black_3%,black_97%,transparent)] my-1">
+          <div className="relative h-[165px] sm:h-[285px] w-full [mask-image:linear-gradient(to_right,transparent,black_3%,black_97%,transparent)] my-0 sm:my-1">
             <svg
               ref={svgRef}
-              viewBox="0 0 1400 310"
+              viewBox={isMobile ? "0 0 1400 190" : "0 0 1400 310"}
               fill="none"
               preserveAspectRatio="xMidYMid slice"
               aria-hidden="true"
@@ -298,16 +310,16 @@ export default function Feature() {
                             >
                               <Icon className={cn("size-4.5", card.color)} />
                             </div>
-                            <span className="font-mono text-[10px] font-semibold text-slate-400">
+                            <span className="font-mono text-[10.5px] font-bold text-slate-600">
                               #{String(i + 1).padStart(2, "0")}
                             </span>
                           </div>
 
-                          <h4 className="mt-2 text-[14.5px] sm:text-[15px] font-bold tracking-tight text-slate-900 line-clamp-1 font-sans">
+                          <h4 className="mt-2 text-[14px] sm:text-[14.5px] font-bold tracking-tight text-slate-950 font-sans">
                             {card.name}
                           </h4>
 
-                          <p className="mt-1 line-clamp-2 text-[11.5px] leading-relaxed text-slate-600 font-sans">
+                          <p className="mt-1 text-[11.5px] leading-snug text-slate-800 font-sans text-justify">
                             {card.desc}
                           </p>
                         </div>
@@ -328,7 +340,7 @@ export default function Feature() {
                 return (
                   <div
                     key={`reduced-${card.id}`}
-                    className="flex h-[142px] w-[230px] shrink-0 flex-col justify-between rounded-[16px] border border-slate-200 bg-white p-4 text-left shadow-sm select-none"
+                    className="flex h-[142px] w-[230px] shrink-0 flex-col justify-between rounded-[16px] border border-slate-300 bg-white p-4 text-left shadow-sm select-none"
                   >
                     <div>
                       <div className="flex items-center justify-between">
@@ -340,14 +352,14 @@ export default function Feature() {
                         >
                           <Icon className={cn("size-4.5", card.color)} />
                         </div>
-                        <span className="font-mono text-[10px] font-semibold text-slate-400">
+                        <span className="font-mono text-[10.5px] font-bold text-slate-600">
                           #{String(i + 1).padStart(2, "0")}
                         </span>
                       </div>
-                      <h4 className="mt-2 text-[14.5px] sm:text-[15px] font-bold text-slate-900 line-clamp-1">
+                      <h4 className="mt-2 text-[14px] sm:text-[14.5px] font-bold text-slate-950">
                         {card.name}
                       </h4>
-                      <p className="mt-1 text-[11.5px] leading-relaxed text-slate-600 line-clamp-2">
+                      <p className="mt-1 text-[11.5px] leading-snug text-slate-800 text-justify">
                         {card.desc}
                       </p>
                     </div>
@@ -358,8 +370,8 @@ export default function Feature() {
           </div>
 
           {/* 3. BOTTOM DESCRIPTION & EXPLORE BUTTON */}
-          <div className="relative z-10 flex flex-col items-center text-center space-y-3.5 max-w-3xl mx-auto pt-3 border-t border-slate-200/90">
-            <p className="text-xs sm:text-sm text-slate-600 font-serif leading-relaxed">
+          <div className="relative z-10 flex flex-col items-center text-center space-y-3 sm:space-y-3.5 max-w-3xl mx-auto pt-2 sm:pt-3 border-t border-slate-300/90">
+            <p className="text-xs sm:text-sm text-slate-800 font-serif leading-relaxed text-justify font-medium">
               Complex criminal justice phenomena cannot be resolved through one discipline alone. We synthesize statutory criminal codes, digital forensics, constitutional safeguards, and empirical realities.
             </p>
 

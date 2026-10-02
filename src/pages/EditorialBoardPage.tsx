@@ -110,12 +110,12 @@ export const EditorialBoardPage: React.FC = () => {
   const editors = [
     {
       name: "Mr. Renjith Thamarakshan",
-      designation: "PhD Research Scholar (SRF), Criminology",
+      designation: "Senior Research Fellow, Criminology",
       institution: "IIT Gandhinagar"
     },
     {
-      name: "Mr. Gopal Nath Karna",
-      designation: "PhD Research Scholar (JRF), Criminology",
+      name: "Gopal Nath Karna",
+      designation: "Junior Research Fellow, Criminology",
       institution: "Sardar Patel University of Police, Security and Criminal Justice (SPUP)"
     }
   ];
@@ -158,15 +158,6 @@ export const EditorialBoardPage: React.FC = () => {
 
               {/* Chief Editor Details */}
               <div className="flex-1 text-center sm:text-left space-y-2.5">
-                <div className="flex flex-wrap items-center justify-center sm:justify-start gap-1.5">
-                  <span className="px-2.5 py-0.5 rounded-full text-[10px] font-mono font-bold uppercase tracking-wider bg-[var(--accent-navy)] text-white">
-                    Editor-in-Chief
-                  </span>
-                  <span className="px-2.5 py-0.5 rounded-full text-[10px] font-mono font-bold uppercase tracking-wider bg-emerald-500/10 text-emerald-700 dark:text-emerald-400 border border-emerald-500/20">
-                    Faculty Leadership
-                  </span>
-                </div>
-
                 <div>
                   <h3 className="font-serif text-xl sm:text-2xl font-bold text-[var(--text-primary)]">
                     Dr. Shahanshah Gulpham
@@ -180,7 +171,7 @@ export const EditorialBoardPage: React.FC = () => {
                   </div>
                 </div>
 
-                <p className="text-xs text-[var(--text-secondary)] font-serif leading-relaxed">
+                <p className="text-xs text-[var(--text-secondary)] font-serif leading-relaxed text-justify">
                   Provides chief academic oversight, scholarly governance, and editorial leadership for <em>The Crime &amp; Society Review</em>, directing the journal's multidisciplinary vision across statutory criminal laws (BNS, BNSS, BSA), forensic sciences, and policing scholarship.
                 </p>
               </div>
@@ -213,21 +204,12 @@ export const EditorialBoardPage: React.FC = () => {
 
               {/* Co-Editor-in-Chief Details */}
               <div className="flex-1 text-center sm:text-left space-y-2.5">
-                <div className="flex flex-wrap items-center justify-center sm:justify-start gap-1.5">
-                  <span className="px-2.5 py-0.5 rounded-full text-[10px] font-mono font-bold uppercase tracking-wider bg-[var(--accent-navy)]/10 text-[var(--accent-navy)] border border-[var(--accent-navy)]/30 font-semibold">
-                    Co-Editor-in-Chief
-                  </span>
-                  <span className="px-2.5 py-0.5 rounded-full text-[10px] font-mono font-bold uppercase tracking-wider bg-emerald-500/10 text-emerald-700 dark:text-emerald-400 border border-emerald-500/20">
-                    Research Leadership
-                  </span>
-                </div>
-
                 <div>
                   <h3 className="font-serif text-xl sm:text-2xl font-bold text-[var(--text-primary)]">
                     Mr. Pravesh Shekhar
                   </h3>
                   <p className="text-sm font-serif text-[var(--accent-gold)] font-semibold mt-0.5">
-                    PhD Research Scholar (SRF), Criminology
+                    Senior Research Fellow, Criminology
                   </p>
                   <div className="flex items-center justify-center sm:justify-start gap-1.5 text-xs text-[var(--text-secondary)] mt-1 font-mono">
                     <Building2 className="w-3.5 h-3.5 text-[var(--accent-gold)] shrink-0" />
@@ -235,7 +217,7 @@ export const EditorialBoardPage: React.FC = () => {
                   </div>
                 </div>
 
-                <p className="text-xs text-[var(--text-secondary)] font-serif leading-relaxed">
+                <p className="text-xs text-[var(--text-secondary)] font-serif leading-relaxed text-justify">
                   Coordinates editorial workflow, peer review triage, disciplinary track assignment, and scholarly outreach, ensuring high-standard empirical evaluation and ethical compliance in all published outputs.
                 </p>
               </div>
@@ -269,9 +251,6 @@ export const EditorialBoardPage: React.FC = () => {
                 <DummyPhoto size="sm" label="Photo" />
 
                 <div className="space-y-1 min-w-0 flex-1">
-                  <span className="inline-block px-2 py-0.5 rounded text-[9px] font-mono font-bold uppercase tracking-wider bg-[var(--accent-navy)]/10 text-[var(--accent-navy)]">
-                    Associate Editor
-                  </span>
                   <h3 className="font-serif font-bold text-base text-[var(--text-primary)] group-hover:text-[var(--accent-navy)] transition-colors leading-snug">
                     {member.name}
                   </h3>
@@ -283,7 +262,7 @@ export const EditorialBoardPage: React.FC = () => {
 
               <div className="pt-2.5 border-t border-[var(--border-subtle)] flex items-center gap-1.5 text-xs text-[var(--text-secondary)] font-mono">
                 <Building2 className="w-3.5 h-3.5 text-[var(--accent-gold)] shrink-0" />
-                <span className="truncate">{member.institution}</span>
+                <span className="leading-snug">{member.institution}</span>
               </div>
             </div>
           ))}
@@ -313,9 +292,6 @@ export const EditorialBoardPage: React.FC = () => {
               <div className="flex items-start gap-4">
                 <DummyPhoto size="sm" label="Photo" />
                 <div className="space-y-1 min-w-0 flex-1">
-                  <span className="inline-block px-2 py-0.5 rounded text-[9px] font-mono font-bold uppercase tracking-wider bg-emerald-500/10 text-emerald-700 dark:text-emerald-400">
-                    Editor
-                  </span>
                   <h3 className="font-serif font-bold text-base sm:text-lg text-[var(--text-primary)] group-hover:text-[var(--accent-navy)] transition-colors">
                     {editor.name}
                   </h3>
@@ -327,7 +303,7 @@ export const EditorialBoardPage: React.FC = () => {
 
               <div className="pt-2.5 border-t border-[var(--border-subtle)] flex items-center gap-1.5 text-xs text-[var(--text-secondary)] font-mono">
                 <Building2 className="w-3.5 h-3.5 text-[var(--accent-gold)] shrink-0" />
-                <span className="truncate">{editor.institution}</span>
+                <span className="leading-snug">{editor.institution}</span>
               </div>
             </div>
           ))}
@@ -350,9 +326,6 @@ export const EditorialBoardPage: React.FC = () => {
             <div className="flex items-start gap-4">
               <DummyPhoto size="sm" label="Photo" />
               <div className="space-y-1 min-w-0 flex-1">
-                <span className="inline-block px-2 py-0.5 rounded text-[9px] font-mono font-bold uppercase tracking-wider bg-amber-500/10 text-amber-700 dark:text-amber-400">
-                  Technical Lead
-                </span>
                 <h3 className="font-serif font-bold text-base sm:text-lg text-[var(--text-primary)] group-hover:text-[var(--accent-navy)] transition-colors">
                   Abhinav Kumar
                 </h3>
@@ -364,7 +337,7 @@ export const EditorialBoardPage: React.FC = () => {
 
             <div className="pt-2.5 border-t border-[var(--border-subtle)] flex items-center gap-1.5 text-xs text-[var(--text-secondary)] font-mono">
               <Cpu className="w-3.5 h-3.5 text-[var(--accent-gold)] shrink-0" />
-              <span className="truncate">Digital Systems &amp; Web Architecture</span>
+              <span className="leading-snug">Digital Systems &amp; Web Architecture</span>
             </div>
           </div>
         </div>
@@ -375,7 +348,7 @@ export const EditorialBoardPage: React.FC = () => {
         <h3 className="font-serif text-xl font-bold text-[var(--text-primary)]">
           Join the Peer Reviewer Pool
         </h3>
-        <p className="text-xs sm:text-sm text-[var(--text-secondary)] font-serif max-w-xl mx-auto leading-relaxed">
+        <p className="text-xs sm:text-sm text-[var(--text-secondary)] font-serif max-w-xl mx-auto leading-relaxed text-justify">
           We welcome expressions of interest from active researchers and academics in criminal law, forensic science, criminological inquiry, and behavioural psychology to join our double-blind peer review community.
         </p>
         <div className="flex flex-wrap justify-center gap-3 pt-2">
