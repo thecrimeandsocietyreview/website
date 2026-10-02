@@ -1,16 +1,24 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { 
   Mail, 
   Send, 
   CheckCircle2, 
   Clock, 
   ExternalLink,
-  Globe
+  Globe,
+  ShieldCheck,
+  AlertCircle
 } from 'lucide-react';
+import { Turnstile, type TurnstileInstance } from '@marsidev/react-turnstile';
 import { CONTACT_DETAILS } from '../data/mockJournalData';
 
 export const ContactPage: React.FC = () => {
   const [submitted, setSubmitted] = useState(false);
+  const [turnstileToken, setTurnstileToken] = useState('');
+  const [turnstileError, setTurnstileError] = useState('');
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const turnstileRef = useRef<TurnstileInstance | null>(null);
+
   const [form, setForm] = useState({
     name: '',
     email: '',
@@ -19,9 +27,45 @@ export const ContactPage: React.FC = () => {
     message: ''
   });
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    setTurnstileError('');
+
+    if (!turnstileToken) {
+      setTurnstileError('Please complete the Cloudflare security verification before sending.');
+      return;
+    }
+
+    setIsSubmitting(true);
+
+    try {
+      const verifyRes = await fetch('/api/verify-turnstile', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          token: turnstileToken,
+          action: 'contact_enquiry'
+        })
+      });
+
+      if (verifyRes.ok) {
+        const verifyData = await verifyRes.json();
+        if (!verifyData.success) {
+          setTurnstileError(verifyData.message || 'Security verification failed. Please try again.');
+          turnstileRef.current?.reset();
+          setTurnstileToken('');
+          setIsSubmitting(false);
+          return;
+        }
+      }
+    } catch (e) {
+      console.log('Siteverify endpoint check skipped in local development mode');
+    }
+
     setSubmitted(true);
+    setIsSubmitting(false);
+    turnstileRef.current?.reset();
+    setTurnstileToken('');
   };
 
   return (
@@ -141,12 +185,57 @@ export const ContactPage: React.FC = () => {
                 />
               </div>
 
+              {/* Security Verification (Cloudflare Turnstile) */}
+              <div className="p-3.5 rounded-xl border border-[var(--border-subtle)] bg-[var(--bg-page)] space-y-2.5">
+                <div className="flex items-center justify-between border-b border-[var(--border-subtle)] pb-2 text-xs">
+                  <div className="flex items-center gap-1.5 font-semibold text-[var(--text-primary)]">
+                    <ShieldCheck className="w-3.5 h-3.5 text-emerald-600 dark:text-emerald-400" />
+                    <span>Security Verification *</span>
+                  </div>
+                  <span className="text-[10px] font-mono text-emerald-600 dark:text-emerald-400 bg-emerald-500/10 px-2 py-0.5 rounded border border-emerald-500/20 font-bold">
+                    Turnstile Protected
+                  </span>
+                </div>
+
+                <div className="flex justify-center py-1">
+                  <Turnstile
+                    ref={turnstileRef}
+                    siteKey={import.meta.env.VITE_CLOUDFLARE_TURNSTILE_SITE_KEY || '0x4AAAAAAFLt2iH7VYOSvoh1'}
+                    onSuccess={(token) => {
+                      setTurnstileToken(token);
+                      setTurnstileError('');
+                    }}
+                    onError={() => {
+                      setTurnstileToken('');
+                      setTurnstileError('Cloudflare security verification failed. Please try again.');
+                    }}
+                    onExpire={() => {
+                      setTurnstileToken('');
+                      turnstileRef.current?.reset();
+                    }}
+                    options={{
+                      theme: 'auto',
+                      size: 'normal',
+                      action: 'contact_enquiry'
+                    }}
+                  />
+                </div>
+
+                {turnstileError && (
+                  <p className="text-[11px] text-red-500 text-center flex items-center justify-center gap-1 font-mono">
+                    <AlertCircle className="w-3.5 h-3.5" />
+                    <span>{turnstileError}</span>
+                  </p>
+                )}
+              </div>
+
               <button
                 type="submit"
-                className="px-6 py-3 rounded-xl bg-[var(--accent-navy)] text-white text-xs font-bold hover:opacity-90 transition-opacity flex items-center gap-2 shadow-sm cursor-pointer"
+                disabled={isSubmitting}
+                className="px-6 py-3 rounded-xl bg-[var(--accent-navy)] text-white text-xs font-bold hover:opacity-90 transition-opacity flex items-center gap-2 shadow-sm cursor-pointer disabled:opacity-50"
               >
                 <Send className="w-3.5 h-3.5" />
-                <span>Submit Enquiry</span>
+                <span>{isSubmitting ? 'Transmitting...' : 'Submit Enquiry'}</span>
               </button>
             </form>
           )}

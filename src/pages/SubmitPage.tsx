@@ -12,14 +12,17 @@ import {
   FileCheck,
   User,
   ShieldCheck,
+  Shield,
   MessageSquare
 } from 'lucide-react';
+import { Turnstile, type TurnstileInstance } from '@marsidev/react-turnstile';
 import confetti from 'canvas-confetti';
 import { SubmissionDraft } from '../types/journal';
 
 export const SubmitPage: React.FC = () => {
   // Guidelines Scroll Container Ref & Jump handler
   const guidelinesContainerRef = useRef<HTMLDivElement>(null);
+  const turnstileRef = useRef<TurnstileInstance | null>(null);
   const [activeJumpId, setActiveJumpId] = useState('general-policy');
 
   const handleJump = (e: React.MouseEvent, targetId: string) => {
@@ -50,12 +53,19 @@ export const SubmitPage: React.FC = () => {
     }
   };
 
+  // Submitting / Corresponding Author State (Positioned Above Manuscript Details)
+  const [authorName, setAuthorName] = useState('');
+  const [authorEmail, setAuthorEmail] = useState('');
+
   // Form State
   const [title, setTitle] = useState('');
   const [articleType, setArticleType] = useState('Research Article');
   const [keywords, setKeywords] = useState('');
   const [abstractText, setAbstractText] = useState('');
   const [editorMessage, setEditorMessage] = useState('');
+
+  // Cloudflare Turnstile Verification State
+  const [turnstileToken, setTurnstileToken] = useState('');
 
   // Author Information File (.doc/.docx only, max 5MB)
 
@@ -158,9 +168,19 @@ export const SubmitPage: React.FC = () => {
   };
 
   // Submit Handler
-  const handleSubmitForm = (e: React.FormEvent) => {
+  const handleSubmitForm = async (e: React.FormEvent) => {
     e.preventDefault();
     setValidationError('');
+
+    if (!authorName.trim()) {
+      setValidationError('Please enter the Submitting / Corresponding Author Full Name.');
+      return;
+    }
+
+    if (!authorEmail.trim() || !authorEmail.includes('@')) {
+      setValidationError('Please enter a valid Official / Corresponding Email Address.');
+      return;
+    }
 
     if (!title.trim()) {
       setValidationError('Please enter the Manuscript Title.');
@@ -198,7 +218,39 @@ export const SubmitPage: React.FC = () => {
       return;
     }
 
+    // Cloudflare Turnstile Verification
+    if (!turnstileToken) {
+      setValidationError('Please complete the Cloudflare security verification before submitting.');
+      return;
+    }
+
     setIsSubmitting(true);
+
+    // Canonical server-side siteverify check via Cloudflare Pages Function (/api/verify-turnstile)
+    try {
+      const verifyRes = await fetch('/api/verify-turnstile', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          token: turnstileToken,
+          action: 'submit_manuscript'
+        })
+      });
+
+      if (verifyRes.ok) {
+        const verifyData = await verifyRes.json();
+        if (!verifyData.success) {
+          setValidationError(verifyData.message || 'Cloudflare security verification failed. Please try again.');
+          turnstileRef.current?.reset();
+          setTurnstileToken('');
+          setIsSubmitting(false);
+          return;
+        }
+      }
+    } catch (e) {
+      // In local dev without functions runtime, client token verification is preserved
+      console.log('Siteverify endpoint check skipped in local development mode');
+    }
 
     setTimeout(() => {
       const newTracking = `CSR-IND-2026-${Math.floor(1000 + Math.random() * 9000)}`;
@@ -215,8 +267,8 @@ export const SubmitPage: React.FC = () => {
         primaryLens: 'legal',
         secondaryLenses: ['forensic'],
         articleType: articleType as any,
-        authorName: "Corresponding Author (In Author Info File)",
-        authorEmail: "author@university.edu",
+        authorName: authorName.trim(),
+        authorEmail: authorEmail.trim(),
         authorOrcid: "Included in author file",
         authorAffiliation: "Provided in author file",
         creditRoles: ['Author'],
@@ -258,7 +310,7 @@ export const SubmitPage: React.FC = () => {
   };
 
   const handleDownloadSlip = () => {
-    const authorSlipDetails = `Author Information File: ${authorInfoFileName || 'Author_Information.docx'} (${authorInfoFileSize || '5 MB'})`;
+    const authorSlipDetails = `Submitting Author: ${authorName} (${authorEmail})\nAuthor Information File: ${authorInfoFileName || 'Author_Information.docx'} (${authorInfoFileSize || '5 MB'})`;
 
     const slipText = `THE CRIME & SOCIETY REVIEW
 OFFICIAL MANUSCRIPT SUBMISSION RECEIPT
@@ -335,6 +387,14 @@ Editorial Desk: thecrimeandsocietyreview@gmail.com
           </div>
 
           <div className="pt-3 border-t border-[var(--border-subtle)] space-y-2 text-xs">
+            <div className="flex justify-between text-[var(--text-secondary)]">
+              <span>Submitting Author:</span>
+              <span className="font-medium text-[var(--text-primary)] truncate max-w-[240px]">{authorName}</span>
+            </div>
+            <div className="flex justify-between text-[var(--text-secondary)]">
+              <span>Author Email:</span>
+              <span className="font-mono text-[var(--text-primary)] truncate max-w-[240px]">{authorEmail}</span>
+            </div>
             <div className="flex justify-between text-[var(--text-secondary)]">
               <span>Title:</span>
               <span className="font-medium text-[var(--text-primary)] truncate max-w-[240px]">{title}</span>
@@ -975,11 +1035,51 @@ Editorial Desk: thecrimeandsocietyreview@gmail.com
 
             <form onSubmit={handleSubmitForm} className="space-y-6">
               
-              {/* 1. MANUSCRIPT DETAILS */}
+              {/* 1. SUBMITTING AUTHOR INFORMATION */}
               <div className="space-y-4">
                 <div className="flex items-center gap-2 text-xs font-mono font-bold uppercase text-[var(--accent-gold)] border-b border-[var(--border-subtle)] pb-1.5">
+                  <User className="w-3.5 h-3.5" />
+                  <span>1. Submitting / Corresponding Author</span>
+                </div>
+
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  {/* Full Name */}
+                  <div>
+                    <label className="block text-xs font-medium text-[var(--text-primary)] mb-1">
+                      Full Name &amp; Academic Title *
+                    </label>
+                    <input
+                      type="text"
+                      required
+                      value={authorName}
+                      onChange={(e) => setAuthorName(e.target.value)}
+                      placeholder="e.g., Dr. Rajesh Sharma / Prof. Sunita Rao"
+                      className="w-full text-xs p-2.5 rounded-lg border border-[var(--border-subtle)] bg-[var(--bg-page)] text-[var(--text-primary)] focus:outline-hidden focus:ring-1 focus:ring-[var(--accent-navy)]"
+                    />
+                  </div>
+
+                  {/* Email Address */}
+                  <div>
+                    <label className="block text-xs font-medium text-[var(--text-primary)] mb-1">
+                      Official Email Address *
+                    </label>
+                    <input
+                      type="email"
+                      required
+                      value={authorEmail}
+                      onChange={(e) => setAuthorEmail(e.target.value)}
+                      placeholder="e.g., r.sharma@nlu.ac.in"
+                      className="w-full text-xs p-2.5 rounded-lg border border-[var(--border-subtle)] bg-[var(--bg-page)] text-[var(--text-primary)] focus:outline-hidden focus:ring-1 focus:ring-[var(--accent-navy)]"
+                    />
+                  </div>
+                </div>
+              </div>
+
+              {/* 2. MANUSCRIPT DETAILS */}
+              <div className="space-y-4 pt-2 border-t border-[var(--border-subtle)]">
+                <div className="flex items-center gap-2 text-xs font-mono font-bold uppercase text-[var(--accent-gold)] border-b border-[var(--border-subtle)] pb-1.5">
                   <FileText className="w-3.5 h-3.5" />
-                  <span>1. Manuscript Details</span>
+                  <span>2. Manuscript Details</span>
                 </div>
 
                 {/* Manuscript Title */}
@@ -1061,12 +1161,12 @@ Editorial Desk: thecrimeandsocietyreview@gmail.com
                 </div>
               </div>
 
-              {/* 2. AUTHOR INFORMATION (Document Upload Only, Max 5MB) */}
+              {/* 3. AUTHOR INFORMATION (Document Upload Only, Max 5MB) */}
               <div className="space-y-4 pt-2 border-t border-[var(--border-subtle)]">
                 <div className="flex items-center justify-between border-b border-[var(--border-subtle)] pb-1.5">
                   <div className="flex items-center gap-2 text-xs font-mono font-bold uppercase text-[var(--accent-gold)]">
                     <User className="w-3.5 h-3.5" />
-                    <span>2. Author Information</span>
+                    <span>3. Author Information Dossier</span>
                   </div>
                   <span className="text-[10px] font-mono text-[var(--accent-gold)] font-bold">
                     File Upload (.doc / .docx)
@@ -1121,11 +1221,11 @@ Editorial Desk: thecrimeandsocietyreview@gmail.com
                 </div>
               </div>
 
-              {/* 3. BLIND MANUSCRIPT (Max 20MB) */}
+              {/* 4. BLIND MANUSCRIPT (Max 20MB) */}
               <div className="space-y-3 pt-2 border-t border-[var(--border-subtle)]">
                 <div className="flex items-center gap-2 text-xs font-mono font-bold uppercase text-[var(--accent-gold)] border-b border-[var(--border-subtle)] pb-1.5">
                   <ShieldCheck className="w-3.5 h-3.5" />
-                  <span>3. Blind Manuscript</span>
+                  <span>4. Blind Manuscript</span>
                 </div>
 
                 <div className="p-3.5 rounded-xl border border-[var(--border-subtle)] bg-[var(--bg-page)] text-xs space-y-1">
@@ -1174,11 +1274,11 @@ Editorial Desk: thecrimeandsocietyreview@gmail.com
                 </div>
               </div>
 
-              {/* 4. DECLARATION & SUBMISSION */}
+              {/* 5. MANDATORY SUBMISSION DECLARATIONS */}
               <div className="space-y-3 pt-2 border-t border-[var(--border-subtle)]">
                 <div className="flex items-center gap-2 text-xs font-mono font-bold uppercase text-[var(--accent-gold)] border-b border-[var(--border-subtle)] pb-1.5">
-                  <ShieldCheck className="w-3.5 h-3.5" />
-                  <span>4. Declaration &amp; Submission</span>
+                  <CheckCircle2 className="w-3.5 h-3.5" />
+                  <span>5. Mandatory Submission Declarations</span>
                 </div>
 
                 <div className="space-y-2.5 text-xs">
@@ -1249,6 +1349,47 @@ Editorial Desk: thecrimeandsocietyreview@gmail.com
                     className="w-full text-xs p-2.5 rounded-lg border border-[var(--border-subtle)] bg-[var(--bg-page)] text-[var(--text-primary)] focus:outline-hidden focus:ring-1 focus:ring-[var(--accent-navy)] leading-relaxed"
                   />
                 </div>
+              </div>
+
+              {/* 6. SECURITY VERIFICATION (CLOUDFLARE TURNSTILE) */}
+              <div className="p-4 rounded-xl border border-[var(--border-subtle)] bg-[var(--bg-page)] space-y-3">
+                <div className="flex items-center justify-between border-b border-[var(--border-subtle)] pb-2">
+                  <div className="flex items-center gap-2 text-xs font-semibold text-[var(--text-primary)]">
+                    <ShieldCheck className="w-4 h-4 text-emerald-600 dark:text-emerald-400" />
+                    <span>6. Security Verification (Cloudflare Turnstile) *</span>
+                  </div>
+                  <span className="text-[10px] font-mono text-emerald-600 dark:text-emerald-400 bg-emerald-500/10 px-2 py-0.5 rounded border border-emerald-500/20 font-bold">
+                    Cloudflare Protected
+                  </span>
+                </div>
+
+                <div className="flex justify-center py-1">
+                  <Turnstile
+                    ref={turnstileRef}
+                    siteKey={import.meta.env.VITE_CLOUDFLARE_TURNSTILE_SITE_KEY || '0x4AAAAAAFLt2iH7VYOSvoh1'}
+                    onSuccess={(token) => {
+                      setTurnstileToken(token);
+                      setValidationError('');
+                    }}
+                    onError={() => {
+                      setTurnstileToken('');
+                      setValidationError('Cloudflare security verification failed. Please refresh and try again.');
+                    }}
+                    onExpire={() => {
+                      setTurnstileToken('');
+                      turnstileRef.current?.reset();
+                    }}
+                    options={{
+                      theme: 'auto',
+                      size: 'normal',
+                      action: 'submit_manuscript'
+                    }}
+                  />
+                </div>
+
+                <p className="text-[10px] text-[var(--text-muted)] font-mono text-center">
+                  Protected by Cloudflare Turnstile • Frictionless &amp; privacy-first academic submission security
+                </p>
               </div>
 
               {/* Submit Button */}

@@ -183,6 +183,10 @@ export const Footer: React.FC = () => {
             <span>Continuous Rolling Scholarly Publication</span>
             <span>•</span>
             <span className="text-[var(--accent-gold)]">ISSN: Coming Soon</span>
+            <span>•</span>
+            <Link to="/admin" className="text-[var(--text-muted)] hover:text-[var(--accent-gold)] transition-colors">
+              Editorial Admin
+            </Link>
           </div>
         </div>
       </div>
