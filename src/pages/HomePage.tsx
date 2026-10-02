@@ -13,7 +13,7 @@ import Feature from '@/components/ui/block-feature';
 
 export const HomePage: React.FC = () => {
   return (
-    <div className="space-y-16 pb-16 animate-fadeIn">
+    <div className="space-y-10 sm:space-y-12 pb-12 animate-fadeIn">
 
       {/* ========================================================
           HERO SECTION: Journal Name, Intro, Interdisciplinary Focus
@@ -28,7 +28,7 @@ export const HomePage: React.FC = () => {
         {/* Ambient Overlay */}
         <div className="absolute inset-0 bg-gradient-to-r from-white/95 via-white/90 to-white/40 dark:from-slate-950/95 dark:via-slate-950/90 dark:to-slate-950/50"></div>
 
-        <div className="relative z-10 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-20 lg:py-24 space-y-8">
+        <div className="relative z-10 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16 lg:py-20 space-y-7">
           <div className="max-w-4xl lg:max-w-5xl space-y-6 text-left">
             
             {/* Badges */}

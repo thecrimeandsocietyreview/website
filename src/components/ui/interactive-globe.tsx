@@ -96,7 +96,7 @@ export function Component({
 
     const cx = w / 2;
     const cy = h / 2;
-    const radius = Math.min(w, h) * 0.38;
+    const radius = Math.min(w, h) * 0.46;
     const fov = 600;
 
     // Auto rotate slowly when user is not dragging

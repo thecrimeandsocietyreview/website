@@ -199,17 +199,19 @@ const SCOPE_CARDS_20: ScopeItem[] = [
   },
 ];
 
-// Arched oval wave path spanning 4700px total distance
-// Snug fit: crest at y = 85, dips at y = 195 within viewBox height 270
+// Arched oval wave path spanning 6240px total distance
+// Distance between 20 cards = 312px. Card width = 230px -> 82px guaranteed non-touching open gap!
+// Smooth arch: crest at y = 95, dips at y = 220 within viewBox 1400x310
 const BELT_PATH =
-  "M -250 195 C 150 195, 400 85, 650 85 C 900 85, 1150 195, 1550 195 L 4450 195";
-const BELT_DURATION = 65; // Seconds for full cycle
+  "M -320 220 C 150 220, 420 95, 700 95 C 980 95, 1250 220, 1720 220 L 5920 220";
+const BELT_DURATION = 92; // Slower, relaxed speed for comfortable reading
 const BELT_RIDERS = SCOPE_CARDS_20.length; // 20 cards
 
 export default function Feature() {
   const step = BELT_DURATION / BELT_RIDERS;
   const svgRef = useRef<SVGSVGElement>(null);
 
+  // Pause ONLY when hovering directly on an actual card (no zoom, pure stop)
   const handleMouseEnter = () => {
     try {
       svgRef.current?.pauseAnimations();
@@ -227,29 +229,26 @@ export default function Feature() {
   };
 
   return (
-    <section className="w-full px-4 py-4 sm:px-6">
-      <div className="mx-auto w-full max-w-6xl">
-        <div
-          className="relative w-full overflow-hidden rounded-[28px] border border-slate-200/90 bg-white shadow-[0_8px_30px_rgba(0,0,0,0.04)] p-6 sm:p-8"
-          onMouseEnter={handleMouseEnter}
-          onMouseLeave={handleMouseLeave}
-        >
+    <section className="w-full px-4 py-5 sm:px-6">
+      {/* Expanded larger container max-w-7xl */}
+      <div className="mx-auto w-full max-w-7xl">
+        <div className="relative w-full overflow-hidden rounded-[28px] border border-slate-200/90 bg-white shadow-[0_12px_40px_rgba(0,0,0,0.05)] p-6 sm:p-9 lg:p-11 space-y-4">
           {/* Subtle Ambient Light Glows */}
-          <div className="absolute -top-24 right-1/4 h-96 w-96 rounded-full bg-blue-100/40 blur-3xl pointer-events-none" />
+          <div className="absolute -top-24 right-1/4 h-96 w-96 rounded-full bg-blue-100/35 blur-3xl pointer-events-none" />
           <div className="absolute -bottom-24 left-1/4 h-96 w-96 rounded-full bg-amber-100/40 blur-3xl pointer-events-none" />
 
-          {/* 1. TOP HEADING (Light theme typography) */}
-          <div className="relative z-10 text-center max-w-3xl mx-auto pt-1 pb-1">
-            <h2 className="font-serif text-2xl sm:text-3xl md:text-4xl font-bold text-slate-900 tracking-tight">
+          {/* 1. TOP HEADING */}
+          <div className="relative z-10 text-center max-w-4xl mx-auto pt-1 pb-1">
+            <h2 className="font-serif text-2xl sm:text-3xl md:text-4xl lg:text-[40px] font-bold text-slate-900 tracking-tight leading-tight">
               Interdisciplinary Pillars: Law, Forensics &amp; Society
             </h2>
           </div>
 
-          {/* 2. OVAL TRAVELING CARDS TRACK (Light Mode) */}
-          <div className="relative h-[230px] sm:h-[250px] w-full [mask-image:linear-gradient(to_right,transparent,black_4%,black_96%,transparent)] my-0">
+          {/* 2. OVAL TRAVELING CARDS TRACK (Curved oval path, larger track & cards) */}
+          <div className="relative h-[270px] sm:h-[295px] w-full [mask-image:linear-gradient(to_right,transparent,black_3%,black_97%,transparent)] my-1">
             <svg
               ref={svgRef}
-              viewBox="0 0 1300 270"
+              viewBox="0 0 1400 310"
               fill="none"
               preserveAspectRatio="xMidYMid slice"
               aria-hidden="true"
@@ -257,7 +256,7 @@ export default function Feature() {
             >
               {/* Subtle curved orbital guide track */}
               <path
-                d="M -250 195 C 150 195, 400 85, 650 85 C 900 85, 1150 195, 1550 195"
+                d="M -320 220 C 150 220, 420 95, 700 95 C 980 95, 1250 220, 1720 220"
                 fill="none"
                 stroke="rgba(0,0,0,0.06)"
                 strokeDasharray="6 8"
@@ -273,39 +272,42 @@ export default function Feature() {
                       begin={`${-i * step}s`}
                       repeatCount="indefinite"
                       calcMode="linear"
-                      rotate="auto"
+                      rotate="0"
                       path={BELT_PATH}
                     />
                     <foreignObject
-                      x="-92"
-                      y="-60"
-                      width="185"
-                      height="120"
+                      x="-115"
+                      y="-71"
+                      width="230"
+                      height="142"
                       className="overflow-visible"
                     >
+                      {/* Card pauses ONLY when mouse hovers directly on the card itself (No zoom/scale, simple stop) */}
                       <div
-                        className="group relative flex h-[120px] w-[185px] flex-col justify-between rounded-[14px] border border-slate-200/90 bg-white p-3 text-left shadow-[0_4px_16px_rgba(0,0,0,0.06)] transition-all duration-200 hover:border-slate-300 hover:shadow-[0_8px_24px_rgba(0,0,0,0.1)] hover:scale-[1.03] select-none block"
+                        onMouseEnter={handleMouseEnter}
+                        onMouseLeave={handleMouseLeave}
+                        className="group relative flex h-[142px] w-[230px] flex-col justify-between rounded-[16px] border border-slate-200/95 bg-white p-4 text-left shadow-[0_4px_18px_rgba(0,0,0,0.06)] hover:border-slate-300 hover:shadow-[0_8px_24px_rgba(0,0,0,0.1)] select-none cursor-pointer will-change-transform transform-gpu"
                       >
                         <div>
                           <div className="flex items-center justify-between">
                             <div
                               className={cn(
-                                "flex size-7 items-center justify-center rounded-lg border",
+                                "flex size-8 w-[32px] h-[32px] items-center justify-center rounded-lg border",
                                 card.badgeBg,
                               )}
                             >
-                              <Icon className={cn("size-3.5", card.color)} />
+                              <Icon className={cn("size-4.5", card.color)} />
                             </div>
-                            <span className="font-mono text-[9px] font-semibold text-slate-400">
+                            <span className="font-mono text-[10px] font-semibold text-slate-400">
                               #{String(i + 1).padStart(2, "0")}
                             </span>
                           </div>
 
-                          <h4 className="mt-2 text-[12.5px] font-bold tracking-tight text-slate-900 line-clamp-1 font-sans">
+                          <h4 className="mt-2 text-[14.5px] sm:text-[15px] font-bold tracking-tight text-slate-900 line-clamp-1 font-sans">
                             {card.name}
                           </h4>
 
-                          <p className="mt-0.5 line-clamp-2 text-[10px] leading-snug text-slate-600 font-sans">
+                          <p className="mt-1 line-clamp-2 text-[11.5px] leading-relaxed text-slate-600 font-sans">
                             {card.desc}
                           </p>
                         </div>
@@ -319,33 +321,33 @@ export default function Feature() {
             {/* Accessible Fallback for Reduced Motion */}
             <div
               aria-hidden="true"
-              className="absolute inset-0 hidden items-center justify-start gap-3 px-4 motion-reduce:flex overflow-x-auto"
+              className="absolute inset-0 hidden items-center justify-start gap-4 px-4 motion-reduce:flex overflow-x-auto"
             >
               {SCOPE_CARDS_20.map((card, i) => {
                 const Icon = card.icon;
                 return (
                   <div
                     key={`reduced-${card.id}`}
-                    className="flex h-[120px] w-[180px] shrink-0 flex-col justify-between rounded-[14px] border border-slate-200 bg-white p-3 text-left shadow-sm select-none"
+                    className="flex h-[142px] w-[230px] shrink-0 flex-col justify-between rounded-[16px] border border-slate-200 bg-white p-4 text-left shadow-sm select-none"
                   >
                     <div>
                       <div className="flex items-center justify-between">
                         <div
                           className={cn(
-                            "flex size-7 items-center justify-center rounded-lg border",
+                            "flex size-8 w-[32px] h-[32px] items-center justify-center rounded-lg border",
                             card.badgeBg,
                           )}
                         >
-                          <Icon className={cn("size-3.5", card.color)} />
+                          <Icon className={cn("size-4.5", card.color)} />
                         </div>
-                        <span className="font-mono text-[9px] font-semibold text-slate-400">
+                        <span className="font-mono text-[10px] font-semibold text-slate-400">
                           #{String(i + 1).padStart(2, "0")}
                         </span>
                       </div>
-                      <h4 className="mt-2 text-[12.5px] font-bold text-slate-900 line-clamp-1">
+                      <h4 className="mt-2 text-[14.5px] sm:text-[15px] font-bold text-slate-900 line-clamp-1">
                         {card.name}
                       </h4>
-                      <p className="mt-0.5 text-[10px] leading-snug text-slate-600 line-clamp-2">
+                      <p className="mt-1 text-[11.5px] leading-relaxed text-slate-600 line-clamp-2">
                         {card.desc}
                       </p>
                     </div>
@@ -355,7 +357,7 @@ export default function Feature() {
             </div>
           </div>
 
-          {/* 3. BOTTOM DESCRIPTION & EXPLORE BUTTON (Light Theme) */}
+          {/* 3. BOTTOM DESCRIPTION & EXPLORE BUTTON */}
           <div className="relative z-10 flex flex-col items-center text-center space-y-3.5 max-w-3xl mx-auto pt-3 border-t border-slate-200/90">
             <p className="text-xs sm:text-sm text-slate-600 font-serif leading-relaxed">
               Complex criminal justice phenomena cannot be resolved through one discipline alone. We synthesize statutory criminal codes, digital forensics, constitutional safeguards, and empirical realities.

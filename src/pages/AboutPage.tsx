@@ -12,22 +12,18 @@ import { JOURNAL_METADATA } from '../data/mockJournalData';
 
 export const AboutPage: React.FC = () => {
   return (
-    <div className="max-w-5xl mx-auto px-4 py-12 space-y-16 animate-fadeIn">
-      {/* Header Banner */}
-      <div className="border-b border-[var(--border-subtle)] pb-6">
+    <div className="max-w-6xl mx-auto px-4 py-8 space-y-8 animate-fadeIn">
+      {/* Header */}
+      <div className="pb-1">
         <h1 className="font-serif text-3xl sm:text-5xl font-bold text-[var(--text-primary)] tracking-tight">
           About The Crime &amp; Society Review
         </h1>
       </div>
 
       {/* 1. PURPOSE OF THE JOURNAL (FEATURED DARK CARD) */}
-      <section className="p-8 sm:p-10 rounded-3xl border border-slate-800 bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950 text-white space-y-4 shadow-xl relative overflow-hidden">
+      <section className="p-6 sm:p-8 rounded-2xl border border-slate-800 bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950 text-white space-y-4 shadow-xl relative overflow-hidden">
         <div className="absolute top-0 right-0 w-80 h-80 bg-amber-500/5 rounded-full blur-3xl pointer-events-none" />
-        <div className="relative z-10 space-y-4">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-mono uppercase font-bold text-amber-400 bg-amber-500/10 border border-amber-500/20">
-            <Target className="w-3.5 h-3.5 text-amber-400" />
-            <span>Core Scholarly Mandate</span>
-          </div>
+        <div className="relative z-10 space-y-3">
           <h2 className="font-serif text-2xl sm:text-3xl font-bold text-white tracking-tight">
             Purpose of the Journal
           </h2>
@@ -46,12 +42,12 @@ export const AboutPage: React.FC = () => {
       </section>
 
       {/* 2. JOURNAL MISSION */}
-      <section className="grid grid-cols-1 md:grid-cols-2 gap-6">
-        <div className="p-7 rounded-2xl border border-[var(--border-subtle)] bg-[var(--bg-card)] space-y-3">
-          <div className="w-10 h-10 rounded-xl bg-[var(--accent-navy)]/10 text-[var(--accent-navy)] flex items-center justify-center">
-            <Target className="w-5 h-5 text-[var(--accent-gold)]" />
+      <section className="grid grid-cols-1 md:grid-cols-2 gap-5">
+        <div className="p-5 sm:p-6 rounded-2xl border border-[var(--border-subtle)] bg-[var(--bg-card)] space-y-2.5">
+          <div className="w-9 h-9 rounded-xl bg-[var(--accent-navy)]/10 text-[var(--accent-navy)] flex items-center justify-center">
+            <Target className="w-4.5 h-4.5 text-[var(--accent-gold)]" />
           </div>
-          <h3 className="font-serif text-xl font-bold text-[var(--text-primary)]">
+          <h3 className="font-serif text-lg sm:text-xl font-bold text-[var(--text-primary)]">
             Journal Mission
           </h3>
           <p className="text-sm text-[var(--text-secondary)] font-serif leading-relaxed">
@@ -59,11 +55,11 @@ export const AboutPage: React.FC = () => {
           </p>
         </div>
 
-        <div className="p-7 rounded-2xl border border-[var(--border-subtle)] bg-[var(--bg-card)] space-y-3">
-          <div className="w-10 h-10 rounded-xl bg-[var(--accent-navy)]/10 text-[var(--accent-navy)] flex items-center justify-center">
-            <Compass className="w-5 h-5 text-[var(--accent-gold)]" />
+        <div className="p-5 sm:p-6 rounded-2xl border border-[var(--border-subtle)] bg-[var(--bg-card)] space-y-2.5">
+          <div className="w-9 h-9 rounded-xl bg-[var(--accent-navy)]/10 text-[var(--accent-navy)] flex items-center justify-center">
+            <Compass className="w-4.5 h-4.5 text-[var(--accent-gold)]" />
           </div>
-          <h3 className="font-serif text-xl font-bold text-[var(--text-primary)]">
+          <h3 className="font-serif text-lg sm:text-xl font-bold text-[var(--text-primary)]">
             Journal Vision
           </h3>
           <p className="text-sm text-[var(--text-secondary)] font-serif leading-relaxed">
@@ -73,11 +69,8 @@ export const AboutPage: React.FC = () => {
       </section>
 
       {/* 3. EDITORIAL PHILOSOPHY */}
-      <section className="p-8 rounded-2xl border border-[var(--border-subtle)] bg-[var(--bg-card-hover)] space-y-6">
+      <section className="p-6 sm:p-7 rounded-2xl border border-[var(--border-subtle)] bg-[var(--bg-card-hover)] space-y-4">
         <div className="space-y-1">
-          <div className="flex items-center gap-2 text-xs font-mono uppercase font-bold text-[var(--accent-gold)]">
-            <Compass className="w-4 h-4" /> Section 3
-          </div>
           <h2 className="font-serif text-2xl sm:text-3xl font-bold text-[var(--text-primary)]">
             Editorial Philosophy
           </h2>

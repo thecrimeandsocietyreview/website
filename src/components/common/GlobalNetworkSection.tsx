@@ -9,7 +9,7 @@ export const GlobalNetworkSection: React.FC = () => {
         <div className="absolute top-0 right-1/4 w-96 h-96 rounded-full bg-blue-500/10 blur-3xl pointer-events-none" />
 
         {/* Side-by-side on Mobile, Tablet & Laptop */}
-        <div className="flex flex-row items-center min-h-[300px] sm:min-h-[420px] md:min-h-[480px]">
+        <div className="flex flex-row items-center min-h-[340px] sm:min-h-[420px] md:min-h-[480px]">
           {/* Left content */}
           <div className="flex-1 min-w-0 flex flex-col justify-center p-3.5 sm:p-7 md:p-10 lg:p-12 relative z-10">
             <h2 className="text-base sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-bold tracking-tight text-white leading-[1.15] mb-2 sm:mb-4 font-serif">
@@ -43,10 +43,10 @@ export const GlobalNetworkSection: React.FC = () => {
             </div>
           </div>
 
-          {/* Right — Globe (Auto-responsive side-by-side) */}
-          <div className="flex-1 min-w-0 flex items-center justify-center p-2 sm:p-4 md:p-6 overflow-hidden relative">
-            <div className="w-full max-w-[180px] sm:max-w-[320px] md:max-w-[420px] aspect-square flex items-center justify-center">
-              <Globe size={460} className="w-full h-full" />
+          {/* Right — Globe (Auto-responsive side-by-side, larger and prominent on mobile) */}
+          <div className="flex-1 min-w-0 flex items-center justify-center p-1 sm:p-4 md:p-6 overflow-hidden relative">
+            <div className="w-full max-w-[240px] sm:max-w-[340px] md:max-w-[440px] aspect-square flex items-center justify-center">
+              <Globe size={480} className="w-full h-full" />
             </div>
           </div>
         </div>

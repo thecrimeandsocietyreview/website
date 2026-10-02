@@ -80,21 +80,18 @@ const PERSPECTIVES: LensData[] = [
 
 export const RashomonPage: React.FC = () => {
   return (
-    <div className="max-w-5xl mx-auto px-4 py-12 space-y-12 animate-fadeIn">
-      {/* Page Header (Clean title without above/under heading clutter) */}
-      <div className="border-b border-[var(--border-subtle)] pb-6">
+    <div className="max-w-6xl mx-auto px-4 py-8 space-y-8 animate-fadeIn">
+      {/* Page Header */}
+      <div className="pb-1">
         <h1 className="font-serif text-3xl sm:text-5xl font-bold text-[var(--text-primary)] tracking-tight">
           The Rashomon Approach
         </h1>
       </div>
 
       {/* 1. SIMPLE STARTING PARAGRAPH (DARK CONTEMPLATIVE CARD) */}
-      <section className="p-7 sm:p-9 rounded-3xl border border-slate-800 bg-gradient-to-br from-slate-950 via-slate-900 to-indigo-950 text-white shadow-xl relative overflow-hidden">
+      <section className="p-6 sm:p-8 rounded-2xl border border-slate-800 bg-gradient-to-br from-slate-950 via-slate-900 to-indigo-950 text-white shadow-xl relative overflow-hidden">
         <div className="absolute top-0 right-0 w-80 h-80 bg-amber-500/5 rounded-full blur-3xl pointer-events-none" />
-        <div className="relative z-10 space-y-2">
-          <span className="text-[10px] font-mono uppercase tracking-widest text-amber-400 font-bold block">
-            Theoretical Epistemology
-          </span>
+        <div className="relative z-10">
           <p className="text-sm sm:text-base text-slate-200 font-serif leading-relaxed">
             At the intellectual heart of <em>The Crime &amp; Society Review</em> is the <strong className="text-amber-400">Rashomon Approach</strong>—the recognition that complex criminal justice phenomena cannot be adequately investigated from a single perspective. Like observing an event from every corner, the journal encourages researchers to examine subjects through diverse disciplines, viewpoints, methodologies, and forms of evidence to develop a comprehensive, nuanced, and meaningful understanding.
           </p>
@@ -102,8 +99,8 @@ export const RashomonPage: React.FC = () => {
       </section>
 
       {/* 2. DIVERSE LENSES BOXES (Boxes only, no dropdown or expanded detail card below) */}
-      <section className="space-y-6">
-        <div className="border-b border-[var(--border-subtle)] pb-3">
+      <section className="space-y-4">
+        <div>
           <h2 className="font-serif text-2xl font-bold text-[var(--text-primary)]">
             Diverse Lenses in Scholarly Dialogue
           </h2>
@@ -144,19 +141,16 @@ export const RashomonPage: React.FC = () => {
       </section>
 
       {/* 3. MULTIDISCIPLINARY SYNTHESIS CALLOUT (DARK FEATURE CARD) */}
-      <section className="p-8 sm:p-10 rounded-3xl border border-slate-800 bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950 text-white space-y-4 shadow-xl relative overflow-hidden">
+      <section className="p-6 sm:p-8 rounded-2xl border border-slate-800 bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950 text-white space-y-4 shadow-xl relative overflow-hidden">
         <div className="absolute bottom-0 right-0 w-96 h-96 bg-amber-500/5 rounded-full blur-3xl pointer-events-none" />
-        <div className="relative z-10 space-y-3">
-          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[10px] font-mono uppercase tracking-wider bg-amber-500/10 text-amber-400 border border-amber-500/20 font-bold">
-            <span>Interdisciplinary Synergy</span>
-          </div>
+        <div className="relative z-10 space-y-2">
           <h3 className="font-serif text-2xl font-bold text-white tracking-tight">
             Connecting Disciplines, Broadening Inquiry
           </h3>
           <p className="text-sm text-slate-300 font-serif leading-relaxed max-w-3xl">
             Rather than approaching a phenomenon from a single vantage point, <em>The Crime &amp; Society Review</em> seeks to examine the whole scene—from every corner—to develop a more comprehensive, nuanced, and meaningful understanding. We encourage authors to bridge disciplines and bring diverse empirical, doctrinal, and conceptual perspectives into collaborative synthesis.
           </p>
-          <div className="pt-3 flex flex-wrap items-center gap-3">
+          <div className="pt-2 flex flex-wrap items-center gap-3">
             <Link
               to="/submit"
               className="px-6 py-2.5 rounded-xl bg-[var(--accent-gold)] hover:bg-[var(--accent-gold-hover)] text-slate-950 text-xs font-bold transition-all flex items-center gap-2 shadow-md"

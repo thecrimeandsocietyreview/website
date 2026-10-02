@@ -22,19 +22,16 @@ export const AimsScopePage: React.FC = () => {
   );
 
   return (
-    <div className="max-w-6xl mx-auto px-4 py-12 space-y-16 animate-fadeIn">
+    <div className="max-w-6xl mx-auto px-4 py-8 space-y-8 animate-fadeIn">
       {/* Header */}
-      <div className="border-b border-[var(--border-subtle)] pb-6">
+      <div className="pb-1">
         <h1 className="font-serif text-3xl sm:text-5xl font-bold text-[var(--text-primary)] tracking-tight">
           Aims &amp; Scope
         </h1>
       </div>
 
       {/* 1. PURPOSE OF THE JOURNAL */}
-      <section className="p-8 sm:p-10 rounded-2xl border border-[var(--border-subtle)] bg-[var(--bg-card)] space-y-4">
-        <div className="flex items-center gap-2 text-xs font-mono uppercase font-bold text-[var(--accent-gold)]">
-          <Target className="w-4 h-4" /> Section 1
-        </div>
+      <section className="p-6 sm:p-8 rounded-2xl border border-[var(--border-subtle)] bg-[var(--bg-card)] space-y-3">
         <h2 className="font-serif text-2xl font-bold text-[var(--text-primary)]">
           Purpose of the Journal
         </h2>
@@ -55,11 +52,8 @@ export const AimsScopePage: React.FC = () => {
       <section className="space-y-6">
         <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4">
           <div className="space-y-1">
-            <div className="flex items-center gap-2 text-xs font-mono uppercase font-bold text-[var(--accent-gold)]">
-              <Layers className="w-4 h-4" /> Section 2
-            </div>
             <h2 className="font-serif text-2xl sm:text-3xl font-bold text-[var(--text-primary)]">
-              2. Core Research Areas
+              Core Research Areas
             </h2>
             <p className="text-xs sm:text-sm text-[var(--text-muted)] font-serif">
               Key thematic domains actively investigated within the journal's publication scope.
@@ -103,14 +97,10 @@ export const AimsScopePage: React.FC = () => {
       </section>
 
       {/* 3. DISCIPLINES COVERED (FEATURED DARK CONTAINER) */}
-      <section className="p-8 sm:p-10 rounded-3xl border border-slate-800 bg-gradient-to-br from-slate-950 via-slate-900 to-indigo-950 text-white space-y-8 shadow-xl relative overflow-hidden">
+      <section className="p-6 sm:p-8 rounded-2xl border border-slate-800 bg-gradient-to-br from-slate-950 via-slate-900 to-indigo-950 text-white space-y-6 shadow-xl relative overflow-hidden">
         <div className="absolute top-0 right-0 w-96 h-96 bg-amber-500/5 rounded-full blur-3xl pointer-events-none" />
         
-        <div className="space-y-2 relative z-10 border-b border-slate-800 pb-5">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-mono uppercase font-bold text-amber-400 bg-amber-500/10 border border-amber-500/20">
-            <Sparkles className="w-3.5 h-3.5 text-amber-400" />
-            <span>Section 3 • Disciplinary Scope</span>
-          </div>
+        <div className="space-y-1 relative z-10 pb-2">
           <h2 className="font-serif text-2xl sm:text-3xl font-bold text-white tracking-tight">
             Disciplines Covered
           </h2>
@@ -164,9 +154,6 @@ export const AimsScopePage: React.FC = () => {
       {/* 4. ARTICLES ACCEPTED */}
       <section className="space-y-6">
         <div className="space-y-1">
-          <div className="flex items-center gap-2 text-xs font-mono uppercase font-bold text-[var(--accent-gold)]">
-            <FileText className="w-4 h-4" /> Section 4
-          </div>
           <h2 className="font-serif text-2xl sm:text-3xl font-bold text-[var(--text-primary)]">
             Articles Accepted
           </h2>

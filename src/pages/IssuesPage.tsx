@@ -14,9 +14,9 @@ import { JOURNAL_METADATA } from '../data/mockJournalData';
 
 export const IssuesPage: React.FC = () => {
   return (
-    <div className="max-w-6xl mx-auto px-4 py-10 space-y-10 animate-fadeIn">
-      {/* Page Header (No Archival Repository line, No under heading text) */}
-      <div className="border-b border-[var(--border-subtle)] pb-6 flex flex-col md:flex-row md:items-center justify-between gap-4">
+    <div className="max-w-6xl mx-auto px-4 py-8 space-y-8 animate-fadeIn">
+      {/* Page Header */}
+      <div className="pb-1 flex flex-col md:flex-row md:items-center justify-between gap-4">
         <div>
           <h1 className="font-serif text-3xl sm:text-4xl font-bold text-[var(--text-primary)]">
             Volume 01 Issue 01 (Inaugural Issue) (Oct – Dec 2026)
@@ -103,16 +103,11 @@ export const IssuesPage: React.FC = () => {
         </div>
 
         {/* Right Side: COMING SOON CONTAINER (8 cols - FEATURED DARK CARD) */}
-        <div className="lg:col-span-8 bg-gradient-to-br from-slate-950 via-slate-900 to-indigo-950 text-white p-8 sm:p-10 rounded-3xl border border-slate-800 space-y-8 shadow-xl relative overflow-hidden">
+        <div className="lg:col-span-8 bg-gradient-to-br from-slate-950 via-slate-900 to-indigo-950 text-white p-6 sm:p-8 rounded-2xl border border-slate-800 space-y-6 shadow-xl relative overflow-hidden">
           <div className="absolute top-0 right-0 w-96 h-96 bg-amber-500/5 rounded-full blur-3xl pointer-events-none" />
           
           {/* Coming Soon Spotlight */}
-          <div className="space-y-4 text-center sm:text-left relative z-10">
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-mono font-bold uppercase tracking-wider bg-amber-500/15 text-amber-400 border border-amber-500/30">
-              <Clock className="w-3.5 h-3.5 text-amber-400" />
-              <span>Coming Soon • Scheduled for Oct – Dec 2026</span>
-            </div>
-
+          <div className="space-y-3 text-center sm:text-left relative z-10">
             <h2 className="font-serif text-2xl sm:text-3xl font-bold text-white tracking-tight">
               Inaugural Issue In Preparation
             </h2>

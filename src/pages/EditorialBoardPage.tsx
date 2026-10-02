@@ -102,25 +102,6 @@ export const EditorialBoardPage: React.FC = () => {
     }
   ];
 
-  // Advisory Board Members
-  const advisoryBoardMembers = [
-    {
-      name: "Prof. (Dr) Priya Sepaha",
-      designation: "Professor",
-      institution: "National Law Institute University (NLIU), Bhopal"
-    },
-    {
-      name: "Prof. Arvind Tiwari",
-      designation: "Professor, School of Law, Rights and Constitutional Governance",
-      institution: "Tata Institute of Social Sciences (TISS), Mumbai"
-    },
-    {
-      name: "Dr. Hassan Imam",
-      designation: "Professor",
-      institution: "Aligarh Muslim University (AMU)"
-    }
-  ];
-
   // Editors List
   const editors = [
     {
@@ -136,16 +117,16 @@ export const EditorialBoardPage: React.FC = () => {
   ];
 
   return (
-    <div className="max-w-6xl mx-auto px-4 py-12 space-y-12 animate-fadeIn">
-      {/* Page Header (Clean title without above/under heading clutter) */}
-      <div className="border-b border-[var(--border-subtle)] pb-6">
+    <div className="max-w-6xl mx-auto px-4 py-8 space-y-8 animate-fadeIn">
+      {/* Page Header */}
+      <div className="pb-1">
         <h1 className="font-serif text-3xl sm:text-5xl font-bold text-[var(--text-primary)] tracking-tight">
           Editorial Board
         </h1>
       </div>
 
       {/* COPE Editorial Independence Charter Notice (DARK BANNER) */}
-      <section className="p-6 sm:p-7 rounded-2xl border border-slate-800 bg-gradient-to-r from-slate-950 via-slate-900 to-slate-950 text-white flex flex-col md:flex-row items-start md:items-center justify-between gap-4 shadow-md relative overflow-hidden">
+      <section className="p-5 sm:p-6 rounded-2xl border border-slate-800 bg-gradient-to-r from-slate-950 via-slate-900 to-slate-950 text-white flex flex-col md:flex-row items-start md:items-center justify-between gap-4 shadow-md relative overflow-hidden">
         <div className="space-y-1 relative z-10 max-w-3xl">
           <h3 className="font-serif font-bold text-base text-white flex items-center gap-2">
             <ShieldCheck className="w-5 h-5 text-emerald-400" />
@@ -168,9 +149,9 @@ export const EditorialBoardPage: React.FC = () => {
       ======================================================== */}
       <section className="grid grid-cols-1 lg:grid-cols-2 gap-6 items-stretch">
         {/* Chief Editor Card */}
-        <div className="p-6 sm:p-7 rounded-2xl border border-[var(--border-strong)] bg-[var(--bg-card)] shadow-xs flex flex-col justify-between space-y-6">
-          <div className="space-y-5">
-            <div className="flex items-center gap-2 border-b border-[var(--border-subtle)] pb-3">
+        <div className="p-5 sm:p-6 rounded-2xl border border-[var(--border-strong)] bg-[var(--bg-card)] shadow-xs flex flex-col justify-between space-y-5">
+          <div className="space-y-4">
+            <div className="flex items-center gap-2 pb-1">
               <Award className="w-5 h-5 text-[var(--accent-gold)]" />
               <h2 className="font-serif text-xl sm:text-2xl font-bold text-[var(--text-primary)]">
                 Chief Editor
@@ -223,9 +204,9 @@ export const EditorialBoardPage: React.FC = () => {
         </div>
 
         {/* Co-Editor-in-Chief Card */}
-        <div className="p-6 sm:p-7 rounded-2xl border border-[var(--border-strong)] bg-[var(--bg-card)] shadow-xs flex flex-col justify-between space-y-6">
-          <div className="space-y-5">
-            <div className="flex items-center gap-2 border-b border-[var(--border-subtle)] pb-3">
+        <div className="p-5 sm:p-6 rounded-2xl border border-[var(--border-strong)] bg-[var(--bg-card)] shadow-xs flex flex-col justify-between space-y-5">
+          <div className="space-y-4">
+            <div className="flex items-center gap-2 pb-1">
               <UserCheck className="w-5 h-5 text-[var(--accent-gold)]" />
               <h2 className="font-serif text-xl sm:text-2xl font-bold text-[var(--text-primary)]">
                 Co-Editor-in-Chief
@@ -281,8 +262,8 @@ export const EditorialBoardPage: React.FC = () => {
       {/* ========================================================
           TIER 2: ASSOCIATE EDITORS
       ======================================================== */}
-      <section className="space-y-6">
-        <div className="border-b border-[var(--border-subtle)] pb-3 flex items-center justify-between">
+      <section className="space-y-4">
+        <div className="pb-1 flex items-center justify-between">
           <h2 className="font-serif text-2xl font-bold text-[var(--text-primary)] flex items-center gap-2">
             <BookOpen className="w-5 h-5 text-[var(--accent-gold)]" />
             <span>Associate Editors</span>
@@ -327,8 +308,8 @@ export const EditorialBoardPage: React.FC = () => {
       {/* ========================================================
           TIER 3: EDITORS
       ======================================================== */}
-      <section className="space-y-6">
-        <div className="border-b border-[var(--border-subtle)] pb-3 flex items-center justify-between">
+      <section className="space-y-4">
+        <div className="pb-1 flex items-center justify-between">
           <h2 className="font-serif text-2xl font-bold text-[var(--text-primary)] flex items-center gap-2">
             <GraduationCap className="w-5 h-5 text-[var(--accent-gold)]" />
             <span>Editors</span>
@@ -369,86 +350,36 @@ export const EditorialBoardPage: React.FC = () => {
       </section>
 
       {/* ========================================================
-          TIER 4: ADVISORY BOARD
-      ======================================================== */}
-      <section className="space-y-6">
-        <div className="border-b border-[var(--border-subtle)] pb-3 flex items-center justify-between">
-          <h2 className="font-serif text-2xl font-bold text-[var(--text-primary)] flex items-center gap-2">
-            <Award className="w-5 h-5 text-[var(--accent-gold)]" />
-            <span>Advisory Board</span>
-          </h2>
-          <span className="text-xs font-mono text-[var(--text-muted)]">
-            {advisoryBoardMembers.length} Appointed Members
-          </span>
-        </div>
-
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
-          {advisoryBoardMembers.map((member, idx) => (
-            <div
-              key={idx}
-              className="p-5 rounded-2xl border border-[var(--border-subtle)] bg-[var(--bg-card)] hover:border-[var(--accent-gold)]/40 transition-all flex flex-col justify-between space-y-4 shadow-2xs group"
-            >
-              <div className="flex items-start gap-3.5">
-                <DummyPhoto size="sm" label="Advisory" />
-                <div className="space-y-1 min-w-0 flex-1">
-                  <span className="inline-block px-2 py-0.5 rounded text-[9px] font-mono font-bold uppercase tracking-wider bg-amber-500/10 text-amber-700 dark:text-amber-400 border border-amber-500/20">
-                    Advisory Board
-                  </span>
-                  <h3 className="font-serif font-bold text-base text-[var(--text-primary)] group-hover:text-[var(--accent-navy)] transition-colors leading-snug">
-                    {member.name}
-                  </h3>
-                  <p className="text-xs font-serif text-[var(--accent-gold)] leading-tight">
-                    {member.designation}
-                  </p>
-                </div>
-              </div>
-
-              <div className="pt-2.5 border-t border-[var(--border-subtle)] flex items-center gap-1.5 text-xs text-[var(--text-secondary)] font-mono">
-                <Building2 className="w-3.5 h-3.5 text-[var(--accent-gold)] shrink-0" />
-                <span className="truncate">{member.institution}</span>
-              </div>
-            </div>
-          ))}
-        </div>
-      </section>
-
-      {/* ========================================================
-          TIER 5: TECHNICAL & WEB SYSTEMS LEAD (ABHINAV KUMAR)
+          TECHNICAL & WEB SYSTEMS LEADERSHIP
       ======================================================== */}
       <section className="space-y-4">
-        <div className="border-b border-[var(--border-subtle)] pb-3">
+        <div className="pb-1">
           <h2 className="font-serif text-2xl font-bold text-[var(--text-primary)] flex items-center gap-2">
             <Code2 className="w-5 h-5 text-[var(--accent-gold)]" />
             <span>Technical &amp; Web Systems Leadership</span>
           </h2>
         </div>
 
-        <div className="p-6 sm:p-7 rounded-2xl border border-slate-800 bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950 text-white hover:border-amber-400/40 transition-all space-y-4 shadow-xl relative overflow-hidden">
-          <div className="flex flex-col sm:flex-row items-center sm:items-start gap-5">
-            <DummyPhoto size="md" label="Tech Lead" />
-
-            <div className="flex-1 text-center sm:text-left space-y-2">
-              <div className="flex flex-wrap items-center justify-center sm:justify-start gap-2">
-                <span className="px-2.5 py-0.5 rounded text-[10px] font-mono font-bold uppercase tracking-wider bg-amber-500/20 text-amber-300 border border-amber-500/30">
-                  Technical Lead &amp; Web Systems Editor
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+          <div className="p-5 rounded-2xl border border-[var(--border-subtle)] bg-[var(--bg-card)] hover:border-[var(--accent-gold)]/40 transition-all flex flex-col justify-between space-y-4 shadow-2xs group">
+            <div className="flex items-start gap-4">
+              <DummyPhoto size="sm" label="Photo" />
+              <div className="space-y-1 min-w-0 flex-1">
+                <span className="inline-block px-2 py-0.5 rounded text-[9px] font-mono font-bold uppercase tracking-wider bg-amber-500/10 text-amber-700 dark:text-amber-400">
+                  Technical Lead
                 </span>
-                <span className="px-2.5 py-0.5 rounded text-[10px] font-mono font-bold uppercase tracking-wider bg-cyan-500/15 text-cyan-300 border border-cyan-500/30">
-                  Digital Systems &amp; Web Architecture
-                </span>
-              </div>
-
-              <div>
-                <h3 className="font-serif text-2xl font-bold text-white">
+                <h3 className="font-serif font-bold text-base sm:text-lg text-[var(--text-primary)] group-hover:text-[var(--accent-navy)] transition-colors">
                   Abhinav Kumar
                 </h3>
-                <p className="text-xs sm:text-sm font-serif text-amber-400 font-semibold mt-0.5">
+                <p className="text-xs font-serif text-[var(--accent-gold)] leading-tight">
                   Technical &amp; Web Systems Lead • Digital Production Editor
                 </p>
               </div>
+            </div>
 
-              <p className="text-xs sm:text-sm text-slate-300 font-serif leading-relaxed max-w-3xl">
-                Oversees journal platform engineering, digital manuscript submission infrastructure, web security, content management, accessibility compliance, and technological implementation of <em>The Crime &amp; Society Review</em> digital publishing systems.
-              </p>
+            <div className="pt-2.5 border-t border-[var(--border-subtle)] flex items-center gap-1.5 text-xs text-[var(--text-secondary)] font-mono">
+              <Cpu className="w-3.5 h-3.5 text-[var(--accent-gold)] shrink-0" />
+              <span className="truncate">Digital Systems &amp; Web Architecture</span>
             </div>
           </div>
         </div>

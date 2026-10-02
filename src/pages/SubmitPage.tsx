@@ -919,9 +919,6 @@ Editorial Desk: thecrimeandsocietyreview@gmail.com
               <div className="absolute top-0 right-0 w-80 h-80 bg-amber-500/5 rounded-full blur-3xl pointer-events-none" />
               
               <div className="space-y-1 relative z-10 border-b border-slate-800 pb-3">
-                <div className="inline-flex items-center gap-2 px-2.5 py-0.5 rounded-full text-[10px] font-mono font-bold uppercase text-amber-400 bg-amber-500/10 border border-amber-500/20">
-                  <span>Section 16 • Final Verification</span>
-                </div>
                 <h2 className="font-serif text-2xl font-bold text-white tracking-tight">
                   Submission Checklist
                 </h2>

@@ -58,22 +58,18 @@ export const AdvisoryBoardPage: React.FC = () => {
   ];
 
   return (
-    <div className="max-w-6xl mx-auto px-4 py-12 space-y-12 animate-fadeIn">
+    <div className="max-w-6xl mx-auto px-4 py-8 space-y-8 animate-fadeIn">
       {/* Page Header */}
-      <div className="border-b border-[var(--border-subtle)] pb-6">
+      <div className="pb-1">
         <h1 className="font-serif text-3xl sm:text-5xl font-bold text-[var(--text-primary)] tracking-tight">
           Advisory Board
         </h1>
       </div>
 
       {/* Advisory Mandate Overview (DARK FEATURE CARD) */}
-      <section className="p-7 sm:p-9 rounded-3xl border border-slate-800 bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950 text-white space-y-4 shadow-xl relative overflow-hidden">
+      <section className="p-6 sm:p-8 rounded-2xl border border-slate-800 bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950 text-white space-y-4 shadow-xl relative overflow-hidden">
         <div className="absolute top-0 right-0 w-80 h-80 bg-amber-500/5 rounded-full blur-3xl pointer-events-none" />
-        <div className="relative z-10 space-y-3">
-          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[10px] font-mono uppercase tracking-wider bg-amber-500/15 text-amber-400 border border-amber-500/30 font-bold">
-            <Award className="w-3.5 h-3.5 text-amber-400" />
-            <span>Strategic Governance</span>
-          </div>
+        <div className="relative z-10 space-y-2">
           <h2 className="font-serif text-xl sm:text-2xl font-bold text-white tracking-tight">
             Scholarly Counsel &amp; Strategic Oversight
           </h2>
@@ -89,8 +85,8 @@ export const AdvisoryBoardPage: React.FC = () => {
       </section>
 
       {/* Appointed Advisory Board Members */}
-      <section className="space-y-6">
-        <div className="border-b border-[var(--border-subtle)] pb-3 flex items-center justify-between">
+      <section className="space-y-4">
+        <div className="pb-1 flex items-center justify-between">
           <h2 className="font-serif text-2xl font-bold text-[var(--text-primary)] flex items-center gap-2">
             <Award className="w-5 h-5 text-[var(--accent-gold)]" />
             <span>Distinguished Advisory Board Members</span>
@@ -100,11 +96,11 @@ export const AdvisoryBoardPage: React.FC = () => {
           </span>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
           {advisoryBoardMembers.map((member, idx) => (
             <div
               key={idx}
-              className="p-6 rounded-2xl border border-[var(--border-subtle)] bg-[var(--bg-card)] hover:border-[var(--accent-gold)]/40 transition-all flex flex-col justify-between space-y-4 shadow-sm group"
+              className="p-5 rounded-2xl border border-[var(--border-subtle)] bg-[var(--bg-card)] hover:border-[var(--accent-gold)]/40 transition-all flex flex-col justify-between space-y-4 shadow-sm group"
             >
               <div className="space-y-2">
                 <span className="inline-block px-2.5 py-0.5 rounded text-[10px] font-mono font-bold uppercase tracking-wider bg-amber-500/10 text-amber-700 dark:text-amber-400 border border-amber-500/20">
@@ -118,7 +114,7 @@ export const AdvisoryBoardPage: React.FC = () => {
                 </p>
               </div>
 
-              <div className="pt-3 border-t border-[var(--border-subtle)] flex items-center gap-2 text-xs text-[var(--text-secondary)] font-mono">
+              <div className="pt-2.5 border-t border-[var(--border-subtle)] flex items-center gap-2 text-xs text-[var(--text-secondary)] font-mono">
                 <Building2 className="w-4 h-4 text-[var(--accent-gold)] shrink-0" />
                 <span className="truncate">{member.institution}</span>
               </div>
@@ -128,14 +124,14 @@ export const AdvisoryBoardPage: React.FC = () => {
       </section>
 
       {/* Advisory Tracks & Constitution */}
-      <section className="space-y-6">
-        <div className="border-b border-[var(--border-subtle)] pb-3">
+      <section className="space-y-4">
+        <div className="pb-1">
           <h2 className="font-serif text-2xl font-bold text-[var(--text-primary)]">
             Advisory Council Tracks (2026–2028 Tenure)
           </h2>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
           {advisoryTracks.map((track, idx) => {
             const Icon = track.icon;
             return (

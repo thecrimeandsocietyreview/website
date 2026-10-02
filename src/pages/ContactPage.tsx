@@ -25,19 +25,19 @@ export const ContactPage: React.FC = () => {
   };
 
   return (
-    <div className="max-w-6xl mx-auto px-4 py-12 space-y-16 animate-fadeIn">
+    <div className="max-w-6xl mx-auto px-4 py-8 space-y-8 animate-fadeIn">
       {/* Header */}
-      <div className="border-b border-[var(--border-subtle)] pb-6">
+      <div className="pb-1">
         <h1 className="font-serif text-3xl sm:text-5xl font-bold text-[var(--text-primary)] tracking-tight">
           Contact The Crime &amp; Society Review
         </h1>
       </div>
 
       {/* Main Form & Postal Chambers */}
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
         
         {/* Contact Form (7 cols) */}
-        <div className="lg:col-span-7 p-8 rounded-3xl border border-[var(--border-strong)] bg-[var(--bg-card)] space-y-6 shadow-md">
+        <div className="lg:col-span-7 p-6 sm:p-7 rounded-2xl border border-[var(--border-strong)] bg-[var(--bg-card)] space-y-5 shadow-md">
           <div className="space-y-1">
             <h2 className="font-serif text-2xl font-bold text-[var(--text-primary)]">
               Send an Official Enquiry
