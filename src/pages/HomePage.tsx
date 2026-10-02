@@ -19,17 +19,17 @@ export const HomePage: React.FC = () => {
           HERO SECTION: Journal Name, Intro, Interdisciplinary Focus
       ======================================================== */}
       <section className="relative w-full overflow-hidden bg-[var(--bg-card)]">
-        {/* Background Artwork */}
+        {/* Background Artwork - Shifted right and fully visible */}
         <img 
           src="/hero-bg.png" 
           alt="The Crime & Society Review Scholarly Artwork" 
-          className="absolute inset-0 w-full h-full object-cover object-right sm:object-center select-none"
+          className="absolute inset-y-0 right-0 w-full h-full object-cover object-right translate-x-[5%] sm:translate-x-[8%] lg:translate-x-[12%] select-none pointer-events-none"
         />
-        {/* Ambient Overlay */}
-        <div className="absolute inset-0 bg-gradient-to-r from-white/95 via-white/90 to-white/40 dark:from-slate-950/95 dark:via-slate-950/90 dark:to-slate-950/50"></div>
+        {/* Ambient Overlay - Solid white on left for text legibility, transparent on right for full image visibility */}
+        <div className="absolute inset-0 bg-gradient-to-r from-white via-white/85 to-transparent dark:from-slate-950 dark:via-slate-950/85 dark:to-transparent pointer-events-none"></div>
 
         <div className="relative z-10 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-20 lg:py-24 space-y-7">
-          <div className="max-w-4xl lg:max-w-5xl space-y-6 text-left">
+          <div className="max-w-xl sm:max-w-2xl space-y-6 text-left">
             
             {/* Badges */}
             <div className="flex flex-wrap items-center justify-start gap-2.5 text-xs">

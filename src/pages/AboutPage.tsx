@@ -13,21 +13,29 @@ import { JOURNAL_METADATA } from '../data/mockJournalData';
 export const AboutPage: React.FC = () => {
   return (
     <div className="max-w-6xl mx-auto px-4 py-8 space-y-8 animate-fadeIn">
-      {/* Header */}
-      <div className="pb-1">
+      {/* Header - Centered */}
+      <div className="pb-1 text-center">
         <h1 className="font-serif text-3xl sm:text-5xl font-bold text-[var(--text-primary)] tracking-tight">
           About The Crime &amp; Society Review
         </h1>
       </div>
 
-      {/* 1. PURPOSE OF THE JOURNAL (FEATURED DARK CARD) */}
-      <section className="p-6 sm:p-8 rounded-2xl border border-slate-800 bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950 text-white space-y-4 shadow-xl relative overflow-hidden">
-        <div className="absolute top-0 right-0 w-80 h-80 bg-amber-500/5 rounded-full blur-3xl pointer-events-none" />
-        <div className="relative z-10 space-y-3">
-          <h2 className="font-serif text-2xl sm:text-3xl font-bold text-white tracking-tight">
+      {/* 1. PURPOSE OF THE JOURNAL (LIGHT CONTAINER WITH HERO-BG STYLE ARTWORK) */}
+      <section className="relative rounded-2xl border border-[var(--border-subtle)] bg-[var(--bg-card)] overflow-hidden shadow-sm">
+        {/* Background Artwork - Placed just like hero-bg */}
+        <img 
+          src="/abouttopcontainer.png" 
+          alt="The Crime &amp; Society Review Scholarly Purpose" 
+          className="absolute inset-y-0 right-0 w-full h-full object-cover object-right translate-x-[4%] sm:translate-x-[8%] lg:translate-x-[10%] select-none pointer-events-none"
+        />
+        {/* Ambient Gradient Overlay - Left clear for text, right transparent for artwork */}
+        <div className="absolute inset-0 bg-gradient-to-r from-white via-white/90 to-transparent dark:from-slate-950 dark:via-slate-950/90 dark:to-transparent pointer-events-none"></div>
+
+        <div className="relative z-10 max-w-2xl lg:max-w-3xl space-y-4 p-6 sm:p-8">
+          <h2 className="font-serif text-2xl sm:text-3xl font-bold text-[var(--text-primary)] tracking-tight">
             Purpose of the Journal
           </h2>
-          <div className="max-w-none text-sm sm:text-base text-slate-100 font-serif leading-relaxed space-y-4">
+          <div className="prose prose-slate dark:prose-invert max-w-none text-sm sm:text-base text-[var(--text-secondary)] font-serif leading-relaxed space-y-4 text-justify">
             <p>
               The Crime &amp; Society Review is dedicated to advancing multidisciplinary scholarship that transcends conventional academic boundaries and examines complex phenomena through diverse intellectual perspectives. Inspired by the Rashomon Approach, the journal recognises that a single phenomenon may reveal different dimensions when examined through different disciplines, methodologies, forms of evidence, and positions of observation.
             </p>
@@ -70,11 +78,11 @@ export const AboutPage: React.FC = () => {
 
       {/* 3. EDITORIAL PHILOSOPHY */}
       <section className="p-6 sm:p-7 rounded-2xl border border-[var(--border-subtle)] bg-[var(--bg-card-hover)] space-y-4">
-        <div className="space-y-1">
+        <div className="space-y-1 text-center">
           <h2 className="font-serif text-2xl sm:text-3xl font-bold text-[var(--text-primary)]">
             Editorial Philosophy
           </h2>
-          <p className="text-xs sm:text-sm text-[var(--text-secondary)] font-serif">
+          <p className="text-xs sm:text-sm text-[var(--text-secondary)] font-serif max-w-2xl mx-auto">
             Editorial assessment is guided strictly by substantive quality, empirical integrity, and constitutional relevance rather than institutional prestige or disciplinary orthodoxy.
           </p>
         </div>

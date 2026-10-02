@@ -64,7 +64,7 @@ export const Header: React.FC = () => {
           <img 
             src="/logo.png" 
             alt="The Crime & Society Review Logo" 
-            className="h-10 w-auto sm:h-11 object-contain bg-transparent group-hover:scale-105 transition-transform shrink-0" 
+            className="h-10 w-auto sm:h-11 object-contain bg-transparent shrink-0" 
           />
           <span className="font-serif text-sm sm:text-base lg:text-sm xl:text-base font-bold tracking-tight text-[var(--text-primary)] group-hover:text-[var(--accent-navy)] transition-colors leading-tight whitespace-nowrap">
             The Crime &amp; Society Review

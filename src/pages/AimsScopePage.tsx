@@ -23,27 +23,18 @@ export const AimsScopePage: React.FC = () => {
 
   return (
     <div className="max-w-6xl mx-auto px-4 py-8 space-y-8 animate-fadeIn">
-      {/* Header */}
-      <div className="pb-1">
+      {/* Header - Centered */}
+      <div className="pb-1 text-center">
         <h1 className="font-serif text-3xl sm:text-5xl font-bold text-[var(--text-primary)] tracking-tight">
           Aims &amp; Scope
         </h1>
       </div>
 
-      {/* 1. PURPOSE OF THE JOURNAL */}
-      <section className="p-6 sm:p-8 rounded-2xl border border-[var(--border-subtle)] bg-[var(--bg-card)] space-y-3">
-        <h2 className="font-serif text-2xl font-bold text-[var(--text-primary)]">
-          Purpose of the Journal
-        </h2>
-        <div className="prose prose-slate dark:prose-invert max-w-none text-sm sm:text-base text-[var(--text-secondary)] font-serif leading-relaxed space-y-4">
+      {/* 1. AIMS & SCOPE OF THE JOURNAL */}
+      <section className="p-6 sm:p-8 rounded-2xl border border-[var(--border-subtle)] bg-[var(--bg-card)]">
+        <div className="prose prose-slate dark:prose-invert max-w-none text-sm sm:text-base text-[var(--text-secondary)] font-serif leading-relaxed text-justify">
           <p>
-            The Crime &amp; Society Review is dedicated to advancing multidisciplinary scholarship that transcends conventional academic boundaries and examines complex phenomena through diverse intellectual perspectives. Inspired by the Rashomon Approach, the journal recognises that a single phenomenon may reveal different dimensions when examined through different disciplines, methodologies, forms of evidence, and positions of observation.
-          </p>
-          <p>
-            The journal provides a scholarly platform for research that connects disciplines, brings diverse forms of knowledge into dialogue, and encourages the examination of subjects from multiple perspectives. Rather than approaching a phenomenon from a single vantage point, the journal seeks to examine the whole scene—from every corner—to develop a more comprehensive, nuanced, and meaningful understanding.
-          </p>
-          <p>
-            Through this multidisciplinary orientation, The Crime &amp; Society Review welcomes rigorous and original scholarship that challenges conventional boundaries, encourages critical inquiry, connects perspectives, and brings to light dimensions of knowledge that may remain overlooked within a single discipline.
+            <em>The Crime &amp; Society Review</em> is a peer-reviewed, multidisciplinary journal dedicated to advancing critical, empirical, and doctrinal scholarship across criminal jurisprudence, statutory legal reforms under the Bharatiya Nyaya Sanhita (BNS), BNSS, and BSA, forensic sciences, behavioural psychology, and carceral sociology. The journal aims to bridge the gap between academic theory and frontline justice administration by providing a rigorous platform for research that connects diverse disciplines, evaluates evidentiary integrity, and fosters holistic inquiry into crime, criminal policy, and societal reform.
           </p>
         </div>
       </section>
@@ -60,8 +51,8 @@ export const AimsScopePage: React.FC = () => {
             </p>
           </div>
 
-          {/* Quick Search */}
-          <div className="relative w-full sm:w-72">
+          {/* Quick Search - Right-aligned straight with heading */}
+          <div className="relative w-full sm:w-72 shrink-0">
             <Search className="w-3.5 h-3.5 absolute left-3 top-2.5 text-[var(--text-muted)]" />
             <input
               type="text"
@@ -74,26 +65,19 @@ export const AimsScopePage: React.FC = () => {
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-          {filteredCategories.map((cat, idx) => (
+          {filteredCategories.map((cat) => (
             <div 
               key={cat.id}
               className="p-4 rounded-2xl border border-[var(--border-subtle)] bg-[var(--bg-card)] hover:border-[var(--accent-gold)] transition-all flex flex-col justify-between shadow-2xs hover:shadow-md group"
             >
               <div className="space-y-3">
-                <div className="flex items-center justify-between text-[10px] font-mono text-[var(--text-muted)]">
-                  <span className="font-bold text-[var(--accent-gold)]">#{String(idx + 1).padStart(2, '0')}</span>
-                  <span>Research Area</span>
-                </div>
-
-                {/* Handcrafted Illustration */}
-                <div className="w-full h-36 rounded-xl overflow-hidden bg-neutral-50/80 dark:bg-slate-900/60 flex items-center justify-center p-2 border border-[var(--border-subtle)]/70">
-                  <img 
-                    src={`/core-research-areas/${cat.id}.png`}
-                    alt={cat.name}
-                    className="max-h-full max-w-full object-contain group-hover:scale-105 transition-transform duration-300"
-                    loading="lazy"
-                  />
-                </div>
+                {/* Handcrafted Illustration without container, no hover zoom */}
+                <img 
+                  src={`/core-research-areas/${cat.id}.png`}
+                  alt={cat.name}
+                  className="w-full h-32 object-contain"
+                  loading="lazy"
+                />
 
                 <div>
                   <h3 className="font-serif font-bold text-base text-[var(--text-primary)] group-hover:text-[var(--accent-navy)] transition-colors">
@@ -113,11 +97,11 @@ export const AimsScopePage: React.FC = () => {
       <section className="p-6 sm:p-8 rounded-2xl border border-slate-800 bg-gradient-to-br from-slate-950 via-slate-900 to-indigo-950 text-white space-y-6 shadow-xl relative overflow-hidden">
         <div className="absolute top-0 right-0 w-96 h-96 bg-amber-500/5 rounded-full blur-3xl pointer-events-none" />
         
-        <div className="space-y-1 relative z-10 pb-2">
+        <div className="space-y-1 relative z-10 pb-2 text-center">
           <h2 className="font-serif text-2xl sm:text-3xl font-bold text-white tracking-tight">
             Disciplines Covered
           </h2>
-          <p className="text-xs sm:text-sm text-slate-100 font-serif leading-relaxed">
+          <p className="text-xs sm:text-sm text-slate-100 font-serif leading-relaxed max-w-2xl mx-auto">
             The journal spans six primary disciplinary pillars and their multidisciplinary intersections.
           </p>
         </div>
@@ -166,11 +150,11 @@ export const AimsScopePage: React.FC = () => {
 
       {/* 4. ARTICLES ACCEPTED */}
       <section className="space-y-6">
-        <div className="space-y-1">
+        <div className="space-y-1 text-center">
           <h2 className="font-serif text-2xl sm:text-3xl font-bold text-[var(--text-primary)]">
             Articles Accepted
           </h2>
-          <p className="text-xs sm:text-sm text-[var(--text-secondary)] font-serif">
+          <p className="text-xs sm:text-sm text-[var(--text-secondary)] font-serif max-w-2xl mx-auto">
             The Crime &amp; Society Review welcomes submissions across the following scholarly article formats:
           </p>
         </div>
