@@ -55,6 +55,11 @@ export const EditorialBoardPage: React.FC = () => {
       institution: "Rashtriya Raksha University"
     },
     {
+      name: "Mohit Charan",
+      designation: "Assistant Professor",
+      institution: "Hemvati Nandan Bahuguna Garhwal University"
+    },
+    {
       name: "Dr. Mahesh A. Tripathi",
       designation: "Associate Professor",
       institution: "Rashtriya Raksha University"
@@ -134,7 +139,7 @@ export const EditorialBoardPage: React.FC = () => {
             <div className="flex items-center gap-2 pb-1">
               <Award className="w-5 h-5 text-[var(--accent-gold)]" />
               <h2 className="font-serif text-xl sm:text-2xl font-bold text-[var(--text-primary)]">
-                Chief Editor
+                Editor-in-Chief
               </h2>
             </div>
 
@@ -143,7 +148,7 @@ export const EditorialBoardPage: React.FC = () => {
               <div className="w-32 h-40 sm:w-36 sm:h-44 rounded-xl border border-[var(--border-strong)] overflow-hidden shrink-0 shadow-md bg-neutral-100 dark:bg-neutral-800">
                 <img 
                   src="/chief-editor.jpeg" 
-                  alt="Dr. Shahanshah Gulpham - Chief Editor"
+                  alt="Dr. Shahanshah Gulpham - Editor-in-Chief"
                   className="w-full h-full object-cover object-top hover:scale-105 transition-transform"
                   onError={(e) => {
                     (e.target as HTMLElement).style.display = 'none';
@@ -155,7 +160,7 @@ export const EditorialBoardPage: React.FC = () => {
               <div className="flex-1 text-center sm:text-left space-y-2.5">
                 <div className="flex flex-wrap items-center justify-center sm:justify-start gap-1.5">
                   <span className="px-2.5 py-0.5 rounded-full text-[10px] font-mono font-bold uppercase tracking-wider bg-[var(--accent-navy)] text-white">
-                    Chief Editor
+                    Editor-in-Chief
                   </span>
                   <span className="px-2.5 py-0.5 rounded-full text-[10px] font-mono font-bold uppercase tracking-wider bg-emerald-500/10 text-emerald-700 dark:text-emerald-400 border border-emerald-500/20">
                     Faculty Leadership
