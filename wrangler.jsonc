@@ -1,7 +1,6 @@
 {
   "$schema": "node_modules/wrangler/config-schema.json",
-  "name": "thecsr",
-  "account_id": "4b61b9adf5cc7878632c70ad1200d6d8",
+  "name": "website",
   "compatibility_date": "2026-09-18",
   "assets": {
     "directory": "./dist",
