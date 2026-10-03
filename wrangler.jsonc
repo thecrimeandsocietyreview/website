@@ -5,5 +5,18 @@
   "assets": {
     "directory": "./dist",
     "not_found_handling": "single-page-application"
-  }
+  },
+  "r2_buckets": [
+    {
+      "binding": "MANUSCRIPTS_BUCKET",
+      "bucket_name": "thecsrjournal-manuscripts"
+    }
+  ],
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_name": "thecsrjournal-userdata",
+      "database_id": "588fea4b-4ee9-4aac-9772-9806398d1203"
+    }
+  ]
 }

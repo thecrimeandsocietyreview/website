@@ -13,7 +13,9 @@ export type ArticleType =
   | 'Methodological Innovation'
   | 'Forensic Case Commentary'
   | 'Systematic Review'
-  | 'Policy & Practice Brief';
+  | 'Policy & Practice Brief'
+  | 'Other'
+  | string;
 
 export interface SciteMetrics {
   supporting: number;
@@ -198,6 +200,7 @@ export interface SubmissionDraft {
   articleType: ArticleType;
   authorName: string;
   authorEmail: string;
+  authorPhone?: string;
   authorOrcid: string;
   authorAffiliation: string;
   creditRoles: string[];
@@ -213,5 +216,11 @@ export interface SubmissionDraft {
   authorDetails?: AuthorSubmissionDetail[];
   authorInfoFileName?: string;
   authorInfoFileSize?: string;
+  blindFileKey?: string;
+  authorFileKey?: string;
   keywords?: string;
+  editorMessage?: string;
+  editorialDecisionNotes?: string;
+  assignedReviewers?: string[];
 }
+

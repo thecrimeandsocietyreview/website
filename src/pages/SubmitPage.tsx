@@ -1,4 +1,5 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect, useMemo } from 'react';
+import { Link } from 'react-router-dom';
 import { 
   Send, 
   CheckCircle2, 
@@ -13,11 +14,80 @@ import {
   User,
   ShieldCheck,
   Shield,
-  MessageSquare
+  MessageSquare,
+  Phone,
+  ChevronDown,
+  Search
 } from 'lucide-react';
+import ReactCountryFlag from 'react-country-flag';
+import { 
+  AsYouType, 
+  isValidPhoneNumber, 
+  getExampleNumber, 
+  type CountryCode 
+} from 'libphonenumber-js';
+import examples from 'libphonenumber-js/mobile/examples';
 import { Turnstile, type TurnstileInstance } from '@marsidev/react-turnstile';
 import confetti from 'canvas-confetti';
 import { SubmissionDraft } from '../types/journal';
+import { SubmitAnimatedButton } from '../components/common/SubmitAnimatedButton';
+
+interface CountryCodeOption {
+  code: string;
+  country: string;
+  name: string;
+}
+
+const COUNTRY_CODES: CountryCodeOption[] = [
+  { code: '+91', country: 'IN', name: 'India' },
+  { code: '+1', country: 'US', name: 'United States' },
+  { code: '+1', country: 'CA', name: 'Canada' },
+  { code: '+44', country: 'GB', name: 'United Kingdom' },
+  { code: '+61', country: 'AU', name: 'Australia' },
+  { code: '+971', country: 'AE', name: 'United Arab Emirates' },
+  { code: '+65', country: 'SG', name: 'Singapore' },
+  { code: '+49', country: 'DE', name: 'Germany' },
+  { code: '+33', country: 'FR', name: 'France' },
+  { code: '+81', country: 'JP', name: 'Japan' },
+  { code: '+880', country: 'BD', name: 'Bangladesh' },
+  { code: '+977', country: 'NP', name: 'Nepal' },
+  { code: '+94', country: 'LK', name: 'Sri Lanka' },
+  { code: '+92', country: 'PK', name: 'Pakistan' },
+  { code: '+234', country: 'NG', name: 'Nigeria' },
+  { code: '+254', country: 'KE', name: 'Kenya' },
+  { code: '+27', country: 'ZA', name: 'South Africa' },
+  { code: '+60', country: 'MY', name: 'Malaysia' },
+  { code: '+55', country: 'BR', name: 'Brazil' },
+  { code: '+39', country: 'IT', name: 'Italy' },
+  { code: '+34', country: 'ES', name: 'Spain' },
+  { code: '+41', country: 'CH', name: 'Switzerland' },
+  { code: '+31', country: 'NL', name: 'Netherlands' },
+  { code: '+46', country: 'SE', name: 'Sweden' },
+  { code: '+82', country: 'KR', name: 'South Korea' },
+  { code: '+62', country: 'ID', name: 'Indonesia' },
+  { code: '+63', country: 'PH', name: 'Philippines' },
+  { code: '+64', country: 'NZ', name: 'New Zealand' },
+];
+
+const getMaxDigitsForCountry = (country: CountryCode): number => {
+  try {
+    const ex = getExampleNumber(country, examples);
+    if (ex && ex.nationalNumber) {
+      return ex.nationalNumber.length;
+    }
+  } catch (e) {}
+  return 10;
+};
+
+const getPlaceholderForCountry = (country: CountryCode): string => {
+  try {
+    const ex = getExampleNumber(country, examples);
+    if (ex && ex.nationalNumber) {
+      return new AsYouType(country).input(ex.nationalNumber);
+    }
+  } catch (e) {}
+  return '98765 43210';
+};
 
 export const SubmitPage: React.FC = () => {
   // Guidelines Scroll Container Ref & Jump handler
@@ -56,10 +126,57 @@ export const SubmitPage: React.FC = () => {
   // Submitting / Corresponding Author State (Positioned Above Manuscript Details)
   const [authorName, setAuthorName] = useState('');
   const [authorEmail, setAuthorEmail] = useState('');
+  const [selectedCountry, setSelectedCountry] = useState<CountryCodeOption>(COUNTRY_CODES[0]);
+  const [countryCode, setCountryCode] = useState('+91');
+  const [authorPhone, setAuthorPhone] = useState('');
+  const [isCountryDropdownOpen, setIsCountryDropdownOpen] = useState(false);
+  const [countrySearch, setCountrySearch] = useState('');
+  const countryDropdownRef = useRef<HTMLDivElement>(null);
+
+  // International phone metadata using libphonenumber-js
+  const rawPhoneDigits = useMemo(() => authorPhone.replace(/\D/g, ''), [authorPhone]);
+  const maxDigits = useMemo(() => {
+    return getMaxDigitsForCountry(selectedCountry.country as CountryCode);
+  }, [selectedCountry.country]);
+
+  const placeholderText = useMemo(() => {
+    return getPlaceholderForCountry(selectedCountry.country as CountryCode);
+  }, [selectedCountry.country]);
+
+  // Restrict digits strictly to country length & format with AsYouType
+  const handlePhoneChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const digitsOnly = e.target.value.replace(/\D/g, '');
+    const truncated = digitsOnly.slice(0, maxDigits);
+    const formatted = new AsYouType(selectedCountry.country as CountryCode).input(truncated);
+    setAuthorPhone(formatted);
+  };
+
+  // Close country dropdown on outside click
+  useEffect(() => {
+    const handleClickOutside = (e: MouseEvent) => {
+      if (countryDropdownRef.current && !countryDropdownRef.current.contains(e.target as Node)) {
+        setIsCountryDropdownOpen(false);
+      }
+    };
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, []);
+
+  const filteredCountries = useMemo(() => {
+    const q = countrySearch.toLowerCase().trim();
+    if (!q) return COUNTRY_CODES;
+    return COUNTRY_CODES.filter(
+      (c) =>
+        c.name.toLowerCase().includes(q) ||
+        c.code.includes(q) ||
+        c.country.toLowerCase().includes(q)
+    );
+  }, [countrySearch]);
 
   // Form State
   const [title, setTitle] = useState('');
   const [articleType, setArticleType] = useState('Research Article');
+  const [customArticleType, setCustomArticleType] = useState('');
   const [keywords, setKeywords] = useState('');
   const [abstractText, setAbstractText] = useState('');
   const [editorMessage, setEditorMessage] = useState('');
@@ -182,8 +299,28 @@ export const SubmitPage: React.FC = () => {
       return;
     }
 
+    if (!rawPhoneDigits) {
+      setValidationError(`Please enter the Contact / WhatsApp Phone Number for ${selectedCountry.name}.`);
+      return;
+    }
+
+    if (rawPhoneDigits.length < maxDigits) {
+      setValidationError(`Please enter a complete ${maxDigits}-digit phone number for ${selectedCountry.name} (currently ${rawPhoneDigits.length}/${maxDigits} digits).`);
+      return;
+    }
+
+    if (!isValidPhoneNumber(rawPhoneDigits, selectedCountry.country as CountryCode)) {
+      setValidationError(`Please enter a valid phone number for ${selectedCountry.name} (e.g. ${placeholderText}).`);
+      return;
+    }
+
     if (!title.trim()) {
       setValidationError('Please enter the Manuscript Title.');
+      return;
+    }
+
+    if (articleType === 'Other' && !customArticleType.trim()) {
+      setValidationError('Please specify your custom Article Type in the text box.');
       return;
     }
 
@@ -226,81 +363,189 @@ export const SubmitPage: React.FC = () => {
 
     setIsSubmitting(true);
 
-    // Canonical server-side siteverify check via Cloudflare Pages Function (/api/verify-turnstile)
     try {
-      const verifyRes = await fetch('/api/verify-turnstile', {
+      // Build real multipart/form-data payload for backend ingestion
+      const formData = new FormData();
+      formData.append('authorName', authorName.trim());
+      formData.append('authorEmail', authorEmail.trim());
+      formData.append('authorPhone', `${countryCode} ${authorPhone.trim()}`);
+      formData.append('title', title.trim());
+      const resolvedArticleType = articleType === 'Other' ? (customArticleType.trim() || 'Other Article') : articleType;
+      formData.append('articleType', resolvedArticleType);
+      formData.append('abstract', abstractText.trim());
+      formData.append('keywords', keywords.trim());
+      formData.append('editorMessage', editorMessage.trim());
+      formData.append('turnstileToken', turnstileToken);
+
+      if (blindManuscriptFile) {
+        formData.append('blindManuscriptFile', blindManuscriptFile);
+      }
+      if (authorInfoFile) {
+        formData.append('authorInfoFile', authorInfoFile);
+      }
+
+      // Stream to Cloudflare Pages Function endpoint
+      const response = await fetch('/api/submit-manuscript', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          token: turnstileToken,
-          action: 'submit_manuscript'
-        })
+        body: formData,
       });
 
-      if (verifyRes.ok) {
-        const verifyData = await verifyRes.json();
-        if (!verifyData.success) {
-          setValidationError(verifyData.message || 'Cloudflare security verification failed. Please try again.');
+      const result = await response.json().catch(() => null);
+
+      if (response.ok && result?.success && result?.trackingId) {
+        const serverTrackingId = result.trackingId;
+        setTrackingId(serverTrackingId);
+
+        // Store local copy in author's browser for dashboard pipeline tracking
+        const newSubmission: SubmissionDraft = {
+          id: `sub-${Date.now()}`,
+          trackingNumber: serverTrackingId,
+          title: title.trim(),
+          abstract: abstractText.trim(),
+          primaryLens: 'legal',
+          secondaryLenses: ['forensic'],
+          articleType: resolvedArticleType as any,
+          authorName: authorName.trim(),
+          authorEmail: authorEmail.trim(),
+          authorPhone: `${countryCode} ${authorPhone.trim()}`,
+          authorOrcid: "Included in author file",
+          authorAffiliation: "Provided in author file",
+          creditRoles: ['Author'],
+          ethicsApproved: true,
+          conflictDeclared: true,
+          openDataAccessAccepted: true,
+          fileName: result.blindFileName || blindManuscriptFileName || 'blind_manuscript.docx',
+          fileSize: result.blindFileSize || blindManuscriptFileSize || '2.1 MB',
+          submittedAt: result.submittedAt || new Date().toISOString().split('T')[0],
+          status: 'Submitted',
+          currentStageNumber: 1,
+          authorMode: 'upload',
+          authorInfoFileName: result.authorFileName || authorInfoFileName,
+          authorInfoFileSize: result.authorFileSize || authorInfoFileSize,
+          keywords: keywords.trim()
+        };
+
+        try {
+          const existing = localStorage.getItem('csr_user_submissions');
+          const list = existing ? JSON.parse(existing) : [];
+          localStorage.setItem('csr_user_submissions', JSON.stringify([newSubmission, ...list]));
+        } catch (err) {}
+
+        // Allow the button's installing -> installed (3.6s) animation to complete
+        setTimeout(() => {
+          setIsSubmitted(true);
+          setIsSubmitting(false);
+          // Trigger Confetti
+          try {
+            confetti({
+              particleCount: 85,
+              spread: 75,
+              origin: { y: 0.6 }
+            });
+          } catch (err) {}
+        }, 3600);
+        return;
+      }
+
+      // If backend returned a functional error message (e.g. Turnstile failure, size limit)
+      if (result && !result.success && result.message) {
+        setValidationError(result.message);
+        if (result.message.toLowerCase().includes('cloudflare') || result.message.toLowerCase().includes('turnstile')) {
           turnstileRef.current?.reset();
           setTurnstileToken('');
-          setIsSubmitting(false);
-          return;
         }
+        setIsSubmitting(false);
+        return;
       }
-    } catch (e) {
-      // In local dev without functions runtime, client token verification is preserved
-      console.log('Siteverify endpoint check skipped in local development mode');
-    }
 
-    setTimeout(() => {
-      const newTracking = `CSR-IND-2026-${Math.floor(1000 + Math.random() * 9000)}`;
-      setTrackingId(newTracking);
-      setIsSubmitted(true);
+      // Fallback if testing in standalone local dev environment (Vite dev server without Cloudflare runtime)
+      const isLocalhost = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
+      if (isLocalhost) {
+        console.warn('Backend endpoint /api/submit-manuscript not responding in standalone Vite dev server. Generating local cryptographic fallback ID.');
+        const ALPHABET = "23456789ABCDEFGHJKLMNPQRSTUVWXYZ";
+        const bytes = new Uint8Array(10);
+        crypto.getRandomValues(bytes);
+        let token = "";
+        for (let i = 0; i < 10; i++) token += ALPHABET[bytes[i] % ALPHABET.length];
+        const localId = `CSR-${new Date().getFullYear()}-${token}`;
+
+        setTrackingId(localId);
+        setIsSubmitted(true);
+        setIsSubmitting(false);
+
+        const newSubmission: SubmissionDraft = {
+          id: `sub-${Date.now()}`,
+          trackingNumber: localId,
+          title: title.trim(),
+          abstract: abstractText.trim(),
+          primaryLens: 'legal',
+          secondaryLenses: ['forensic'],
+          articleType: resolvedArticleType as any,
+          authorName: authorName.trim(),
+          authorEmail: authorEmail.trim(),
+          authorPhone: `${countryCode} ${authorPhone.trim()}`,
+          authorOrcid: "Included in author file",
+          authorAffiliation: "Provided in author file",
+          creditRoles: ['Author'],
+          ethicsApproved: true,
+          conflictDeclared: true,
+          openDataAccessAccepted: true,
+          fileName: blindManuscriptFileName || 'blind_manuscript.docx',
+          fileSize: blindManuscriptFileSize || '2.1 MB',
+          submittedAt: new Date().toISOString().split('T')[0],
+          status: 'Submitted',
+          currentStageNumber: 1,
+          authorMode: 'upload',
+          authorInfoFileName: authorInfoFileName,
+          authorInfoFileSize: authorInfoFileSize,
+          keywords: keywords.trim()
+        };
+
+        try {
+          const existing = localStorage.getItem('csr_user_submissions');
+          const list = existing ? JSON.parse(existing) : [];
+          localStorage.setItem('csr_user_submissions', JSON.stringify([newSubmission, ...list]));
+        } catch (err) {}
+
+        try {
+          confetti({
+            particleCount: 85,
+            spread: 75,
+            origin: { y: 0.6 }
+          });
+        } catch (err) {}
+        return;
+      }
+
+      setValidationError('Server could not process submission. Please verify your connection or try again shortly.');
       setIsSubmitting(false);
-
-      // Save to localStorage
-      const newSubmission: SubmissionDraft = {
-        id: `sub-${Date.now()}`,
-        trackingNumber: newTracking,
-        title: title,
-        abstract: abstractText,
-        primaryLens: 'legal',
-        secondaryLenses: ['forensic'],
-        articleType: articleType as any,
-        authorName: authorName.trim(),
-        authorEmail: authorEmail.trim(),
-        authorOrcid: "Included in author file",
-        authorAffiliation: "Provided in author file",
-        creditRoles: ['Author'],
-        ethicsApproved: true,
-        conflictDeclared: true,
-        openDataAccessAccepted: true,
-        fileName: blindManuscriptFileName || 'blind_manuscript.docx',
-        fileSize: blindManuscriptFileSize || '2.1 MB',
-        submittedAt: new Date().toISOString().split('T')[0],
-        status: 'Submitted',
-        currentStageNumber: 1,
-        authorMode: 'upload',
-        authorInfoFileName: authorInfoFileName,
-        authorInfoFileSize: authorInfoFileSize,
-        keywords: keywords
-      };
-
-      try {
-        const existing = localStorage.getItem('csr_user_submissions');
-        const list = existing ? JSON.parse(existing) : [];
-        localStorage.setItem('csr_user_submissions', JSON.stringify([newSubmission, ...list]));
-      } catch (err) {}
-
-      // Trigger Confetti
-      try {
-        confetti({
-          particleCount: 85,
-          spread: 75,
-          origin: { y: 0.6 }
-        });
-      } catch (err) {}
-    }, 850);
+    } catch (err: any) {
+      console.error('Submission error:', err);
+      const isLocalhost = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
+      if (isLocalhost) {
+        const ALPHABET = "23456789ABCDEFGHJKLMNPQRSTUVWXYZ";
+        const bytes = new Uint8Array(10);
+        crypto.getRandomValues(bytes);
+        let token = "";
+        for (let i = 0; i < 10; i++) token += ALPHABET[bytes[i] % ALPHABET.length];
+        const localId = `CSR-${new Date().getFullYear()}-${token}`;
+        setTrackingId(localId);
+        setTimeout(() => {
+          setIsSubmitted(true);
+          setIsSubmitting(false);
+          try {
+            confetti({
+              particleCount: 85,
+              spread: 75,
+              origin: { y: 0.6 }
+            });
+          } catch (err) {}
+        }, 3600);
+        return;
+      }
+      setValidationError('Network error: Unable to reach submission servers. Please check your internet connection.');
+      setIsSubmitting(false);
+    }
   };
 
   const handleCopyTracking = () => {
@@ -310,7 +555,9 @@ export const SubmitPage: React.FC = () => {
   };
 
   const handleDownloadSlip = () => {
-    const authorSlipDetails = `Submitting Author: ${authorName} (${authorEmail})\nAuthor Information File: ${authorInfoFileName || 'Author_Information.docx'} (${authorInfoFileSize || '5 MB'})`;
+    const fullPhone = authorPhone ? `${countryCode} ${authorPhone}` : 'Not provided';
+    const resolvedArticleType = articleType === 'Other' ? (customArticleType.trim() || 'Other Article') : articleType;
+    const authorSlipDetails = `Submitting Author: ${authorName} (${authorEmail} | Phone: ${fullPhone})\nAuthor Information File: ${authorInfoFileName || 'Author_Information.docx'} (${authorInfoFileSize || '5 MB'})`;
 
     const slipText = `THE CRIME & SOCIETY REVIEW
 OFFICIAL MANUSCRIPT SUBMISSION RECEIPT
@@ -321,7 +568,7 @@ Status: Stage 1 — Editorial Screening & Plagiarism Audit
 
 MANUSCRIPT DETAILS:
 Title: ${title}
-Article Type: ${articleType}
+Article Type: ${resolvedArticleType}
 Keywords: ${keywords}
 Blind Manuscript File: ${blindManuscriptFileName} (${blindManuscriptFileSize})
 ${authorSlipDetails}
@@ -396,12 +643,18 @@ Editorial Desk: thecrimeandsocietyreview@gmail.com
               <span className="font-mono text-[var(--text-primary)] truncate max-w-[240px]">{authorEmail}</span>
             </div>
             <div className="flex justify-between text-[var(--text-secondary)]">
+              <span>Author Phone:</span>
+              <span className="font-mono text-[var(--text-primary)] truncate max-w-[240px]">{countryCode} {authorPhone}</span>
+            </div>
+            <div className="flex justify-between text-[var(--text-secondary)]">
               <span>Title:</span>
               <span className="font-medium text-[var(--text-primary)] truncate max-w-[240px]">{title}</span>
             </div>
             <div className="flex justify-between text-[var(--text-secondary)]">
               <span>Article Type:</span>
-              <span className="font-medium text-[var(--text-primary)]">{articleType}</span>
+              <span className="font-medium text-[var(--text-primary)]">
+                {articleType === 'Other' ? customArticleType || 'Other' : articleType}
+              </span>
             </div>
             <div className="flex justify-between text-[var(--text-secondary)]">
               <span>Blind Manuscript:</span>
@@ -1042,7 +1295,7 @@ Editorial Desk: thecrimeandsocietyreview@gmail.com
                   <span>1. Submitting / Corresponding Author</span>
                 </div>
 
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div className="space-y-3">
                   {/* Full Name */}
                   <div>
                     <label className="block text-xs font-medium text-[var(--text-primary)] mb-1">
@@ -1058,19 +1311,134 @@ Editorial Desk: thecrimeandsocietyreview@gmail.com
                     />
                   </div>
 
-                  {/* Email Address */}
-                  <div>
-                    <label className="block text-xs font-medium text-[var(--text-primary)] mb-1">
-                      Official Email Address *
-                    </label>
-                    <input
-                      type="email"
-                      required
-                      value={authorEmail}
-                      onChange={(e) => setAuthorEmail(e.target.value)}
-                      placeholder="e.g., r.sharma@nlu.ac.in"
-                      className="w-full text-xs p-2.5 rounded-lg border border-[var(--border-subtle)] bg-[var(--bg-page)] text-[var(--text-primary)] focus:outline-hidden focus:ring-1 focus:ring-[var(--accent-navy)]"
-                    />
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                    {/* Email Address */}
+                    <div>
+                      <label className="block text-xs font-medium text-[var(--text-primary)] mb-1">
+                        Official Email Address *
+                      </label>
+                      <input
+                        type="email"
+                        required
+                        value={authorEmail}
+                        onChange={(e) => setAuthorEmail(e.target.value)}
+                        placeholder="e.g., r.sharma@nlu.ac.in"
+                        className="w-full text-xs p-2.5 rounded-lg border border-[var(--border-subtle)] bg-[var(--bg-page)] text-[var(--text-primary)] focus:outline-hidden focus:ring-1 focus:ring-[var(--accent-navy)] font-mono"
+                      />
+                    </div>
+
+                    {/* Phone Number with Country Code (Interactive SVG Flag selector + libphonenumber-js) */}
+                    <div>
+                      <label className="block text-xs font-medium text-[var(--text-primary)] mb-1">
+                        WhatsApp / Contact Phone *
+                      </label>
+                      <div className="relative" ref={countryDropdownRef}>
+                        <div className="flex rounded-lg border border-[var(--border-subtle)] bg-[var(--bg-page)] focus-within:border-[var(--accent-navy)] focus-within:ring-1 focus-within:ring-[var(--accent-navy)] transition-all">
+                          {/* Flag & Calling Code Trigger Button */}
+                          <button
+                            type="button"
+                            onClick={() => setIsCountryDropdownOpen(!isCountryDropdownOpen)}
+                            className="flex items-center gap-1.5 px-2.5 py-2.5 bg-[var(--bg-card)] border-r border-[var(--border-subtle)] text-[var(--text-primary)] font-mono text-xs shrink-0 hover:bg-[var(--bg-card-hover)] transition-colors cursor-pointer select-none rounded-l-lg"
+                            title="Select country calling code"
+                          >
+                            <ReactCountryFlag
+                              countryCode={selectedCountry.country}
+                              svg
+                              style={{
+                                width: '1.25em',
+                                height: '1.25em',
+                                borderRadius: '2px',
+                                boxShadow: '0 0 1px rgba(0,0,0,0.3)',
+                              }}
+                              aria-label={selectedCountry.name}
+                            />
+                            <span className="font-semibold text-xs">{selectedCountry.code}</span>
+                            <ChevronDown
+                              className={`w-3 h-3 text-[var(--text-muted)] transition-transform duration-200 ${
+                                isCountryDropdownOpen ? 'rotate-180' : ''
+                              }`}
+                            />
+                          </button>
+
+                          {/* Phone Input with Dynamic Validation */}
+                          <input
+                            type="tel"
+                            required
+                            value={authorPhone}
+                            onChange={handlePhoneChange}
+                            placeholder={placeholderText}
+                            maxLength={maxDigits + 4}
+                            className="flex-1 min-w-0 text-xs px-2.5 py-2.5 bg-transparent text-[var(--text-primary)] focus:outline-hidden font-mono rounded-r-lg"
+                          />
+                        </div>
+
+                        {/* Custom Dropdown Popover */}
+                        {isCountryDropdownOpen && (
+                          <div className="absolute top-full left-0 mt-1 w-64 max-h-56 bg-[var(--bg-card)] border border-[var(--border-strong)] rounded-xl shadow-xl z-50 overflow-hidden flex flex-col animate-fadeIn">
+                            {/* Search Filter */}
+                            <div className="p-2 border-b border-[var(--border-subtle)] bg-[var(--bg-page)] flex items-center gap-1.5">
+                              <Search className="w-3.5 h-3.5 text-[var(--text-muted)] shrink-0" />
+                              <input
+                                type="text"
+                                value={countrySearch}
+                                onChange={(e) => setCountrySearch(e.target.value)}
+                                placeholder="Search country or code..."
+                                className="w-full text-xs bg-transparent text-[var(--text-primary)] focus:outline-hidden font-sans placeholder:text-[var(--text-muted)]"
+                                autoFocus
+                              />
+                            </div>
+
+                            {/* Country List */}
+                            <div className="overflow-y-auto flex-1 custom-scrollbar py-1">
+                              {filteredCountries.map((c) => (
+                                <button
+                                  key={`${c.country}-${c.code}-${c.name}`}
+                                  type="button"
+                                  onClick={() => {
+                                    setSelectedCountry(c);
+                                    setCountryCode(c.code);
+                                    setIsCountryDropdownOpen(false);
+                                    setCountrySearch('');
+                                    // Re-truncate and format existing digits to new country limit
+                                    const newMax = getMaxDigitsForCountry(c.country as CountryCode);
+                                    const truncated = rawPhoneDigits.slice(0, newMax);
+                                    setAuthorPhone(new AsYouType(c.country as CountryCode).input(truncated));
+                                  }}
+                                  className={`w-full flex items-center justify-between px-3 py-1.5 text-xs hover:bg-[var(--accent-gold)]/10 text-left transition-colors cursor-pointer ${
+                                    selectedCountry.country === c.country && selectedCountry.code === c.code
+                                      ? 'bg-[var(--accent-gold)]/15 font-semibold text-[var(--accent-navy)] dark:text-[var(--accent-gold)]'
+                                      : 'text-[var(--text-primary)]'
+                                  }`}
+                                >
+                                  <div className="flex items-center gap-2 truncate">
+                                    <ReactCountryFlag
+                                      countryCode={c.country}
+                                      svg
+                                      style={{
+                                        width: '1.2em',
+                                        height: '1.2em',
+                                        borderRadius: '2px',
+                                        boxShadow: '0 0 1px rgba(0,0,0,0.3)',
+                                      }}
+                                      aria-label={c.name}
+                                    />
+                                    <span className="truncate">{c.name}</span>
+                                  </div>
+                                  <span className="font-mono text-[11px] text-[var(--text-muted)] shrink-0 ml-2">
+                                    {c.code}
+                                  </span>
+                                </button>
+                              ))}
+                              {filteredCountries.length === 0 && (
+                                <div className="p-3 text-center text-xs text-[var(--text-muted)]">
+                                  No countries found
+                                </div>
+                              )}
+                            </div>
+                          </div>
+                        )}
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -1104,7 +1472,12 @@ Editorial Desk: thecrimeandsocietyreview@gmail.com
                   </label>
                   <select
                     value={articleType}
-                    onChange={(e) => setArticleType(e.target.value)}
+                    onChange={(e) => {
+                      setArticleType(e.target.value);
+                      if (e.target.value !== 'Other') {
+                        setCustomArticleType('');
+                      }
+                    }}
                     className="w-full text-xs p-2.5 rounded-lg border border-[var(--border-subtle)] bg-[var(--bg-page)] text-[var(--text-primary)] focus:outline-hidden focus:ring-1 focus:ring-[var(--accent-navy)]"
                   >
                     <option value="Research Article">Research Article</option>
@@ -1116,7 +1489,29 @@ Editorial Desk: thecrimeandsocietyreview@gmail.com
                     <option value="Policy & Practice Article">Policy &amp; Practice Article</option>
                     <option value="Commentary & Perspective">Commentary &amp; Perspective</option>
                     <option value="Book Review">Book Review</option>
+                    <option value="Other">Other (Please Specify Manually)</option>
                   </select>
+
+                  {/* Manual input when 'Other' is chosen */}
+                  {articleType === 'Other' && (
+                    <div className="mt-2.5 space-y-1 animate-fadeIn">
+                      <label className="block text-xs font-medium text-[var(--accent-gold)]">
+                        Specify Article / Submission Type *
+                      </label>
+                      <input
+                        type="text"
+                        required
+                        value={customArticleType}
+                        onChange={(e) => setCustomArticleType(e.target.value)}
+                        placeholder="e.g. Field Investigation, Special Symposium, Legislative Critique"
+                        className="w-full text-xs p-2.5 rounded-lg border border-[var(--accent-gold)]/60 bg-[var(--bg-page)] text-[var(--text-primary)] focus:outline-hidden focus:ring-1 focus:ring-[var(--accent-gold)] font-medium"
+                        autoFocus
+                      />
+                      <span className="text-[10px] text-[var(--text-muted)] font-mono block">
+                        Enter your custom article format or submission category.
+                      </span>
+                    </div>
+                  )}
                 </div>
 
                 {/* Abstract */}
@@ -1393,16 +1788,15 @@ Editorial Desk: thecrimeandsocietyreview@gmail.com
               </div>
 
               {/* Submit Button */}
-              <div className="pt-2">
-                <button
-                  type="submit"
+              <div className="pt-2 flex flex-col items-center">
+                <SubmitAnimatedButton
+                  initialText="Submit Manuscript"
+                  completedText="Submitted ✓"
+                  isSubmitting={isSubmitting}
+                  isSubmitted={isSubmitted}
                   disabled={isSubmitting}
-                  className="w-full py-3 px-4 rounded-xl bg-[var(--accent-navy)] text-white text-xs font-bold hover:opacity-95 transition-opacity flex items-center justify-center gap-2 cursor-pointer shadow-sm disabled:opacity-50"
-                >
-                  <Send className="w-4 h-4" />
-                  <span>{isSubmitting ? 'Submitting Manuscript...' : 'Submit Manuscript'}</span>
-                </button>
-                <p className="text-[10px] font-mono text-center text-[var(--text-muted)] mt-2">
+                />
+                <p className="text-[10px] font-mono text-center text-[var(--text-muted)] mt-3">
                   Diamond Open Access • ₹0 APC • Doc Files Only (Max 5 MB)
                 </p>
               </div>

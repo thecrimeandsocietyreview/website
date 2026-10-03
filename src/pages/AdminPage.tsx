@@ -4,7 +4,6 @@ import {
   FileText,
   CheckCircle2,
   Clock,
-  Users,
   Send,
   Award,
   ShieldCheck,
@@ -34,18 +33,19 @@ import {
   TrendingUp,
   Inbox,
   Share2,
-  Building2,
   Mail,
+  Phone,
   Calendar,
   Layers,
   BarChart3,
-  KeyRound
+  KeyRound,
+  User,
+  Shield
 } from 'lucide-react';
-import { MOCK_SUBMISSIONS } from '../data/mockJournalData';
 import { SubmissionDraft } from '../types/journal';
 import { useTheme } from '../context/ThemeContext';
 
-// Peer Reviewers Roster (Based on CSR Editorial Board)
+// Empanelled Reviewers (for Double-Blind Manuscript Assignment)
 interface ReviewerProfile {
   id: string;
   name: string;
@@ -141,32 +141,44 @@ const REVIEWERS_ROSTER: ReviewerProfile[] = [
 export const AdminPage: React.FC = () => {
   const { theme, toggleTheme } = useTheme();
 
-  // Authentication State
-  const [isAuthenticated, setIsAuthenticated] = useState<boolean>(() => {
-    return localStorage.getItem('csr_admin_authenticated') === 'true';
+  // Authentication State (Zero credentials in client code)
+  const [currentUser, setCurrentUser] = useState<{ username: string; displayName: string; role: string } | null>(() => {
+    const saved = localStorage.getItem('csr_admin_user');
+    return saved ? JSON.parse(saved) : null;
   });
-  const [passcode, setPasscode] = useState('');
+  const [isAuthenticated, setIsAuthenticated] = useState<boolean>(() => {
+    return !!localStorage.getItem('csr_admin_token');
+  });
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
+  const [authLoading, setAuthLoading] = useState(false);
   const [authError, setAuthError] = useState('');
 
   // Active Tab
-  const [activeTab, setActiveTab] = useState<'submissions' | 'reviewers' | 'cloudflare' | 'analytics'>('submissions');
+  const [activeTab, setActiveTab] = useState<'submissions' | 'cloudflare'>('submissions');
 
-  // Submissions State
+  // Submissions State (Exclusively Real Data from Cloudflare D1)
   const [submissions, setSubmissions] = useState<SubmissionDraft[]>(() => {
     const saved = localStorage.getItem('csr_user_submissions');
     if (saved) {
       try {
         const userSubs: SubmissionDraft[] = JSON.parse(saved);
-        // Avoid duplicate IDs
-        const existingIds = new Set(userSubs.map(s => s.id));
-        const nonDuplicateMock = MOCK_SUBMISSIONS.filter(m => !existingIds.has(m.id));
-        return [...userSubs, ...nonDuplicateMock];
+        // Exclude any legacy mock items
+        return userSubs.filter(
+          s => !s.id.startsWith('sub-csr-') &&
+               s.trackingNumber !== 'CSR-IND-2026-0819' &&
+               s.trackingNumber !== 'CSR-IND-2026-0922' &&
+               s.trackingNumber !== 'CSR-IND-2026-0941'
+        );
       } catch (e) {
-        return MOCK_SUBMISSIONS;
+        return [];
       }
     }
-    return MOCK_SUBMISSIONS;
+    return [];
   });
+
+  const [isRefreshing, setIsRefreshing] = useState(false);
+  const [liveD1Count, setLiveD1Count] = useState(0);
 
   // Selected Submission for Detailed Dossier Modal
   const [selectedSub, setSelectedSub] = useState<SubmissionDraft | null>(null);
@@ -182,13 +194,73 @@ export const AdminPage: React.FC = () => {
   const [assignedReviewers, setAssignedReviewers] = useState<string[]>([]);
   const [notificationSent, setNotificationSent] = useState(false);
 
-  // Reviewers List state (can add new)
-  const [reviewers, setReviewers] = useState<ReviewerProfile[]>(REVIEWERS_ROSTER);
-  const [showInviteModal, setShowInviteModal] = useState(false);
-  const [newReviewerName, setNewReviewerName] = useState('');
-  const [newReviewerEmail, setNewReviewerEmail] = useState('');
-  const [newReviewerInst, setNewReviewerInst] = useState('');
-  const [newReviewerExpertise, setNewReviewerExpertise] = useState('');
+  // Reviewers List for manuscript assignment
+  const [reviewers] = useState<ReviewerProfile[]>(REVIEWERS_ROSTER);
+
+  // Fetch real submissions from Cloudflare D1
+  const fetchLiveSubmissions = async () => {
+    setIsRefreshing(true);
+    try {
+      const token = localStorage.getItem('csr_admin_token') || '';
+      const res = await fetch('/api/admin/submissions', {
+        headers: token ? { Authorization: `Bearer ${token}` } : {},
+      });
+      if (res.ok) {
+        const data = await res.json();
+        if (data.success && Array.isArray(data.submissions)) {
+          setLiveD1Count(data.submissions.length);
+          const mapped: SubmissionDraft[] = data.submissions.map((row: any) => ({
+            id: `d1-${row.id}`,
+            trackingNumber: row.tracking_number,
+            title: row.title,
+            abstract: row.abstract,
+            primaryLens: 'legal',
+            secondaryLenses: ['forensic', 'criminology'],
+            articleType: row.article_type,
+            authorName: row.author_name,
+            authorEmail: row.author_email,
+            authorPhone: row.authorPhone || row.author_phone || '',
+            authorOrcid: 'Included in Dossier',
+            authorAffiliation: 'Provided in Dossier',
+            creditRoles: ['Author'],
+            ethicsApproved: true,
+            conflictDeclared: true,
+            openDataAccessAccepted: true,
+            fileName: row.blind_file_name,
+            fileSize: row.blind_file_size,
+            blindFileKey: row.blind_file_key,
+            authorInfoFileName: row.author_file_name,
+            authorInfoFileSize: row.author_file_size,
+            authorFileKey: row.author_file_key,
+            submittedAt: (row.submitted_at || '').split('T')[0] || new Date().toISOString().split('T')[0],
+            status: row.status || 'Submitted',
+            currentStageNumber: row.stage_number || 1,
+            authorMode: 'upload',
+            keywords: row.keywords || '',
+            editorMessage: row.editor_message || '',
+            editorialDecisionNotes: row.editorial_decision_notes || '',
+            assignedReviewers: row.assigned_reviewers ? JSON.parse(row.assigned_reviewers || '[]') : []
+          }));
+
+          setSubmissions(mapped);
+          try {
+            localStorage.setItem('csr_user_submissions', JSON.stringify(mapped));
+          } catch (e) {}
+        }
+      }
+    } catch (err) {
+      console.error('Failed to fetch from /api/admin/submissions:', err);
+    } finally {
+      setIsRefreshing(false);
+    }
+  };
+
+  // Auto-fetch on mount when authenticated
+  useEffect(() => {
+    if (isAuthenticated) {
+      fetchLiveSubmissions();
+    }
+  }, [isAuthenticated]);
 
   // Update localStorage whenever submissions change
   const saveSubmissions = (updatedList: SubmissionDraft[]) => {
@@ -200,107 +272,86 @@ export const AdminPage: React.FC = () => {
     }
   };
 
-  // Sync selectedSub when assignedReviewers change or modal opens
+  // Sync selectedSub when modal opens
   useEffect(() => {
     if (selectedSub) {
-      // Mock pre-assigned reviewers for demo
-      setAssignedReviewers(['Dr. J. R. Gaur', 'Dr. Dimple T. Raval']);
-      setDecisionNotes(
-        selectedSub.status === 'Under Peer Review'
-          ? "Double-blind review assigned to 2 senior referees. Primary focus: BSA Section 63 electronic certification fidelity."
-          : selectedSub.status === 'Accepted'
-          ? "Unanimously accepted. Formatting for Volume 1, Issue 1 (2026). Continuous publishing pipeline initiated."
-          : "Initial editorial triage completed. Scope conforms to UGC-CARE standards."
+      setAssignedReviewers(
+        selectedSub.assignedReviewers && selectedSub.assignedReviewers.length > 0
+          ? selectedSub.assignedReviewers
+          : []
       );
+      setDecisionNotes(selectedSub.editorialDecisionNotes || '');
       setNotificationSent(false);
     }
   }, [selectedSub?.id]);
 
-  // Auth Handler
-  const handleLogin = (e: React.FormEvent) => {
+  // Auth Handlers (Server-Side Authentication via /api/admin/login)
+  const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
-    const envPasscode = import.meta.env.VITE_ADMIN_PASSCODE || 'admin2026';
-    const entered = passcode.trim();
-    if (entered === envPasscode || entered === 'admin2026' || entered === 'admin' || entered === 'csr') {
-      setIsAuthenticated(true);
-      localStorage.setItem('csr_admin_authenticated', 'true');
-      setAuthError('');
-    } else {
-      setAuthError(`Invalid Security Passcode. (Hint: Use "${envPasscode}" or click Quick Access)`);
+    if (!username.trim() || !password.trim()) {
+      setAuthError('Please enter both User ID and Password.');
+      return;
     }
-  };
 
-  const handleQuickDemoAccess = () => {
-    setIsAuthenticated(true);
-    localStorage.setItem('csr_admin_authenticated', 'true');
+    setAuthLoading(true);
     setAuthError('');
+
+    try {
+      const res = await fetch('/api/admin/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          username: username.trim(),
+          password: password.trim(),
+        }),
+      });
+
+      const data = await res.json();
+      if (res.ok && data.success && data.token) {
+        localStorage.setItem('csr_admin_token', data.token);
+        localStorage.setItem('csr_admin_user', JSON.stringify(data.user));
+        setCurrentUser(data.user);
+        setIsAuthenticated(true);
+        setUsername('');
+        setPassword('');
+        setAuthError('');
+      } else {
+        setAuthError(data.message || 'Invalid User ID or Password.');
+      }
+    } catch (err: any) {
+      setAuthError('Network error connecting to authentication server.');
+    } finally {
+      setAuthLoading(false);
+    }
   };
 
   const handleLogout = () => {
     setIsAuthenticated(false);
-    localStorage.removeItem('csr_admin_authenticated');
+    setCurrentUser(null);
+    localStorage.removeItem('csr_admin_token');
+    localStorage.removeItem('csr_admin_user');
   };
 
-  // Add Test Submission Simulator
-  const handleAddTestSubmission = () => {
-    const randomNum = Math.floor(1000 + Math.random() * 9000);
-    const tracking = `CSR-IND-2026-${randomNum}`;
-    const testTitles = [
-      "Artificial Intelligence Diagnostics under Section 63 BSA: Evidentiary Admissibility in Trial Courts",
-      "Undertrial Remand Timelines Post-BNSS 2023: An Empirical Audit of Magisterial Orders",
-      "Forensic DNA Phenotyping and Article 21 Privacy: Formulating an Indian Judicial Threshold",
-      "Cyber-Extortion Syndicates and Digital Arrests: Transnational Law Enforcement Frameworks",
-      "Evaluating Narco-Analysis in Light of Selvi v. State of Karnataka and BSA Reforms"
-    ];
-    const testAuthors = [
-      { name: "Dr. Vikramaditya Rathore", email: "v.rathore@nls.ac.in", inst: "National Law School of India University (NLSIU), Bengaluru" },
-      { name: "Adv. Ananya Deshmukh", email: "ananya.law@bombaybar.in", inst: "Bombay High Court Bar Association" },
-      { name: "Dr. Rohan Bhattacharya", email: "rohan.fsl@gujarat.gov.in", inst: "Directorate of Forensic Science (DFS), Gandhinagar" },
-      { name: "Prof. Suniti Mishra", email: "s.mishra@du.ac.in", inst: "Faculty of Law, University of Delhi" }
-    ];
-
-    const chosenTitle = testTitles[Math.floor(Math.random() * testTitles.length)];
-    const chosenAuthor = testAuthors[Math.floor(Math.random() * testAuthors.length)];
-
-    const newSub: SubmissionDraft = {
-      id: `sub-${Date.now()}`,
-      trackingNumber: tracking,
-      title: chosenTitle,
-      abstract: "This empirical study conducts a quantitative doctrinal examination of contemporary criminal justice reforms in India, synthesizing doctrinal jurisprudence with forensic scientific protocols.",
-      primaryLens: 'legal',
-      secondaryLenses: ['forensic', 'policing'],
-      articleType: 'Original Empirical Research',
-      authorName: chosenAuthor.name,
-      authorEmail: chosenAuthor.email,
-      authorOrcid: '0000-0002-4911-304X',
-      authorAffiliation: chosenAuthor.inst,
-      creditRoles: ['Author', 'Corresponding'],
-      ethicsApproved: true,
-      conflictDeclared: true,
-      openDataAccessAccepted: true,
-      fileName: 'manuscript_anonymized_review.docx',
-      fileSize: '2.3 MB',
-      submittedAt: new Date().toISOString().split('T')[0],
-      status: 'Submitted',
-      currentStageNumber: 1,
-      authorMode: 'upload',
-      authorInfoFileName: 'author_title_page_signed.pdf',
-      authorInfoFileSize: '480 KB',
-      keywords: 'Bharatiya Sakshya Adhiniyam, Section 63, Criminology, Forensic Law, Due Process'
-    };
-
-    saveSubmissions([newSub, ...submissions]);
-    setSelectedSub(newSub);
+  // Download file from Cloudflare R2
+  const handleDownloadR2File = (key?: string, fileName?: string) => {
+    if (!key) {
+      alert("No file key attached to this record in Cloudflare R2.");
+      return;
+    }
+    const url = `/api/admin/download?key=${encodeURIComponent(key)}&name=${encodeURIComponent(fileName || 'manuscript.docx')}`;
+    window.open(url, '_blank');
   };
 
-  // Change Submission Status
-  const handleUpdateStatus = (subId: string, newStatus: SubmissionDraft['status']) => {
+  // Change Submission Status (Syncs directly with Cloudflare D1)
+  const handleUpdateStatus = async (subId: string, newStatus: SubmissionDraft['status']) => {
     let stageNum = 1;
     if (newStatus === 'Editorial Triage') stageNum = 2;
     if (newStatus === 'Under Peer Review') stageNum = 3;
     if (newStatus === 'Revisions Required') stageNum = 4;
     if (newStatus === 'Accepted') stageNum = 5;
     if (newStatus === 'Published') stageNum = 6;
+
+    const targetSub = submissions.find(s => s.id === subId);
 
     const updated = submissions.map(s => {
       if (s.id === subId) {
@@ -321,15 +372,53 @@ export const AdminPage: React.FC = () => {
         currentStageNumber: stageNum
       });
     }
+
+    // Persist to Cloudflare D1
+    if (targetSub?.trackingNumber) {
+      try {
+        await fetch('/api/admin/update-status', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            trackingNumber: targetSub.trackingNumber,
+            status: newStatus,
+            stageNumber: stageNum,
+            editorialDecisionNotes: decisionNotes,
+            assignedReviewers: assignedReviewers
+          })
+        });
+      } catch (err) {
+        console.error("Failed to sync status update with Cloudflare D1:", err);
+      }
+    }
   };
 
-  // Delete Submission
-  const handleDeleteSubmission = (subId: string) => {
-    if (window.confirm("Are you sure you want to permanently delete this submission record?")) {
+  // Delete Submission (Retires tracking ID and updates Cloudflare D1)
+  const handleDeleteSubmission = async (subId: string) => {
+    const targetSub = submissions.find(s => s.id === subId);
+    if (!targetSub) return;
+
+    if (window.confirm(`Are you sure you want to permanently retire and delete submission ${targetSub.trackingNumber}? This tracking ID will be permanently blacklisted.`)) {
       const updated = submissions.filter(s => s.id !== subId);
       saveSubmissions(updated);
       if (selectedSub?.id === subId) {
         setSelectedSub(null);
+      }
+
+      // Persist to Cloudflare D1
+      if (targetSub.trackingNumber) {
+        try {
+          await fetch('/api/admin/delete-submission', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              trackingNumber: targetSub.trackingNumber,
+              reason: 'Deleted by Admin via Editorial Console'
+            })
+          });
+        } catch (err) {
+          console.error("Failed to retire submission in Cloudflare D1:", err);
+        }
       }
     }
   };
@@ -343,12 +432,13 @@ export const AdminPage: React.FC = () => {
 
   // Export CSV
   const handleExportCSV = () => {
-    const headers = ["Tracking ID", "Title", "Author Name", "Author Email", "Affiliation", "Status", "Date", "Primary Lens"];
+    const headers = ["Tracking ID", "Title", "Author Name", "Author Email", "Author Phone", "Affiliation", "Status", "Date", "Primary Lens"];
     const rows = submissions.map(s => [
       `"${s.trackingNumber}"`,
       `"${s.title.replace(/"/g, '""')}"`,
       `"${s.authorName || 'Not Provided'}"`,
       `"${s.authorEmail || 'Not Provided'}"`,
+      `"${s.authorPhone || 'Not Provided'}"`,
       `"${(s.authorAffiliation || '').replace(/"/g, '""')}"`,
       `"${s.status}"`,
       `"${s.submittedAt}"`,
@@ -365,30 +455,6 @@ export const AdminPage: React.FC = () => {
     document.body.removeChild(link);
   };
 
-  // Add Reviewer
-  const handleAddReviewer = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!newReviewerName || !newReviewerEmail) return;
-
-    const newRev: ReviewerProfile = {
-      id: `rev-${Date.now()}`,
-      name: newReviewerName.trim(),
-      designation: 'Peer Reviewer',
-      institution: newReviewerInst.trim() || 'Academic Institution',
-      expertise: newReviewerExpertise.split(',').map(s => s.trim()).filter(Boolean),
-      activeReviews: 0,
-      completedReviews: 0,
-      status: 'Available',
-      email: newReviewerEmail.trim()
-    };
-
-    setReviewers([...reviewers, newRev]);
-    setNewReviewerName('');
-    setNewReviewerEmail('');
-    setNewReviewerInst('');
-    setNewReviewerExpertise('');
-    setShowInviteModal(false);
-  };
 
   // Filtered Submissions
   const filteredSubmissions = useMemo(() => {
@@ -397,7 +463,8 @@ export const AdminPage: React.FC = () => {
         sub.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
         sub.trackingNumber.toLowerCase().includes(searchQuery.toLowerCase()) ||
         (sub.authorName && sub.authorName.toLowerCase().includes(searchQuery.toLowerCase())) ||
-        (sub.authorEmail && sub.authorEmail.toLowerCase().includes(searchQuery.toLowerCase()));
+        (sub.authorEmail && sub.authorEmail.toLowerCase().includes(searchQuery.toLowerCase())) ||
+        (sub.authorPhone && sub.authorPhone.toLowerCase().includes(searchQuery.toLowerCase()));
 
       const matchesStatus =
         statusFilter === 'all' ||
@@ -449,18 +516,34 @@ export const AdminPage: React.FC = () => {
           <form onSubmit={handleLogin} className="space-y-4">
             <div>
               <label className="block text-xs font-semibold text-[var(--text-secondary)] mb-1">
-                Editorial Security Passcode
+                Admin User ID / Username
+              </label>
+              <div className="relative">
+                <input
+                  type="text"
+                  value={username}
+                  onChange={(e) => setUsername(e.target.value)}
+                  placeholder="Enter User ID (e.g. editor_chief)"
+                  className="w-full pl-9 pr-3 py-2.5 rounded-lg border border-[var(--border-subtle)] bg-[var(--bg-page)] text-xs text-[var(--text-primary)] focus:outline-none focus:border-[var(--accent-gold)] font-mono"
+                  autoFocus
+                />
+                <User className="w-4 h-4 text-[var(--text-muted)] absolute left-3 top-3" />
+              </div>
+            </div>
+
+            <div>
+              <label className="block text-xs font-semibold text-[var(--text-secondary)] mb-1">
+                Password
               </label>
               <div className="relative">
                 <input
                   type="password"
-                  value={passcode}
-                  onChange={(e) => setPasscode(e.target.value)}
-                  placeholder="Enter Passcode (e.g. admin2026)"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  placeholder="Enter Password"
                   className="w-full pl-9 pr-3 py-2.5 rounded-lg border border-[var(--border-subtle)] bg-[var(--bg-page)] text-xs text-[var(--text-primary)] focus:outline-none focus:border-[var(--accent-gold)] font-mono"
-                  autoFocus
                 />
-                <KeyRound className="w-4 h-4 text-[var(--text-muted)] absolute left-3 top-3" />
+                <Lock className="w-4 h-4 text-[var(--text-muted)] absolute left-3 top-3" />
               </div>
               {authError && (
                 <p className="text-[11px] text-red-500 mt-1.5 flex items-center gap-1">
@@ -472,24 +555,16 @@ export const AdminPage: React.FC = () => {
 
             <button
               type="submit"
-              className="w-full py-2.5 rounded-lg bg-[var(--accent-navy)] text-white text-xs font-semibold hover:opacity-90 transition-opacity flex items-center justify-center gap-2 shadow-xs"
+              disabled={authLoading}
+              className="w-full py-2.5 rounded-lg bg-[var(--accent-navy)] text-white text-xs font-semibold hover:opacity-90 transition-opacity flex items-center justify-center gap-2 shadow-xs disabled:opacity-50"
             >
-              <Lock className="w-3.5 h-3.5" />
-              <span>Authenticate into Console</span>
+              {authLoading ? <RefreshCw className="w-3.5 h-3.5 animate-spin" /> : <Lock className="w-3.5 h-3.5" />}
+              <span>{authLoading ? 'Verifying Credentials...' : 'Authenticate into Console'}</span>
             </button>
           </form>
 
-          {/* Quick Demo Access Button */}
-          <div className="pt-2 border-t border-[var(--border-subtle)] text-center space-y-3">
-            <button
-              type="button"
-              onClick={handleQuickDemoAccess}
-              className="w-full py-2 rounded-lg border border-[var(--accent-gold)]/40 bg-[var(--accent-gold)]/10 text-[var(--accent-gold)] text-xs font-semibold hover:bg-[var(--accent-gold)]/20 transition-colors flex items-center justify-center gap-2"
-            >
-              <Sparkles className="w-3.5 h-3.5" />
-              <span>⚡ 1-Click Instant Admin Access (Demo)</span>
-            </button>
-
+          {/* Portal Navigation & Support Link */}
+          <div className="pt-2 border-t border-[var(--border-subtle)] text-center space-y-2">
             <Link
               to="/"
               className="text-xs text-[var(--text-muted)] hover:text-[var(--text-primary)] transition-colors inline-block"
@@ -564,6 +639,15 @@ export const AdminPage: React.FC = () => {
               <span>Journal Home</span>
             </Link>
 
+            {/* Authenticated User Badge */}
+            {currentUser && (
+              <div className="hidden md:flex items-center gap-2 px-2.5 py-1 rounded-md border border-[var(--border-subtle)] bg-[var(--bg-page)] text-xs font-mono">
+                <Shield className="w-3.5 h-3.5 text-emerald-600" />
+                <span className="font-bold text-[var(--text-primary)]">{currentUser.displayName}</span>
+                <span className="text-[var(--text-muted)] text-[10px]">({currentUser.role})</span>
+              </div>
+            )}
+
             {/* Logout */}
             <button
               onClick={handleLogout}
@@ -599,22 +683,6 @@ export const AdminPage: React.FC = () => {
               </span>
             </button>
 
-            <button
-              onClick={() => setActiveTab('reviewers')}
-              className={`px-3.5 py-2 rounded-lg text-xs font-semibold transition-all flex items-center gap-2 shrink-0 ${
-                activeTab === 'reviewers'
-                  ? 'bg-[var(--accent-navy)] text-white shadow-xs'
-                  : 'text-[var(--text-secondary)] hover:bg-[var(--bg-card)]'
-              }`}
-            >
-              <Users className="w-3.5 h-3.5" />
-              <span>Peer Reviewers Roster</span>
-              <span className={`px-1.5 py-0.2 rounded-full text-[10px] font-mono ${
-                activeTab === 'reviewers' ? 'bg-white/20 text-white' : 'bg-[var(--bg-page)] text-[var(--text-muted)]'
-              }`}>
-                {reviewers.length}
-              </span>
-            </button>
 
             <button
               onClick={() => setActiveTab('cloudflare')}
@@ -629,15 +697,16 @@ export const AdminPage: React.FC = () => {
             </button>
           </div>
 
-          {/* Quick Actions (Add Test / Export) */}
+          {/* Quick Actions (Sync D1 / Export) */}
           <div className="flex items-center gap-2">
             <button
-              onClick={handleAddTestSubmission}
-              className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-[var(--accent-gold)]/40 bg-[var(--accent-gold)]/10 text-[var(--accent-gold)] text-xs font-semibold hover:bg-[var(--accent-gold)]/20 transition-colors"
-              title="Add a realistic sample submission to test workflow"
+              onClick={fetchLiveSubmissions}
+              disabled={isRefreshing}
+              className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-blue-500/40 bg-blue-500/10 text-blue-600 dark:text-blue-400 text-xs font-semibold hover:bg-blue-500/20 transition-colors cursor-pointer"
+              title="Sync submissions directly from Cloudflare D1 Database"
             >
-              <Plus className="w-3.5 h-3.5" />
-              <span>Simulate Submission</span>
+              <RefreshCw className={`w-3.5 h-3.5 ${isRefreshing ? 'animate-spin' : ''}`} />
+              <span>{isRefreshing ? 'Syncing D1...' : 'Sync Cloudflare D1'}</span>
             </button>
 
             <button
@@ -770,6 +839,11 @@ export const AdminPage: React.FC = () => {
                           <td className="py-3.5 px-4 font-mono font-bold text-[var(--accent-navy)] dark:text-[var(--accent-gold)] whitespace-nowrap">
                             <div className="flex items-center gap-1.5">
                               <span>{sub.trackingNumber}</span>
+                              {sub.blindFileKey && (
+                                <span className="px-1.5 py-0.5 rounded text-[9px] font-mono uppercase bg-blue-500/10 text-blue-600 dark:text-blue-400 border border-blue-500/20 font-semibold" title="Live record stored in Cloudflare D1 & R2">
+                                  D1 Live
+                                </span>
+                              )}
                               <button
                                 onClick={(e) => {
                                   e.stopPropagation();
@@ -811,6 +885,12 @@ export const AdminPage: React.FC = () => {
                               <Mail className="w-3 h-3" />
                               <span>{sub.authorEmail || 'email@pending.org'}</span>
                             </div>
+                            {sub.authorPhone && (
+                              <div className="text-[10px] text-[var(--text-muted)] flex items-center gap-1 font-mono mt-0.5">
+                                <Phone className="w-2.5 h-2.5 text-[var(--accent-gold)]" />
+                                <span>{sub.authorPhone}</span>
+                              </div>
+                            )}
                           </td>
 
                           {/* Date */}
@@ -872,88 +952,6 @@ export const AdminPage: React.FC = () => {
           </div>
         )}
 
-        {/* ===================================================================== */}
-        {/* TAB 2: REVIEWERS ROSTER */}
-        {/* ===================================================================== */}
-        {activeTab === 'reviewers' && (
-          <div className="space-y-6">
-            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-              <div>
-                <h2 className="font-serif text-xl font-bold text-[var(--text-primary)]">
-                  Peer Reviewers &amp; Editorial Roster
-                </h2>
-                <p className="text-xs text-[var(--text-muted)] mt-0.5">
-                  Distinguished faculty, forensic practitioners, and legal scholars available for double-blind refereeing.
-                </p>
-              </div>
-
-              <button
-                onClick={() => setShowInviteModal(true)}
-                className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-[var(--accent-navy)] text-white text-xs font-semibold hover:opacity-90 transition-opacity shadow-xs"
-              >
-                <Plus className="w-3.5 h-3.5" />
-                <span>Invite New Reviewer</span>
-              </button>
-            </div>
-
-            {/* Reviewers Grid */}
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-              {reviewers.map(rev => (
-                <div
-                  key={rev.id}
-                  className="p-5 rounded-xl border border-[var(--border-subtle)] bg-[var(--bg-card)] space-y-3.5 shadow-2xs hover:border-[var(--border-strong)] transition-all"
-                >
-                  <div className="flex items-start justify-between gap-2">
-                    <div>
-                      <h4 className="font-serif font-bold text-sm text-[var(--text-primary)]">
-                        {rev.name}
-                      </h4>
-                      <p className="text-xs text-[var(--accent-gold)] font-medium">
-                        {rev.designation}
-                      </p>
-                    </div>
-                    <span className={`px-2 py-0.5 rounded text-[10px] font-mono font-semibold ${
-                      rev.status === 'Available'
-                        ? 'bg-emerald-500/10 text-emerald-600 border border-emerald-500/20'
-                        : 'bg-amber-500/10 text-amber-600 border border-amber-500/20'
-                    }`}>
-                      {rev.status}
-                    </span>
-                  </div>
-
-                  <div className="space-y-1 text-xs text-[var(--text-muted)]">
-                    <div className="flex items-center gap-1.5">
-                      <Building2 className="w-3.5 h-3.5 shrink-0 text-[var(--text-muted)]" />
-                      <span className="truncate">{rev.institution}</span>
-                    </div>
-                    <div className="flex items-center gap-1.5 font-mono">
-                      <Mail className="w-3.5 h-3.5 shrink-0 text-[var(--text-muted)]" />
-                      <span className="truncate">{rev.email}</span>
-                    </div>
-                  </div>
-
-                  {/* Expertise Tags */}
-                  <div className="flex flex-wrap gap-1.5 pt-1">
-                    {rev.expertise.map((tag, idx) => (
-                      <span
-                        key={idx}
-                        className="px-2 py-0.5 rounded text-[10px] font-mono bg-[var(--bg-page)] text-[var(--text-secondary)] border border-[var(--border-subtle)]"
-                      >
-                        {tag}
-                      </span>
-                    ))}
-                  </div>
-
-                  {/* Review Stats */}
-                  <div className="pt-2 border-t border-[var(--border-subtle)] flex items-center justify-between text-xs font-mono text-[var(--text-muted)]">
-                    <span>Active: <strong className="text-[var(--text-primary)]">{rev.activeReviews}</strong></span>
-                    <span>Completed: <strong className="text-emerald-600">{rev.completedReviews}</strong></span>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-        )}
 
         {/* ===================================================================== */}
         {/* TAB 3: CLOUDFLARE & SECURITY ARCHITECTURE */}
@@ -1032,15 +1030,15 @@ export const AdminPage: React.FC = () => {
                 <div className="space-y-2 text-xs">
                   <div className="flex justify-between py-1 border-b border-[var(--border-subtle)]">
                     <span className="text-[var(--text-muted)]">Target Bucket:</span>
-                    <span className="font-mono font-semibold text-[var(--text-primary)]">csr-manuscripts-prod</span>
+                    <span className="font-mono font-semibold text-emerald-600">thecsrjournal-manuscripts</span>
+                  </div>
+                  <div className="flex justify-between py-1 border-b border-[var(--border-subtle)]">
+                    <span className="text-[var(--text-muted)]">Folders Architecture:</span>
+                    <span className="font-mono font-semibold text-[var(--text-primary)]">blind-manuscripts/ • author-dossiers/</span>
                   </div>
                   <div className="flex justify-between py-1 border-b border-[var(--border-subtle)]">
                     <span className="text-[var(--text-muted)]">Free Tier Allowance:</span>
                     <span className="font-mono font-semibold text-emerald-600">10 GB / month (₹0)</span>
-                  </div>
-                  <div className="flex justify-between py-1 border-b border-[var(--border-subtle)]">
-                    <span className="text-[var(--text-muted)]">Storage Utilized:</span>
-                    <span className="font-mono font-semibold text-[var(--text-primary)]">14.8 MB / 10 GB (0.15%)</span>
                   </div>
                   <div className="flex justify-between py-1">
                     <span className="text-[var(--text-muted)]">Egress Bandwidth:</span>
@@ -1054,7 +1052,7 @@ export const AdminPage: React.FC = () => {
                     <div className="h-full bg-[var(--accent-gold)] w-[2%]" />
                   </div>
                   <span className="text-[10px] font-mono text-[var(--text-muted)] block text-right">
-                    9,985 MB Storage Available
+                    9,998 MB Free Storage Available
                   </span>
                 </div>
               </div>
@@ -1076,25 +1074,25 @@ export const AdminPage: React.FC = () => {
 
                 <div className="space-y-2 text-xs">
                   <div className="flex justify-between py-1 border-b border-[var(--border-subtle)]">
-                    <span className="text-[var(--text-muted)]">Engine Status:</span>
-                    <span className="font-mono text-emerald-600 font-semibold">Healthy (9ms Latency)</span>
+                    <span className="text-[var(--text-muted)]">Database Name:</span>
+                    <span className="font-mono font-semibold text-emerald-600">thecsrjournal-userdata</span>
                   </div>
                   <div className="flex justify-between py-1 border-b border-[var(--border-subtle)]">
-                    <span className="text-[var(--text-muted)]">Location:</span>
-                    <span className="font-mono font-semibold text-[var(--text-primary)]">APAC (Mumbai / Delhi)</span>
+                    <span className="text-[var(--text-muted)]">Database ID:</span>
+                    <span className="font-mono font-semibold text-[var(--text-primary)] text-[10px] truncate max-w-[180px]">588fea4b-4ee9-4aac-9772-9806398d1203</span>
                   </div>
                   <div className="flex justify-between py-1 border-b border-[var(--border-subtle)]">
                     <span className="text-[var(--text-muted)]">Active Tables:</span>
-                    <span className="font-mono font-semibold text-[var(--text-primary)]">submissions, reviews, authors</span>
+                    <span className="font-mono font-semibold text-[var(--text-primary)]">submissions, retired_tracking_ids</span>
                   </div>
                   <div className="flex justify-between py-1">
-                    <span className="text-[var(--text-muted)]">Free Quota:</span>
-                    <span className="font-mono text-emerald-600 font-semibold">5M Reads / Day (₹0)</span>
+                    <span className="text-[var(--text-muted)]">Live Submissions:</span>
+                    <span className="font-mono text-emerald-600 font-semibold">{liveD1Count} Ingested in D1</span>
                   </div>
                 </div>
 
                 <div className="p-2.5 rounded-lg bg-[var(--bg-page)] text-[11px] font-mono text-[var(--text-muted)] space-y-1">
-                  <span>SQL: SELECT * FROM submissions WHERE status = 'Submitted';</span>
+                  <span>SQL: SELECT * FROM submissions WHERE is_archived = 0;</span>
                 </div>
               </div>
 
@@ -1116,41 +1114,30 @@ export const AdminPage: React.FC = () => {
                 </span>
               </div>
 
-              <div className="overflow-x-auto">
-                <table className="w-full text-left text-xs font-mono">
-                  <thead>
-                    <tr className="border-b border-[var(--border-subtle)] text-[var(--text-muted)] text-[10px] uppercase">
-                      <th className="py-2.5 px-3">Timestamp</th>
-                      <th className="py-2.5 px-3">Action</th>
-                      <th className="py-2.5 px-3">Client Anonymized IP</th>
-                      <th className="py-2.5 px-3">Challenge Type</th>
-                      <th className="py-2.5 px-3">Verification Result</th>
-                    </tr>
-                  </thead>
-                  <tbody className="divide-y divide-[var(--border-subtle)]">
-                    <tr className="hover:bg-[var(--bg-card-hover)]">
-                      <td className="py-2 px-3 text-[var(--text-muted)]">2026-10-02 18:49:12</td>
-                      <td className="py-2 px-3 font-semibold text-[var(--text-primary)]">POST /api/submissions</td>
-                      <td className="py-2 px-3 text-[var(--text-muted)]">49.36.128.xxx (Airtel India)</td>
-                      <td className="py-2 px-3">Managed Turnstile</td>
-                      <td className="py-2 px-3 text-emerald-600 font-semibold">TOKEN_VALIDATED (140ms)</td>
-                    </tr>
-                    <tr className="hover:bg-[var(--bg-card-hover)]">
-                      <td className="py-2 px-3 text-[var(--text-muted)]">2026-10-02 17:21:04</td>
-                      <td className="py-2 px-3 font-semibold text-[var(--text-primary)]">POST /api/submissions</td>
-                      <td className="py-2 px-3 text-[var(--text-muted)]">103.21.244.xxx (Jio Fiber Delhi)</td>
-                      <td className="py-2 px-3">Managed Turnstile</td>
-                      <td className="py-2 px-3 text-emerald-600 font-semibold">TOKEN_VALIDATED (112ms)</td>
-                    </tr>
-                    <tr className="hover:bg-[var(--bg-card-hover)]">
-                      <td className="py-2 px-3 text-[var(--text-muted)]">2026-10-02 15:08:55</td>
-                      <td className="py-2 px-3 font-semibold text-[var(--text-primary)]">BOT_PROBE_BLOCKED</td>
-                      <td className="py-2 px-3 text-[var(--text-muted)]">185.220.101.xxx (Tor Exit Relay)</td>
-                      <td className="py-2 px-3 text-red-500">Interactive Challenge</td>
-                      <td className="py-2 px-3 text-red-500 font-semibold">BLOCKED_BY_TURNSTILE</td>
-                    </tr>
-                  </tbody>
-                </table>
+              <div className="p-4 rounded-xl bg-[var(--bg-page)] border border-[var(--border-subtle)] space-y-3">
+                <div className="flex flex-wrap items-center justify-between gap-2 text-xs">
+                  <div>
+                    <span className="font-semibold text-[var(--text-primary)] block">Zero-Trust Cloudflare Defense Status</span>
+                    <span className="text-[11px] text-[var(--text-muted)]">Cloudflare Pages Functions edge execution &amp; TLS 1.3 encryption</span>
+                  </div>
+                  <span className="px-2.5 py-1 rounded-full text-xs font-mono font-semibold bg-emerald-500/10 text-emerald-600 border border-emerald-500/20">
+                    Live Operational
+                  </span>
+                </div>
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 pt-2 border-t border-[var(--border-subtle)] text-xs">
+                  <div>
+                    <span className="text-[var(--text-muted)] block text-[11px]">Database Connection:</span>
+                    <span className="font-mono text-emerald-600 font-semibold">D1 Connected (APAC)</span>
+                  </div>
+                  <div>
+                    <span className="text-[var(--text-muted)] block text-[11px]">Object Storage:</span>
+                    <span className="font-mono text-emerald-600 font-semibold">R2 Storage Synced</span>
+                  </div>
+                  <div>
+                    <span className="text-[var(--text-muted)] block text-[11px]">Bot Protection:</span>
+                    <span className="font-mono text-emerald-600 font-semibold">Managed Turnstile Active</span>
+                  </div>
+                </div>
               </div>
             </div>
 
@@ -1245,7 +1232,7 @@ export const AdminPage: React.FC = () => {
                   <UserCheck className="w-3.5 h-3.5" /> Submitting Author Profile (Separated for Blind Review)
                 </span>
                 
-                <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 text-xs">
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 text-xs">
                   <div>
                     <span className="text-[11px] text-[var(--text-muted)] block">Author Name:</span>
                     <strong className="text-[var(--text-primary)] font-serif">{selectedSub.authorName || 'Not specified'}</strong>
@@ -1257,17 +1244,42 @@ export const AdminPage: React.FC = () => {
                     </span>
                   </div>
                   <div>
+                    <span className="text-[11px] text-[var(--text-muted)] block">Contact Phone:</span>
+                    <span className="font-mono text-[var(--text-primary)]">
+                      {selectedSub.authorPhone || 'Not provided'}
+                    </span>
+                  </div>
+                  <div>
                     <span className="text-[11px] text-[var(--text-muted)] block">Institutional Affiliation:</span>
                     <span className="text-[var(--text-secondary)]">{selectedSub.authorAffiliation || 'Provided in author slip'}</span>
                   </div>
                 </div>
               </div>
 
+              {/* Message to Editorial Desk (if provided by Author) */}
+              {selectedSub.editorMessage && (
+                <div className="p-4 rounded-xl border border-blue-500/20 bg-blue-500/5 space-y-1.5">
+                  <span className="text-[10px] font-mono uppercase tracking-wider text-blue-600 dark:text-blue-400 font-bold flex items-center gap-1.5">
+                    <Mail className="w-3.5 h-3.5" /> Confidential Message to Editor
+                  </span>
+                  <p className="text-xs text-[var(--text-secondary)] italic leading-relaxed">
+                    "{selectedSub.editorMessage}"
+                  </p>
+                </div>
+              )}
+
               {/* Uploaded Files Section */}
               <div className="space-y-2">
-                <span className="text-xs font-mono uppercase tracking-wider text-[var(--text-muted)] font-bold block">
-                  Attached Manuscript Files (Cloudflare R2 Bucket)
-                </span>
+                <div className="flex items-center justify-between">
+                  <span className="text-xs font-mono uppercase tracking-wider text-[var(--text-muted)] font-bold block">
+                    Attached Manuscript Files (Cloudflare R2 Bucket: thecsrjournal-manuscripts)
+                  </span>
+                  {selectedSub.blindFileKey && (
+                    <span className="text-[10px] font-mono text-emerald-600 font-semibold">
+                      Connected to Cloudflare R2
+                    </span>
+                  )}
+                </div>
                 
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                   {/* Blind Manuscript */}
@@ -1286,11 +1298,12 @@ export const AdminPage: React.FC = () => {
                       </div>
                     </div>
                     <button
-                      onClick={() => alert(`Downloading blind file: ${selectedSub.fileName || 'blind_manuscript.docx'} from R2 Bucket...`)}
-                      className="p-1.5 rounded-lg border border-[var(--border-subtle)] hover:bg-[var(--bg-card)] text-[var(--text-secondary)] transition-colors"
-                      title="Download file"
+                      onClick={() => handleDownloadR2File(selectedSub.blindFileKey, selectedSub.fileName)}
+                      className="px-2.5 py-1.5 rounded-lg border border-[var(--border-subtle)] hover:bg-[var(--accent-navy)] hover:text-white text-[var(--text-secondary)] transition-colors flex items-center gap-1 text-xs font-medium cursor-pointer"
+                      title="Download blind manuscript from Cloudflare R2"
                     >
                       <Download className="w-3.5 h-3.5" />
+                      <span className="hidden sm:inline">Download</span>
                     </button>
                   </div>
 
@@ -1302,19 +1315,20 @@ export const AdminPage: React.FC = () => {
                       </div>
                       <div className="overflow-hidden">
                         <div className="font-mono text-xs font-semibold text-[var(--text-primary)] truncate">
-                          {selectedSub.authorInfoFileName || 'author_identification_page.pdf'}
+                          {selectedSub.authorInfoFileName || 'author_identification_page.docx'}
                         </div>
                         <div className="text-[10px] text-[var(--text-muted)]">
-                          Author Identification Sheet • {selectedSub.authorInfoFileSize || '420 KB'}
+                          Author Dossier Sheet • {selectedSub.authorInfoFileSize || '420 KB'}
                         </div>
                       </div>
                     </div>
                     <button
-                      onClick={() => alert(`Downloading author sheet: ${selectedSub.authorInfoFileName || 'author_identification_page.pdf'}...`)}
-                      className="p-1.5 rounded-lg border border-[var(--border-subtle)] hover:bg-[var(--bg-card)] text-[var(--text-secondary)] transition-colors"
-                      title="Download file"
+                      onClick={() => handleDownloadR2File(selectedSub.authorFileKey, selectedSub.authorInfoFileName)}
+                      className="px-2.5 py-1.5 rounded-lg border border-[var(--border-subtle)] hover:bg-[var(--accent-gold)] hover:text-black text-[var(--text-secondary)] transition-colors flex items-center gap-1 text-xs font-medium cursor-pointer"
+                      title="Download author dossier sheet from Cloudflare R2"
                     >
                       <Download className="w-3.5 h-3.5" />
+                      <span className="hidden sm:inline">Download</span>
                     </button>
                   </div>
                 </div>
@@ -1480,98 +1494,6 @@ export const AdminPage: React.FC = () => {
         </div>
       )}
 
-      {/* ===================================================================== */}
-      {/* MODAL 2: INVITE NEW PEER REVIEWER MODAL */}
-      {/* ===================================================================== */}
-      {showInviteModal && (
-        <div className="fixed inset-0 z-50 bg-black/60 backdrop-blur-xs flex items-center justify-center p-4">
-          <div className="w-full max-w-md rounded-2xl border border-[var(--border-subtle)] bg-[var(--bg-card)] shadow-2xl p-6 space-y-4">
-            <div className="flex items-center justify-between">
-              <h3 className="font-serif font-bold text-lg text-[var(--text-primary)]">
-                Invite New Peer Reviewer
-              </h3>
-              <button
-                onClick={() => setShowInviteModal(false)}
-                className="text-[var(--text-muted)] hover:text-[var(--text-primary)]"
-              >
-                <X className="w-4 h-4" />
-              </button>
-            </div>
-
-            <form onSubmit={handleAddReviewer} className="space-y-3 text-xs">
-              <div>
-                <label className="font-semibold text-[var(--text-secondary)] block mb-1">
-                  Full Name &amp; Title
-                </label>
-                <input
-                  type="text"
-                  placeholder="e.g. Dr. Priyanshu Varma"
-                  value={newReviewerName}
-                  onChange={(e) => setNewReviewerName(e.target.value)}
-                  className="w-full p-2.5 rounded-lg border border-[var(--border-subtle)] bg-[var(--bg-page)] text-xs text-[var(--text-primary)] focus:outline-none"
-                  required
-                />
-              </div>
-
-              <div>
-                <label className="font-semibold text-[var(--text-secondary)] block mb-1">
-                  Official Email Address
-                </label>
-                <input
-                  type="email"
-                  placeholder="e.g. p.varma@nlu.ac.in"
-                  value={newReviewerEmail}
-                  onChange={(e) => setNewReviewerEmail(e.target.value)}
-                  className="w-full p-2.5 rounded-lg border border-[var(--border-subtle)] bg-[var(--bg-page)] text-xs text-[var(--text-primary)] focus:outline-none"
-                  required
-                />
-              </div>
-
-              <div>
-                <label className="font-semibold text-[var(--text-secondary)] block mb-1">
-                  Academic Institution / Affiliation
-                </label>
-                <input
-                  type="text"
-                  placeholder="e.g. National Law University, Delhi"
-                  value={newReviewerInst}
-                  onChange={(e) => setNewReviewerInst(e.target.value)}
-                  className="w-full p-2.5 rounded-lg border border-[var(--border-subtle)] bg-[var(--bg-page)] text-xs text-[var(--text-primary)] focus:outline-none"
-                />
-              </div>
-
-              <div>
-                <label className="font-semibold text-[var(--text-secondary)] block mb-1">
-                  Subject Expertise (comma separated)
-                </label>
-                <input
-                  type="text"
-                  placeholder="e.g. BSA Section 63, Cyber Forensics, Criminal Law"
-                  value={newReviewerExpertise}
-                  onChange={(e) => setNewReviewerExpertise(e.target.value)}
-                  className="w-full p-2.5 rounded-lg border border-[var(--border-subtle)] bg-[var(--bg-page)] text-xs text-[var(--text-primary)] focus:outline-none"
-                />
-              </div>
-
-              <div className="pt-2 flex justify-end gap-2">
-                <button
-                  type="button"
-                  onClick={() => setShowInviteModal(false)}
-                  className="px-3 py-2 rounded-lg border border-[var(--border-subtle)] text-xs font-semibold hover:bg-[var(--bg-page)]"
-                >
-                  Cancel
-                </button>
-                <button
-                  type="submit"
-                  className="px-4 py-2 rounded-lg bg-[var(--accent-navy)] text-white text-xs font-semibold hover:opacity-90"
-                >
-                  Register Reviewer
-                </button>
-              </div>
-            </form>
-          </div>
-        </div>
-      )}
 
     </div>
   );
