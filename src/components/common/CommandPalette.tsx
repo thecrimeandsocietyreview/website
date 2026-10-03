@@ -84,7 +84,7 @@ export const CommandPalette: React.FC<CommandPaletteProps> = ({ isOpen, onClose 
                   <div
                     key={art.id}
                     onClick={() => {
-                      navigate(`/article/${art.id}`);
+                      navigate('/current-issue');
                       onClose();
                     }}
                     className="p-2.5 rounded-lg hover:bg-[var(--bg-card-hover)] cursor-pointer transition-colors border border-transparent hover:border-[var(--border-subtle)] group flex items-start justify-between gap-3"
@@ -119,7 +119,7 @@ export const CommandPalette: React.FC<CommandPaletteProps> = ({ isOpen, onClose 
                   <button
                     key={c.id}
                     onClick={() => {
-                      navigate(`/explore?concept=${encodeURIComponent(c.label)}`);
+                      navigate('/aims-scope');
                       onClose();
                     }}
                     className="px-2.5 py-1 rounded-full text-xs font-medium border border-[var(--border-subtle)] bg-[var(--bg-card)] hover:border-[var(--accent-gold)] hover:text-[var(--accent-gold)] transition-colors flex items-center gap-1.5"
