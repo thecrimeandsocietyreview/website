@@ -233,8 +233,9 @@ export const onRequestPost = async (context: {
     const authorFileSizeFormatted = `${(authorFile.size / (1024 * 1024)).toFixed(2)} MB`;
 
     if (context.env.MANUSCRIPTS_BUCKET) {
-      // Stream upload to R2
-      await context.env.MANUSCRIPTS_BUCKET.put(blindFileKey, blindFile.stream(), {
+      // Buffer upload to R2 for maximum reliability
+      const blindBuffer = await blindFile.arrayBuffer();
+      await context.env.MANUSCRIPTS_BUCKET.put(blindFileKey, blindBuffer, {
         httpMetadata: {
           contentType: blindFile.type || "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
         },
@@ -245,7 +246,8 @@ export const onRequestPost = async (context: {
         },
       });
 
-      await context.env.MANUSCRIPTS_BUCKET.put(authorFileKey, authorFile.stream(), {
+      const authorBuffer = await authorFile.arrayBuffer();
+      await context.env.MANUSCRIPTS_BUCKET.put(authorFileKey, authorBuffer, {
         httpMetadata: {
           contentType: authorFile.type || "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
         },
@@ -267,6 +269,7 @@ export const onRequestPost = async (context: {
           author_name,
           author_email,
           author_phone,
+          authorPhone,
           title,
           article_type,
           abstract,
@@ -282,12 +285,13 @@ export const onRequestPost = async (context: {
           stage_number,
           submitted_at,
           updated_at
-        ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 'Submitted', 1, ?, ?)
+        ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 'Submitted', 1, ?, ?)
       `)
         .bind(
           trackingId,
           authorName,
           authorEmail,
+          authorPhone,
           authorPhone,
           title,
           articleType,

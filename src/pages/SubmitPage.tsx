@@ -447,8 +447,8 @@ export const SubmitPage: React.FC = () => {
         return;
       }
 
-      // If backend returned a functional error message (e.g. Turnstile failure, size limit)
-      if (result && !result.success && result.message) {
+      // If backend returned an error message (e.g. Turnstile failure, size limit)
+      if (result?.message) {
         setValidationError(result.message);
         if (result.message.toLowerCase().includes('cloudflare') || result.message.toLowerCase().includes('turnstile')) {
           turnstileRef.current?.reset();
