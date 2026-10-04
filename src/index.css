@@ -257,22 +257,35 @@
   animation-play-state: paused;
 }
 
+/* Interdisciplinary Pillars GPU-Accelerated Marquee */
+.animate-pillars-scroll {
+  display: flex;
+  width: max-content;
+  animation: continuousScroll 65s linear infinite;
+  will-change: transform;
+  transform: translate3d(0, 0, 0);
+  backface-visibility: hidden;
+}
+
+.animate-pillars-scroll:hover {
+  animation-play-state: paused;
+}
+
 /* ========================================================
-   TEXT FLIP ANIMATION (Animata)
+   TEXT FLIP ANIMATION (Animata) - Instant Zero-Flash Clipping
 ======================================================== */
 @keyframes flip-words {
-  10% { transform: translateY(-112%); }
-  25% { transform: translateY(-100%); }
-  35% { transform: translateY(-212%); }
-  50% { transform: translateY(-200%); }
-  60% { transform: translateY(-312%); }
-  75% { transform: translateY(-300%); }
-  85% { transform: translateY(-412%); }
+  0%, 12% { transform: translateY(0%); }
+  20%, 32% { transform: translateY(-100%); }
+  40%, 52% { transform: translateY(-200%); }
+  60%, 72% { transform: translateY(-300%); }
+  80%, 92% { transform: translateY(-400%); }
   100% { transform: translateY(-400%); }
 }
 
 .animate-flip-words {
-  animation: flip-words 8s infinite;
+  animation: flip-words 8.5s cubic-bezier(0.77, 0, 0.175, 1) infinite;
+  will-change: transform;
 }
 
 

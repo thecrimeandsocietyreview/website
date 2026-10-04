@@ -214,7 +214,7 @@ export default function Feature() {
     typeof window !== 'undefined' ? window.innerWidth < 640 : false
   );
 
-  // Instant SMIL wake-up + IntersectionObserver to pause animation when offscreen
+  // Instant SMIL wake-up without any laggy scroll observers
   useEffect(() => {
     const activate = () => {
       if (svgRef.current) {
@@ -228,25 +228,9 @@ export default function Feature() {
     const t1 = setTimeout(activate, 40);
     const t2 = setTimeout(activate, 120);
 
-    const svgEl = svgRef.current;
-    if (!svgEl) return;
-
-    const observer = new IntersectionObserver(([entry]) => {
-      try {
-        if (entry.isIntersecting) {
-          svgRef.current?.unpauseAnimations();
-        } else {
-          svgRef.current?.pauseAnimations();
-        }
-      } catch {}
-    }, { threshold: 0.05 });
-
-    observer.observe(svgEl);
-
     return () => {
       clearTimeout(t1);
       clearTimeout(t2);
-      observer.disconnect();
     };
   }, []);
 
@@ -259,21 +243,17 @@ export default function Feature() {
     return () => window.removeEventListener('resize', checkMobile);
   }, []);
 
-  // Pause ONLY when hovering directly on an actual card (no zoom, pure stop)
+  // Pause ONLY when hovering directly on an actual card
   const handleMouseEnter = () => {
     try {
       svgRef.current?.pauseAnimations();
-    } catch {
-      // Fallback
-    }
+    } catch {}
   };
 
   const handleMouseLeave = () => {
     try {
       svgRef.current?.unpauseAnimations();
-    } catch {
-      // Fallback
-    }
+    } catch {}
   };
 
   return (
@@ -301,6 +281,11 @@ export default function Feature() {
               preserveAspectRatio="xMidYMid slice"
               aria-hidden="true"
               className="absolute inset-0 h-full w-full motion-reduce:hidden"
+              style={{
+                willChange: "transform",
+                transform: "translate3d(0, 0, 0)",
+                backfaceVisibility: "hidden",
+              }}
             >
               {/* Subtle curved orbital guide track */}
               <path
@@ -329,12 +314,20 @@ export default function Feature() {
                       width="230"
                       height="142"
                       className="overflow-visible"
+                      style={{
+                        willChange: "transform",
+                        transform: "translate3d(0, 0, 0)",
+                      }}
                     >
-                      {/* Card pauses ONLY when mouse hovers directly on the card itself (No zoom/scale, simple stop) */}
+                      {/* Card pauses ONLY when mouse hovers directly on the card itself */}
                       <div
                         onMouseEnter={handleMouseEnter}
                         onMouseLeave={handleMouseLeave}
                         className="group relative flex h-[142px] w-[230px] flex-col justify-between rounded-[16px] border border-slate-200/95 bg-white p-4 text-left shadow-sm hover:border-slate-300 hover:shadow-md select-none cursor-pointer"
+                        style={{
+                          transform: "translateZ(0)",
+                          backfaceVisibility: "hidden",
+                        }}
                       >
                         <div>
                           <div className="flex items-center justify-between">

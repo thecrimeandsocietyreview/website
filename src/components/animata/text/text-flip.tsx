@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useMemo, useRef } from "react";
+import React, { useMemo } from "react";
 
 interface TextFlipProps {
   words?: string[];
@@ -11,7 +11,7 @@ interface TextFlipProps {
 
 export function TextFlip({
   words: customWords,
-  prefix = "Advancing",
+  prefix = "",
   className = "box-content flex flex-wrap items-baseline gap-2 sm:gap-2.5 text-xl sm:text-2xl lg:text-3xl font-bold font-serif",
   wordClassName = "text-[var(--accent-gold)] dark:text-amber-400 font-bold",
 }: TextFlipProps) {
@@ -27,41 +27,35 @@ export function TextFlip({
   );
 
   const words = customWords || defaultWords;
-  const tallestRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    if (tallestRef.current) {
-      let maxHeight = 0;
-
-      words.forEach((word) => {
-        const span = document.createElement("span");
-        span.className = "absolute opacity-0 inline-block";
-        span.textContent = word;
-        tallestRef.current?.appendChild(span);
-        const height = span.offsetHeight;
-        tallestRef.current?.removeChild(span);
-
-        if (height > maxHeight) {
-          maxHeight = height;
-        }
-      });
-
-      if (maxHeight > 0) {
-        tallestRef.current.style.height = `${maxHeight}px`;
-      }
-    }
-  }, [words]);
 
   return (
     <div className={className}>
       {prefix && <span className="text-white shrink-0">{prefix}</span>}
+      {/* 
+        Container locked strictly to 1.22em height with overflow:hidden and contain:paint 
+        guarantees that on initial page load / refresh, ONLY 1 word can EVER be visible.
+        All subsequent words are clipped out from frame 0 with ZERO flash of stacked content.
+      */}
       <div
-        ref={tallestRef}
-        className={`inline-flex flex-col overflow-hidden leading-tight ${wordClassName}`}
-        style={{ minHeight: "1.3em" }}
+        className={`inline-flex flex-col overflow-hidden ${wordClassName}`}
+        style={{
+          height: "1.22em",
+          maxHeight: "1.22em",
+          lineHeight: "1.22",
+          overflow: "hidden",
+          contain: "paint",
+          verticalAlign: "bottom",
+        }}
       >
         {words.map((word, index) => (
-          <span key={index} className="animate-flip-words whitespace-nowrap">
+          <span
+            key={index}
+            className="animate-flip-words whitespace-nowrap block shrink-0 select-none"
+            style={{
+              height: "1.22em",
+              lineHeight: "1.22",
+            }}
+          >
             {word}
           </span>
         ))}
