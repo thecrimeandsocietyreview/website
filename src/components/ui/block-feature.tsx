@@ -204,14 +204,17 @@ const SCOPE_CARDS_20: ScopeItem[] = [
 // Smooth arch: crest at y = 95, dips at y = 220 within viewBox 1400x310
 const BELT_PATH =
   "M -320 220 C 150 220, 420 95, 700 95 C 980 95, 1250 220, 1720 220 L 5920 220";
-const BELT_DURATION = 64; // Fluid, butter-smooth speed: preserves full 82px gap without sluggishness
+const BELT_DURATION = 96; // Graceful, leisurely slow speed for effortless reading
 const BELT_RIDERS = SCOPE_CARDS_20.length; // 20 cards
 
 export default function Feature() {
   const step = BELT_DURATION / BELT_RIDERS;
   const svgRef = useRef<SVGSVGElement>(null);
+  const [isMobile, setIsMobile] = useState(() => 
+    typeof window !== 'undefined' ? window.innerWidth < 640 : false
+  );
 
-  // Instant SMIL wake-up: clean and reliable without laggy scroll observers
+  // Instant SMIL wake-up without any laggy scroll observers
   useEffect(() => {
     const activate = () => {
       if (svgRef.current) {
@@ -231,9 +234,18 @@ export default function Feature() {
     };
   }, []);
 
-  // Pause ONLY on real desktop mice (Never on mobile touch screens to prevent scroll stutter)
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 640);
+    };
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
+
+  // Pause ONLY when hovering with a real mouse on desktop
   const handleMouseEnter = () => {
-    if (typeof window !== "undefined" && window.matchMedia("(hover: hover)").matches) {
+    if (typeof window !== 'undefined' && window.matchMedia('(hover: hover)').matches) {
       try {
         svgRef.current?.pauseAnimations();
       } catch {}
@@ -241,7 +253,7 @@ export default function Feature() {
   };
 
   const handleMouseLeave = () => {
-    if (typeof window !== "undefined" && window.matchMedia("(hover: hover)").matches) {
+    if (typeof window !== 'undefined' && window.matchMedia('(hover: hover)').matches) {
       try {
         svgRef.current?.unpauseAnimations();
       } catch {}
@@ -264,20 +276,24 @@ export default function Feature() {
             </h2>
           </div>
 
-          {/* 2. OVAL TRAVELING CARDS TRACK (Curved oval path, butter-smooth on mobile & desktop) */}
+          {/* 2. OVAL TRAVELING CARDS TRACK (Curved oval path, larger track & cards) */}
           <div
-            className="relative h-[190px] sm:h-[285px] w-full [mask-image:linear-gradient(to_right,transparent,black_3%,black_97%,transparent)] my-0 sm:my-1"
-            style={{ touchAction: "pan-y" }}
+            className="relative h-[165px] sm:h-[285px] w-full sm:[mask-image:linear-gradient(to_right,transparent,black_3%,black_97%,transparent)] my-0 sm:my-1"
+            style={{ touchAction: 'pan-y' }}
           >
+            {/* Mobile edge fades without heavy mask-image GPU overhead */}
+            <div className="pointer-events-none absolute inset-y-0 left-0 w-8 sm:hidden bg-gradient-to-r from-white to-transparent z-10" />
+            <div className="pointer-events-none absolute inset-y-0 right-0 w-8 sm:hidden bg-gradient-to-l from-white to-transparent z-10" />
+
             <svg
               ref={svgRef}
-              viewBox="0 0 1400 310"
+              viewBox={isMobile ? "0 0 1400 190" : "0 0 1400 310"}
               fill="none"
-              preserveAspectRatio="xMidYMid meet"
+              preserveAspectRatio="xMidYMid slice"
               aria-hidden="true"
-              className="absolute inset-0 h-full w-full motion-reduce:hidden"
+              className="absolute inset-0 h-full w-full motion-reduce:hidden pointer-events-none sm:pointer-events-auto"
               style={{
-                touchAction: "pan-y",
+                touchAction: 'pan-y',
                 willChange: "transform",
                 transform: "translate3d(0, 0, 0)",
                 backfaceVisibility: "hidden",
@@ -319,10 +335,9 @@ export default function Feature() {
                       <div
                         onMouseEnter={handleMouseEnter}
                         onMouseLeave={handleMouseLeave}
-                        className="group relative flex h-[142px] w-[230px] flex-col justify-between rounded-[16px] border border-slate-200/95 bg-white p-4 text-left shadow-sm hover:border-slate-300 hover:shadow-md select-none cursor-pointer"
+                        className="group relative flex h-[142px] w-[230px] flex-col justify-between rounded-[16px] border border-slate-200/95 bg-white p-4 text-left shadow-sm hover:border-slate-300 hover:shadow-md select-none pointer-events-none sm:pointer-events-auto sm:cursor-pointer"
                         style={{
-                          touchAction: "pan-y",
-                          WebkitTapHighlightColor: "transparent",
+                          touchAction: 'pan-y',
                           transform: "translateZ(0)",
                           backfaceVisibility: "hidden",
                         }}
