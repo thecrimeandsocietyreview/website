@@ -210,11 +210,8 @@ const BELT_RIDERS = SCOPE_CARDS_20.length; // 20 cards
 export default function Feature() {
   const step = BELT_DURATION / BELT_RIDERS;
   const svgRef = useRef<SVGSVGElement>(null);
-  const [isMobile, setIsMobile] = useState(() => 
-    typeof window !== 'undefined' ? window.innerWidth < 640 : false
-  );
 
-  // Instant SMIL wake-up without any laggy scroll observers
+  // Instant SMIL wake-up: clean and reliable without laggy scroll observers
   useEffect(() => {
     const activate = () => {
       if (svgRef.current) {
@@ -234,26 +231,21 @@ export default function Feature() {
     };
   }, []);
 
-  useEffect(() => {
-    const checkMobile = () => {
-      setIsMobile(window.innerWidth < 640);
-    };
-    checkMobile();
-    window.addEventListener('resize', checkMobile);
-    return () => window.removeEventListener('resize', checkMobile);
-  }, []);
-
-  // Pause ONLY when hovering directly on an actual card
+  // Pause ONLY on real desktop mice (Never on mobile touch screens to prevent scroll stutter)
   const handleMouseEnter = () => {
-    try {
-      svgRef.current?.pauseAnimations();
-    } catch {}
+    if (typeof window !== "undefined" && window.matchMedia("(hover: hover)").matches) {
+      try {
+        svgRef.current?.pauseAnimations();
+      } catch {}
+    }
   };
 
   const handleMouseLeave = () => {
-    try {
-      svgRef.current?.unpauseAnimations();
-    } catch {}
+    if (typeof window !== "undefined" && window.matchMedia("(hover: hover)").matches) {
+      try {
+        svgRef.current?.unpauseAnimations();
+      } catch {}
+    }
   };
 
   return (
@@ -272,16 +264,20 @@ export default function Feature() {
             </h2>
           </div>
 
-          {/* 2. OVAL TRAVELING CARDS TRACK (Curved oval path, larger track & cards) */}
-          <div className="relative h-[165px] sm:h-[285px] w-full [mask-image:linear-gradient(to_right,transparent,black_3%,black_97%,transparent)] my-0 sm:my-1">
+          {/* 2. OVAL TRAVELING CARDS TRACK (Curved oval path, butter-smooth on mobile & desktop) */}
+          <div
+            className="relative h-[190px] sm:h-[285px] w-full [mask-image:linear-gradient(to_right,transparent,black_3%,black_97%,transparent)] my-0 sm:my-1"
+            style={{ touchAction: "pan-y" }}
+          >
             <svg
               ref={svgRef}
-              viewBox={isMobile ? "0 0 1400 190" : "0 0 1400 310"}
+              viewBox="0 0 1400 310"
               fill="none"
-              preserveAspectRatio="xMidYMid slice"
+              preserveAspectRatio="xMidYMid meet"
               aria-hidden="true"
               className="absolute inset-0 h-full w-full motion-reduce:hidden"
               style={{
+                touchAction: "pan-y",
                 willChange: "transform",
                 transform: "translate3d(0, 0, 0)",
                 backfaceVisibility: "hidden",
@@ -325,6 +321,8 @@ export default function Feature() {
                         onMouseLeave={handleMouseLeave}
                         className="group relative flex h-[142px] w-[230px] flex-col justify-between rounded-[16px] border border-slate-200/95 bg-white p-4 text-left shadow-sm hover:border-slate-300 hover:shadow-md select-none cursor-pointer"
                         style={{
+                          touchAction: "pan-y",
+                          WebkitTapHighlightColor: "transparent",
                           transform: "translateZ(0)",
                           backfaceVisibility: "hidden",
                         }}
