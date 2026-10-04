@@ -198,7 +198,7 @@ export function Component({
     };
   }, [draw]);
 
-  // Pointer drag handlers (smooth rotation on drag)
+  // Pointer drag handlers (smooth rotation on drag with native vertical mobile scroll preservation)
   const onPointerDown = useCallback(
     (e: React.PointerEvent) => {
       dragRef.current = {
@@ -208,7 +208,11 @@ export function Component({
         startRotY: rotYRef.current,
         startRotX: rotXRef.current,
       };
-      (e.target as HTMLElement).setPointerCapture(e.pointerId);
+      if (e.pointerType === 'mouse') {
+        try {
+          (e.target as HTMLElement).setPointerCapture(e.pointerId);
+        } catch {}
+      }
     },
     []
   );
@@ -241,10 +245,14 @@ export function Component({
     <canvas
       ref={canvasRef}
       className={cn(
-        "w-full h-full max-w-full aspect-square cursor-grab active:cursor-grabbing select-none touch-none",
+        "w-full h-full max-w-full aspect-square cursor-grab active:cursor-grabbing select-none touch-pan-y",
         className
       )}
-      style={size ? { maxWidth: size, maxHeight: size } : undefined}
+      style={{
+        maxWidth: size || undefined,
+        maxHeight: size || undefined,
+        touchAction: 'pan-y'
+      }}
       onPointerDown={onPointerDown}
       onPointerMove={onPointerMove}
       onPointerUp={onPointerUp}

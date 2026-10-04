@@ -51,14 +51,17 @@ export const AdvisoryBoardPage: React.FC = () => {
           {advisoryBoardMembers.map((member, idx) => (
             <div
               key={idx}
-              className="w-[calc(50%-6px)] sm:w-[calc(33.333%-14px)] lg:w-[calc(25%-15px)] p-3 sm:p-5 rounded-2xl border border-[var(--border-subtle)] bg-[var(--bg-card)] hover:border-[var(--accent-gold)]/40 transition-all flex flex-col justify-between space-y-3 shadow-2xs group"
+              className="w-[calc(50%-6px)] sm:w-[calc(33.333%-14px)] lg:w-[calc(25%-15px)] p-3 sm:p-5 rounded-2xl border border-[var(--border-subtle)] bg-[var(--bg-card)] hover:border-[var(--accent-gold)]/40 transition-[border-color,box-shadow] duration-200 flex flex-col justify-between space-y-3 shadow-2xs group"
+              style={{ contentVisibility: 'auto', containIntrinsicSize: '200px 320px' }}
             >
               <div className="space-y-2.5">
                 <div className="w-full aspect-[4/5] rounded-xl border border-[var(--border-strong)] overflow-hidden shrink-0 shadow-xs bg-neutral-100 dark:bg-neutral-800">
                   <img
                     src={member.photo}
                     alt={member.name}
-                    className="w-full h-full object-cover object-top"
+                    loading="lazy"
+                    decoding="async"
+                    className="w-full h-full object-cover object-top will-change-auto"
                     onError={(e) => {
                       (e.target as HTMLElement).style.display = 'none';
                     }}

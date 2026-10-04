@@ -58,7 +58,9 @@ const MemberPhoto: React.FC<{
       <img
         src={photo}
         alt={name}
-        className="w-full h-full object-cover object-top"
+        loading="lazy"
+        decoding="async"
+        className="w-full h-full object-cover object-top will-change-auto"
         onError={() => setImgError(true)}
       />
     </div>
@@ -176,7 +178,10 @@ export const EditorialBoardPage: React.FC = () => {
 
         <div className="flex flex-wrap justify-center gap-3 sm:gap-5">
           {/* Chief Editor Card */}
-          <div className="w-[calc(50%-6px)] sm:w-[calc(33.333%-14px)] lg:w-[calc(25%-15px)] p-3 sm:p-5 rounded-2xl border border-[var(--border-strong)] bg-[var(--bg-card)] hover:border-[var(--accent-gold)]/40 transition-all flex flex-col justify-between space-y-3 shadow-2xs group">
+          <div 
+            className="w-[calc(50%-6px)] sm:w-[calc(33.333%-14px)] lg:w-[calc(25%-15px)] p-3 sm:p-5 rounded-2xl border border-[var(--border-strong)] bg-[var(--bg-card)] hover:border-[var(--accent-gold)]/40 transition-[border-color,box-shadow] duration-200 flex flex-col justify-between space-y-3 shadow-2xs group"
+            style={{ contentVisibility: 'auto', containIntrinsicSize: '200px 320px' }}
+          >
             <div className="space-y-2.5">
               <MemberPhoto photo="/chief-editor.jpeg" name="Dr. Shahanshah Gulpham" />
 
@@ -200,7 +205,10 @@ export const EditorialBoardPage: React.FC = () => {
           </div>
 
           {/* Co-Editor-in-Chief Card */}
-          <div className="w-[calc(50%-6px)] sm:w-[calc(33.333%-14px)] lg:w-[calc(25%-15px)] p-3 sm:p-5 rounded-2xl border border-[var(--border-strong)] bg-[var(--bg-card)] hover:border-[var(--accent-gold)]/40 transition-all flex flex-col justify-between space-y-3 shadow-2xs group">
+          <div 
+            className="w-[calc(50%-6px)] sm:w-[calc(33.333%-14px)] lg:w-[calc(25%-15px)] p-3 sm:p-5 rounded-2xl border border-[var(--border-strong)] bg-[var(--bg-card)] hover:border-[var(--accent-gold)]/40 transition-[border-color,box-shadow] duration-200 flex flex-col justify-between space-y-3 shadow-2xs group"
+            style={{ contentVisibility: 'auto', containIntrinsicSize: '200px 320px' }}
+          >
             <div className="space-y-2.5">
               <MemberPhoto photo="/co-editor-in-chief.jpeg" name="Mr. Pravesh Shekhar" />
 
@@ -243,7 +251,8 @@ export const EditorialBoardPage: React.FC = () => {
           {associateEditors.map((member, idx) => (
             <div
               key={idx}
-              className="w-[calc(50%-6px)] sm:w-[calc(33.333%-14px)] lg:w-[calc(25%-15px)] p-3 sm:p-5 rounded-2xl border border-[var(--border-subtle)] bg-[var(--bg-card)] hover:border-[var(--accent-gold)]/40 transition-all flex flex-col justify-between space-y-3 shadow-2xs group"
+              className="w-[calc(50%-6px)] sm:w-[calc(33.333%-14px)] lg:w-[calc(25%-15px)] p-3 sm:p-5 rounded-2xl border border-[var(--border-subtle)] bg-[var(--bg-card)] hover:border-[var(--accent-gold)]/40 transition-[border-color,box-shadow] duration-200 flex flex-col justify-between space-y-3 shadow-2xs group"
+              style={{ contentVisibility: 'auto', containIntrinsicSize: '200px 320px' }}
             >
               <div className="space-y-2.5">
                 {/* Academic Avatar / Official Photo - Big Portrait */}
@@ -286,7 +295,8 @@ export const EditorialBoardPage: React.FC = () => {
           {editors.map((editor, idx) => (
             <div
               key={idx}
-              className="w-[calc(50%-6px)] sm:w-[calc(33.333%-14px)] lg:w-[calc(25%-15px)] p-3 sm:p-5 rounded-2xl border border-[var(--border-subtle)] bg-[var(--bg-card)] hover:border-[var(--accent-gold)]/40 transition-all flex flex-col justify-between space-y-3 shadow-2xs group"
+              className="w-[calc(50%-6px)] sm:w-[calc(33.333%-14px)] lg:w-[calc(25%-15px)] p-3 sm:p-5 rounded-2xl border border-[var(--border-subtle)] bg-[var(--bg-card)] hover:border-[var(--accent-gold)]/40 transition-[border-color,box-shadow] duration-200 flex flex-col justify-between space-y-3 shadow-2xs group"
+              style={{ contentVisibility: 'auto', containIntrinsicSize: '200px 320px' }}
             >
               <div className="space-y-2.5">
                 <MemberPhoto photo={editor.photo} name={editor.name} />
@@ -321,7 +331,10 @@ export const EditorialBoardPage: React.FC = () => {
         </div>
 
         <div className="flex flex-wrap justify-center gap-3 sm:gap-5">
-          <div className="w-[calc(50%-6px)] sm:w-[calc(33.333%-14px)] lg:w-[calc(25%-15px)] p-3 sm:p-5 rounded-2xl border border-[var(--border-subtle)] bg-[var(--bg-card)] hover:border-[var(--accent-gold)]/40 transition-all flex flex-col justify-between space-y-3 shadow-2xs group">
+          <div 
+            className="w-[calc(50%-6px)] sm:w-[calc(33.333%-14px)] lg:w-[calc(25%-15px)] p-3 sm:p-5 rounded-2xl border border-[var(--border-subtle)] bg-[var(--bg-card)] hover:border-[var(--accent-gold)]/40 transition-[border-color,box-shadow] duration-200 flex flex-col justify-between space-y-3 shadow-2xs group"
+            style={{ contentVisibility: 'auto', containIntrinsicSize: '200px 320px' }}
+          >
             <div className="space-y-2.5">
               <MemberPhoto photo="/editorial-board/abhinavkumar.jpeg" name="Abhinav Kumar" />
               <div className="space-y-1 min-w-0 text-center">
