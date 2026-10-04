@@ -137,8 +137,8 @@ export const onRequestPost = async (context: {
     const editorMessage = (formData.get("editorMessage") as string)?.trim() || "";
     const turnstileToken = (formData.get("turnstileToken") as string)?.trim() || "";
 
-    // 2. Validate mandatory text inputs
-    if (!authorName || !authorEmail || !authorPhone || !title || !abstractText || !keywords) {
+    // 2. Validate mandatory text inputs (Phone is optional)
+    if (!authorName || !authorEmail || !title || !abstractText || !keywords) {
       return new Response(
         JSON.stringify({ success: false, message: "Missing required manuscript or author fields." }),
         { status: 400, headers: { "Content-Type": "application/json" } }

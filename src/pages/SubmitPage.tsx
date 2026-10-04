@@ -18,7 +18,8 @@ import {
   Phone,
   ChevronDown,
   Search,
-  RotateCcw
+  RotateCcw,
+  Mail
 } from 'lucide-react';
 import ReactCountryFlag from 'react-country-flag';
 import { 
@@ -308,19 +309,17 @@ export const SubmitPage: React.FC = () => {
       return;
     }
 
-    if (!rawPhoneDigits) {
-      setValidationError(`Please enter the Contact / WhatsApp Phone Number for ${selectedCountry.name}.`);
-      return;
-    }
+    // Phone Number validation (Optional: only validate if author entered digits)
+    if (rawPhoneDigits) {
+      if (rawPhoneDigits.length < maxDigits) {
+        setValidationError(`Please enter a complete ${maxDigits}-digit phone number for ${selectedCountry.name} (currently ${rawPhoneDigits.length}/${maxDigits} digits), or leave it empty.`);
+        return;
+      }
 
-    if (rawPhoneDigits.length < maxDigits) {
-      setValidationError(`Please enter a complete ${maxDigits}-digit phone number for ${selectedCountry.name} (currently ${rawPhoneDigits.length}/${maxDigits} digits).`);
-      return;
-    }
-
-    if (!isValidPhoneNumber(rawPhoneDigits, selectedCountry.country as CountryCode)) {
-      setValidationError(`Please enter a valid phone number for ${selectedCountry.name} (e.g. ${placeholderText}).`);
-      return;
+      if (!isValidPhoneNumber(rawPhoneDigits, selectedCountry.country as CountryCode)) {
+        setValidationError(`Please enter a valid phone number for ${selectedCountry.name} (e.g. ${placeholderText}), or leave it empty.`);
+        return;
+      }
     }
 
     if (!title.trim()) {
@@ -389,7 +388,7 @@ export const SubmitPage: React.FC = () => {
       const formData = new FormData();
       formData.append('authorName', authorName.trim());
       formData.append('authorEmail', authorEmail.trim());
-      formData.append('authorPhone', `${countryCode} ${authorPhone.trim()}`);
+      formData.append('authorPhone', rawPhoneDigits ? `${countryCode} ${authorPhone.trim()}` : '');
       formData.append('title', title.trim());
       const resolvedArticleType = articleType === 'Other' ? (customArticleType.trim() || 'Other Article') : articleType;
       formData.append('articleType', resolvedArticleType);
@@ -428,7 +427,7 @@ export const SubmitPage: React.FC = () => {
           articleType: resolvedArticleType as any,
           authorName: authorName.trim(),
           authorEmail: authorEmail.trim(),
-          authorPhone: `${countryCode} ${authorPhone.trim()}`,
+          authorPhone: rawPhoneDigits ? `${countryCode} ${authorPhone.trim()}` : '',
           authorOrcid: "Included in author file",
           authorAffiliation: "Provided in author file",
           creditRoles: ['Author'],
@@ -504,7 +503,7 @@ export const SubmitPage: React.FC = () => {
           articleType: resolvedArticleType as any,
           authorName: authorName.trim(),
           authorEmail: authorEmail.trim(),
-          authorPhone: `${countryCode} ${authorPhone.trim()}`,
+          authorPhone: rawPhoneDigits ? `${countryCode} ${authorPhone.trim()}` : '',
           authorOrcid: "Included in author file",
           authorAffiliation: "Provided in author file",
           creditRoles: ['Author'],
@@ -673,7 +672,9 @@ Editorial Desk: thecrimeandsocietyreview@gmail.com
             </div>
             <div className="flex justify-between text-[var(--text-secondary)]">
               <span>Author Phone:</span>
-              <span className="font-mono text-[var(--text-primary)] truncate max-w-[240px]">{countryCode} {authorPhone}</span>
+              <span className="font-mono text-[var(--text-primary)] truncate max-w-[240px]">
+                {rawPhoneDigits ? `${countryCode} ${authorPhone}` : 'Not provided'}
+              </span>
             </div>
             <div className="flex justify-between text-[var(--text-secondary)]">
               <span>Title:</span>
@@ -699,6 +700,23 @@ Editorial Desk: thecrimeandsocietyreview@gmail.com
               <span>Status:</span>
               <span className="font-semibold text-amber-600 dark:text-amber-400">Stage 1: Editorial Screening</span>
             </div>
+          </div>
+        </div>
+
+        {/* Editorial Correction & Missing Detail Notice */}
+        <div className="max-w-md mx-auto p-4 rounded-xl border border-[var(--border-subtle)] bg-[var(--bg-card)] text-xs text-[var(--text-secondary)] flex items-start gap-3 text-left shadow-2xs">
+          <Mail className="w-4 h-4 text-[var(--accent-gold)] shrink-0 mt-0.5" />
+          <div className="space-y-1">
+            <p className="font-semibold text-[var(--text-primary)]">Missed anything or need to make a correction?</p>
+            <p className="leading-relaxed">
+              If any detail, author information, or document was missed, or if you need to submit a correction, please email our editorial desk along with your <strong>Tracking ID ({trackingId})</strong> at{' '}
+              <a
+                href={`mailto:thecrimeandsocietyreview@gmail.com?subject=Submission%20Correction%20/%20Query%20-%20${trackingId}`}
+                className="font-mono text-[var(--accent-navy)] dark:text-[var(--accent-gold)] underline font-semibold hover:opacity-80"
+              >
+                thecrimeandsocietyreview@gmail.com
+              </a>.
+            </p>
           </div>
         </div>
 
@@ -1359,7 +1377,7 @@ Editorial Desk: thecrimeandsocietyreview@gmail.com
                     {/* Phone Number with Country Code (Interactive SVG Flag selector + libphonenumber-js) */}
                     <div>
                       <label className="block text-xs font-medium text-[var(--text-primary)] mb-1">
-                        WhatsApp / Contact Phone *
+                        WhatsApp / Contact Phone <span className="text-[var(--text-muted)] font-normal">(Optional)</span>
                       </label>
                       <div className="relative" ref={countryDropdownRef}>
                         <div className="flex rounded-lg border border-[var(--border-subtle)] bg-[var(--bg-page)] focus-within:border-[var(--accent-navy)] focus-within:ring-1 focus-within:ring-[var(--accent-navy)] transition-all">
@@ -1392,7 +1410,6 @@ Editorial Desk: thecrimeandsocietyreview@gmail.com
                           {/* Phone Input with Dynamic Validation */}
                           <input
                             type="tel"
-                            required
                             value={authorPhone}
                             onChange={handlePhoneChange}
                             placeholder={placeholderText}
