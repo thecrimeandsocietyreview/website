@@ -11,13 +11,14 @@ import { JOURNAL_METADATA } from '../data/mockJournalData';
 import { GlobalNetworkSection } from '../components/common/GlobalNetworkSection';
 import Feature from '@/components/ui/block-feature';
 import { ShaderBackground } from '@/components/ui/shader-state';
+import { TextFlip } from '@/components/animata/text/text-flip';
 
 export const HomePage: React.FC = () => {
   return (
     <div className="space-y-6 sm:space-y-10 pb-12 animate-fadeIn">
 
       {/* ========================================================
-          HERO SECTION: Container with WebGL Shader Background
+          HERO SECTION: Container with WebGL Shader & Animated TextFlip Card
       ======================================================== */}
       <div className="w-full px-3.5 sm:px-6 pt-2 sm:pt-4">
         <div className="mx-auto w-full max-w-7xl">
@@ -25,78 +26,134 @@ export const HomePage: React.FC = () => {
             {/* WebGL Shader Background Animation */}
             <ShaderBackground className="absolute inset-0 w-full h-full pointer-events-none" />
 
-            {/* Hero Background Artwork - 100% Crisp & Clear, right-aligned, text safe */}
-            <img 
-              src="/hero-bg.png" 
-              alt="The Crime &amp; Society Review Artwork" 
-              className="absolute inset-y-0 right-0 w-full sm:w-4/5 lg:w-3/5 h-full object-cover object-right translate-x-[3%] sm:translate-x-[6%] lg:translate-x-[8%] select-none pointer-events-none" 
-            />
+            {/* Ambient Contrast Gradient ensuring Text Legibility & Shader Brilliance */}
+            <div className="absolute inset-0 bg-gradient-to-r from-slate-950/90 via-slate-950/60 to-slate-950/40 pointer-events-none" />
 
-            {/* Ambient Contrast Gradient ensuring Text Legibility on Left & Shader Brilliance */}
-            <div className="absolute inset-0 bg-gradient-to-r from-slate-950 via-slate-950/75 to-transparent pointer-events-none" />
+            <div className="relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 items-center px-6 sm:px-10 lg:px-12 py-14 sm:py-18 lg:py-20 text-left">
+              
+              {/* Left Column: Journal Brand, Badges, Title, Action Buttons */}
+              <div className="lg:col-span-7 space-y-6">
+                
+                {/* Badges */}
+                <div className="flex flex-wrap items-center justify-start gap-2.5 text-xs">
+                  <span className="px-3 py-1 rounded-full font-mono text-[11px] font-bold bg-amber-400/20 text-amber-300 border border-amber-400/30 flex items-center gap-1.5 shadow-2xs backdrop-blur-sm">
+                    <Award className="w-3.5 h-3.5 text-amber-400" /> Academic Journal
+                  </span>
+                  <span className="px-3 py-1 rounded-full font-mono text-[11px] font-semibold bg-white/10 text-slate-200 border border-white/20 flex items-center gap-1.5 shadow-2xs backdrop-blur-sm">
+                    <span className="w-2 h-2 rounded-full bg-amber-400 animate-pulse"></span>
+                    <span>ISSN: Coming Soon</span>
+                  </span>
+                  <div className="px-3 py-1 rounded-full bg-white/95 border border-white/40 flex items-center shadow-2xs">
+                    <img 
+                      src="/openaccess.png" 
+                      alt="Open Access" 
+                      className="h-7 sm:h-8 w-auto object-contain" 
+                    />
+                  </div>
+                </div>
 
-            <div className="relative z-10 max-w-2xl px-6 sm:px-10 lg:px-12 py-16 sm:py-20 lg:py-24 space-y-7 text-left">
-            
-            {/* Badges */}
-            <div className="flex flex-wrap items-center justify-start gap-2.5 text-xs">
-              <span className="px-3 py-1 rounded-full font-mono text-[11px] font-bold bg-amber-400/20 text-amber-300 border border-amber-400/30 flex items-center gap-1.5 shadow-2xs backdrop-blur-sm">
-                <Award className="w-3.5 h-3.5 text-amber-400" /> Academic Journal
-              </span>
-              <span className="px-3 py-1 rounded-full font-mono text-[11px] font-semibold bg-white/10 text-slate-200 border border-white/20 flex items-center gap-1.5 shadow-2xs backdrop-blur-sm">
-                <span className="w-2 h-2 rounded-full bg-amber-400 animate-pulse"></span>
-                <span>ISSN: Coming Soon</span>
-              </span>
-              <div className="px-3 py-1 rounded-full bg-white/95 border border-white/40 flex items-center shadow-2xs">
-                <img 
-                  src="/openaccess.png" 
-                  alt="Open Access" 
-                  className="h-7 sm:h-8 w-auto object-contain" 
-                />
+                {/* 1. Journal Name & Tagline */}
+                <div className="space-y-2.5">
+                  <h1 className="font-serif text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold text-white tracking-tight leading-tight drop-shadow-sm">
+                    The Crime &amp;
+                    <br />
+                    Society Review
+                  </h1>
+                  <p className="text-xs sm:text-sm font-sans tracking-wide text-amber-200/90 font-medium">
+                    {JOURNAL_METADATA.tagline}
+                  </p>
+                </div>
+
+                {/* Primary Action Buttons */}
+                <div className="flex flex-wrap items-center gap-3.5 pt-2">
+                  <Link
+                    to="/about"
+                    className="px-5 py-3 rounded-xl bg-white hover:bg-slate-100 text-slate-950 font-semibold text-xs sm:text-sm transition-all flex items-center gap-2 shadow-md"
+                  >
+                    <BookOpen className="w-4 h-4 text-amber-600" />
+                    <span>About the Journal</span>
+                    <ArrowRight className="w-4 h-4" />
+                  </Link>
+                  <Link
+                    to="/aims-scope"
+                    className="px-5 py-3 rounded-xl border border-white/25 hover:border-white/50 text-white font-semibold text-xs sm:text-sm transition-colors flex items-center gap-2 bg-white/10 hover:bg-white/15 backdrop-blur-md shadow-2xs"
+                  >
+                    <Target className="w-4 h-4 text-amber-400" />
+                    <span>Aims &amp; Scope</span>
+                  </Link>
+                  <Link
+                    to="/submit"
+                    className="px-5 py-3 rounded-xl bg-[var(--accent-gold)] hover:bg-[var(--accent-gold-hover)] text-slate-950 font-bold text-xs sm:text-sm shadow-md transition-all flex items-center gap-2"
+                  >
+                    <FileText className="w-4 h-4" />
+                    <span>Submit Manuscript</span>
+                  </Link>
+                </div>
+
               </div>
-            </div>
 
-            {/* 1. Journal Name & Tagline */}
-            <div className="space-y-2">
-              <h1 className="font-serif text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold text-white tracking-tight leading-tight drop-shadow-sm">
-                The Crime &amp;
-                <br />
-                Society Review
-              </h1>
-              <p className="text-xs sm:text-sm font-sans tracking-wide text-amber-200/90 font-medium">
-                {JOURNAL_METADATA.tagline}
-              </p>
-            </div>
+              {/* Right Column: Generous Dashed-Border Card with 4 Corner '+' Crosshairs & TextFlip */}
+              <div className="lg:col-span-5 flex justify-center lg:justify-end w-full">
+                <div className="relative w-full max-w-md lg:max-w-lg rounded-none border-2 border-dashed border-slate-400/50 dark:border-slate-500/50 bg-slate-900/40 dark:bg-slate-950/50 backdrop-blur-md p-8 sm:p-10 shadow-2xl flex flex-col justify-center min-h-[170px] sm:min-h-[200px]">
+                  {/* 4 Corner '+' Crosshairs (Exact alignment at the 4 intersection points) */}
+                  <svg
+                    className="absolute top-0 left-0 -translate-x-1/2 -translate-y-1/2 w-4 h-4 text-amber-400 select-none z-20 pointer-events-none"
+                    viewBox="0 0 16 16"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2.5"
+                  >
+                    <path d="M8 0v16M0 8h16" />
+                  </svg>
+                  <svg
+                    className="absolute top-0 right-0 translate-x-1/2 -translate-y-1/2 w-4 h-4 text-amber-400 select-none z-20 pointer-events-none"
+                    viewBox="0 0 16 16"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2.5"
+                  >
+                    <path d="M8 0v16M0 8h16" />
+                  </svg>
+                  <svg
+                    className="absolute bottom-0 left-0 -translate-x-1/2 translate-y-1/2 w-4 h-4 text-amber-400 select-none z-20 pointer-events-none"
+                    viewBox="0 0 16 16"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2.5"
+                  >
+                    <path d="M8 0v16M0 8h16" />
+                  </svg>
+                  <svg
+                    className="absolute bottom-0 right-0 translate-x-1/2 translate-y-1/2 w-4 h-4 text-amber-400 select-none z-20 pointer-events-none"
+                    viewBox="0 0 16 16"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2.5"
+                  >
+                    <path d="M8 0v16M0 8h16" />
+                  </svg>
 
-            {/* Primary Action Buttons */}
-            <div className="flex flex-wrap items-center gap-3.5 pt-2">
-              <Link
-                to="/about"
-                className="px-5 py-3 rounded-xl bg-white hover:bg-slate-100 text-slate-950 font-semibold text-xs sm:text-sm transition-all flex items-center gap-2 shadow-md"
-              >
-                <BookOpen className="w-4 h-4 text-amber-600" />
-                <span>About the Journal</span>
-                <ArrowRight className="w-4 h-4" />
-              </Link>
-              <Link
-                to="/aims-scope"
-                className="px-5 py-3 rounded-xl border border-white/25 hover:border-white/50 text-white font-semibold text-xs sm:text-sm transition-colors flex items-center gap-2 bg-white/10 hover:bg-white/15 backdrop-blur-md shadow-2xs"
-              >
-                <Target className="w-4 h-4 text-amber-400" />
-                <span>Aims &amp; Scope</span>
-              </Link>
-              <Link
-                to="/submit"
-                className="px-5 py-3 rounded-xl bg-[var(--accent-gold)] hover:bg-[var(--accent-gold-hover)] text-slate-950 font-bold text-xs sm:text-sm shadow-md transition-all flex items-center gap-2"
-              >
-                <FileText className="w-4 h-4" />
-                <span>Submit Manuscript</span>
-              </Link>
-            </div>
+                  {/* TextFlip Component: Only 'Focusing on' and flipping words */}
+                  <div className="space-y-1.5 sm:space-y-2.5">
+                    <p className="text-2xl sm:text-3xl lg:text-4xl font-bold font-serif text-white tracking-tight">
+                      Focusing on
+                    </p>
+                    <div className="text-2xl sm:text-3xl lg:text-4xl font-extrabold font-serif text-[var(--accent-gold)] dark:text-amber-400">
+                      <TextFlip
+                        prefix=""
+                        words={["Criminology", "Forensic Science", "Criminal Law", "Societal Justice", "Criminology"]}
+                        className="box-content flex text-2xl sm:text-3xl lg:text-4xl font-extrabold font-serif"
+                        wordClassName="text-[var(--accent-gold)] dark:text-amber-400 font-extrabold"
+                      />
+                    </div>
+                  </div>
+                </div>
+              </div>
 
-          </div>
-        </section>
+            </div>
+          </section>
+        </div>
       </div>
-    </div>
 
       {/* ========================================================
           INTERDISCIPLINARY PILLARS (ANIMATED FEATURE)
