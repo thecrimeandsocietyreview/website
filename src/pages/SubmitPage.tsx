@@ -17,7 +17,8 @@ import {
   MessageSquare,
   Phone,
   ChevronDown,
-  Search
+  Search,
+  RotateCcw
 } from 'lucide-react';
 import ReactCountryFlag from 'react-country-flag';
 import { 
@@ -181,8 +182,15 @@ export const SubmitPage: React.FC = () => {
   const [abstractText, setAbstractText] = useState('');
   const [editorMessage, setEditorMessage] = useState('');
 
-  // Cloudflare Turnstile Verification State
+  // Cloudflare Turnstile & Number Captcha Verification State
   const [turnstileToken, setTurnstileToken] = useState('');
+  const [captchaCode, setCaptchaCode] = useState(() => Math.floor(1000 + Math.random() * 9000).toString());
+  const [userCaptcha, setUserCaptcha] = useState('');
+
+  const refreshCaptcha = () => {
+    setCaptchaCode(Math.floor(1000 + Math.random() * 9000).toString());
+    setUserCaptcha('');
+  };
 
   // Author Information File (.doc/.docx only, max 5MB)
 
@@ -198,11 +206,12 @@ export const SubmitPage: React.FC = () => {
   const [blindManuscriptFileSize, setBlindManuscriptFileSize] = useState('');
   const [blindManuscriptFileError, setBlindManuscriptFileError] = useState('');
 
-  // 4 Declarations
+  // 5 Declarations
   const [declOriginal, setDeclOriginal] = useState(false);
   const [declApproved, setDeclApproved] = useState(false);
   const [declAccurate, setDeclAccurate] = useState(false);
   const [declBlind, setDeclBlind] = useState(false);
+  const [declGuidelines, setDeclGuidelines] = useState(false);
 
   // Status
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -350,8 +359,19 @@ export const SubmitPage: React.FC = () => {
       return;
     }
 
-    if (!declOriginal || !declApproved || !declAccurate || !declBlind) {
-      setValidationError('Please confirm all four mandatory declarations before submitting.');
+    if (!declOriginal || !declApproved || !declAccurate || !declBlind || !declGuidelines) {
+      setValidationError('Please confirm all five mandatory declarations before submitting.');
+      return;
+    }
+
+    // Number Captcha Verification
+    if (!userCaptcha.trim()) {
+      setValidationError('Please enter the 4-digit security code.');
+      return;
+    }
+
+    if (userCaptcha.trim() !== captchaCode) {
+      setValidationError('Incorrect security code. Please enter the 4-digit code shown or click refresh.');
       return;
     }
 
@@ -722,13 +742,13 @@ Editorial Desk: thecrimeandsocietyreview@gmail.com
   return (
     <div className="w-full max-w-[1440px] mx-auto px-4 sm:px-6 py-4 animate-fadeIn lg:h-[calc(100vh-4.25rem)] lg:overflow-hidden">
       
-      {/* 2-Column Desktop Grid: Left Guidelines (7 cols), Right Form (5 cols) */}
+      {/* 2-Column Desktop Grid: Left Guidelines (6 cols), Right Form (6 cols) */}
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:h-full lg:overflow-hidden items-start">
         
         {/* ========================================================
-            GUIDELINES COLUMN: (7 cols on desktop, order-2 on mobile)
+            GUIDELINES COLUMN: (6 cols on desktop, order-2 on mobile)
         ======================================================== */}
-        <div className="order-2 lg:order-1 lg:col-span-7 flex flex-col lg:h-full lg:overflow-hidden">
+        <div className="order-2 lg:order-1 lg:col-span-6 flex flex-col lg:h-full lg:overflow-hidden">
           
           {/* Quick Jump Bar - Stays stuck / pinned at top */}
           <div className="shrink-0 mb-3 p-3 rounded-xl border border-[var(--border-subtle)] bg-[var(--bg-card)] shadow-xs flex flex-wrap items-center gap-x-2 gap-y-1.5 text-xs font-mono sticky top-14 lg:static z-20">
@@ -1271,10 +1291,10 @@ Editorial Desk: thecrimeandsocietyreview@gmail.com
         </div>
 
         {/* ========================================================
-            SUBMISSION FORM COLUMN: (5 cols on desktop, order-1 on mobile)
+            SUBMISSION FORM COLUMN: (6 cols on desktop, order-1 on mobile)
             Locked in place on desktop - Stays sticky throughout entire page scroll
         ======================================================== */}
-        <div className="order-1 lg:order-2 lg:col-span-5 lg:h-full lg:overflow-y-auto pr-1 pb-4 custom-scrollbar">
+        <div className="order-1 lg:order-2 lg:col-span-6 lg:h-full lg:overflow-y-auto pr-1 pb-4 custom-scrollbar">
           <div className="p-6 rounded-2xl border border-[var(--border-strong)] bg-[var(--bg-card)] space-y-6 shadow-md">
             
             {/* Form Top Instruction */}
@@ -1737,6 +1757,19 @@ Editorial Desk: thecrimeandsocietyreview@gmail.com
                       I confirm that the manuscript has been prepared for blind peer review.
                     </span>
                   </label>
+
+                  <label className="flex items-start gap-2.5 cursor-pointer">
+                    <input
+                      type="checkbox"
+                      required
+                      checked={declGuidelines}
+                      onChange={(e) => setDeclGuidelines(e.target.checked)}
+                      className="mt-0.5 rounded text-[var(--accent-navy)] focus:ring-[var(--accent-navy)] shrink-0"
+                    />
+                    <span className="text-[var(--text-secondary)]">
+                      I confirm that I have gone through all the submission guidelines and terms and conditions.
+                    </span>
+                  </label>
                 </div>
 
                 {/* Message to the Editor (Optional) */}
@@ -1755,19 +1788,52 @@ Editorial Desk: thecrimeandsocietyreview@gmail.com
                 </div>
               </div>
 
-              {/* 6. SECURITY VERIFICATION (CLOUDFLARE TURNSTILE) */}
-              <div className="p-4 rounded-xl border border-[var(--border-subtle)] bg-[var(--bg-page)] space-y-3">
-                <div className="flex items-center justify-between border-b border-[var(--border-subtle)] pb-2">
-                  <div className="flex items-center gap-2 text-xs font-semibold text-[var(--text-primary)]">
-                    <ShieldCheck className="w-4 h-4 text-emerald-600 dark:text-emerald-400" />
-                    <span>6. Security Verification (Cloudflare Turnstile) *</span>
+              {/* Dual Security Verification: Left = Number Captcha, Right = Cloudflare Turnstile */}
+              <div className="pt-2 flex flex-col md:flex-row md:items-center justify-between gap-3">
+                {/* Left: Number Captcha */}
+                <div className="flex items-center gap-2">
+                  <div
+                    className="px-3 py-2 rounded-lg border border-[var(--border-subtle)] bg-[var(--bg-page)] font-mono font-bold text-sm tracking-widest text-[var(--accent-navy)] dark:text-[var(--accent-gold)] select-none shadow-xs shrink-0"
+                    title="Security Verification Code"
+                  >
+                    {captchaCode}
                   </div>
-                  <span className="text-[10px] font-mono text-emerald-600 dark:text-emerald-400 bg-emerald-500/10 px-2 py-0.5 rounded border border-emerald-500/20 font-bold">
-                    Cloudflare Protected
-                  </span>
+                  <button
+                    type="button"
+                    onClick={refreshCaptcha}
+                    className="p-2 rounded-lg border border-[var(--border-subtle)] bg-[var(--bg-page)] text-[var(--text-muted)] hover:text-[var(--text-primary)] hover:bg-[var(--bg-card)] transition-colors cursor-pointer shrink-0"
+                    title="Refresh Code"
+                  >
+                    <RotateCcw className="w-3.5 h-3.5" />
+                  </button>
+                  <div className="relative shrink-0">
+                    <input
+                      type="text"
+                      inputMode="numeric"
+                      maxLength={4}
+                      value={userCaptcha}
+                      onChange={(e) => {
+                        const val = e.target.value.replace(/\D/g, '').slice(0, 4);
+                        setUserCaptcha(val);
+                        if (validationError) setValidationError('');
+                      }}
+                      placeholder="Enter code"
+                      className={`w-24 text-xs p-2 rounded-lg border bg-[var(--bg-page)] text-[var(--text-primary)] font-mono tracking-wider focus:outline-hidden focus:ring-1 ${
+                        userCaptcha.length === 4
+                          ? userCaptcha === captchaCode
+                            ? 'border-emerald-500 text-emerald-600 focus:ring-emerald-500'
+                            : 'border-red-500 text-red-600 focus:ring-red-500'
+                          : 'border-[var(--border-subtle)] focus:ring-[var(--accent-navy)]'
+                      }`}
+                    />
+                    {userCaptcha.length === 4 && userCaptcha === captchaCode && (
+                      <Check className="w-3.5 h-3.5 text-emerald-500 absolute right-2 top-2.5 pointer-events-none" />
+                    )}
+                  </div>
                 </div>
 
-                <div className="flex justify-center py-1">
+                {/* Right: Cloudflare Turnstile */}
+                <div className="flex justify-start md:justify-end shrink-0">
                   <Turnstile
                     ref={turnstileRef}
                     siteKey={import.meta.env.VITE_CLOUDFLARE_TURNSTILE_SITE_KEY || '0x4AAAAAAFLt2iH7VYOSvoh1'}
@@ -1790,10 +1856,6 @@ Editorial Desk: thecrimeandsocietyreview@gmail.com
                     }}
                   />
                 </div>
-
-                <p className="text-[10px] text-[var(--text-muted)] font-mono text-center">
-                  Protected by Cloudflare Turnstile • Frictionless &amp; privacy-first academic submission security
-                </p>
               </div>
 
               {/* Submit Button */}
@@ -1805,9 +1867,6 @@ Editorial Desk: thecrimeandsocietyreview@gmail.com
                   isSubmitted={isSubmitted}
                   disabled={isSubmitting}
                 />
-                <p className="text-[10px] font-mono text-center text-[var(--text-muted)] mt-3">
-                  Diamond Open Access • ₹0 APC • Doc Files Only (Max 5 MB)
-                </p>
               </div>
 
             </form>

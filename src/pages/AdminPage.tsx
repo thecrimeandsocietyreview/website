@@ -709,18 +709,6 @@ export const AdminPage: React.FC = () => {
 
           {/* Quick System Indicators & User Actions */}
           <div className="flex items-center gap-2 sm:gap-3">
-            {/* Cloudflare Shield Indicator */}
-            <div className="hidden lg:flex items-center gap-1.5 px-2.5 py-1 rounded-md border border-emerald-500/30 bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 text-[11px] font-mono">
-              <ShieldCheck className="w-3.5 h-3.5" />
-              <span>Turnstile Active</span>
-            </div>
-
-            {/* Cloudflare R2 Storage Indicator */}
-            <div className="hidden xl:flex items-center gap-1.5 px-2.5 py-1 rounded-md border border-[var(--border-subtle)] bg-[var(--bg-page)] text-[var(--text-muted)] text-[11px] font-mono">
-              <HardDrive className="w-3.5 h-3.5 text-[var(--accent-gold)]" />
-              <span>R2: 10 GB Free Tier</span>
-            </div>
-
             {/* Dark / Light Mode Toggle */}
             <button
               onClick={toggleTheme}
@@ -733,28 +721,33 @@ export const AdminPage: React.FC = () => {
             {/* View Public Site */}
             <Link
               to="/"
-              className="hidden sm:inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-[var(--border-subtle)] bg-[var(--bg-page)] text-xs font-semibold text-[var(--text-secondary)] hover:text-[var(--text-primary)] transition-colors"
+              className="hidden sm:inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-[var(--border-subtle)] bg-[var(--bg-page)] text-xs font-semibold text-[var(--text-secondary)] hover:text-[var(--text-primary)] transition-colors whitespace-nowrap shrink-0"
             >
-              <ExternalLink className="w-3.5 h-3.5" />
+              <ExternalLink className="w-3.5 h-3.5 shrink-0" />
               <span>Journal Home</span>
             </Link>
 
             {/* Authenticated User Badge */}
             {currentUser && (
-              <div className="hidden md:flex items-center gap-2 px-2.5 py-1 rounded-md border border-[var(--border-subtle)] bg-[var(--bg-page)] text-xs font-mono">
-                <Shield className="w-3.5 h-3.5 text-emerald-600" />
-                <span className="font-bold text-[var(--text-primary)]">{currentUser.displayName}</span>
-                <span className="text-[var(--text-muted)] text-[10px]">({currentUser.role})</span>
+              <div className="hidden md:flex items-center gap-2 px-2.5 py-1 rounded-md border border-[var(--border-subtle)] bg-[var(--bg-page)] text-xs font-mono whitespace-nowrap shrink-0">
+                <Shield className="w-3.5 h-3.5 text-emerald-600 shrink-0" />
+                <span className="font-bold text-[var(--text-primary)]">
+                  {currentUser.username?.toUpperCase().includes('02') ||
+                   currentUser.displayName?.toLowerCase().includes('managing') ||
+                   currentUser.displayName?.toLowerCase().includes('co-')
+                    ? 'Co-Editor-in-Chief'
+                    : 'Editor-in-Chief'}
+                </span>
               </div>
             )}
 
             {/* Logout */}
             <button
               onClick={handleLogout}
-              className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-red-500/30 bg-red-500/10 text-red-600 dark:text-red-400 text-xs font-semibold hover:bg-red-500/20 transition-colors"
+              className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-red-500/30 bg-red-500/10 text-red-600 dark:text-red-400 text-xs font-semibold hover:bg-red-500/20 transition-colors whitespace-nowrap shrink-0"
             >
-              <LogOut className="w-3.5 h-3.5" />
-              <span className="hidden sm:inline">Sign Out</span>
+              <LogOut className="w-3.5 h-3.5 shrink-0" />
+              <span className="whitespace-nowrap">Sign Out</span>
             </button>
           </div>
         </div>
@@ -840,38 +833,48 @@ export const AdminPage: React.FC = () => {
         {/* TAB 1: SUBMISSIONS MANAGEMENT */}
         {/* ===================================================================== */}
         {activeTab === 'submissions' && (
-          <div className="space-y-6">
+          <div className="space-y-4 sm:space-y-5">
             
-            {/* KPI Cards Row */}
-            <div className="grid grid-cols-2 sm:grid-cols-5 gap-3 sm:gap-4">
-              <div className="p-4 rounded-xl border border-[var(--border-subtle)] bg-[var(--bg-card)] space-y-1">
-                <span className="text-[11px] font-mono text-[var(--text-muted)] block">Total Received</span>
-                <div className="text-2xl font-serif font-bold text-[var(--text-primary)]">{stats.total}</div>
-                <span className="text-[10px] text-emerald-600 dark:text-emerald-400 font-mono">100% Tracked</span>
+            {/* KPI Cards Row (Compact Horizontal Layout) */}
+            <div className="grid grid-cols-2 sm:grid-cols-5 gap-2.5 sm:gap-3">
+              <div className="p-2.5 sm:p-3 rounded-xl border border-[var(--border-subtle)] bg-[var(--bg-card)] flex items-center gap-2.5 sm:gap-3">
+                <div className="text-2xl font-serif font-bold text-[var(--text-primary)] leading-none shrink-0">{stats.total}</div>
+                <div className="min-w-0">
+                  <span className="text-[11px] font-mono text-[var(--text-muted)] block leading-tight truncate">Total Received</span>
+                  <span className="text-[10px] text-emerald-600 dark:text-emerald-400 font-mono block leading-tight truncate mt-0.5">100% Tracked</span>
+                </div>
               </div>
 
-              <div className="p-4 rounded-xl border border-[var(--border-subtle)] bg-[var(--bg-card)] space-y-1">
-                <span className="text-[11px] font-mono text-[var(--text-muted)] block">Editorial Triage</span>
-                <div className="text-2xl font-serif font-bold text-amber-500">{stats.triage}</div>
-                <span className="text-[10px] text-[var(--text-muted)] font-mono">Awaiting Reviewer</span>
+              <div className="p-2.5 sm:p-3 rounded-xl border border-[var(--border-subtle)] bg-[var(--bg-card)] flex items-center gap-2.5 sm:gap-3">
+                <div className="text-2xl font-serif font-bold text-amber-500 leading-none shrink-0">{stats.triage}</div>
+                <div className="min-w-0">
+                  <span className="text-[11px] font-mono text-[var(--text-muted)] block leading-tight truncate">Editorial Triage</span>
+                  <span className="text-[10px] text-[var(--text-muted)] font-mono block leading-tight truncate mt-0.5">Awaiting Reviewer</span>
+                </div>
               </div>
 
-              <div className="p-4 rounded-xl border border-[var(--border-subtle)] bg-[var(--bg-card)] space-y-1">
-                <span className="text-[11px] font-mono text-[var(--text-muted)] block">In Peer Review</span>
-                <div className="text-2xl font-serif font-bold text-blue-500">{stats.underReview}</div>
-                <span className="text-[10px] text-blue-500 font-mono">Referees Active</span>
+              <div className="p-2.5 sm:p-3 rounded-xl border border-[var(--border-subtle)] bg-[var(--bg-card)] flex items-center gap-2.5 sm:gap-3">
+                <div className="text-2xl font-serif font-bold text-blue-500 leading-none shrink-0">{stats.underReview}</div>
+                <div className="min-w-0">
+                  <span className="text-[11px] font-mono text-[var(--text-muted)] block leading-tight truncate">In Peer Review</span>
+                  <span className="text-[10px] text-blue-500 font-mono block leading-tight truncate mt-0.5">Referees Active</span>
+                </div>
               </div>
 
-              <div className="p-4 rounded-xl border border-[var(--border-subtle)] bg-[var(--bg-card)] space-y-1">
-                <span className="text-[11px] font-mono text-[var(--text-muted)] block">Revisions</span>
-                <div className="text-2xl font-serif font-bold text-purple-500">{stats.revisions}</div>
-                <span className="text-[10px] text-purple-500 font-mono">Author Action</span>
+              <div className="p-2.5 sm:p-3 rounded-xl border border-[var(--border-subtle)] bg-[var(--bg-card)] flex items-center gap-2.5 sm:gap-3">
+                <div className="text-2xl font-serif font-bold text-purple-500 leading-none shrink-0">{stats.revisions}</div>
+                <div className="min-w-0">
+                  <span className="text-[11px] font-mono text-[var(--text-muted)] block leading-tight truncate">Revisions</span>
+                  <span className="text-[10px] text-purple-500 font-mono block leading-tight truncate mt-0.5">Author Action</span>
+                </div>
               </div>
 
-              <div className="p-4 rounded-xl border border-[var(--border-subtle)] bg-[var(--bg-card)] space-y-1 col-span-2 sm:col-span-1">
-                <span className="text-[11px] font-mono text-[var(--text-muted)] block">Accepted / Record</span>
-                <div className="text-2xl font-serif font-bold text-emerald-600">{stats.accepted}</div>
-                <span className="text-[10px] text-emerald-600 font-mono">Continuous Release</span>
+              <div className="p-2.5 sm:p-3 rounded-xl border border-[var(--border-subtle)] bg-[var(--bg-card)] flex items-center gap-2.5 sm:gap-3 col-span-2 sm:col-span-1">
+                <div className="text-2xl font-serif font-bold text-emerald-600 leading-none shrink-0">{stats.accepted}</div>
+                <div className="min-w-0">
+                  <span className="text-[11px] font-mono text-[var(--text-muted)] block leading-tight truncate">Accepted / Record</span>
+                  <span className="text-[10px] text-emerald-600 font-mono block leading-tight truncate mt-0.5">Continuous Release</span>
+                </div>
               </div>
             </div>
 
@@ -953,11 +956,12 @@ export const AdminPage: React.FC = () => {
                         >
                           {/* Tracking ID */}
                           <td className="py-3.5 px-4 font-mono font-bold text-[var(--accent-navy)] dark:text-[var(--accent-gold)] whitespace-nowrap">
-                            <div className="flex items-center gap-1.5">
+                            <div className="flex items-center gap-2">
                               <span>{sub.trackingNumber}</span>
                               {sub.blindFileKey && (
-                                <span className="px-1.5 py-0.5 rounded text-[9px] font-mono uppercase bg-blue-500/10 text-blue-600 dark:text-blue-400 border border-blue-500/20 font-semibold" title="Live record stored in Cloudflare D1 & R2">
-                                  D1 Live
+                                <span className="relative flex h-2 w-2" title="Cloudflare D1 Live Record">
+                                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-blue-400 opacity-75"></span>
+                                  <span className="relative inline-flex rounded-full h-2 w-2 bg-blue-500"></span>
                                 </span>
                               )}
                               <button
@@ -973,16 +977,6 @@ export const AdminPage: React.FC = () => {
                                 ) : (
                                   <Copy className="w-3 h-3 text-[var(--text-muted)]" />
                                 )}
-                              </button>
-                              <button
-                                onClick={(e) => {
-                                  e.stopPropagation();
-                                  handleDeleteSubmission(sub.id);
-                                }}
-                                className="p-1 rounded text-neutral-400 hover:text-red-500 hover:bg-red-500/10 transition-colors ml-0.5"
-                                title="Quick Delete Submission (Zero Scroll)"
-                              >
-                                <Trash2 className="w-3 h-3 text-red-500/80 hover:text-red-600" />
                               </button>
                             </div>
                           </td>
@@ -1044,9 +1038,9 @@ export const AdminPage: React.FC = () => {
 
                           {/* Security */}
                           <td className="py-3.5 px-4 whitespace-nowrap">
-                            <span className="inline-flex items-center gap-1 text-[11px] font-mono text-emerald-600 dark:text-emerald-400" title="Cloudflare Turnstile Verified">
-                              <ShieldCheck className="w-3.5 h-3.5" />
-                              <span>Turnstile ✓</span>
+                            <span className="inline-flex items-center gap-1 text-emerald-600 dark:text-emerald-400" title="Security Verified">
+                              <Shield className="w-3.5 h-3.5" />
+                              <Check className="w-3.5 h-3.5 stroke-[2.5]" />
                             </span>
                           </td>
 
