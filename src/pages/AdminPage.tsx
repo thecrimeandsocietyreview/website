@@ -40,7 +40,9 @@ import {
   BarChart3,
   KeyRound,
   User,
-  Shield
+  Shield,
+  Archive,
+  RotateCcw
 } from 'lucide-react';
 import { SubmissionDraft } from '../types/journal';
 import { useTheme } from '../context/ThemeContext';
@@ -155,7 +157,7 @@ export const AdminPage: React.FC = () => {
   const [authError, setAuthError] = useState('');
 
   // Active Tab
-  const [activeTab, setActiveTab] = useState<'submissions' | 'cloudflare'>('submissions');
+  const [activeTab, setActiveTab] = useState<'submissions' | 'deleted' | 'cloudflare'>('submissions');
 
   // Submissions State (Exclusively Real Data from Cloudflare D1)
   const [submissions, setSubmissions] = useState<SubmissionDraft[]>(() => {
@@ -179,6 +181,32 @@ export const AdminPage: React.FC = () => {
 
   const [isRefreshing, setIsRefreshing] = useState(false);
   const [liveD1Count, setLiveD1Count] = useState(0);
+
+  // Deleted Submissions Archive (Accidental Deletion Protection)
+  const [deletedSubmissions, setDeletedSubmissions] = useState<any[]>([]);
+  const [deletedLoading, setDeletedLoading] = useState(false);
+  const [deletedSearchQuery, setDeletedSearchQuery] = useState('');
+
+  // Custom Delete Modal State (Replaces native browser window.confirm popup)
+  const [deleteTargetSub, setDeleteTargetSub] = useState<SubmissionDraft | null>(null);
+  const [deleteReason, setDeleteReason] = useState('Withdrawn or deleted by Editorial Office');
+  const [isDeleting, setIsDeleting] = useState(false);
+
+  // Custom Restore Modal State
+  const [restoreTargetNumber, setRestoreTargetNumber] = useState<string | null>(null);
+  const [isRestoring, setIsRestoring] = useState(false);
+
+  // Toast Notification State
+  const [toastNotification, setToastNotification] = useState<{ message: string; type: 'success' | 'error' } | null>(null);
+  const showToast = (message: string, type: 'success' | 'error' = 'success') => {
+    setToastNotification({ message, type });
+    setTimeout(() => setToastNotification(null), 4000);
+  };
+
+  const openDeleteModal = (sub: SubmissionDraft) => {
+    setDeleteTargetSub(sub);
+    setDeleteReason('Withdrawn or deleted by Editorial Office');
+  };
 
   // Selected Submission for Detailed Dossier Modal
   const [selectedSub, setSelectedSub] = useState<SubmissionDraft | null>(null);
@@ -255,10 +283,30 @@ export const AdminPage: React.FC = () => {
     }
   };
 
+  // Fetch deleted submissions from Cloudflare D1 archive
+  const fetchDeletedSubmissions = async () => {
+    setDeletedLoading(true);
+    try {
+      const res = await fetch('/api/admin/deleted-submissions');
+      if (res.ok) {
+        const data = await res.json();
+        const list = data.deletedSubmissions || data.deleted || [];
+        if (data.success && Array.isArray(list)) {
+          setDeletedSubmissions(list);
+        }
+      }
+    } catch (err) {
+      console.error('Failed to fetch deleted submissions:', err);
+    } finally {
+      setDeletedLoading(false);
+    }
+  };
+
   // Auto-fetch on mount when authenticated
   useEffect(() => {
     if (isAuthenticated) {
       fetchLiveSubmissions();
+      fetchDeletedSubmissions();
     }
   }, [isAuthenticated]);
 
@@ -393,33 +441,85 @@ export const AdminPage: React.FC = () => {
     }
   };
 
-  // Delete Submission (Retires tracking ID and updates Cloudflare D1)
-  const handleDeleteSubmission = async (subId: string) => {
+  // Delete Submission: opens beautiful custom UI popup (No browser native alert)
+  const handleDeleteSubmission = (subId: string) => {
     const targetSub = submissions.find(s => s.id === subId);
     if (!targetSub) return;
+    openDeleteModal(targetSub);
+  };
 
-    if (window.confirm(`Are you sure you want to permanently retire and delete submission ${targetSub.trackingNumber}? This tracking ID will be permanently blacklisted.`)) {
-      const updated = submissions.filter(s => s.id !== subId);
+  // Executes deletion from Cloudflare D1 and archives into deleted_submissions
+  const executeDeleteSubmission = async () => {
+    if (!deleteTargetSub) return;
+    const targetSub = deleteTargetSub;
+    setIsDeleting(true);
+
+    try {
+      // Optimistically update local view
+      const updated = submissions.filter(s => s.id !== targetSub.id);
       saveSubmissions(updated);
-      if (selectedSub?.id === subId) {
+      if (selectedSub?.id === targetSub.id) {
         setSelectedSub(null);
       }
 
       // Persist to Cloudflare D1
       if (targetSub.trackingNumber) {
-        try {
-          await fetch('/api/admin/delete-submission', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-              trackingNumber: targetSub.trackingNumber,
-              reason: 'Deleted by Admin via Editorial Console'
-            })
-          });
-        } catch (err) {
-          console.error("Failed to retire submission in Cloudflare D1:", err);
+        const res = await fetch('/api/admin/delete-submission', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            trackingNumber: targetSub.trackingNumber,
+            reason: deleteReason || 'Withdrawn or deleted by Editorial Office'
+          })
+        });
+
+        const data = await res.json().catch(() => null);
+        if (!res.ok || !data?.success) {
+          console.error("D1 deletion error:", data?.message);
+          showToast(`Cloudflare D1 Delete Failed: ${data?.message || 'Database error'}. Re-syncing list.`, 'error');
+          fetchLiveSubmissions();
+        } else {
+          showToast(`Submission ${targetSub.trackingNumber} archived to Deleted Submissions.`, 'success');
+          fetchDeletedSubmissions();
         }
       }
+      setDeleteTargetSub(null);
+    } catch (err: any) {
+      console.error("Failed to delete submission in Cloudflare D1:", err);
+      showToast(`Network error: ${err?.message || 'Could not connect to server'}`, 'error');
+      fetchLiveSubmissions();
+    } finally {
+      setIsDeleting(false);
+    }
+  };
+
+  // Restore Submission: opens custom confirmation modal
+  const handleRestoreSubmission = (trackingNumber: string) => {
+    setRestoreTargetNumber(trackingNumber);
+  };
+
+  // Executes restoration back into active submissions table in D1
+  const executeRestoreSubmission = async (trackingNumber: string) => {
+    setIsRestoring(true);
+    try {
+      const res = await fetch('/api/admin/restore-submission', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ trackingNumber })
+      });
+      const data = await res.json().catch(() => null);
+      if (res.ok && data?.success) {
+        showToast(data.message || `Submission ${trackingNumber} successfully restored!`, 'success');
+        fetchLiveSubmissions();
+        fetchDeletedSubmissions();
+        setRestoreTargetNumber(null);
+      } else {
+        showToast(`Restore failed: ${data?.message || 'Database error'}`, 'error');
+      }
+    } catch (err: any) {
+      showToast(`Network error: ${err?.message || 'Could not connect'}`, 'error');
+    } finally {
+      setIsRestoring(false);
     }
   };
 
@@ -683,6 +783,22 @@ export const AdminPage: React.FC = () => {
               </span>
             </button>
 
+            <button
+              onClick={() => { setActiveTab('deleted'); fetchDeletedSubmissions(); }}
+              className={`px-3.5 py-2 rounded-lg text-xs font-semibold transition-all flex items-center gap-2 shrink-0 ${
+                activeTab === 'deleted'
+                  ? 'bg-[var(--accent-navy)] text-white shadow-xs'
+                  : 'text-[var(--text-secondary)] hover:bg-[var(--bg-card)]'
+              }`}
+            >
+              <Archive className="w-3.5 h-3.5" />
+              <span>Deleted Submissions</span>
+              <span className={`px-1.5 py-0.2 rounded-full text-[10px] font-mono ${
+                activeTab === 'deleted' ? 'bg-white/20 text-white' : 'bg-red-500/10 text-red-600 dark:text-red-400 font-semibold'
+              }`}>
+                {deletedSubmissions.length}
+              </span>
+            </button>
 
             <button
               onClick={() => setActiveTab('cloudflare')}
@@ -811,7 +927,7 @@ export const AdminPage: React.FC = () => {
                       <th className="py-3 px-4 font-semibold">Date</th>
                       <th className="py-3 px-4 font-semibold">Status</th>
                       <th className="py-3 px-4 font-semibold">Security</th>
-                      <th className="py-3 px-4 font-semibold text-right">Actions</th>
+                      <th className="sticky right-0 z-10 py-3 px-4 font-semibold text-right bg-[var(--bg-page)] shadow-[-6px_0_12px_-4px_rgba(0,0,0,0.15)]">Actions</th>
                     </tr>
                   </thead>
                   <tbody className="divide-y divide-[var(--border-subtle)]">
@@ -857,6 +973,16 @@ export const AdminPage: React.FC = () => {
                                 ) : (
                                   <Copy className="w-3 h-3 text-[var(--text-muted)]" />
                                 )}
+                              </button>
+                              <button
+                                onClick={(e) => {
+                                  e.stopPropagation();
+                                  handleDeleteSubmission(sub.id);
+                                }}
+                                className="p-1 rounded text-neutral-400 hover:text-red-500 hover:bg-red-500/10 transition-colors ml-0.5"
+                                title="Quick Delete Submission (Zero Scroll)"
+                              >
+                                <Trash2 className="w-3 h-3 text-red-500/80 hover:text-red-600" />
                               </button>
                             </div>
                           </td>
@@ -924,8 +1050,8 @@ export const AdminPage: React.FC = () => {
                             </span>
                           </td>
 
-                          {/* Actions */}
-                          <td className="py-3.5 px-4 text-right whitespace-nowrap" onClick={(e) => e.stopPropagation()}>
+                          {/* Actions (Sticky Right Column: zero scroll needed) */}
+                          <td className="sticky right-0 z-10 py-3.5 px-4 text-right whitespace-nowrap bg-[var(--bg-card)] group-hover:bg-[var(--bg-card-hover)] shadow-[-6px_0_12px_-4px_rgba(0,0,0,0.15)]" onClick={(e) => e.stopPropagation()}>
                             <div className="flex items-center justify-end gap-1.5">
                               <button
                                 onClick={() => setSelectedSub(sub)}
@@ -935,10 +1061,10 @@ export const AdminPage: React.FC = () => {
                               </button>
                               <button
                                 onClick={() => handleDeleteSubmission(sub.id)}
-                                className="p-1 rounded text-neutral-400 hover:text-red-500 hover:bg-red-500/10 transition-colors"
-                                title="Delete submission"
+                                className="p-1.5 rounded text-neutral-400 hover:text-red-500 hover:bg-red-500/10 transition-colors"
+                                title="Delete submission (Archived to Deleted Submissions)"
                               >
-                                <Trash2 className="w-3.5 h-3.5" />
+                                <Trash2 className="w-3.5 h-3.5 text-red-500/80 hover:text-red-600" />
                               </button>
                             </div>
                           </td>
@@ -952,6 +1078,190 @@ export const AdminPage: React.FC = () => {
           </div>
         )}
 
+        {/* ===================================================================== */}
+        {/* TAB 2: DELETED SUBMISSIONS ARCHIVE (ACCIDENTAL DELETION PROTECTION) */}
+        {/* ===================================================================== */}
+        {activeTab === 'deleted' && (
+          <div className="space-y-6">
+            
+            {/* Header Banner */}
+            <div className="p-4 sm:p-5 rounded-xl border border-red-500/20 bg-red-500/5 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+              <div className="flex items-start gap-3">
+                <div className="w-10 h-10 rounded-xl bg-red-500/10 text-red-500 flex items-center justify-center shrink-0">
+                  <Archive className="w-5 h-5" />
+                </div>
+                <div>
+                  <h2 className="font-serif text-lg font-bold text-[var(--text-primary)]">
+                    Deleted Submissions Archive (<code className="text-xs font-mono text-red-500">deleted_submissions</code>)
+                  </h2>
+                  <p className="text-xs text-[var(--text-secondary)] mt-0.5 max-w-2xl">
+                    Protection against accidental deletions. When an editor deletes a submission, complete author information, scholarly metadata, and Cloudflare R2 file attachments are safely preserved here. You can restore any manuscript at any time with 1 click.
+                  </p>
+                </div>
+              </div>
+
+              <button
+                onClick={fetchDeletedSubmissions}
+                disabled={deletedLoading}
+                className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-[var(--border-subtle)] bg-[var(--bg-card)] text-xs font-semibold hover:bg-[var(--bg-page)] transition-colors shrink-0 cursor-pointer"
+              >
+                <RefreshCw className={`w-3.5 h-3.5 ${deletedLoading ? 'animate-spin' : ''}`} />
+                <span>Refresh Archive</span>
+              </button>
+            </div>
+
+            {/* Search Bar */}
+            <div className="p-3 rounded-xl border border-[var(--border-subtle)] bg-[var(--bg-card)]">
+              <div className="relative">
+                <Search className="w-4 h-4 text-[var(--text-muted)] absolute left-3 top-2.5" />
+                <input
+                  type="text"
+                  placeholder="Filter deleted manuscripts by Title, Tracking ID, Author Name or Email..."
+                  value={deletedSearchQuery}
+                  onChange={(e) => setDeletedSearchQuery(e.target.value)}
+                  className="w-full pl-9 pr-3 py-1.5 rounded-lg border border-[var(--border-subtle)] bg-[var(--bg-page)] text-xs text-[var(--text-primary)] focus:outline-none focus:border-[var(--accent-gold)] font-sans"
+                />
+              </div>
+            </div>
+
+            {/* Deleted Submissions Table */}
+            <div className="rounded-xl border border-[var(--border-subtle)] bg-[var(--bg-card)] overflow-hidden shadow-2xs">
+              <div className="overflow-x-auto">
+                <table className="w-full text-left border-collapse text-xs">
+                  <thead>
+                    <tr className="border-b border-[var(--border-subtle)] bg-[var(--bg-page)]/60 text-[var(--text-muted)] font-mono uppercase text-[10px] tracking-wider">
+                      <th className="py-3 px-4 font-semibold">Tracking ID</th>
+                      <th className="py-3 px-4 font-semibold">Manuscript Details</th>
+                      <th className="py-3 px-4 font-semibold">Author Details</th>
+                      <th className="py-3 px-4 font-semibold">Deleted Timestamp</th>
+                      <th className="py-3 px-4 font-semibold">Files</th>
+                      <th className="sticky right-0 z-10 py-3 px-4 font-semibold text-right bg-[var(--bg-page)] shadow-[-6px_0_12px_-4px_rgba(0,0,0,0.15)]">Action</th>
+                    </tr>
+                  </thead>
+                  <tbody className="divide-y divide-[var(--border-subtle)]">
+                    {deletedSubmissions.length === 0 ? (
+                      <tr>
+                        <td colSpan={6} className="text-center py-12 text-[var(--text-muted)]">
+                          <CheckCircle2 className="w-8 h-8 mx-auto mb-2 text-emerald-500 opacity-80" />
+                          <p className="font-serif text-sm">No deleted submissions in the archive.</p>
+                          <span className="text-[11px] text-[var(--text-muted)]">All user data is safe in active pipeline.</span>
+                        </td>
+                      </tr>
+                    ) : (
+                      deletedSubmissions
+                        .filter(sub => {
+                          const q = deletedSearchQuery.toLowerCase();
+                          return (
+                            (sub.tracking_number || '').toLowerCase().includes(q) ||
+                            (sub.title || '').toLowerCase().includes(q) ||
+                            (sub.author_name || '').toLowerCase().includes(q) ||
+                            (sub.author_email || '').toLowerCase().includes(q)
+                          );
+                        })
+                        .map((sub: any) => (
+                          <tr key={sub.id || sub.tracking_number} className="hover:bg-[var(--bg-card-hover)] transition-colors">
+                            {/* Tracking ID */}
+                            <td className="py-3.5 px-4 font-mono font-bold text-red-500 whitespace-nowrap">
+                              <div className="flex items-center gap-1.5">
+                                <span>{sub.tracking_number}</span>
+                                <button
+                                  onClick={() => handleCopyId(sub.tracking_number)}
+                                  className="p-1 rounded hover:bg-[var(--bg-page)] transition-colors"
+                                  title="Copy Tracking ID"
+                                >
+                                  {copiedId === sub.tracking_number ? (
+                                    <Check className="w-3 h-3 text-emerald-500" />
+                                  ) : (
+                                    <Copy className="w-3 h-3 text-[var(--text-muted)]" />
+                                  )}
+                                </button>
+                              </div>
+                            </td>
+
+                            {/* Manuscript Details */}
+                            <td className="py-3.5 px-4 max-w-sm">
+                              <div className="font-serif font-semibold text-[var(--text-primary)] line-clamp-1">
+                                {sub.title}
+                              </div>
+                              <div className="text-[11px] text-[var(--text-muted)] mt-0.5">
+                                Type: {sub.article_type || 'Scholarly Article'}
+                              </div>
+                              {sub.deletion_reason && (
+                                <div className="text-[10px] text-red-500/80 italic mt-0.5">
+                                  Reason: {sub.deletion_reason}
+                                </div>
+                              )}
+                            </td>
+
+                            {/* Author */}
+                            <td className="py-3.5 px-4 whitespace-nowrap">
+                              <div className="font-medium text-[var(--text-primary)]">
+                                {sub.author_name || 'Anonymous Author'}
+                              </div>
+                              <div className="text-[11px] text-[var(--text-muted)] flex items-center gap-1 font-mono">
+                                <Mail className="w-3 h-3" />
+                                <span>{sub.author_email || 'Not specified'}</span>
+                              </div>
+                              {sub.author_phone && (
+                                <div className="text-[10px] text-[var(--text-muted)] flex items-center gap-1 font-mono">
+                                  <Phone className="w-2.5 h-2.5 text-[var(--accent-gold)]" />
+                                  <span>{sub.author_phone}</span>
+                                </div>
+                              )}
+                            </td>
+
+                            {/* Timestamps */}
+                            <td className="py-3.5 px-4 text-[11px] font-mono text-[var(--text-muted)] whitespace-nowrap">
+                              <div>Deleted: <span className="text-red-500 font-semibold">{sub.deleted_at ? sub.deleted_at.split('T')[0] : 'N/A'}</span></div>
+                              <div>Submitted: {sub.submitted_at ? sub.submitted_at.split('T')[0] : 'N/A'}</div>
+                            </td>
+
+                            {/* Files */}
+                            <td className="py-3.5 px-4 whitespace-nowrap">
+                              <div className="flex items-center gap-1">
+                                {sub.blind_file_key && (
+                                  <button
+                                    onClick={() => handleDownloadR2File(sub.blind_file_key, sub.blind_file_name)}
+                                    className="p-1 px-2 rounded bg-[var(--bg-page)] text-[10px] font-mono border border-[var(--border-subtle)] hover:border-[var(--accent-gold)] flex items-center gap-1 cursor-pointer"
+                                    title={`Download ${sub.blind_file_name || 'Manuscript'}`}
+                                  >
+                                    <Download className="w-3 h-3 text-[var(--accent-gold)]" />
+                                    <span>Manuscript</span>
+                                  </button>
+                                )}
+                                {sub.author_file_key && (
+                                  <button
+                                    onClick={() => handleDownloadR2File(sub.author_file_key, sub.author_file_name)}
+                                    className="p-1 px-2 rounded bg-[var(--bg-page)] text-[10px] font-mono border border-[var(--border-subtle)] hover:border-[var(--accent-gold)] flex items-center gap-1 cursor-pointer"
+                                    title={`Download ${sub.author_file_name || 'Author Info'}`}
+                                  >
+                                    <Download className="w-3 h-3 text-blue-500" />
+                                    <span>Author Dossier</span>
+                                  </button>
+                                )}
+                              </div>
+                            </td>
+
+                            {/* Restore Action */}
+                            <td className="sticky right-0 z-10 py-3.5 px-4 text-right whitespace-nowrap bg-[var(--bg-card)] group-hover:bg-[var(--bg-card-hover)] shadow-[-6px_0_12px_-4px_rgba(0,0,0,0.15)]">
+                              <button
+                                onClick={() => handleRestoreSubmission(sub.tracking_number)}
+                                className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/30 hover:bg-emerald-500/20 text-xs font-semibold transition-colors cursor-pointer"
+                                title="Restore this submission back into active manuscripts"
+                              >
+                                <RotateCcw className="w-3.5 h-3.5" />
+                                <span>Restore Manuscript</span>
+                              </button>
+                            </td>
+                          </tr>
+                        ))
+                    )}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        )}
 
         {/* ===================================================================== */}
         {/* TAB 3: CLOUDFLARE & SECURITY ARCHITECTURE */}
@@ -1334,8 +1644,8 @@ export const AdminPage: React.FC = () => {
                 </div>
               </div>
 
-              {/* Editorial Lifecycle Controller (Status update) */}
-              <div className="p-5 rounded-xl border border-[var(--accent-gold)]/30 bg-[var(--accent-gold)]/5 space-y-4">
+              {/* Editorial Lifecycle Controller (Status update - Single Clean Dropdown) */}
+              <div className="p-4 sm:p-5 rounded-xl border border-[var(--accent-gold)]/30 bg-[var(--accent-gold)]/5 space-y-3">
                 <div className="flex items-center justify-between">
                   <span className="text-xs font-mono uppercase tracking-wider text-[var(--accent-gold)] font-bold flex items-center gap-1.5">
                     <Sliders className="w-3.5 h-3.5" /> Editorial Decision &amp; Pipeline Status
@@ -1345,133 +1655,42 @@ export const AdminPage: React.FC = () => {
                   </span>
                 </div>
 
-                <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 text-xs">
-                  {[
-                    { status: 'Editorial Triage', label: 'Move to Triage' },
-                    { status: 'Under Peer Review', label: 'Assign Peer Review' },
-                    { status: 'Revisions Required', label: 'Request Revisions' },
-                    { status: 'Accepted', label: 'Accept Manuscript' },
-                  ].map((item) => (
-                    <button
-                      key={item.status}
-                      onClick={() => handleUpdateStatus(selectedSub.id, item.status as any)}
-                      className={`p-2.5 rounded-lg border text-xs font-semibold transition-all ${
-                        selectedSub.status === item.status
-                          ? 'border-[var(--accent-navy)] bg-[var(--accent-navy)] text-white shadow-xs'
-                          : 'border-[var(--border-subtle)] bg-[var(--bg-card)] text-[var(--text-secondary)] hover:text-[var(--text-primary)] hover:border-[var(--border-strong)]'
-                      }`}
-                    >
-                      {item.label}
-                    </button>
-                  ))}
-                </div>
-
-                {/* Additional Quick Status Bar */}
-                <div className="flex flex-wrap items-center justify-between gap-3 pt-2 border-t border-[var(--border-subtle)] text-xs">
-                  <div className="flex items-center gap-2">
-                    <span className="text-[var(--text-muted)]">Manual Status:</span>
+                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pt-1">
+                  <div className="flex items-center gap-2.5 w-full sm:w-auto">
+                    <label htmlFor="pipeline-status-select" className="text-xs font-semibold text-[var(--text-secondary)] whitespace-nowrap">
+                      Pipeline Stage:
+                    </label>
                     <select
+                      id="pipeline-status-select"
                       value={selectedSub.status}
                       onChange={(e) => handleUpdateStatus(selectedSub.id, e.target.value as any)}
-                      className="px-2.5 py-1.5 rounded-lg border border-[var(--border-subtle)] bg-[var(--bg-card)] text-xs font-mono text-[var(--text-primary)] focus:outline-none"
+                      className="w-full sm:w-auto px-3 py-2 rounded-xl border border-[var(--border-strong)] bg-[var(--bg-card)] text-xs font-semibold text-[var(--text-primary)] cursor-pointer focus:outline-none focus:border-[var(--accent-gold)] shadow-2xs"
                     >
-                      <option value="Submitted">Submitted (New)</option>
-                      <option value="Editorial Triage">Editorial Triage</option>
-                      <option value="Under Peer Review">Under Peer Review</option>
-                      <option value="Revisions Required">Revisions Required</option>
-                      <option value="Accepted">Accepted (Passed Review)</option>
-                      <option value="Published">Published (Continuous Record)</option>
+                      <option value="Submitted">1. Submitted (New Manuscript)</option>
+                      <option value="Editorial Triage">2. Editorial Triage</option>
+                      <option value="Under Peer Review">3. Under Peer Review</option>
+                      <option value="Revisions Required">4. Revisions Required</option>
+                      <option value="Accepted">5. Accepted (Passed Review)</option>
+                      <option value="Published">6. Published (Continuous Record)</option>
                     </select>
                   </div>
 
-                  <button
-                    onClick={() => {
-                      handleUpdateStatus(selectedSub.id, 'Published');
-                      alert("Manuscript status updated to Published. Version of record active in Continuous Issue.");
-                    }}
-                    className="px-3 py-1.5 rounded-lg bg-emerald-600 text-white font-semibold text-xs hover:opacity-90 transition-opacity flex items-center gap-1.5"
-                  >
-                    <CheckCircle2 className="w-3.5 h-3.5" />
-                    <span>Mint Continuous Record (Publish)</span>
-                  </button>
-                </div>
-              </div>
-
-              {/* Reviewer Assignment Section */}
-              <div className="space-y-3">
-                <div className="flex items-center justify-between">
-                  <span className="text-xs font-mono uppercase tracking-wider text-[var(--text-muted)] font-bold">
-                    Assigned Peer Reviewers (Double-Blind)
-                  </span>
-                  <span className="text-[11px] text-[var(--text-muted)] font-mono">
-                    2 Reviewers Standard
-                  </span>
-                </div>
-
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs">
-                  {reviewers.slice(0, 4).map((rev) => {
-                    const isAssigned = assignedReviewers.includes(rev.name);
-                    return (
-                      <div
-                        key={rev.id}
-                        onClick={() => {
-                          if (isAssigned) {
-                            setAssignedReviewers(assignedReviewers.filter(n => n !== rev.name));
-                          } else {
-                            setAssignedReviewers([...assignedReviewers, rev.name]);
-                          }
-                        }}
-                        className={`p-3 rounded-xl border cursor-pointer transition-all flex items-center justify-between ${
-                          isAssigned
-                            ? 'border-blue-500 bg-blue-500/10 text-[var(--text-primary)]'
-                            : 'border-[var(--border-subtle)] bg-[var(--bg-page)] text-[var(--text-secondary)] hover:border-[var(--border-strong)]'
-                        }`}
-                      >
-                        <div>
-                          <strong className="block font-serif text-xs">{rev.name}</strong>
-                          <span className="text-[10px] text-[var(--text-muted)]">{rev.institution}</span>
-                        </div>
-                        <span className={`w-4 h-4 rounded-full border flex items-center justify-center ${
-                          isAssigned ? 'border-blue-500 bg-blue-500 text-white' : 'border-[var(--border-subtle)]'
-                        }`}>
-                          {isAssigned && <Check className="w-2.5 h-2.5" />}
-                        </span>
-                      </div>
-                    );
-                  })}
-                </div>
-              </div>
-
-              {/* Editorial Decision Letter Generator */}
-              <div className="space-y-3 pt-2">
-                <span className="text-xs font-mono uppercase tracking-wider text-[var(--text-muted)] font-bold block">
-                  Author Communication &amp; Decision Letter (COPE Aligned)
-                </span>
-                
-                <textarea
-                  rows={4}
-                  value={decisionNotes}
-                  onChange={(e) => setDecisionNotes(e.target.value)}
-                  placeholder="Type confidential comments or author instructions..."
-                  className="w-full p-3 rounded-xl border border-[var(--border-subtle)] bg-[var(--bg-page)] text-xs text-[var(--text-primary)] focus:outline-none font-sans leading-relaxed"
-                />
-
-                <div className="flex flex-wrap items-center justify-between gap-3">
-                  <span className="text-[11px] text-[var(--text-muted)] font-mono">
-                    Recipient: {selectedSub.authorEmail || 'author@pending.org'}
-                  </span>
-
-                  <button
-                    onClick={() => {
-                      setNotificationSent(true);
-                      setTimeout(() => setNotificationSent(false), 3000);
-                      alert(`Decision letter transmitted to ${selectedSub.authorEmail || selectedSub.authorName}!`);
-                    }}
-                    className="px-4 py-2 rounded-lg bg-[var(--accent-navy)] text-white text-xs font-semibold hover:opacity-90 transition-opacity flex items-center gap-1.5 shadow-xs"
-                  >
-                    <Send className="w-3.5 h-3.5" />
-                    <span>{notificationSent ? 'Letter Dispatched ✓' : 'Dispatch Decision to Author'}</span>
-                  </button>
+                  <div className="flex items-center gap-2">
+                    <span className="text-xs text-[var(--text-muted)] font-sans">Current Status:</span>
+                    <span className={`px-2.5 py-1 rounded-full text-xs font-semibold ${
+                      selectedSub.status === 'Published'
+                        ? 'bg-emerald-500/15 text-emerald-700 dark:text-emerald-400 border border-emerald-500/30'
+                        : selectedSub.status === 'Accepted'
+                        ? 'bg-blue-500/15 text-blue-700 dark:text-blue-400 border border-blue-500/30'
+                        : selectedSub.status === 'Revisions Required'
+                        ? 'bg-amber-500/15 text-amber-700 dark:text-amber-400 border border-amber-500/30'
+                        : selectedSub.status === 'Under Peer Review'
+                        ? 'bg-purple-500/15 text-purple-700 dark:text-purple-400 border border-purple-500/30'
+                        : 'bg-slate-500/15 text-slate-700 dark:text-slate-300 border border-slate-500/30'
+                    }`}>
+                      {selectedSub.status}
+                    </span>
+                  </div>
                 </div>
               </div>
 
@@ -1482,11 +1701,162 @@ export const AdminPage: React.FC = () => {
               <span className="text-[11px] text-[var(--text-muted)] font-mono">
                 CSR Editorial Engine • Double-Blind Integrity Verified
               </span>
+              <div className="flex items-center gap-2">
+                <button
+                  onClick={() => {
+                    if (selectedSub) {
+                      handleDeleteSubmission(selectedSub.id);
+                    }
+                  }}
+                  className="px-3.5 py-1.5 rounded-lg bg-red-500/10 text-red-600 dark:text-red-400 border border-red-500/30 hover:bg-red-500/20 text-xs font-semibold flex items-center gap-1.5 transition-colors cursor-pointer"
+                  title="Safely move to Deleted Submissions archive"
+                >
+                  <Trash2 className="w-3.5 h-3.5" />
+                  <span>Delete Manuscript</span>
+                </button>
+                <button
+                  onClick={() => setSelectedSub(null)}
+                  className="px-4 py-1.5 rounded-lg border border-[var(--border-subtle)] text-xs font-semibold hover:bg-[var(--bg-card)] transition-colors cursor-pointer"
+                >
+                  Close Dossier
+                </button>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      )}
+
+      {/* ===================================================================== */}
+      {/* MODAL 2: CUSTOM CONFIRMATION POPUP FOR DELETION (NO BROWSER POPUP) */}
+      {/* ===================================================================== */}
+      {deleteTargetSub && (
+        <div className="fixed inset-0 z-50 bg-black/65 backdrop-blur-xs flex items-center justify-center p-4 animate-fadeIn">
+          <div className="w-full max-w-lg rounded-2xl border border-[var(--border-subtle)] bg-[var(--bg-card)] shadow-2xl overflow-hidden animate-scaleUp">
+            
+            {/* Modal Header */}
+            <div className="p-5 sm:p-6 pb-4 border-b border-[var(--border-subtle)] flex items-start gap-3.5">
+              <div className="w-11 h-11 rounded-xl bg-red-500/10 border border-red-500/25 text-red-600 dark:text-red-400 flex items-center justify-center shrink-0">
+                <Trash2 className="w-5 h-5" />
+              </div>
+              <div className="flex-1 min-w-0">
+                <div className="flex items-center justify-between gap-2">
+                  <h3 className="font-serif font-bold text-lg text-[var(--text-primary)]">
+                    Archive &amp; Delete Submission
+                  </h3>
+                  <button
+                    onClick={() => setDeleteTargetSub(null)}
+                    disabled={isDeleting}
+                    className="p-1 rounded-lg text-[var(--text-muted)] hover:text-[var(--text-primary)] hover:bg-[var(--bg-page)] transition-colors cursor-pointer"
+                  >
+                    <X className="w-4 h-4" />
+                  </button>
+                </div>
+                <p className="text-xs text-[var(--text-secondary)] mt-0.5">
+                  Are you sure you want to remove this manuscript from the active review pipeline?
+                </p>
+              </div>
+            </div>
+
+            {/* Modal Body */}
+            <div className="p-5 sm:p-6 space-y-4">
+              
+              {/* Manuscript Summary Card */}
+              <div className="p-3.5 rounded-xl border border-[var(--border-subtle)] bg-[var(--bg-page)] space-y-2">
+                <div className="flex items-center justify-between gap-2">
+                  <span className="font-mono text-xs font-bold text-[var(--accent-navy)] dark:text-[var(--accent-gold)] px-2 py-0.5 rounded bg-[var(--bg-card)] border border-[var(--border-subtle)]">
+                    {deleteTargetSub.trackingNumber}
+                  </span>
+                  <span className="text-[10px] font-mono text-[var(--text-muted)]">
+                    Stage: {deleteTargetSub.status}
+                  </span>
+                </div>
+                <h4 className="font-serif font-semibold text-sm text-[var(--text-primary)] leading-snug line-clamp-2">
+                  {deleteTargetSub.title}
+                </h4>
+                <div className="text-[11px] text-[var(--text-secondary)] flex flex-wrap items-center gap-x-3 gap-y-1">
+                  <span>Author: <strong>{deleteTargetSub.authorName || 'Anonymous Submitter'}</strong></span>
+                  {deleteTargetSub.authorEmail && (
+                    <span className="font-mono text-[10px] text-[var(--text-muted)]">({deleteTargetSub.authorEmail})</span>
+                  )}
+                </div>
+              </div>
+
+              {/* Safety Assurance Note */}
+              <div className="p-3.5 rounded-xl border border-emerald-500/25 bg-emerald-500/5 space-y-1">
+                <div className="flex items-center gap-1.5 text-emerald-600 dark:text-emerald-400 font-semibold text-xs">
+                  <ShieldCheck className="w-4 h-4 shrink-0" />
+                  <span>Zero Data Loss Protection</span>
+                </div>
+                <p className="text-[11px] text-[var(--text-secondary)] leading-relaxed pl-5.5">
+                  This manuscript is <strong>not permanently lost</strong>. It will be safely moved to the <strong>"Deleted Submissions"</strong> archive with all files, metadata, and author details intact. You can restore it anytime with 1 click.
+                </p>
+              </div>
+
+              {/* Deletion Reason (Optional) */}
+              <div className="space-y-1.5">
+                <label className="block text-[11px] font-semibold text-[var(--text-secondary)]">
+                  Reason for Removal (Stored in Audit Archive):
+                </label>
+                <div className="flex flex-wrap gap-1.5 mb-2">
+                  {[
+                    'Withdrawn by author',
+                    'Desk reject',
+                    'Duplicate entry',
+                    'Author request'
+                  ].map((preset) => (
+                    <button
+                      key={preset}
+                      type="button"
+                      onClick={() => setDeleteReason(preset)}
+                      className={`text-[10px] px-2 py-0.8 rounded-md border transition-all cursor-pointer ${
+                        deleteReason === preset
+                          ? 'border-[var(--accent-gold)] bg-[var(--accent-gold)]/15 text-[var(--accent-gold)] font-semibold'
+                          : 'border-[var(--border-subtle)] text-[var(--text-muted)] hover:border-[var(--text-muted)]'
+                      }`}
+                    >
+                      {preset}
+                    </button>
+                  ))}
+                </div>
+                <input
+                  type="text"
+                  value={deleteReason}
+                  onChange={(e) => setDeleteReason(e.target.value)}
+                  placeholder="Enter reason (optional)..."
+                  className="w-full px-3 py-1.5 rounded-lg border border-[var(--border-subtle)] bg-[var(--bg-page)] text-xs text-[var(--text-primary)] focus:outline-none focus:border-[var(--accent-gold)] font-sans"
+                />
+              </div>
+
+            </div>
+
+            {/* Modal Actions */}
+            <div className="p-4 px-5 sm:px-6 border-t border-[var(--border-subtle)] bg-[var(--bg-page)]/70 flex items-center justify-end gap-2.5">
               <button
-                onClick={() => setSelectedSub(null)}
-                className="px-4 py-1.5 rounded-lg border border-[var(--border-subtle)] text-xs font-semibold hover:bg-[var(--bg-card)] transition-colors"
+                type="button"
+                onClick={() => setDeleteTargetSub(null)}
+                disabled={isDeleting}
+                className="px-4 py-2 rounded-xl border border-[var(--border-subtle)] bg-[var(--bg-card)] hover:bg-[var(--bg-page)] text-xs font-semibold text-[var(--text-secondary)] transition-colors cursor-pointer"
               >
-                Close Dossier
+                Cancel
+              </button>
+              <button
+                type="button"
+                onClick={executeDeleteSubmission}
+                disabled={isDeleting}
+                className="px-5 py-2 rounded-xl bg-red-600 hover:bg-red-700 text-white font-semibold text-xs flex items-center gap-2 shadow-sm transition-all cursor-pointer disabled:opacity-50"
+              >
+                {isDeleting ? (
+                  <>
+                    <RefreshCw className="w-3.5 h-3.5 animate-spin" />
+                    <span>Archiving...</span>
+                  </>
+                ) : (
+                  <>
+                    <Trash2 className="w-3.5 h-3.5" />
+                    <span>Confirm &amp; Move to Archive</span>
+                  </>
+                )}
               </button>
             </div>
 
@@ -1494,6 +1864,81 @@ export const AdminPage: React.FC = () => {
         </div>
       )}
 
+      {/* ===================================================================== */}
+      {/* MODAL 3: CUSTOM RESTORE CONFIRMATION POPUP */}
+      {/* ===================================================================== */}
+      {restoreTargetNumber && (
+        <div className="fixed inset-0 z-50 bg-black/65 backdrop-blur-xs flex items-center justify-center p-4 animate-fadeIn">
+          <div className="w-full max-w-md rounded-2xl border border-[var(--border-subtle)] bg-[var(--bg-card)] shadow-2xl overflow-hidden animate-scaleUp p-6 space-y-4">
+            
+            <div className="flex items-start gap-3.5">
+              <div className="w-11 h-11 rounded-xl bg-emerald-500/10 border border-emerald-500/25 text-emerald-600 dark:text-emerald-400 flex items-center justify-center shrink-0">
+                <RotateCcw className="w-5 h-5" />
+              </div>
+              <div className="flex-1 min-w-0">
+                <h3 className="font-serif font-bold text-base text-[var(--text-primary)]">
+                  Restore Manuscript?
+                </h3>
+                <p className="text-xs text-[var(--text-secondary)] mt-1">
+                  Submission <span className="font-mono font-bold text-[var(--accent-gold)]">{restoreTargetNumber}</span> will be restored back to the active manuscript pipeline.
+                </p>
+              </div>
+            </div>
+
+            <div className="flex items-center justify-end gap-2.5 pt-2">
+              <button
+                type="button"
+                onClick={() => setRestoreTargetNumber(null)}
+                disabled={isRestoring}
+                className="px-3.5 py-1.5 rounded-lg border border-[var(--border-subtle)] bg-[var(--bg-page)] text-xs font-semibold hover:bg-[var(--bg-card)] transition-colors cursor-pointer"
+              >
+                Cancel
+              </button>
+              <button
+                type="button"
+                onClick={() => executeRestoreSubmission(restoreTargetNumber)}
+                disabled={isRestoring}
+                className="px-4 py-1.5 rounded-lg bg-emerald-600 hover:bg-emerald-700 text-white font-semibold text-xs flex items-center gap-1.5 transition-colors cursor-pointer disabled:opacity-50"
+              >
+                {isRestoring ? (
+                  <>
+                    <RefreshCw className="w-3.5 h-3.5 animate-spin" />
+                    <span>Restoring...</span>
+                  </>
+                ) : (
+                  <>
+                    <RotateCcw className="w-3.5 h-3.5" />
+                    <span>Confirm Restore</span>
+                  </>
+                )}
+              </button>
+            </div>
+
+          </div>
+        </div>
+      )}
+
+      {/* Toast Notification Banner */}
+      {toastNotification && (
+        <div className={`fixed bottom-6 right-6 z-50 px-4 py-3 rounded-xl shadow-xl border flex items-center gap-3 animate-slideIn ${
+          toastNotification.type === 'success'
+            ? 'bg-emerald-950/95 text-emerald-200 border-emerald-700/60'
+            : 'bg-red-950/95 text-red-200 border-red-700/60'
+        }`}>
+          {toastNotification.type === 'success' ? (
+            <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0" />
+          ) : (
+            <AlertCircle className="w-4 h-4 text-red-400 shrink-0" />
+          )}
+          <span className="text-xs font-medium">{toastNotification.message}</span>
+          <button
+            onClick={() => setToastNotification(null)}
+            className="p-1 hover:opacity-75 transition-opacity cursor-pointer ml-1"
+          >
+            <X className="w-3.5 h-3.5" />
+          </button>
+        </div>
+      )}
 
     </div>
   );

@@ -479,7 +479,8 @@ function localApiDevPlugin(env: Record<string, string>): Plugin {
 
             if (accountId && cfToken && trackingNumber) {
               const nowIso = new Date().toISOString();
-              // Retire into blacklist and mark archived
+
+              // 1. Copy complete submission record into deleted_submissions table
               await fetch(
                 `https://api.cloudflare.com/client/v4/accounts/${accountId}/d1/database/${d1DbId}/query`,
                 {
@@ -490,10 +491,212 @@ function localApiDevPlugin(env: Record<string, string>): Plugin {
                   },
                   body: JSON.stringify({
                     sql: `
-                      INSERT INTO retired_tracking_ids (tracking_number, retired_at, reason) VALUES (?, ?, ?);
-                      UPDATE submissions SET is_archived = 1, updated_at = ? WHERE tracking_number = ?;
+                      INSERT INTO deleted_submissions (
+                        original_id, tracking_number, author_name, author_email, author_phone,
+                        title, article_type, abstract, keywords,
+                        blind_file_key, blind_file_name, blind_file_size,
+                        author_file_key, author_file_name, author_file_size,
+                        status, stage_number, editorial_decision_notes, assigned_reviewers,
+                        submitted_at, deleted_at, deletion_reason
+                      )
+                      SELECT 
+                        id, tracking_number, author_name, author_email, author_phone,
+                        title, article_type, abstract, keywords,
+                        blind_file_key, blind_file_name, blind_file_size,
+                        author_file_key, author_file_name, author_file_size,
+                        status, stage_number, editorial_decision_notes, assigned_reviewers,
+                        submitted_at, ?, ?
+                      FROM submissions
+                      WHERE tracking_number = ?;
                     `,
-                    params: [trackingNumber, nowIso, reason, nowIso, trackingNumber],
+                    params: [nowIso, reason, trackingNumber],
+                  }),
+                }
+              ).catch((err) => console.error('[D1 Backup To Deleted Err]', err));
+
+              // 2. Blacklist in retired_tracking_ids so tracking ID cannot be reused
+              await fetch(
+                `https://api.cloudflare.com/client/v4/accounts/${accountId}/d1/database/${d1DbId}/query`,
+                {
+                  method: 'POST',
+                  headers: {
+                    Authorization: `Bearer ${cfToken}`,
+                    'Content-Type': 'application/json',
+                  },
+                  body: JSON.stringify({
+                    sql: `INSERT OR IGNORE INTO retired_tracking_ids (tracking_number, retired_at, reason) VALUES (?, ?, ?);`,
+                    params: [trackingNumber, nowIso, reason],
+                  }),
+                }
+              ).catch((err) => console.error('[D1 Retire Tracking Err]', err));
+
+              // 3. Permanently delete submission from active submissions table
+              const deleteRes = await fetch(
+                `https://api.cloudflare.com/client/v4/accounts/${accountId}/d1/database/${d1DbId}/query`,
+                {
+                  method: 'POST',
+                  headers: {
+                    Authorization: `Bearer ${cfToken}`,
+                    'Content-Type': 'application/json',
+                  },
+                  body: JSON.stringify({
+                    sql: `DELETE FROM submissions WHERE tracking_number = ?;`,
+                    params: [trackingNumber],
+                  }),
+                }
+              );
+
+              const deleteJson: any = await deleteRes.json().catch(() => null);
+              if (!deleteJson?.success) {
+                console.error('[D1 Delete Error]', deleteJson?.errors);
+                res.statusCode = 500;
+                res.setHeader('Content-Type', 'application/json');
+                res.end(JSON.stringify({
+                  success: false,
+                  message: deleteJson?.errors?.[0]?.message || 'Failed to delete submission from Cloudflare D1'
+                }));
+                return;
+              }
+            }
+
+            res.statusCode = 200;
+            res.setHeader('Content-Type', 'application/json');
+            res.end(JSON.stringify({ success: true, message: 'Submission archived to deleted_submissions and removed from active list.' }));
+            return;
+          } catch (e: any) {
+            console.error('[Admin Delete Error]', e);
+            res.statusCode = 500;
+            res.setHeader('Content-Type', 'application/json');
+            res.end(JSON.stringify({ success: false, message: e?.message || 'Failed to delete' }));
+            return;
+          }
+        }
+
+        // =====================================================================
+        // ADMIN ENDPOINT: GET /api/admin/deleted-submissions (Fetch Deleted List)
+        // =====================================================================
+        if (req.url === '/api/admin/deleted-submissions' && req.method === 'GET') {
+          try {
+            const accountId = env.CLOUDFLARE_ACCOUNT_ID?.trim();
+            const d1DbId = env.CLOUDFLARE_D1_DATABASE_ID?.trim() || '588fea4b-4ee9-4aac-9772-9806398d1203';
+            const cfToken = env.CLOUDFLARE_API_TOKEN?.trim();
+
+            if (!accountId || !cfToken) {
+              res.statusCode = 200;
+              res.setHeader('Content-Type', 'application/json');
+              res.end(JSON.stringify({ success: true, count: 0, deleted: [], deletedSubmissions: [] }));
+              return;
+            }
+
+            const queryRes = await fetch(
+              `https://api.cloudflare.com/client/v4/accounts/${accountId}/d1/database/${d1DbId}/query`,
+              {
+                method: 'POST',
+                headers: {
+                  Authorization: `Bearer ${cfToken}`,
+                  'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                  sql: `SELECT * FROM deleted_submissions ORDER BY id DESC;`,
+                }),
+              }
+            );
+
+            const json: any = await queryRes.json().catch(() => null);
+            const results = json?.result?.[0]?.results || [];
+
+            res.statusCode = 200;
+            res.setHeader('Content-Type', 'application/json');
+            res.end(JSON.stringify({ success: true, count: results.length, deleted: results, deletedSubmissions: results }));
+            return;
+          } catch (e: any) {
+            console.error('[Admin Deleted Submissions Query Error]', e);
+            res.statusCode = 500;
+            res.setHeader('Content-Type', 'application/json');
+            res.end(JSON.stringify({ success: false, message: e?.message || 'Failed to query deleted submissions' }));
+            return;
+          }
+        }
+
+        // =====================================================================
+        // ADMIN ENDPOINT: POST /api/admin/restore-submission (Restore Deleted)
+        // =====================================================================
+        if (req.url === '/api/admin/restore-submission' && req.method === 'POST') {
+          try {
+            const chunks: Buffer[] = [];
+            for await (const chunk of req) chunks.push(Buffer.from(chunk));
+            const body = JSON.parse(Buffer.concat(chunks).toString() || '{}');
+            const { trackingNumber } = body;
+
+            const accountId = env.CLOUDFLARE_ACCOUNT_ID?.trim();
+            const d1DbId = env.CLOUDFLARE_D1_DATABASE_ID?.trim() || '588fea4b-4ee9-4aac-9772-9806398d1203';
+            const cfToken = env.CLOUDFLARE_API_TOKEN?.trim();
+
+            if (accountId && cfToken && trackingNumber) {
+              const nowIso = new Date().toISOString();
+
+              // 1. Copy back from deleted_submissions into submissions
+              await fetch(
+                `https://api.cloudflare.com/client/v4/accounts/${accountId}/d1/database/${d1DbId}/query`,
+                {
+                  method: 'POST',
+                  headers: {
+                    Authorization: `Bearer ${cfToken}`,
+                    'Content-Type': 'application/json',
+                  },
+                  body: JSON.stringify({
+                    sql: `
+                      INSERT INTO submissions (
+                        tracking_number, author_name, author_email, author_phone,
+                        title, article_type, abstract, keywords,
+                        blind_file_key, blind_file_name, blind_file_size,
+                        author_file_key, author_file_name, author_file_size,
+                        status, stage_number, editorial_decision_notes, assigned_reviewers,
+                        is_archived, submitted_at, updated_at
+                      )
+                      SELECT 
+                        tracking_number, author_name, author_email, author_phone,
+                        title, article_type, abstract, keywords,
+                        blind_file_key, blind_file_name, blind_file_size,
+                        author_file_key, author_file_name, author_file_size,
+                        status, stage_number, editorial_decision_notes, assigned_reviewers,
+                        0, submitted_at, ?
+                      FROM deleted_submissions
+                      WHERE tracking_number = ?;
+                    `,
+                    params: [nowIso, trackingNumber],
+                  }),
+                }
+              );
+
+              // 2. Remove from retired_tracking_ids
+              await fetch(
+                `https://api.cloudflare.com/client/v4/accounts/${accountId}/d1/database/${d1DbId}/query`,
+                {
+                  method: 'POST',
+                  headers: {
+                    Authorization: `Bearer ${cfToken}`,
+                    'Content-Type': 'application/json',
+                  },
+                  body: JSON.stringify({
+                    sql: `DELETE FROM retired_tracking_ids WHERE tracking_number = ?;`,
+                    params: [trackingNumber],
+                  }),
+                }
+              );
+
+              // 3. Delete from deleted_submissions
+              await fetch(
+                `https://api.cloudflare.com/client/v4/accounts/${accountId}/d1/database/${d1DbId}/query`,
+                {
+                  method: 'POST',
+                  headers: {
+                    Authorization: `Bearer ${cfToken}`,
+                    'Content-Type': 'application/json',
+                  },
+                  body: JSON.stringify({
+                    sql: `DELETE FROM deleted_submissions WHERE tracking_number = ?;`,
+                    params: [trackingNumber],
                   }),
                 }
               );
@@ -501,13 +704,13 @@ function localApiDevPlugin(env: Record<string, string>): Plugin {
 
             res.statusCode = 200;
             res.setHeader('Content-Type', 'application/json');
-            res.end(JSON.stringify({ success: true, message: 'Submission archived and tracking ID retired.' }));
+            res.end(JSON.stringify({ success: true, message: 'Submission restored successfully.' }));
             return;
           } catch (e: any) {
-            console.error('[Admin Delete Error]', e);
+            console.error('[Admin Restore Error]', e);
             res.statusCode = 500;
             res.setHeader('Content-Type', 'application/json');
-            res.end(JSON.stringify({ success: false, message: e?.message || 'Failed to delete' }));
+            res.end(JSON.stringify({ success: false, message: e?.message || 'Failed to restore' }));
             return;
           }
         }
