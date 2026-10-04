@@ -214,7 +214,7 @@ export default function Feature() {
     typeof window !== 'undefined' ? window.innerWidth < 640 : false
   );
 
-  // Instant SMIL wake-up: triggers browser SVG animation clock immediately on page load
+  // Instant SMIL wake-up + IntersectionObserver to pause animation when offscreen
   useEffect(() => {
     const activate = () => {
       if (svgRef.current) {
@@ -227,9 +227,26 @@ export default function Feature() {
     activate();
     const t1 = setTimeout(activate, 40);
     const t2 = setTimeout(activate, 120);
+
+    const svgEl = svgRef.current;
+    if (!svgEl) return;
+
+    const observer = new IntersectionObserver(([entry]) => {
+      try {
+        if (entry.isIntersecting) {
+          svgRef.current?.unpauseAnimations();
+        } else {
+          svgRef.current?.pauseAnimations();
+        }
+      } catch {}
+    }, { threshold: 0.05 });
+
+    observer.observe(svgEl);
+
     return () => {
       clearTimeout(t1);
       clearTimeout(t2);
+      observer.disconnect();
     };
   }, []);
 
@@ -317,7 +334,7 @@ export default function Feature() {
                       <div
                         onMouseEnter={handleMouseEnter}
                         onMouseLeave={handleMouseLeave}
-                        className="group relative flex h-[142px] w-[230px] flex-col justify-between rounded-[16px] border border-slate-200/95 bg-white p-4 text-left shadow-[0_4px_18px_rgba(0,0,0,0.06)] hover:border-slate-300 hover:shadow-[0_8px_24px_rgba(0,0,0,0.1)] select-none cursor-pointer will-change-transform transform-gpu"
+                        className="group relative flex h-[142px] w-[230px] flex-col justify-between rounded-[16px] border border-slate-200/95 bg-white p-4 text-left shadow-sm hover:border-slate-300 hover:shadow-md select-none cursor-pointer"
                       >
                         <div>
                           <div className="flex items-center justify-between">

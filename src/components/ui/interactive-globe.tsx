@@ -78,19 +78,46 @@ export function Component({
     dotsRef.current = dots;
   }, []);
 
+  const sizeRef = useRef<{ w: number; h: number; dpr: number }>({ w: 0, h: 0, dpr: 1 });
+  const isVisibleRef = useRef<boolean>(true);
+
+  // ResizeObserver to update canvas pixel dimensions only when size actually changes
+  useEffect(() => {
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+
+    const updateSize = () => {
+      const dpr = Math.min(window.devicePixelRatio || 1, 2);
+      const w = canvas.clientWidth;
+      const h = canvas.clientHeight;
+      if (w > 0 && h > 0) {
+        sizeRef.current = { w, h, dpr };
+        if (canvas.width !== Math.round(w * dpr) || canvas.height !== Math.round(h * dpr)) {
+          canvas.width = Math.round(w * dpr);
+          canvas.height = Math.round(h * dpr);
+        }
+      }
+    };
+
+    updateSize();
+    const ro = new ResizeObserver(updateSize);
+    ro.observe(canvas);
+    return () => ro.disconnect();
+  }, []);
+
   const draw = useCallback(() => {
+    if (!isVisibleRef.current) return;
     const canvas = canvasRef.current;
     if (!canvas) return;
     const ctx = canvas.getContext("2d");
     if (!ctx) return;
 
-    const dpr = window.devicePixelRatio || 1;
-    const w = canvas.clientWidth;
-    const h = canvas.clientHeight;
-    if (canvas.width !== w * dpr || canvas.height !== h * dpr) {
-      canvas.width = w * dpr;
-      canvas.height = h * dpr;
+    const { w, h, dpr } = sizeRef.current;
+    if (w <= 0 || h <= 0) {
+      animRef.current = requestAnimationFrame(draw);
+      return;
     }
+
     ctx.setTransform(1, 0, 0, 1, 0, 0);
     ctx.scale(dpr, dpr);
 
@@ -150,8 +177,25 @@ export function Component({
   }, [dotColor, autoRotateSpeed]);
 
   useEffect(() => {
-    animRef.current = requestAnimationFrame(draw);
-    return () => cancelAnimationFrame(animRef.current);
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+
+    const observer = new IntersectionObserver(([entry]) => {
+      const isIntersecting = entry.isIntersecting;
+      isVisibleRef.current = isIntersecting;
+      if (isIntersecting) {
+        cancelAnimationFrame(animRef.current);
+        animRef.current = requestAnimationFrame(draw);
+      } else {
+        cancelAnimationFrame(animRef.current);
+      }
+    }, { threshold: 0.05 });
+
+    observer.observe(canvas);
+    return () => {
+      observer.disconnect();
+      cancelAnimationFrame(animRef.current);
+    };
   }, [draw]);
 
   // Pointer drag handlers (smooth rotation on drag)

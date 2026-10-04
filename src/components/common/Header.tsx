@@ -9,6 +9,7 @@ import {
   ChevronDown
 } from 'lucide-react';
 import { useTheme } from '../../context/ThemeContext';
+import RollText from '@/animata/text/roll-text';
 
 export const Header: React.FC = () => {
   const { theme, setTheme } = useTheme();
@@ -81,7 +82,7 @@ export const Header: React.FC = () => {
                 key={item.path}
                 to={item.path}
                 title={item.fullLabel}
-                className={`px-1.5 xl:px-2 py-1 rounded-lg transition-all whitespace-nowrap ${
+                className={`group/roll px-1.5 xl:px-2 py-1 rounded-lg transition-all whitespace-nowrap ${
                   isActive
                     ? 'text-[var(--accent-navy)] font-bold bg-[var(--accent-navy)]/10 shadow-2xs'
                     : isSubmit
@@ -89,7 +90,15 @@ export const Header: React.FC = () => {
                     : 'text-[var(--text-secondary)] hover:text-[var(--text-primary)] hover:bg-[var(--bg-card-hover)]'
                 }`}
               >
-                {item.label}
+                <RollText
+                  text={item.label}
+                  groupHover={true}
+                  disabled={isActive}
+                  stagger="character"
+                  staggerMs={18}
+                  durationMs={240}
+                  className="cursor-pointer"
+                />
               </Link>
             );
           })}
@@ -219,7 +228,7 @@ export const Header: React.FC = () => {
                     key={item.path}
                     to={item.path}
                     onClick={() => setMobileMenuOpen(false)}
-                    className={`flex items-center justify-between px-3 py-2 rounded-xl text-sm font-medium transition-all ${
+                    className={`group/roll flex items-center justify-between px-3 py-2 rounded-xl text-sm font-medium transition-all ${
                       isActive
                         ? 'bg-[var(--accent-navy)]/10 text-[var(--accent-navy)] font-bold'
                         : isSubmit
@@ -227,7 +236,14 @@ export const Header: React.FC = () => {
                         : 'text-[var(--text-secondary)] hover:bg-[var(--bg-card-hover)] hover:text-[var(--text-primary)]'
                     }`}
                   >
-                    <span>{item.label}</span>
+                    <RollText
+                      text={item.label}
+                      groupHover={true}
+                      disabled={isActive}
+                      stagger="character"
+                      staggerMs={18}
+                      durationMs={240}
+                    />
                     {isActive && (
                       <span className="w-1.5 h-1.5 rounded-full bg-[var(--accent-navy)]"></span>
                     )}

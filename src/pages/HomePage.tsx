@@ -15,7 +15,7 @@ import { TextFlip } from '@/components/animata/text/text-flip';
 
 export const HomePage: React.FC = () => {
   return (
-    <div className="space-y-6 sm:space-y-10 pb-12 animate-fadeIn">
+    <div className="space-y-6 sm:space-y-10 pb-12">
 
       {/* ========================================================
           HERO SECTION: Container with WebGL Shader & Animated TextFlip Card
