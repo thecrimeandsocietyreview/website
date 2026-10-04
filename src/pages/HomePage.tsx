@@ -10,64 +10,71 @@ import {
 import { JOURNAL_METADATA } from '../data/mockJournalData';
 import { GlobalNetworkSection } from '../components/common/GlobalNetworkSection';
 import Feature from '@/components/ui/block-feature';
+import { ShaderBackground } from '@/components/ui/shader-state';
 
 export const HomePage: React.FC = () => {
   return (
     <div className="space-y-6 sm:space-y-10 pb-12 animate-fadeIn">
 
       {/* ========================================================
-          HERO SECTION: Journal Name, Intro, Interdisciplinary Focus
+          HERO SECTION: Container with WebGL Shader Background
       ======================================================== */}
-      <section className="relative w-full overflow-hidden bg-[var(--bg-card)] border-b border-[var(--border-subtle)]">
-        {/* Subtle Ambient Glows */}
-        <div className="absolute top-0 right-0 -mr-24 -mt-24 w-96 h-96 rounded-full bg-[var(--accent-gold)]/10 blur-3xl pointer-events-none"></div>
-        <div className="absolute bottom-0 left-0 -ml-20 -mb-20 w-80 h-80 rounded-full bg-[var(--accent-navy)]/10 blur-3xl pointer-events-none"></div>
+      <div className="w-full px-3.5 sm:px-6 pt-2 sm:pt-4">
+        <div className="mx-auto w-full max-w-7xl">
+          <section className="relative w-full rounded-[22px] sm:rounded-[28px] overflow-hidden border border-slate-200/80 dark:border-white/10 shadow-xl bg-slate-950">
+            {/* WebGL Shader Background */}
+            <ShaderBackground className="absolute inset-0 w-full h-full pointer-events-none" />
 
-        <div className="relative z-10 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-20 lg:py-24 space-y-7">
-          <div className="max-w-xl sm:max-w-2xl space-y-6 text-left">
+            {/* Ambient Contrast Gradient for Text Legibility */}
+            <div className="absolute inset-0 bg-gradient-to-r from-slate-950/85 via-slate-950/60 to-transparent pointer-events-none" />
+
+            <div className="relative z-10 max-w-2xl px-6 sm:px-10 lg:px-12 py-16 sm:py-20 lg:py-24 space-y-7 text-left">
             
             {/* Badges */}
             <div className="flex flex-wrap items-center justify-start gap-2.5 text-xs">
-              <span className="px-3 py-1 rounded-full font-mono text-[11px] font-bold bg-amber-500/15 text-amber-900 dark:text-[var(--accent-gold)] border border-amber-500/30 flex items-center gap-1.5 shadow-2xs">
-                <Award className="w-3.5 h-3.5 text-amber-600 dark:text-[var(--accent-gold)]" /> Academic Journal
+              <span className="px-3 py-1 rounded-full font-mono text-[11px] font-bold bg-amber-400/20 text-amber-300 border border-amber-400/30 flex items-center gap-1.5 shadow-2xs backdrop-blur-sm">
+                <Award className="w-3.5 h-3.5 text-amber-400" /> Academic Journal
               </span>
-              <span className="px-3 py-1 rounded-full font-mono text-[11px] font-semibold bg-amber-500/20 text-amber-900 dark:text-amber-300 border border-amber-500/40 flex items-center gap-1.5 shadow-2xs">
-                <span className="w-2 h-2 rounded-full bg-amber-500 animate-pulse"></span>
+              <span className="px-3 py-1 rounded-full font-mono text-[11px] font-semibold bg-white/10 text-slate-200 border border-white/20 flex items-center gap-1.5 shadow-2xs backdrop-blur-sm">
+                <span className="w-2 h-2 rounded-full bg-amber-400 animate-pulse"></span>
                 <span>ISSN: Coming Soon</span>
               </span>
-              <div className="px-3 py-1 rounded-full bg-white/95 dark:bg-slate-900/90 border border-orange-500/30 flex items-center shadow-2xs">
+              <div className="px-3 py-1 rounded-full bg-white/95 border border-white/40 flex items-center shadow-2xs">
                 <img 
                   src="/openaccess.png" 
                   alt="Open Access" 
-                  className="h-7 sm:h-8 w-auto object-contain dark:bg-white dark:px-2 dark:py-1 dark:rounded-md" 
+                  className="h-7 sm:h-8 w-auto object-contain" 
                 />
               </div>
             </div>
 
-            {/* 1. Journal Name */}
-            <div>
-              <h1 className="font-serif text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold text-slate-950 dark:text-white tracking-tight leading-tight">
+            {/* 1. Journal Name & Tagline */}
+            <div className="space-y-2">
+              <h1 className="font-serif text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold text-white tracking-tight leading-tight drop-shadow-sm">
                 The Crime &amp;
                 <br />
                 Society Review
               </h1>
+              <p className="text-xs sm:text-sm font-sans tracking-wide text-amber-200/90 font-medium">
+                {JOURNAL_METADATA.tagline}
+              </p>
             </div>
 
             {/* Primary Action Buttons */}
             <div className="flex flex-wrap items-center gap-3.5 pt-2">
               <Link
                 to="/about"
-                className="px-5 py-3 rounded-xl bg-[var(--accent-navy)] text-white font-semibold text-xs sm:text-sm hover:opacity-90 transition-all flex items-center gap-2 shadow-sm"
+                className="px-5 py-3 rounded-xl bg-white hover:bg-slate-100 text-slate-950 font-semibold text-xs sm:text-sm transition-all flex items-center gap-2 shadow-md"
               >
-                <BookOpen className="w-4 h-4" />
+                <BookOpen className="w-4 h-4 text-amber-600" />
                 <span>About the Journal</span>
                 <ArrowRight className="w-4 h-4" />
               </Link>
               <Link
                 to="/aims-scope"
-                className="px-5 py-3 rounded-xl border border-slate-300 dark:border-[var(--border-subtle)] hover:border-[var(--accent-navy)] text-slate-900 dark:text-[var(--text-primary)] font-semibold text-xs sm:text-sm transition-colors flex items-center gap-2 bg-white/90 dark:bg-slate-900/90 shadow-2xs"
+                className="px-5 py-3 rounded-xl border border-white/25 hover:border-white/50 text-white font-semibold text-xs sm:text-sm transition-colors flex items-center gap-2 bg-white/10 hover:bg-white/15 backdrop-blur-md shadow-2xs"
               >
-                <Target className="w-4 h-4 text-[var(--accent-gold)]" />
+                <Target className="w-4 h-4 text-amber-400" />
                 <span>Aims &amp; Scope</span>
               </Link>
               <Link
@@ -80,8 +87,9 @@ export const HomePage: React.FC = () => {
             </div>
 
           </div>
-        </div>
-      </section>
+        </section>
+      </div>
+    </div>
 
       {/* ========================================================
           INTERDISCIPLINARY PILLARS (ANIMATED FEATURE)

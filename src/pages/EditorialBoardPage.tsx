@@ -102,22 +102,16 @@ export const EditorialBoardPage: React.FC = () => {
       photo: "/editorial-board/Dr.SushilGoswami.jpeg"
     },
     {
-      name: "Dr. Asif Hasan",
-      designation: "Assistant Professor, Department of Psychology",
-      institution: "Aligarh Muslim University (AMU)",
-      photo: "/editorial-board/Dr.AsifHasan.jpeg"
+      name: "Mr. Gaurav Kumar Mishra",
+      designation: "Senior Analyst (Public Policy)",
+      institution: "Public Policy & Strategic Affairs",
+      photo: "/editorial-board/Mr.GauravKumarMishra.jpeg"
     },
     {
       name: "Dr. Shekh Belal Ahmad",
       designation: "Assistant Professor",
       institution: "Aligarh Muslim University (AMU)",
       photo: "/editorial-board/Dr.ShekhBelalAhmad.jpeg"
-    },
-    {
-      name: "Dr. Neha Tanwar",
-      designation: "Assistant Professor",
-      institution: "IILM University, Gurugram",
-      photo: "/editorial-board/Dr.NehaTanwar.jpeg"
     },
     {
       name: "Mohit Charan",
@@ -130,12 +124,17 @@ export const EditorialBoardPage: React.FC = () => {
       designation: "Assistant Professor",
       institution: "Chitkara University, Punjab"
     },
-    // 4. Senior Analysts / Policy Fellows
     {
-      name: "Mr. Gaurav Kumar Mishra",
-      designation: "Senior Analyst (Public Policy)",
-      institution: "Public Policy & Strategic Affairs",
-      photo: "/editorial-board/Mr.GauravKumarMishra.jpeg"
+      name: "Dr. Asif Hasan",
+      designation: "Assistant Professor, Department of Psychology",
+      institution: "Aligarh Muslim University (AMU)",
+      photo: "/editorial-board/Dr.AsifHasan.jpeg"
+    },
+    {
+      name: "Dr. Neha Tanwar",
+      designation: "Assistant Professor",
+      institution: "IILM University, Gurugram",
+      photo: "/editorial-board/Dr.NehaTanwar.jpeg"
     }
   ];
 
@@ -165,13 +164,13 @@ export const EditorialBoardPage: React.FC = () => {
       </div>
 
       {/* ========================================================
-          TIER 1: CHIEF EDITOR & CO-EDITOR-IN-CHIEF
+          TIER 1: CHIEF EDITORS
       ======================================================== */}
       <section className="space-y-4">
         <div className="pb-1 text-center">
           <h2 className="font-serif text-2xl font-bold text-[var(--text-primary)] inline-flex items-center gap-2">
             <Award className="w-5 h-5 text-[var(--accent-gold)]" />
-            <span>Journal Leadership</span>
+            <span>Chief Editors</span>
           </h2>
         </div>
 
