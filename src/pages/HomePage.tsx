@@ -22,11 +22,18 @@ export const HomePage: React.FC = () => {
       <div className="w-full px-3.5 sm:px-6 pt-2 sm:pt-4">
         <div className="mx-auto w-full max-w-7xl">
           <section className="relative w-full rounded-[22px] sm:rounded-[28px] overflow-hidden border border-slate-200/80 dark:border-white/10 shadow-xl bg-slate-950">
-            {/* WebGL Shader Background */}
+            {/* WebGL Shader Background Animation */}
             <ShaderBackground className="absolute inset-0 w-full h-full pointer-events-none" />
 
-            {/* Ambient Contrast Gradient for Text Legibility */}
-            <div className="absolute inset-0 bg-gradient-to-r from-slate-950/85 via-slate-950/60 to-transparent pointer-events-none" />
+            {/* Hero Background Artwork - 100% Crisp & Clear, right-aligned, text safe */}
+            <img 
+              src="/hero-bg.png" 
+              alt="The Crime &amp; Society Review Artwork" 
+              className="absolute inset-y-0 right-0 w-full sm:w-4/5 lg:w-3/5 h-full object-cover object-right translate-x-[3%] sm:translate-x-[6%] lg:translate-x-[8%] select-none pointer-events-none" 
+            />
+
+            {/* Ambient Contrast Gradient ensuring Text Legibility on Left & Shader Brilliance */}
+            <div className="absolute inset-0 bg-gradient-to-r from-slate-950 via-slate-950/75 to-transparent pointer-events-none" />
 
             <div className="relative z-10 max-w-2xl px-6 sm:px-10 lg:px-12 py-16 sm:py-20 lg:py-24 space-y-7 text-left">
             

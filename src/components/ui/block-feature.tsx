@@ -199,20 +199,39 @@ const SCOPE_CARDS_20: ScopeItem[] = [
   },
 ];
 
-// Arched oval wave path spanning closed loop for seamless, continuous traveling
-// Top arch travels visibly from -320 to 1720 (crest at y=95, dips at y=220)
-// Return arch loops offscreen (y=450) back to -320
-const LOOP_PATH =
-  "M -320 220 C 150 220, 420 95, 700 95 C 980 95, 1250 220, 1720 220 C 2100 450, -700 450, -320 220 Z";
+// Arched oval wave path spanning 6240px total distance
+// Distance between 20 cards = 312px. Card width = 230px -> 82px guaranteed non-touching open gap!
+// Smooth arch: crest at y = 95, dips at y = 220 within viewBox 1400x310
+const BELT_PATH =
+  "M -320 220 C 150 220, 420 95, 700 95 C 980 95, 1250 220, 1720 220 L 5920 220";
+const BELT_DURATION = 64; // Fluid, butter-smooth speed: preserves full 82px gap without sluggishness
+const BELT_RIDERS = SCOPE_CARDS_20.length; // 20 cards
 
 export default function Feature() {
-  const pathRef = useRef<SVGPathElement>(null);
-  const cardRefs = useRef<(SVGGElement | null)[]>([]);
-  const isPausedRef = useRef(false);
-
+  const step = BELT_DURATION / BELT_RIDERS;
+  const svgRef = useRef<SVGSVGElement>(null);
   const [isMobile, setIsMobile] = useState(() => 
     typeof window !== 'undefined' ? window.innerWidth < 640 : false
   );
+
+  // Instant SMIL wake-up: triggers browser SVG animation clock immediately on page load
+  useEffect(() => {
+    const activate = () => {
+      if (svgRef.current) {
+        try {
+          svgRef.current.unpauseAnimations();
+          svgRef.current.setCurrentTime(svgRef.current.getCurrentTime() || 0.05);
+        } catch {}
+      }
+    };
+    activate();
+    const t1 = setTimeout(activate, 40);
+    const t2 = setTimeout(activate, 120);
+    return () => {
+      clearTimeout(t1);
+      clearTimeout(t2);
+    };
+  }, []);
 
   useEffect(() => {
     const checkMobile = () => {
@@ -223,66 +242,22 @@ export default function Feature() {
     return () => window.removeEventListener('resize', checkMobile);
   }, []);
 
-  // Instant Start RAF animation: eliminates the 15-second SMIL startup delay
-  useEffect(() => {
-    const pathEl = pathRef.current;
-    if (!pathEl) return;
-
-    let totalLength = 0;
+  // Pause ONLY when hovering directly on an actual card (no zoom, pure stop)
+  const handleMouseEnter = () => {
     try {
-      totalLength = pathEl.getTotalLength();
+      svgRef.current?.pauseAnimations();
     } catch {
-      return;
+      // Fallback
     }
-    if (!totalLength) return;
+  };
 
-    const SAMPLES = 1200;
-    const points: { x: number; y: number }[] = [];
-    for (let s = 0; s < SAMPLES; s++) {
-      const pt = pathEl.getPointAtLength((s / SAMPLES) * totalLength);
-      points.push({
-        x: Math.round(pt.x * 10) / 10,
-        y: Math.round(pt.y * 10) / 10,
-      });
+  const handleMouseLeave = () => {
+    try {
+      svgRef.current?.unpauseAnimations();
+    } catch {
+      // Fallback
     }
-
-    const count = SCOPE_CARDS_20.length;
-    let progress = 0;
-    let lastTime = performance.now();
-    let animId = 0;
-
-    // Immediately update positions on mount (0ms delay!)
-    const updateCards = () => {
-      for (let i = 0; i < count; i++) {
-        const sampleIdx = Math.floor(
-          (progress + (i * SAMPLES) / count) % SAMPLES
-        );
-        const pt = points[sampleIdx];
-        const cardEl = cardRefs.current[i];
-        if (cardEl && pt) {
-          cardEl.setAttribute("transform", `translate(${pt.x}, ${pt.y})`);
-        }
-      }
-    };
-    updateCards();
-
-    const loop = (now: number) => {
-      animId = requestAnimationFrame(loop);
-      const dt = Math.min((now - lastTime) / 1000, 0.1);
-      lastTime = now;
-
-      if (!isPausedRef.current) {
-        // ~52 seconds for a complete leisurely cycle, moving immediately on load
-        progress = (progress + dt * (SAMPLES / 52)) % SAMPLES;
-        updateCards();
-      }
-    };
-
-    animId = requestAnimationFrame(loop);
-    return () => {
-      cancelAnimationFrame(animId);
-    };
-  }, []);
+  };
 
   return (
     <section className="w-full px-3.5 sm:px-6 pt-1 pb-4 sm:pt-3 sm:pb-6">
@@ -303,20 +278,13 @@ export default function Feature() {
           {/* 2. OVAL TRAVELING CARDS TRACK (Curved oval path, larger track & cards) */}
           <div className="relative h-[165px] sm:h-[285px] w-full [mask-image:linear-gradient(to_right,transparent,black_3%,black_97%,transparent)] my-0 sm:my-1">
             <svg
+              ref={svgRef}
               viewBox={isMobile ? "0 0 1400 190" : "0 0 1400 310"}
               fill="none"
               preserveAspectRatio="xMidYMid slice"
               aria-hidden="true"
               className="absolute inset-0 h-full w-full motion-reduce:hidden"
             >
-              {/* Invisible calculation path for getPointAtLength */}
-              <path
-                ref={pathRef}
-                d={LOOP_PATH}
-                fill="none"
-                stroke="none"
-              />
-
               {/* Subtle curved orbital guide track */}
               <path
                 d="M -320 220 C 150 220, 420 95, 700 95 C 980 95, 1250 220, 1720 220"
@@ -329,13 +297,15 @@ export default function Feature() {
               {SCOPE_CARDS_20.map((card, i) => {
                 const Icon = card.icon;
                 return (
-                  <g
-                    key={card.id}
-                    ref={(el) => {
-                      cardRefs.current[i] = el;
-                    }}
-                    transform="translate(-1000, -1000)"
-                  >
+                  <g key={card.id}>
+                    <animateMotion
+                      dur={`${BELT_DURATION}s`}
+                      begin={`${-i * step}s`}
+                      repeatCount="indefinite"
+                      calcMode="linear"
+                      rotate="0"
+                      path={BELT_PATH}
+                    />
                     <foreignObject
                       x="-115"
                       y="-71"
@@ -343,14 +313,10 @@ export default function Feature() {
                       height="142"
                       className="overflow-visible"
                     >
-                      {/* Card pauses ONLY when mouse hovers directly on the card itself */}
+                      {/* Card pauses ONLY when mouse hovers directly on the card itself (No zoom/scale, simple stop) */}
                       <div
-                        onMouseEnter={() => {
-                          isPausedRef.current = true;
-                        }}
-                        onMouseLeave={() => {
-                          isPausedRef.current = false;
-                        }}
+                        onMouseEnter={handleMouseEnter}
+                        onMouseLeave={handleMouseLeave}
                         className="group relative flex h-[142px] w-[230px] flex-col justify-between rounded-[16px] border border-slate-200/95 bg-white p-4 text-left shadow-[0_4px_18px_rgba(0,0,0,0.06)] hover:border-slate-300 hover:shadow-[0_8px_24px_rgba(0,0,0,0.1)] select-none cursor-pointer will-change-transform transform-gpu"
                       >
                         <div>

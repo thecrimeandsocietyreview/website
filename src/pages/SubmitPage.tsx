@@ -362,6 +362,7 @@ export const SubmitPage: React.FC = () => {
     }
 
     setIsSubmitting(true);
+    const submitStartTime = Date.now();
 
     try {
       // Build real multipart/form-data payload for backend ingestion
@@ -431,7 +432,9 @@ export const SubmitPage: React.FC = () => {
           localStorage.setItem('csr_user_submissions', JSON.stringify([newSubmission, ...list]));
         } catch (err) {}
 
-        // Allow the button's installing -> installed (3.6s) animation to complete
+        // Complete the button's rotating white circle animation + show "Submitted ✓" promptly without 2s freeze
+        const elapsed = Date.now() - submitStartTime;
+        const remainingAnimTime = Math.max(0, 2600 - elapsed);
         setTimeout(() => {
           setIsSubmitted(true);
           setIsSubmitting(false);
@@ -443,7 +446,7 @@ export const SubmitPage: React.FC = () => {
               origin: { y: 0.6 }
             });
           } catch (err) {}
-        }, 3600);
+        }, remainingAnimTime);
         return;
       }
 
@@ -470,8 +473,6 @@ export const SubmitPage: React.FC = () => {
         const localId = `CSR-${new Date().getFullYear()}-${token}`;
 
         setTrackingId(localId);
-        setIsSubmitted(true);
-        setIsSubmitting(false);
 
         const newSubmission: SubmissionDraft = {
           id: `sub-${Date.now()}`,
@@ -507,13 +508,19 @@ export const SubmitPage: React.FC = () => {
           localStorage.setItem('csr_user_submissions', JSON.stringify([newSubmission, ...list]));
         } catch (err) {}
 
-        try {
-          confetti({
-            particleCount: 85,
-            spread: 75,
-            origin: { y: 0.6 }
-          });
-        } catch (err) {}
+        const elapsed = Date.now() - submitStartTime;
+        const remainingAnimTime = Math.max(0, 2600 - elapsed);
+        setTimeout(() => {
+          setIsSubmitted(true);
+          setIsSubmitting(false);
+          try {
+            confetti({
+              particleCount: 85,
+              spread: 75,
+              origin: { y: 0.6 }
+            });
+          } catch (err) {}
+        }, remainingAnimTime);
         return;
       }
 
@@ -530,6 +537,8 @@ export const SubmitPage: React.FC = () => {
         for (let i = 0; i < 10; i++) token += ALPHABET[bytes[i] % ALPHABET.length];
         const localId = `CSR-${new Date().getFullYear()}-${token}`;
         setTrackingId(localId);
+        const elapsed = Date.now() - submitStartTime;
+        const remainingAnimTime = Math.max(0, 2600 - elapsed);
         setTimeout(() => {
           setIsSubmitted(true);
           setIsSubmitting(false);
@@ -540,7 +549,7 @@ export const SubmitPage: React.FC = () => {
               origin: { y: 0.6 }
             });
           } catch (err) {}
-        }, 3600);
+        }, remainingAnimTime);
         return;
       }
       setValidationError('Network error: Unable to reach submission servers. Please check your internet connection.');

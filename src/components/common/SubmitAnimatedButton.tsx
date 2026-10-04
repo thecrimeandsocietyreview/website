@@ -207,22 +207,22 @@ const StyledWrapper = styled.div`
 
   .label:has(.input:checked) {
     width: 57px;
-    animation: installed 0.4s ease 3.5s forwards;
+    animation: installed 0.35s ease 2.2s forwards;
   }
 
   .label:has(.input:checked)::before {
-    animation: rotate 3s ease-in-out 0.4s forwards;
+    animation: rotate 1.8s ease-in-out 0.3s forwards;
   }
 
   .label .input:checked + .circle {
     animation:
-      pulse 1s forwards,
-      circleDelete 0.2s ease 3.5s forwards;
+      pulse 0.9s forwards,
+      circleDelete 0.2s ease 2.2s forwards;
     rotate: 180deg;
   }
 
   .label .input:checked + .circle::before {
-    animation: installing 3s ease-in-out forwards;
+    animation: installing 1.8s ease-in-out forwards;
   }
 
   .label .input:checked + .circle .icon {
@@ -241,7 +241,7 @@ const StyledWrapper = styled.div`
   }
 
   .label .input:checked ~ .title:last-child {
-    animation: showInstalledMessage 0.4s ease 3.5s forwards;
+    animation: showInstalledMessage 0.35s ease 2.2s forwards;
   }
 
   @keyframes pulse {
