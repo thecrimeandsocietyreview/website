@@ -225,7 +225,7 @@ export const HomePage: React.FC = () => {
                 Author Guidelines &amp; Submission
               </h3>
               <p className="text-xs text-[var(--text-secondary)] font-serif leading-relaxed text-justify">
-                Word files (.doc/.docx up to 20 MB), Garamond 12pt, APA 7th edition referencing, ₹0 APC Diamond Open Access model.
+                Word files (.doc/.docx up to 20 MB), Garamond 12pt, APA 7th edition referencing, ₹0 APC Open Access model.
               </p>
             </div>
             <Link

@@ -787,7 +787,7 @@ export const INDEXING_CREDENTIALS = [
   {
     name: "Directory of Open Access Journals",
     acronym: "DOAJ",
-    badge: "Diamond Open Access",
+    badge: "Open Access",
     description: "Strict compliance with DOAJ quality criteria: no author charges (₹0 APC), transparent double-blind peer review, and CC BY 4.0 Creative Commons licensing.",
     status: "DOAJ Candidate Tier",
     icon: "shield-check"
@@ -831,7 +831,7 @@ export const CALL_FOR_PAPERS_DATA = {
   ],
   charges: {
     apc: "₹0 (Zero Fees)",
-    status: "100% Diamond Open Access Subsidized for Indian Researchers, Advocates, and Students",
+    status: "100% Open Access Subsidized for Indian Researchers, Advocates, and Students",
   },
   tracks: [
     "Criminal Law & Statutory Analysis under BNS 2023",
@@ -1016,7 +1016,7 @@ export const JOURNAL_HISTORY_TIMELINE = [
     phase: "First Publications",
     period: "2025 – 2026",
     title: "Volume 01 Ingestion & Continuous Publishing Model",
-    desc: "The Crime & Society Review initiated its inaugural volume with landmark empirical audits of Section 63 BSA digital evidence certification and Article 21 due process. Adopted immediate Version of Record publishing with persistent Crossref DOIs (10.59821/csr.*) and 100% Diamond Open Access."
+    desc: "The Crime & Society Review initiated its inaugural volume with landmark empirical audits of Section 63 BSA digital evidence certification and Article 21 due process. Adopted immediate Version of Record publishing with persistent Crossref DOIs (10.59821/csr.*) and 100% Open Access."
   },
   {
     phase: "Growth",
@@ -1040,7 +1040,7 @@ export const PUBLISHER_PROFILE = {
   mission: "To advance rigorous, accessible, and evidence-based knowledge on crime, institutional justice, forensic science, and society without financial or ideological barriers.",
   publishingPrinciples: [
     { title: "Academic Independence", desc: "Editorial decisions are guided exclusively by academic merit, originality, and intellectual rigor, insulated from commercial, institutional, or governmental pressures." },
-    { title: "Diamond Open Access", desc: "No subscription barriers for readers, and zero article processing charges (₹0 APC) for authors, ensuring open universal dissemination of legal and scientific research." },
+    { title: "Open Access", desc: "No subscription barriers for readers, and zero article processing charges (₹0 APC) for authors, ensuring open universal dissemination of legal and scientific research." },
     { title: "Research Integrity", desc: "Strict adherence to the Committee on Publication Ethics (COPE) Core Practices, ICMR human research ethics, and UGC Academic Integrity Regulations 2018." },
     { title: "Methodological Transparency", desc: "Encouraging full data transparency, statistical reproducibility, open code, and explicit calibration limits for empirical and forensic contributions." },
     { title: "Responsible Dissemination", desc: "Bridging the gap between ivory-tower academic theory and practical trial court reality by providing executive policy implications for courts, police, and forensic laboratories." }

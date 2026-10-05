@@ -606,7 +606,7 @@ CONFIRMATIONS:
 - Author Approvals: Confirmed
 - Accurate Author Order: Confirmed
 - Blind Peer Review Preparation: Confirmed
-- Open Access: Diamond Open Access (CC BY 4.0, ₹0 APC)
+- Open Access: Open Access (CC BY 4.0, ₹0 APC)
 - ISSN: Coming Soon
 
 Editorial Desk: thecrimeandsocietyreview@gmail.com

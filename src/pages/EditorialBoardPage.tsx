@@ -124,7 +124,8 @@ export const EditorialBoardPage: React.FC = () => {
     {
       name: "Ms. Kanika Gaur",
       designation: "Assistant Professor",
-      institution: "Chitkara University, Punjab"
+      institution: "Chitkara University, Punjab",
+      photo: "/editorial-board/Ms.KanikaGaur.jpeg"
     },
     {
       name: "Dr. Asif Hasan",
@@ -183,7 +184,7 @@ export const EditorialBoardPage: React.FC = () => {
             style={{ contentVisibility: 'auto', containIntrinsicSize: '200px 320px' }}
           >
             <div className="space-y-2.5">
-              <MemberPhoto photo="/chief-editor.jpeg" name="Dr. Shahanshah Gulpham" />
+              <MemberPhoto photo="/editorial-board/chief-editor.jpeg" name="Dr. Shahanshah Gulpham" />
 
               <div className="space-y-1 min-w-0 text-center">
                 <span className="text-[10px] font-mono text-[var(--accent-gold)] font-bold uppercase tracking-wider block">
@@ -210,7 +211,7 @@ export const EditorialBoardPage: React.FC = () => {
             style={{ contentVisibility: 'auto', containIntrinsicSize: '200px 320px' }}
           >
             <div className="space-y-2.5">
-              <MemberPhoto photo="/co-editor-in-chief.jpeg" name="Mr. Pravesh Shekhar" />
+              <MemberPhoto photo="/editorial-board/co-editor-in-chief.jpeg" name="Mr. Pravesh Shekhar" />
 
               <div className="space-y-1 min-w-0 text-center">
                 <span className="text-[10px] font-mono text-[var(--accent-gold)] font-bold uppercase tracking-wider block">

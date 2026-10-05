@@ -107,7 +107,7 @@ export const AboutPage: React.FC = () => {
             },
             {
               title: "Scholarly Openness",
-              desc: "Diamond Open Access as an ethical imperative for democratic knowledge dissemination, ensuring ₹0 Article Processing Charges and unhindered public access."
+              desc: "Open Access as an ethical imperative for democratic knowledge dissemination, ensuring ₹0 Article Processing Charges and unhindered public access."
             },
             {
               title: "Evidence & Reason",

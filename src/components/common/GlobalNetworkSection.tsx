@@ -28,7 +28,7 @@ export const GlobalNetworkSection: React.FC = () => {
             <div className="flex items-center gap-2 sm:gap-4 md:gap-6 pt-1">
               <div>
                 <p className="text-xs sm:text-lg md:text-2xl font-bold text-amber-400 font-mono">₹0 APC</p>
-                <p className="text-[8.5px] sm:text-[10.5px] md:text-xs text-slate-300 font-sans font-medium whitespace-nowrap">Diamond Open Access</p>
+                <p className="text-[8.5px] sm:text-[10.5px] md:text-xs text-slate-300 font-sans font-medium whitespace-nowrap">Open Access</p>
               </div>
               <div className="w-px h-5 sm:h-7 md:h-8 bg-slate-800 shrink-0" />
               <div>
