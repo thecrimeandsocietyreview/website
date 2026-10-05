@@ -50,7 +50,10 @@ export const onRequestGet = async (context: {
         status, 
         stage_number, 
         submitted_at, 
-        updated_at
+        updated_at,
+        blind_file_name,
+        author_file_name,
+        editorial_decision_notes
       FROM submissions 
       WHERE tracking_number = ?
     `;
@@ -79,6 +82,9 @@ export const onRequestGet = async (context: {
             stageNumber: submission.stage_number,
             submittedAt: submission.submitted_at,
             updatedAt: submission.updated_at,
+            blindFileName: submission.blind_file_name || "",
+            authorFileName: submission.author_file_name || "",
+            decisionNotes: submission.editorial_decision_notes || "",
           },
         }),
         { status: 200, headers: { "Content-Type": "application/json" } }

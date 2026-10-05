@@ -16,6 +16,7 @@ import { IssuesPage } from './pages/IssuesPage';
 import { AimsScopePage } from './pages/AimsScopePage';
 import { ContactPage } from './pages/ContactPage';
 import { AdminPage } from './pages/AdminPage';
+import { TrackPage } from './pages/TrackPage';
 
 // Scroll to top automatically on route changes
 const ScrollToTop: React.FC = () => {
@@ -85,13 +86,18 @@ const AppLayout: React.FC = () => {
           {/* 8. Submission */}
           <Route path="/submit" element={<SubmitPage />} />
 
-          {/* 9. Contact Us */}
+          {/* 9. Manuscript Tracking Portal */}
+          <Route path="/track" element={<TrackPage />} />
+
+          {/* 10. Contact Us */}
           <Route path="/contact" element={<ContactPage />} />
 
-          {/* 10. Admin Console */}
+          {/* 11. Admin Console */}
           <Route path="/admin" element={<AdminPage />} />
 
           {/* Clean Redirects */}
+          <Route path="/tracking" element={<Navigate to="/track" replace />} />
+          <Route path="/track-manuscript" element={<Navigate to="/track" replace />} />
           <Route path="/issues" element={<Navigate to="/current-issue" replace />} />
           <Route path="/articles" element={<Navigate to="/current-issue" replace />} />
           <Route path="/archive" element={<Navigate to="/current-issue" replace />} />

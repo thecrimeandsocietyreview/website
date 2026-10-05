@@ -19,7 +19,8 @@ import {
   ChevronDown,
   Search,
   RotateCcw,
-  Mail
+  Mail,
+  Clock
 } from 'lucide-react';
 import ReactCountryFlag from 'react-country-flag';
 import { 
@@ -722,6 +723,14 @@ Editorial Desk: thecrimeandsocietyreview@gmail.com
 
         {/* Action Buttons */}
         <div className="flex flex-wrap items-center justify-center gap-3 pt-4">
+          <Link
+            to={`/track?id=${encodeURIComponent(trackingId)}`}
+            className="px-5 py-2.5 rounded-xl bg-[var(--accent-navy)] text-white text-xs font-semibold flex items-center gap-2 hover:opacity-90 shadow-xs active:scale-[0.98] transition-all"
+          >
+            <Clock className="w-4 h-4 text-[var(--accent-gold)]" />
+            <span>Track Manuscript Status Live →</span>
+          </Link>
+
           <button
             onClick={handleDownloadSlip}
             className="px-5 py-2.5 rounded-xl border border-[var(--border-strong)] bg-[var(--bg-card)] hover:bg-[var(--bg-card-hover)] text-xs font-semibold text-[var(--text-primary)] flex items-center gap-2 cursor-pointer shadow-2xs"

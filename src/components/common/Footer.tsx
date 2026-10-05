@@ -131,6 +131,9 @@ export const Footer: React.FC = () => {
               <Link to="/submit" className="text-[var(--text-secondary)] hover:text-[var(--accent-navy)] hover:translate-x-0.5 transition-all flex items-center gap-1.5 font-medium text-[var(--accent-navy)]">
                 <span className="text-[var(--accent-gold)] text-[11px]">›</span> Submission
               </Link>
+              <Link to="/track" className="text-[var(--text-secondary)] hover:text-[var(--accent-navy)] hover:translate-x-0.5 transition-all flex items-center gap-1.5 font-medium text-[var(--accent-gold)]">
+                <span className="text-[var(--accent-gold)] text-[11px]">›</span> Track Manuscript
+              </Link>
               <Link to="/contact" className="text-[var(--text-secondary)] hover:text-[var(--accent-navy)] hover:translate-x-0.5 transition-all flex items-center gap-1.5 col-span-2">
                 <span className="text-[var(--accent-gold)] text-[11px]">›</span> Contact &amp; Inquiries
               </Link>
