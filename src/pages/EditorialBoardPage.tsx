@@ -187,13 +187,13 @@ export const EditorialBoardPage: React.FC = () => {
               <MemberPhoto photo="/editorial-board/chief-editor.jpeg" name="Dr. Shahanshah Gulpham" />
 
               <div className="space-y-1 min-w-0 text-center">
-                <span className="text-[10px] font-mono text-[var(--accent-gold)] font-bold uppercase tracking-wider block">
+                <span className="text-[10px] font-mono text-[var(--accent-gold)] font-bold uppercase tracking-wider block text-center">
                   Editor-in-Chief
                 </span>
-                <h3 className="font-serif font-bold text-xs sm:text-base text-[var(--text-primary)] group-hover:text-[var(--accent-navy)] transition-colors leading-snug">
+                <h3 className="font-serif font-bold text-xs sm:text-base text-[var(--text-primary)] group-hover:text-[var(--accent-navy)] transition-colors leading-snug text-center">
                   Dr. Shahanshah Gulpham
                 </h3>
-                <p className="text-[10px] sm:text-xs font-serif text-[var(--accent-gold)] leading-tight line-clamp-2">
+                <p className="text-[10px] sm:text-xs font-serif text-[var(--accent-gold)] leading-tight line-clamp-2 text-center">
                   Assistant Professor
                 </p>
               </div>
@@ -214,13 +214,13 @@ export const EditorialBoardPage: React.FC = () => {
               <MemberPhoto photo="/editorial-board/co-editor-in-chief.jpeg" name="Mr. Pravesh Shekhar" />
 
               <div className="space-y-1 min-w-0 text-center">
-                <span className="text-[10px] font-mono text-[var(--accent-gold)] font-bold uppercase tracking-wider block">
+                <span className="text-[10px] font-mono text-[var(--accent-gold)] font-bold uppercase tracking-wider block text-center">
                   Co-Editor-in-Chief
                 </span>
-                <h3 className="font-serif font-bold text-xs sm:text-base text-[var(--text-primary)] group-hover:text-[var(--accent-navy)] transition-colors leading-snug">
+                <h3 className="font-serif font-bold text-xs sm:text-base text-[var(--text-primary)] group-hover:text-[var(--accent-navy)] transition-colors leading-snug text-center">
                   Mr. Pravesh Shekhar
                 </h3>
-                <p className="text-[10px] sm:text-xs font-serif text-[var(--accent-gold)] leading-tight line-clamp-2">
+                <p className="text-[10px] sm:text-xs font-serif text-[var(--accent-gold)] leading-tight line-clamp-2 text-center">
                   Senior Research Fellow, Criminology
                 </p>
               </div>
@@ -260,10 +260,10 @@ export const EditorialBoardPage: React.FC = () => {
                 <MemberPhoto photo={member.photo} name={member.name} />
 
                 <div className="space-y-1 min-w-0 text-center">
-                  <h3 className="font-serif font-bold text-xs sm:text-base text-[var(--text-primary)] group-hover:text-[var(--accent-navy)] transition-colors leading-snug">
+                  <h3 className="font-serif font-bold text-xs sm:text-base text-[var(--text-primary)] group-hover:text-[var(--accent-navy)] transition-colors leading-snug text-center">
                     {member.name}
                   </h3>
-                  <p className="text-[10px] sm:text-xs font-serif text-[var(--accent-gold)] leading-tight line-clamp-2">
+                  <p className="text-[10px] sm:text-xs font-serif text-[var(--accent-gold)] leading-tight line-clamp-2 text-center">
                     {member.designation}
                   </p>
                 </div>
@@ -302,10 +302,10 @@ export const EditorialBoardPage: React.FC = () => {
               <div className="space-y-2.5">
                 <MemberPhoto photo={editor.photo} name={editor.name} />
                 <div className="space-y-1 min-w-0 text-center">
-                  <h3 className="font-serif font-bold text-xs sm:text-base text-[var(--text-primary)] group-hover:text-[var(--accent-navy)] transition-colors leading-snug">
+                  <h3 className="font-serif font-bold text-xs sm:text-base text-[var(--text-primary)] group-hover:text-[var(--accent-navy)] transition-colors leading-snug text-center">
                     {editor.name}
                   </h3>
-                  <p className="text-[10px] sm:text-xs font-serif text-[var(--accent-gold)] leading-tight line-clamp-2">
+                  <p className="text-[10px] sm:text-xs font-serif text-[var(--accent-gold)] leading-tight line-clamp-2 text-center">
                     {editor.designation}
                   </p>
                 </div>
@@ -339,10 +339,10 @@ export const EditorialBoardPage: React.FC = () => {
             <div className="space-y-2.5">
               <MemberPhoto photo="/editorial-board/abhinavkumar.jpeg" name="Abhinav Kumar" />
               <div className="space-y-1 min-w-0 text-center">
-                <h3 className="font-serif font-bold text-xs sm:text-base text-[var(--text-primary)] group-hover:text-[var(--accent-navy)] transition-colors leading-snug">
+                <h3 className="font-serif font-bold text-xs sm:text-base text-[var(--text-primary)] group-hover:text-[var(--accent-navy)] transition-colors leading-snug text-center">
                   Abhinav Kumar
                 </h3>
-                <p className="text-[10px] sm:text-xs font-serif text-[var(--accent-gold)] leading-tight line-clamp-2">
+                <p className="text-[10px] sm:text-xs font-serif text-[var(--accent-gold)] leading-tight line-clamp-2 text-center">
                   Technical &amp; Web Systems Lead • Digital Production Editor
                 </p>
               </div>

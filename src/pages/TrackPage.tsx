@@ -302,48 +302,102 @@ export const TrackPage: React.FC = () => {
             </div>
             <div className="flex items-center gap-1.5">
               <Calendar className="w-3.5 h-3.5 text-[var(--accent-gold)]" />
-              <span>Submitted: {submission.submittedAt}</span>
+              <span>Submitted: {submission.submittedAt ? submission.submittedAt.split('T')[0] : 'N/A'}</span>
             </div>
           </div>
 
-          {/* 5. Clean Connecting LINE & DOTS Stepper (Exactly 6 Admin Stages) */}
+          {/* 5. Clean Connecting LINE & DOTS Stepper (Responsive: Vertical on Mobile, Horizontal on Desktop) */}
           <div className="pt-2 pb-1">
-            <div className="relative">
-              
+            
+            {/* Mobile View (< sm): Continuous Vertical Connected Stepper */}
+            <div className="sm:hidden relative pl-2 py-1">
+              {/* Continuous Vertical Background Line */}
+              <div className="absolute left-[23px] top-4 bottom-4 w-0.5 bg-[var(--border-subtle)]" />
+              {/* Continuous Vertical Active Progress Fill */}
+              <div 
+                className="absolute left-[23px] top-4 w-0.5 bg-[var(--accent-gold)] transition-all duration-500"
+                style={{
+                  height: `${Math.max(0, Math.min(100, ((currentStageNumber - 1) / (PIPELINE_STAGES.length - 1)) * 100))}%`
+                }}
+              />
+
+              {/* 6 Connected Steps */}
+              <div className="space-y-1">
+                {PIPELINE_STAGES.map((s) => {
+                  const isCompleted = currentStageNumber > s.stage;
+                  const isCurrent = currentStageNumber === s.stage;
+
+                  return (
+                    <div key={s.stage} className="relative flex items-center gap-3.5 py-2">
+                      {/* Dot */}
+                      <div className={`w-8 h-8 rounded-full flex items-center justify-center font-mono text-xs font-bold shrink-0 z-10 ring-4 ring-[var(--bg-card)] transition-all ${
+                        isCompleted
+                          ? 'bg-emerald-600 text-white shadow-xs'
+                          : isCurrent
+                          ? 'bg-[var(--accent-gold)] text-black ring-4 ring-[var(--accent-gold)]/25 shadow-md animate-pulse'
+                          : 'bg-[var(--bg-card)] border-2 border-[var(--border-strong)] text-[var(--text-muted)]'
+                      }`}>
+                        {isCompleted ? <Check className="w-4 h-4 stroke-[3]" /> : s.stage}
+                      </div>
+
+                      {/* Label & Active Tag */}
+                      <div className="flex items-center gap-2">
+                        <span className={`text-xs font-semibold ${
+                          isCurrent 
+                            ? 'text-[var(--accent-gold)] font-bold' 
+                            : isCompleted 
+                            ? 'text-[var(--text-primary)] font-semibold' 
+                            : 'text-[var(--text-muted)]'
+                        }`}>
+                          {s.label}
+                        </span>
+                        {isCurrent && (
+                          <span className="text-[9px] font-mono uppercase tracking-wider text-[var(--accent-gold)] font-bold px-1.5 py-0.5 rounded bg-[var(--accent-gold)]/10 border border-[var(--accent-gold)]/30">
+                            • Current
+                          </span>
+                        )}
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+
+            {/* Desktop View (sm:block): Continuous Horizontal Connected Stepper */}
+            <div className="hidden sm:block relative pt-2 pb-1">
               {/* Connecting Background Line */}
-              <div className="absolute top-4 left-4 right-4 h-0.5 bg-[var(--border-subtle)] -translate-y-1/2 z-0 hidden sm:block" />
+              <div className="absolute top-4 left-6 right-6 h-0.5 bg-[var(--border-subtle)] -translate-y-1/2 z-0" />
               
               {/* Active Progress Line */}
               <div 
-                className="absolute top-4 left-4 h-0.5 bg-[var(--accent-gold)] -translate-y-1/2 z-0 hidden sm:block transition-all duration-500"
+                className="absolute top-4 left-6 h-0.5 bg-[var(--accent-gold)] -translate-y-1/2 z-0 transition-all duration-500"
                 style={{
                   width: `${Math.max(0, Math.min(100, ((currentStageNumber - 1) / (PIPELINE_STAGES.length - 1)) * 100))}%`
                 }}
               />
 
               {/* Dots & Labels */}
-              <div className="grid grid-cols-2 sm:grid-cols-6 gap-y-5 gap-x-2 relative z-10">
+              <div className="grid grid-cols-6 gap-x-2 relative z-10">
                 {PIPELINE_STAGES.map((s) => {
                   const isCompleted = currentStageNumber > s.stage;
                   const isCurrent = currentStageNumber === s.stage;
-                  const isPending = currentStageNumber < s.stage;
 
                   return (
                     <div key={s.stage} className="flex flex-col items-center text-center group">
                       
                       {/* Dot Circle */}
-                      <div className={`w-8 h-8 rounded-full flex items-center justify-center font-mono text-xs font-bold transition-all duration-300 ${
+                      <div className={`w-8 h-8 rounded-full flex items-center justify-center font-mono text-xs font-bold transition-all duration-300 ring-4 ring-[var(--bg-card)] ${
                         isCompleted
                           ? 'bg-emerald-600 text-white shadow-xs'
                           : isCurrent
-                          ? 'bg-[var(--accent-gold)] text-black ring-4 ring-[var(--accent-gold)]/20 shadow-md animate-pulse'
+                          ? 'bg-[var(--accent-gold)] text-black ring-4 ring-[var(--accent-gold)]/25 shadow-md animate-pulse'
                           : 'bg-[var(--bg-card)] border-2 border-[var(--border-strong)] text-[var(--text-muted)]'
                       }`}>
                         {isCompleted ? <Check className="w-4 h-4 stroke-[3]" /> : s.stage}
                       </div>
 
                       {/* Status Name */}
-                      <span className={`text-[11px] sm:text-xs mt-2 font-medium tracking-tight leading-tight ${
+                      <span className={`text-[11px] lg:text-xs mt-2 font-medium tracking-tight leading-tight ${
                         isCurrent 
                           ? 'text-[var(--accent-gold)] font-bold' 
                           : isCompleted 
@@ -363,8 +417,8 @@ export const TrackPage: React.FC = () => {
                   );
                 })}
               </div>
-
             </div>
+
           </div>
 
           {/* Decision Notes (if any feedback from admin) */}

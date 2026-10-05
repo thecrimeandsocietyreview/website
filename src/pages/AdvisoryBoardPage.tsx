@@ -7,8 +7,8 @@ import {
 export const AdvisoryBoardPage: React.FC = () => {
   const advisoryBoardMembers = [
     {
-      name: "Prof. (Dr) Priya Sepaha",
-      designation: "Professor",
+      name: "Prof. (Dr.) Priya Sepaha",
+      designation: "Professor of Law",
       institution: "National Law Institute University (NLIU), Bhopal",
       photo: "/advisory-board/Prof.(Dr)PriyaSepaha.jpeg"
     },
@@ -20,9 +20,15 @@ export const AdvisoryBoardPage: React.FC = () => {
     },
     {
       name: "Dr. Hassan Imam",
-      designation: "Professor",
+      designation: "Professor & Chairperson, CAS, Department of History",
       institution: "Aligarh Muslim University (AMU)",
       photo: "/advisory-board/Dr.HassanImam.jpeg"
+    },
+    {
+      name: "Dr. Md. Shabbir Alam",
+      designation: "Professor of Finance & Economics",
+      institution: "Dhofar University, Oman",
+      photo: "/advisory-board/Dr.MdShabbirAlam.jpeg"
     }
   ];
 
@@ -68,10 +74,10 @@ export const AdvisoryBoardPage: React.FC = () => {
                   />
                 </div>
                 <div className="space-y-1 min-w-0 text-center">
-                  <h3 className="font-serif font-bold text-xs sm:text-base lg:text-lg text-[var(--text-primary)] group-hover:text-[var(--accent-navy)] transition-colors leading-snug">
+                  <h3 className="font-serif font-bold text-xs sm:text-base lg:text-lg text-[var(--text-primary)] group-hover:text-[var(--accent-navy)] transition-colors leading-snug text-center">
                     {member.name}
                   </h3>
-                  <p className="text-[10px] sm:text-xs font-serif text-[var(--accent-gold)] font-medium leading-tight line-clamp-2">
+                  <p className="text-[10px] sm:text-xs font-serif text-[var(--accent-gold)] font-medium leading-tight line-clamp-2 text-center">
                     {member.designation}
                   </p>
                 </div>

@@ -73,6 +73,11 @@
     -webkit-hyphens: none;
     word-break: normal;
   }
+
+  p.text-center, .text-center p, [class*="text-center"] p {
+    text-align: center !important;
+    text-align-last: center;
+  }
 }
 
 /* Custom Scholarly Scrollbars */

@@ -157,7 +157,7 @@ export const AdminPage: React.FC = () => {
   const [authError, setAuthError] = useState('');
 
   // Active Tab
-  const [activeTab, setActiveTab] = useState<'submissions' | 'deleted' | 'cloudflare'>('submissions');
+  const [activeTab, setActiveTab] = useState<'submissions' | 'deleted' | 'cloudflare' | 'enquiries'>('submissions');
 
   // Submissions State (Exclusively Real Data from Cloudflare D1)
   const [submissions, setSubmissions] = useState<SubmissionDraft[]>(() => {
@@ -206,6 +206,89 @@ export const AdminPage: React.FC = () => {
   const openDeleteModal = (sub: SubmissionDraft) => {
     setDeleteTargetSub(sub);
     setDeleteReason('Withdrawn or deleted by Editorial Office');
+  };
+
+  // Office Enquiries State (D1 table: contact_page_office_enquiry)
+  const [enquiries, setEnquiries] = useState<any[]>(() => {
+    try {
+      const saved = localStorage.getItem('csr_contact_enquiries');
+      return saved ? JSON.parse(saved) : [];
+    } catch (e) {
+      return [];
+    }
+  });
+  const [enquiriesLoading, setEnquiriesLoading] = useState(false);
+  const [enquirySearch, setEnquirySearch] = useState('');
+  const [enquiryFilter, setEnquiryFilter] = useState<'all' | 'new' | 'replied' | 'resolved'>('all');
+  const [selectedEnquiry, setSelectedEnquiry] = useState<any | null>(null);
+
+  // Fetch real contact inquiries from Cloudflare D1
+  const fetchEnquiries = async () => {
+    setEnquiriesLoading(true);
+    try {
+      const res = await fetch('/api/admin/contact-enquiries');
+      if (res.ok) {
+        const data = await res.json();
+        if (data.success && Array.isArray(data.enquiries)) {
+          setEnquiries(data.enquiries);
+          try {
+            localStorage.setItem('csr_contact_enquiries', JSON.stringify(data.enquiries));
+          } catch (e) {}
+        }
+      }
+    } catch (err) {
+      console.error('Failed to fetch contact enquiries from D1:', err);
+    } finally {
+      setEnquiriesLoading(false);
+    }
+  };
+
+  // Update inquiry status in D1
+  const handleUpdateEnquiryStatus = async (id: number, status: string) => {
+    const updated = enquiries.map((item) =>
+      item.id === id ? { ...item, status } : item
+    );
+    setEnquiries(updated);
+    try {
+      localStorage.setItem('csr_contact_enquiries', JSON.stringify(updated));
+    } catch (e) {}
+    if (selectedEnquiry && selectedEnquiry.id === id) {
+      setSelectedEnquiry({ ...selectedEnquiry, status });
+    }
+
+    try {
+      await fetch('/api/admin/contact-enquiries', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ id, action: 'update_status', status })
+      });
+      showToast(`Enquiry #${id} marked as ${status}.`, 'success');
+    } catch (e) {
+      showToast('Status updated locally.', 'success');
+    }
+  };
+
+  // Delete inquiry from D1
+  const handleDeleteEnquiry = async (id: number) => {
+    const updated = enquiries.filter((item) => item.id !== id);
+    setEnquiries(updated);
+    try {
+      localStorage.setItem('csr_contact_enquiries', JSON.stringify(updated));
+    } catch (e) {}
+    if (selectedEnquiry?.id === id) {
+      setSelectedEnquiry(null);
+    }
+
+    try {
+      await fetch('/api/admin/contact-enquiries', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ id, action: 'delete' })
+      });
+      showToast('Enquiry record deleted.', 'success');
+    } catch (e) {
+      showToast('Enquiry removed.', 'success');
+    }
   };
 
   // Selected Submission for Detailed Dossier Modal
@@ -307,6 +390,7 @@ export const AdminPage: React.FC = () => {
     if (isAuthenticated) {
       fetchLiveSubmissions();
       fetchDeletedSubmissions();
+      fetchEnquiries();
     }
   }, [isAuthenticated]);
 
@@ -584,6 +668,30 @@ export const AdminPage: React.FC = () => {
     return { total, underReview, triage, accepted, revisions };
   }, [submissions]);
 
+  // Office Enquiries Computed State
+  const filteredEnquiries = useMemo(() => {
+    return enquiries.filter((enq) => {
+      const q = enquirySearch.toLowerCase();
+      const matchesSearch =
+        !q ||
+        (enq.name && enq.name.toLowerCase().includes(q)) ||
+        (enq.email && enq.email.toLowerCase().includes(q)) ||
+        (enq.subject && enq.subject.toLowerCase().includes(q)) ||
+        (enq.message && enq.message.toLowerCase().includes(q)) ||
+        (enq.category && enq.category.toLowerCase().includes(q));
+
+      const matchesStatus =
+        enquiryFilter === 'all' ||
+        (enq.status || 'New').toLowerCase() === enquiryFilter.toLowerCase();
+
+      return matchesSearch && matchesStatus;
+    });
+  }, [enquiries, enquirySearch, enquiryFilter]);
+
+  const newEnquiriesCount = useMemo(() => {
+    return enquiries.filter((e) => (e.status || 'New').toLowerCase() === 'new').length;
+  }, [enquiries]);
+
   // =========================================================================
   // VIEW: AUTHENTICATION LOCK SCREEN (If not logged in)
   // =========================================================================
@@ -803,6 +911,27 @@ export const AdminPage: React.FC = () => {
             >
               <ShieldCheck className="w-3.5 h-3.5" />
               <span>Cloudflare &amp; Security</span>
+            </button>
+
+            <button
+              onClick={() => { setActiveTab('enquiries'); fetchEnquiries(); }}
+              className={`px-3.5 py-2 rounded-lg text-xs font-semibold transition-all flex items-center gap-2 shrink-0 ${
+                activeTab === 'enquiries'
+                  ? 'bg-[var(--accent-navy)] text-white shadow-xs'
+                  : 'text-[var(--text-secondary)] hover:bg-[var(--bg-card)]'
+              }`}
+            >
+              <Mail className="w-3.5 h-3.5" />
+              <span>Office Enquiries</span>
+              <span className={`px-1.5 py-0.2 rounded-full text-[10px] font-mono ${
+                activeTab === 'enquiries' 
+                  ? 'bg-white/20 text-white' 
+                  : newEnquiriesCount > 0 
+                  ? 'bg-amber-500/20 text-amber-600 dark:text-amber-400 font-bold' 
+                  : 'bg-[var(--bg-page)] text-[var(--text-muted)]'
+              }`}>
+                {newEnquiriesCount > 0 ? `${newEnquiriesCount} New` : enquiries.length}
+              </span>
             </button>
           </div>
 
@@ -1448,6 +1577,275 @@ export const AdminPage: React.FC = () => {
           </div>
         )}
 
+        {/* ===================================================================== */}
+        {/* TAB 4: OFFICE ENQUIRIES (D1: contact_page_office_enquiry) */}
+        {/* ===================================================================== */}
+        {activeTab === 'enquiries' && (
+          <div className="space-y-6 animate-fadeIn">
+            
+            {/* Top Stats Banner */}
+            <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4">
+              <div className="p-4 rounded-xl border border-[var(--border-subtle)] bg-[var(--bg-card)] shadow-xs">
+                <span className="text-[11px] font-mono text-[var(--text-muted)] uppercase block">Total Received</span>
+                <span className="font-serif font-bold text-2xl text-[var(--text-primary)] mt-1 block">
+                  {enquiries.length}
+                </span>
+                <span className="text-[10px] text-[var(--text-muted)] font-mono">D1 persisted entries</span>
+              </div>
+              <div className="p-4 rounded-xl border border-amber-500/20 bg-amber-500/5 shadow-xs">
+                <span className="text-[11px] font-mono text-amber-600 dark:text-amber-400 uppercase block font-semibold">New / Unread</span>
+                <span className="font-serif font-bold text-2xl text-amber-600 dark:text-amber-400 mt-1 block">
+                  {newEnquiriesCount}
+                </span>
+                <span className="text-[10px] text-[var(--text-muted)] font-mono">Requires editorial response</span>
+              </div>
+              <div className="p-4 rounded-xl border border-sky-500/20 bg-sky-500/5 shadow-xs">
+                <span className="text-[11px] font-mono text-sky-600 dark:text-sky-400 uppercase block font-semibold">Replied</span>
+                <span className="font-serif font-bold text-2xl text-sky-600 dark:text-sky-400 mt-1 block">
+                  {enquiries.filter((e: any) => (e.status || '').toLowerCase() === 'replied').length}
+                </span>
+                <span className="text-[10px] text-[var(--text-muted)] font-mono">Acknowledged desk tickets</span>
+              </div>
+              <div className="p-4 rounded-xl border border-emerald-500/20 bg-emerald-500/5 shadow-xs">
+                <span className="text-[11px] font-mono text-emerald-600 dark:text-emerald-400 uppercase block font-semibold">Resolved</span>
+                <span className="font-serif font-bold text-2xl text-emerald-600 dark:text-emerald-400 mt-1 block">
+                  {enquiries.filter((e: any) => (e.status || '').toLowerCase() === 'resolved').length}
+                </span>
+                <span className="text-[10px] text-[var(--text-muted)] font-mono">Completed correspondence</span>
+              </div>
+            </div>
+
+            {/* Filter and Search Bar */}
+            <div className="p-4 rounded-xl border border-[var(--border-subtle)] bg-[var(--bg-card)] flex flex-col md:flex-row items-stretch md:items-center justify-between gap-3 shadow-xs">
+              <div className="flex-1 relative">
+                <Search className="w-4 h-4 text-[var(--text-muted)] absolute left-3 top-1/2 -translate-y-1/2" />
+                <input
+                  type="text"
+                  value={enquirySearch}
+                  onChange={(e) => setEnquirySearch(e.target.value)}
+                  placeholder="Search enquiries by sender name, email, subject, or message text..."
+                  className="w-full pl-9 pr-4 py-2 rounded-lg border border-[var(--border-subtle)] bg-[var(--bg-page)] text-xs text-[var(--text-primary)] placeholder-[var(--text-muted)] focus:outline-hidden focus:ring-1 focus:ring-[var(--accent-navy)]"
+                />
+              </div>
+
+              <div className="flex flex-wrap items-center gap-2">
+                <div className="flex items-center gap-1 bg-[var(--bg-page)] p-1 rounded-lg border border-[var(--border-subtle)] text-xs">
+                  <button
+                    onClick={() => setEnquiryFilter('all')}
+                    className={`px-2.5 py-1 rounded-md text-xs font-semibold transition-colors cursor-pointer ${
+                      enquiryFilter === 'all'
+                        ? 'bg-[var(--accent-navy)] text-white shadow-xs'
+                        : 'text-[var(--text-secondary)] hover:text-[var(--text-primary)]'
+                    }`}
+                  >
+                    All ({enquiries.length})
+                  </button>
+                  <button
+                    onClick={() => setEnquiryFilter('new')}
+                    className={`px-2.5 py-1 rounded-md text-xs font-semibold transition-colors cursor-pointer ${
+                      enquiryFilter === 'new'
+                        ? 'bg-amber-600 text-white shadow-xs'
+                        : 'text-[var(--text-secondary)] hover:text-[var(--text-primary)]'
+                    }`}
+                  >
+                    New ({newEnquiriesCount})
+                  </button>
+                  <button
+                    onClick={() => setEnquiryFilter('replied')}
+                    className={`px-2.5 py-1 rounded-md text-xs font-semibold transition-colors cursor-pointer ${
+                      enquiryFilter === 'replied'
+                        ? 'bg-sky-600 text-white shadow-xs'
+                        : 'text-[var(--text-secondary)] hover:text-[var(--text-primary)]'
+                    }`}
+                  >
+                    Replied
+                  </button>
+                  <button
+                    onClick={() => setEnquiryFilter('resolved')}
+                    className={`px-2.5 py-1 rounded-md text-xs font-semibold transition-colors cursor-pointer ${
+                      enquiryFilter === 'resolved'
+                        ? 'bg-emerald-600 text-white shadow-xs'
+                        : 'text-[var(--text-secondary)] hover:text-[var(--text-primary)]'
+                    }`}
+                  >
+                    Resolved
+                  </button>
+                </div>
+
+                <button
+                  onClick={fetchEnquiries}
+                  disabled={enquiriesLoading}
+                  className="px-3 py-2 rounded-lg border border-[var(--border-subtle)] bg-[var(--bg-page)] hover:bg-[var(--bg-card)] text-xs font-semibold text-[var(--text-primary)] flex items-center gap-1.5 transition-colors cursor-pointer disabled:opacity-50"
+                  title="Reload enquiries from Cloudflare D1"
+                >
+                  <RefreshCw className={`w-3.5 h-3.5 ${enquiriesLoading ? 'animate-spin' : ''}`} />
+                  <span className="hidden sm:inline">Refresh</span>
+                </button>
+              </div>
+            </div>
+
+            {/* Enquiries Table Card */}
+            <div className="rounded-2xl border border-[var(--border-subtle)] bg-[var(--bg-card)] shadow-xs overflow-hidden">
+              <div className="px-5 py-3.5 border-b border-[var(--border-subtle)] bg-[var(--bg-page)]/50 flex items-center justify-between gap-3">
+                <div className="flex items-center gap-2">
+                  <Mail className="w-4 h-4 text-[var(--accent-gold)]" />
+                  <h3 className="font-serif font-bold text-sm text-[var(--text-primary)]">
+                    Office &amp; Contact Enquiries
+                  </h3>
+                  <span className="text-xs font-mono text-[var(--text-muted)]">
+                    ({filteredEnquiries.length} matching)
+                  </span>
+                </div>
+                <span className="text-[11px] font-mono text-[var(--text-muted)] hidden sm:inline">
+                  D1: <code className="text-[var(--accent-navy)] dark:text-[var(--accent-gold)]">contact_page_office_enquiry</code>
+                </span>
+              </div>
+
+              {filteredEnquiries.length === 0 ? (
+                <div className="p-12 text-center space-y-3">
+                  <Inbox className="w-10 h-10 text-[var(--text-muted)] mx-auto opacity-40" />
+                  <p className="font-serif text-sm text-[var(--text-secondary)]">
+                    {enquiries.length === 0
+                      ? 'No enquiries received yet. Forms submitted on /contact will immediately appear here.'
+                      : 'No enquiries match your current search or status filter.'}
+                  </p>
+                  {(enquirySearch || enquiryFilter !== 'all') && (
+                    <button
+                      onClick={() => { setEnquirySearch(''); setEnquiryFilter('all'); }}
+                      className="text-xs font-mono text-[var(--accent-navy)] dark:text-[var(--accent-gold)] hover:underline cursor-pointer"
+                    >
+                      Clear search &amp; filters
+                    </button>
+                  )}
+                </div>
+              ) : (
+                <div className="overflow-x-auto">
+                  <table className="w-full text-left text-xs border-collapse">
+                    <thead>
+                      <tr className="border-b border-[var(--border-subtle)] bg-[var(--bg-page)] text-[var(--text-muted)] font-mono text-[11px] uppercase tracking-wider">
+                        <th className="py-3 px-4 font-semibold">ID / Date</th>
+                        <th className="py-3 px-4 font-semibold">Sender Details</th>
+                        <th className="py-3 px-4 font-semibold">Category</th>
+                        <th className="py-3 px-4 font-semibold">Subject &amp; Message Snippet</th>
+                        <th className="py-3 px-4 font-semibold">Status</th>
+                        <th className="py-3 px-4 font-semibold text-right">Actions</th>
+                      </tr>
+                    </thead>
+                    <tbody className="divide-y divide-[var(--border-subtle)]">
+                      {filteredEnquiries.map((enq: any) => {
+                        const isNew = (enq.status || 'New').toLowerCase() === 'new';
+                        const isReplied = (enq.status || '').toLowerCase() === 'replied';
+                        const isResolved = (enq.status || '').toLowerCase() === 'resolved';
+
+                        return (
+                          <tr
+                            key={enq.id}
+                            className={`hover:bg-[var(--bg-page)]/70 transition-colors ${
+                              isNew ? 'bg-amber-500/5 dark:bg-amber-500/10' : ''
+                            }`}
+                          >
+                            {/* ID / Date */}
+                            <td className="py-3.5 px-4 font-mono text-[11px] whitespace-nowrap align-top">
+                              <span className="font-bold text-[var(--text-primary)]">#{enq.id}</span>
+                              <div className="text-[10px] text-[var(--text-muted)] mt-0.5">
+                                {enq.created_at ? new Date(enq.created_at).toLocaleDateString() : 'N/A'}
+                              </div>
+                            </td>
+
+                            {/* Sender Details */}
+                            <td className="py-3.5 px-4 align-top max-w-[200px]">
+                              <div className="font-semibold text-[var(--text-primary)] truncate font-serif">
+                                {enq.name || 'Anonymous Scholar'}
+                              </div>
+                              <a
+                                href={`mailto:${enq.email}`}
+                                className="text-[11px] font-mono text-[var(--accent-navy)] dark:text-[var(--accent-gold)] hover:underline block truncate mt-0.5"
+                                title={enq.email}
+                              >
+                                {enq.email}
+                              </a>
+                            </td>
+
+                            {/* Category */}
+                            <td className="py-3.5 px-4 align-top whitespace-nowrap">
+                              <span className="px-2 py-0.5 rounded text-[10px] font-mono font-semibold uppercase bg-[var(--bg-page)] border border-[var(--border-subtle)] text-[var(--text-secondary)]">
+                                {enq.category || 'general'}
+                              </span>
+                            </td>
+
+                            {/* Subject & Preview */}
+                            <td className="py-3.5 px-4 align-top max-w-xs sm:max-w-md">
+                              <div className="font-serif font-bold text-xs text-[var(--text-primary)] line-clamp-1">
+                                {enq.subject || 'No Subject Specified'}
+                              </div>
+                              <p className="text-[11px] text-[var(--text-muted)] line-clamp-2 mt-0.5 font-sans leading-relaxed">
+                                {enq.message}
+                              </p>
+                            </td>
+
+                            {/* Status Badge */}
+                            <td className="py-3.5 px-4 align-top whitespace-nowrap">
+                              <span className={`inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-[11px] font-semibold font-mono ${
+                                isNew
+                                  ? 'bg-amber-500/15 text-amber-600 dark:text-amber-400 border border-amber-500/30'
+                                  : isReplied
+                                  ? 'bg-sky-500/15 text-sky-600 dark:text-sky-400 border border-sky-500/30'
+                                  : isResolved
+                                  ? 'bg-emerald-500/15 text-emerald-600 dark:text-emerald-400 border border-emerald-500/30'
+                                  : 'bg-slate-500/15 text-slate-600 dark:text-slate-400 border border-slate-500/30'
+                              }`}>
+                                <span className={`w-1.5 h-1.5 rounded-full ${
+                                  isNew ? 'bg-amber-500' : isReplied ? 'bg-sky-500' : 'bg-emerald-500'
+                                }`} />
+                                {enq.status || 'New'}
+                              </span>
+                            </td>
+
+                            {/* Actions */}
+                            <td className="py-3.5 px-4 align-top text-right whitespace-nowrap">
+                              <div className="flex items-center justify-end gap-1.5">
+                                <button
+                                  onClick={() => setSelectedEnquiry(enq)}
+                                  className="p-1.5 rounded-lg border border-[var(--border-subtle)] bg-[var(--bg-page)] text-[var(--text-secondary)] hover:text-[var(--text-primary)] hover:border-[var(--accent-navy)] transition-colors cursor-pointer"
+                                  title="View Full Enquiry Dossier"
+                                >
+                                  <Eye className="w-3.5 h-3.5" />
+                                </button>
+                                <a
+                                  href={`mailto:${enq.email}?subject=Re: ${encodeURIComponent(enq.subject || 'Enquiry')}&body=Dear ${encodeURIComponent(enq.name || 'Scholar')},%0D%0A%0D%0AThank you for contacting The Crime %26 Society Review.%0D%0A%0D%0A`}
+                                  onClick={() => {
+                                    if (isNew) handleUpdateEnquiryStatus(enq.id, 'Replied');
+                                  }}
+                                  className="p-1.5 rounded-lg border border-sky-500/30 bg-sky-500/10 text-sky-600 dark:text-sky-400 hover:bg-sky-500/20 transition-colors cursor-pointer"
+                                  title="Reply via Email"
+                                >
+                                  <Mail className="w-3.5 h-3.5" />
+                                </a>
+                                <button
+                                  onClick={() => {
+                                    if (window.confirm(`Permanently delete enquiry #${enq.id}?`)) {
+                                      handleDeleteEnquiry(enq.id);
+                                    }
+                                  }}
+                                  className="p-1.5 rounded-lg border border-red-500/30 bg-red-500/10 text-red-600 dark:text-red-400 hover:bg-red-500/20 transition-colors cursor-pointer"
+                                  title="Delete Enquiry"
+                                >
+                                  <Trash2 className="w-3.5 h-3.5" />
+                                </button>
+                              </div>
+                            </td>
+                          </tr>
+                        );
+                      })}
+                    </tbody>
+                  </table>
+                </div>
+              )}
+            </div>
+
+          </div>
+        )}
+
       </main>
 
       {/* ===================================================================== */}
@@ -1906,6 +2304,183 @@ export const AdminPage: React.FC = () => {
                   </>
                 )}
               </button>
+            </div>
+
+          </div>
+        </div>
+      )}
+
+      {/* ===================================================================== */}
+      {/* MODAL 4: OFFICE ENQUIRY INSPECTOR MODAL */}
+      {/* ===================================================================== */}
+      {selectedEnquiry && (
+        <div className="fixed inset-0 z-50 bg-black/60 backdrop-blur-xs flex items-center justify-center p-4 overflow-y-auto animate-fadeIn">
+          <div className="w-full max-w-2xl max-h-[92vh] rounded-2xl border border-[var(--border-subtle)] bg-[var(--bg-card)] shadow-2xl flex flex-col overflow-hidden my-auto animate-scaleUp">
+            
+            {/* Modal Header */}
+            <div className="px-6 py-4 border-b border-[var(--border-subtle)] bg-[var(--bg-page)]/80 flex items-center justify-between gap-4 sticky top-0 z-10">
+              <div className="flex items-center gap-3">
+                <span className="font-mono text-xs font-bold text-[var(--accent-navy)] dark:text-[var(--accent-gold)] px-2.5 py-0.5 rounded bg-[var(--bg-card)] border border-[var(--border-subtle)]">
+                  Enquiry #{selectedEnquiry.id}
+                </span>
+                <span className="px-2 py-0.5 rounded text-[10px] font-mono font-semibold uppercase bg-[var(--bg-page)] border border-[var(--border-subtle)] text-[var(--text-secondary)]">
+                  {selectedEnquiry.category || 'general'}
+                </span>
+              </div>
+
+              <div className="flex items-center gap-2">
+                <button
+                  onClick={() => setSelectedEnquiry(null)}
+                  className="p-1.5 rounded-lg border border-[var(--border-subtle)] text-[var(--text-muted)] hover:text-[var(--text-primary)] hover:bg-[var(--bg-card)] transition-colors cursor-pointer"
+                >
+                  <X className="w-4 h-4" />
+                </button>
+              </div>
+            </div>
+
+            {/* Modal Scrollable Body */}
+            <div className="flex-1 overflow-y-auto p-6 space-y-5">
+              
+              {/* Sender Details Banner */}
+              <div className="p-4 rounded-xl border border-[var(--border-subtle)] bg-[var(--bg-page)] space-y-2">
+                <span className="text-[10px] font-mono text-[var(--text-muted)] uppercase tracking-wider block font-bold">
+                  Correspondent Details
+                </span>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs">
+                  <div>
+                    <span className="text-[var(--text-muted)] text-[11px] block">Sender Name:</span>
+                    <span className="font-serif font-bold text-sm text-[var(--text-primary)]">
+                      {selectedEnquiry.name || 'Not specified'}
+                    </span>
+                  </div>
+                  <div>
+                    <span className="text-[var(--text-muted)] text-[11px] block">Registered Email:</span>
+                    <a
+                      href={`mailto:${selectedEnquiry.email}`}
+                      className="font-mono font-semibold text-[var(--accent-navy)] dark:text-[var(--accent-gold)] hover:underline break-all"
+                    >
+                      {selectedEnquiry.email}
+                    </a>
+                  </div>
+                  <div>
+                    <span className="text-[var(--text-muted)] text-[11px] block">Dispatched Timestamp:</span>
+                    <span className="font-mono text-[var(--text-primary)]">
+                      {selectedEnquiry.created_at ? new Date(selectedEnquiry.created_at).toLocaleString() : 'N/A'}
+                    </span>
+                  </div>
+                  <div>
+                    <span className="text-[var(--text-muted)] text-[11px] block">Status:</span>
+                    <span className={`inline-flex items-center gap-1 font-mono font-semibold text-[11px] ${
+                      (selectedEnquiry.status || '').toLowerCase() === 'new'
+                        ? 'text-amber-600 dark:text-amber-400'
+                        : (selectedEnquiry.status || '').toLowerCase() === 'replied'
+                        ? 'text-sky-600 dark:text-sky-400'
+                        : 'text-emerald-600 dark:text-emerald-400'
+                    }`}>
+                      <span className="w-1.5 h-1.5 rounded-full bg-current" />
+                      {selectedEnquiry.status || 'New'}
+                    </span>
+                  </div>
+                </div>
+              </div>
+
+              {/* Subject */}
+              <div className="space-y-1">
+                <span className="text-[10px] font-mono text-[var(--text-muted)] uppercase tracking-wider block font-bold">
+                  Subject Line
+                </span>
+                <h3 className="font-serif font-bold text-lg text-[var(--text-primary)]">
+                  {selectedEnquiry.subject || 'No Subject Specified'}
+                </h3>
+              </div>
+
+              {/* Message Content */}
+              <div className="space-y-1.5">
+                <span className="text-[10px] font-mono text-[var(--text-muted)] uppercase tracking-wider block font-bold">
+                  Message Body
+                </span>
+                <div className="p-4 rounded-xl border border-[var(--border-subtle)] bg-[var(--bg-page)] text-xs sm:text-sm text-[var(--text-primary)] font-serif leading-relaxed whitespace-pre-wrap">
+                  {selectedEnquiry.message}
+                </div>
+              </div>
+
+              {/* Status Update Quick Toggles */}
+              <div className="p-4 rounded-xl border border-[var(--border-subtle)] bg-[var(--bg-card)] space-y-2.5">
+                <span className="text-[11px] font-semibold text-[var(--text-primary)] block">
+                  Update Enquiry Triage Status:
+                </span>
+                <div className="flex flex-wrap gap-2">
+                  <button
+                    onClick={() => handleUpdateEnquiryStatus(selectedEnquiry.id, 'New')}
+                    className={`px-3 py-1.5 rounded-lg text-xs font-semibold font-mono border transition-all cursor-pointer ${
+                      (selectedEnquiry.status || '').toLowerCase() === 'new'
+                        ? 'bg-amber-500/20 text-amber-600 dark:text-amber-400 border-amber-500/40'
+                        : 'border-[var(--border-subtle)] text-[var(--text-muted)] hover:border-amber-500/30'
+                    }`}
+                  >
+                    Mark as New
+                  </button>
+                  <button
+                    onClick={() => handleUpdateEnquiryStatus(selectedEnquiry.id, 'Replied')}
+                    className={`px-3 py-1.5 rounded-lg text-xs font-semibold font-mono border transition-all cursor-pointer ${
+                      (selectedEnquiry.status || '').toLowerCase() === 'replied'
+                        ? 'bg-sky-500/20 text-sky-600 dark:text-sky-400 border-sky-500/40'
+                        : 'border-[var(--border-subtle)] text-[var(--text-muted)] hover:border-sky-500/30'
+                    }`}
+                  >
+                    Mark as Replied
+                  </button>
+                  <button
+                    onClick={() => handleUpdateEnquiryStatus(selectedEnquiry.id, 'Resolved')}
+                    className={`px-3 py-1.5 rounded-lg text-xs font-semibold font-mono border transition-all cursor-pointer ${
+                      (selectedEnquiry.status || '').toLowerCase() === 'resolved'
+                        ? 'bg-emerald-500/20 text-emerald-600 dark:text-emerald-400 border-emerald-500/40'
+                        : 'border-[var(--border-subtle)] text-[var(--text-muted)] hover:border-emerald-500/30'
+                    }`}
+                  >
+                    Mark as Resolved
+                  </button>
+                </div>
+              </div>
+
+            </div>
+
+            {/* Modal Actions Footer */}
+            <div className="p-4 px-6 border-t border-[var(--border-subtle)] bg-[var(--bg-page)]/70 flex flex-wrap items-center justify-between gap-3">
+              <button
+                type="button"
+                onClick={() => {
+                  if (window.confirm(`Permanently delete enquiry #${selectedEnquiry.id}?`)) {
+                    handleDeleteEnquiry(selectedEnquiry.id);
+                  }
+                }}
+                className="px-3 py-2 rounded-xl border border-red-500/30 bg-red-500/10 text-red-600 dark:text-red-400 text-xs font-semibold hover:bg-red-500/20 transition-colors cursor-pointer flex items-center gap-1.5"
+              >
+                <Trash2 className="w-3.5 h-3.5" />
+                <span>Delete Enquiry</span>
+              </button>
+
+              <div className="flex items-center gap-2">
+                <button
+                  type="button"
+                  onClick={() => setSelectedEnquiry(null)}
+                  className="px-4 py-2 rounded-xl border border-[var(--border-subtle)] bg-[var(--bg-card)] hover:bg-[var(--bg-page)] text-xs font-semibold text-[var(--text-secondary)] transition-colors cursor-pointer"
+                >
+                  Close
+                </button>
+                <a
+                  href={`mailto:${selectedEnquiry.email}?subject=Re: ${encodeURIComponent(selectedEnquiry.subject || 'Enquiry')}&body=Dear ${encodeURIComponent(selectedEnquiry.name || 'Scholar')},%0D%0A%0D%0AThank you for contacting The Crime %26 Society Review.%0D%0A%0D%0A`}
+                  onClick={() => {
+                    if ((selectedEnquiry.status || '').toLowerCase() === 'new') {
+                      handleUpdateEnquiryStatus(selectedEnquiry.id, 'Replied');
+                    }
+                  }}
+                  className="px-5 py-2 rounded-xl bg-[var(--accent-navy)] text-white hover:opacity-90 transition-opacity font-semibold text-xs flex items-center gap-1.5 shadow-sm cursor-pointer"
+                >
+                  <Mail className="w-3.5 h-3.5" />
+                  <span>Send Email Reply</span>
+                </a>
+              </div>
             </div>
 
           </div>

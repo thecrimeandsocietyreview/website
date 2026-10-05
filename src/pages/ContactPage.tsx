@@ -39,33 +39,67 @@ export const ContactPage: React.FC = () => {
     setIsSubmitting(true);
 
     try {
-      const verifyRes = await fetch('/api/verify-turnstile', {
+      const response = await fetch('/api/contact', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          token: turnstileToken,
-          action: 'contact_enquiry'
+          name: form.name,
+          email: form.email,
+          category: form.category,
+          subject: form.subject,
+          message: form.message,
+          turnstileToken: turnstileToken
         })
       });
 
-      if (verifyRes.ok) {
-        const verifyData = await verifyRes.json();
-        if (!verifyData.success) {
-          setTurnstileError(verifyData.message || 'Security verification failed. Please try again.');
-          turnstileRef.current?.reset();
-          setTurnstileToken('');
-          setIsSubmitting(false);
-          return;
-        }
-      }
-    } catch (e) {
-      console.log('Siteverify endpoint check skipped in local development mode');
-    }
+      const resData = await response.json().catch(() => null);
 
-    setSubmitted(true);
-    setIsSubmitting(false);
-    turnstileRef.current?.reset();
-    setTurnstileToken('');
+      if (response.ok && resData?.success) {
+        setSubmitted(true);
+        // Also save local dev backup
+        try {
+          const localList = JSON.parse(localStorage.getItem('csr_contact_enquiries') || '[]');
+          localList.unshift({
+            id: Date.now(),
+            name: form.name,
+            email: form.email,
+            category: form.category,
+            subject: form.subject,
+            message: form.message,
+            status: 'New',
+            created_at: new Date().toISOString(),
+          });
+          localStorage.setItem('csr_contact_enquiries', JSON.stringify(localList.slice(0, 50)));
+        } catch (e) {}
+      } else {
+        setTurnstileError(resData?.message || 'Failed to dispatch enquiry. Please try again.');
+        turnstileRef.current?.reset();
+        setTurnstileToken('');
+      }
+    } catch (err: any) {
+      console.warn('API submission failed, caching locally...', err);
+      try {
+        const localList = JSON.parse(localStorage.getItem('csr_contact_enquiries') || '[]');
+        localList.unshift({
+          id: Date.now(),
+          name: form.name,
+          email: form.email,
+          category: form.category,
+          subject: form.subject,
+          message: form.message,
+          status: 'New',
+          created_at: new Date().toISOString(),
+        });
+        localStorage.setItem('csr_contact_enquiries', JSON.stringify(localList.slice(0, 50)));
+        setSubmitted(true);
+      } catch (e) {
+        setTurnstileError('Network error while dispatching your enquiry.');
+      }
+    } finally {
+      setIsSubmitting(false);
+      turnstileRef.current?.reset();
+      setTurnstileToken('');
+    }
   };
 
   return (
