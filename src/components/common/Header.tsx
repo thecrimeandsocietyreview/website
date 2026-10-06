@@ -9,7 +9,7 @@ import {
   ChevronDown
 } from 'lucide-react';
 import { useTheme } from '../../context/ThemeContext';
-import RollText from '@/animata/text/roll-text';
+import RollText from '@/components/animata/text/roll-text';
 
 export const Header: React.FC = () => {
   const { theme, setTheme } = useTheme();

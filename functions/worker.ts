@@ -1,6 +1,5 @@
 import { onRequestPost as submitManuscriptPost } from "./api/submit-manuscript";
 import { onRequestGet as trackGet } from "./api/track";
-import { onRequestPost as verifyTurnstilePost } from "./api/verify-turnstile";
 import { onRequestPost as adminLoginPost } from "./api/admin/login";
 import { onRequestGet as adminSubmissionsGet } from "./api/admin/submissions";
 import { onRequestGet as adminDownloadGet } from "./api/admin/download";
@@ -141,15 +140,6 @@ export default {
     if (pathname === "/api/track") {
       if (method === "GET") {
         const response = await trackGet({ request, env });
-        return addCorsAndSecurity(response, request);
-      }
-      return jsonError("Method not allowed", 405, request);
-    }
-
-    // 3. Turnstile Verification
-    if (pathname === "/api/verify-turnstile") {
-      if (method === "POST") {
-        const response = await verifyTurnstilePost({ request, env });
         return addCorsAndSecurity(response, request);
       }
       return jsonError("Method not allowed", 405, request);

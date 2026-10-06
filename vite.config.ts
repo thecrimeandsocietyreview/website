@@ -835,7 +835,7 @@ function localApiDevPlugin(env: Record<string, string>): Plugin {
 
               if (rows.length > 0) {
                 const sub = rows[0];
-                const emailParam = (url.searchParams.get('email') || '').trim().toLowerCase();
+                const emailParam = (parsedUrl.searchParams.get('email') || '').trim().toLowerCase();
                 const isEmailVerified = Boolean(emailParam && emailParam === (sub.author_email || '').toLowerCase());
                 const maskedAuthor = isEmailVerified ? sub.author_name : (sub.author_name || '').replace(/\B\w/g, '*');
 
