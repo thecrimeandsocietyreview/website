@@ -6,6 +6,10 @@ import { onRequestGet as adminSubmissionsGet } from "./api/admin/submissions";
 import { onRequestGet as adminDownloadGet } from "./api/admin/download";
 import { onRequestPost as adminUpdateStatusPost } from "./api/admin/update-status";
 import { onRequestPost as adminDeleteSubmissionPost } from "./api/admin/delete-submission";
+import { onRequestPost as contactPost } from "./api/contact";
+import { onRequestGet as adminContactEnquiriesGet, onRequestPost as adminContactEnquiriesPost } from "./api/admin/contact-enquiries";
+import { onRequestGet as adminDeletedSubmissionsGet } from "./api/admin/deleted-submissions";
+import { onRequestPost as adminRestoreSubmissionPost } from "./api/admin/restore-submission";
 
 export interface Env {
   ASSETS: { fetch: (request: Request) => Promise<Response> };
@@ -84,7 +88,8 @@ export default {
     // 6. Admin Manuscript Download
     if (pathname === "/api/admin/download") {
       if (method === "GET") {
-        return adminDownloadGet({ request, env });
+        const response = await adminDownloadGet({ request, env });
+        return addCors(response);
       }
       return jsonError("Method not allowed", 405);
     }
@@ -102,6 +107,46 @@ export default {
     if (pathname === "/api/admin/delete-submission") {
       if (method === "POST") {
         const response = await adminDeleteSubmissionPost({ request, env });
+        return addCors(response);
+      }
+      return jsonError("Method not allowed", 405);
+    }
+
+    // 9. Contact Enquiry Form
+    if (pathname === "/api/contact") {
+      if (method === "POST") {
+        const response = await contactPost({ request, env });
+        return addCors(response);
+      }
+      return jsonError("Method not allowed", 405);
+    }
+
+    // 10. Admin Contact Enquiries List & Actions
+    if (pathname === "/api/admin/contact-enquiries") {
+      if (method === "GET") {
+        const response = await adminContactEnquiriesGet({ request, env });
+        return addCors(response);
+      }
+      if (method === "POST") {
+        const response = await adminContactEnquiriesPost({ request, env });
+        return addCors(response);
+      }
+      return jsonError("Method not allowed", 405);
+    }
+
+    // 11. Admin Deleted Submissions Archive
+    if (pathname === "/api/admin/deleted-submissions") {
+      if (method === "GET") {
+        const response = await adminDeletedSubmissionsGet({ request, env });
+        return addCors(response);
+      }
+      return jsonError("Method not allowed", 405);
+    }
+
+    // 12. Admin Restore Submission
+    if (pathname === "/api/admin/restore-submission") {
+      if (method === "POST") {
+        const response = await adminRestoreSubmissionPost({ request, env });
         return addCors(response);
       }
       return jsonError("Method not allowed", 405);

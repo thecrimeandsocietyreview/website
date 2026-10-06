@@ -465,13 +465,45 @@ export const AdminPage: React.FC = () => {
   };
 
   // Download file from Cloudflare R2
-  const handleDownloadR2File = (key?: string, fileName?: string) => {
+  const [downloadingKey, setDownloadingKey] = useState<string | null>(null);
+
+  const handleDownloadR2File = async (key?: string, fileName?: string) => {
     if (!key) {
-      alert("No file key attached to this record in Cloudflare R2.");
+      showToast("No file key attached to this record in Cloudflare R2.", "error");
       return;
     }
-    const url = `/api/admin/download?key=${encodeURIComponent(key)}&name=${encodeURIComponent(fileName || 'manuscript.docx')}`;
-    window.open(url, '_blank');
+
+    setDownloadingKey(key);
+    showToast(`Downloading ${fileName || 'document'}...`, "success");
+
+    try {
+      const url = `/api/admin/download?key=${encodeURIComponent(key)}&name=${encodeURIComponent(fileName || 'manuscript.docx')}`;
+      const res = await fetch(url);
+
+      if (!res.ok) {
+        const errJson = await res.json().catch(() => null);
+        showToast(errJson?.message || `Download failed: Server returned HTTP ${res.status}`, "error");
+        setDownloadingKey(null);
+        return;
+      }
+
+      const blob = await res.blob();
+      const blobUrl = window.URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = blobUrl;
+      a.download = fileName || 'manuscript.docx';
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      setTimeout(() => window.URL.revokeObjectURL(blobUrl), 1500);
+
+      showToast(`Downloaded: ${fileName || 'manuscript.docx'}`, "success");
+    } catch (err: any) {
+      console.error('Download error:', err);
+      showToast(`Download failed: ${err?.message || 'Network error'}`, "error");
+    } finally {
+      setDownloadingKey(null);
+    }
   };
 
   // Change Submission Status (Syncs directly with Cloudflare D1)
@@ -2000,11 +2032,19 @@ export const AdminPage: React.FC = () => {
                       </div>
                     </div>
                     <button
-                      onClick={() => handleDownloadR2File(selectedSub.blindFileKey, selectedSub.fileName)}
-                      className="px-2.5 py-1.5 rounded-lg border border-[var(--border-subtle)] hover:bg-[var(--accent-navy)] hover:text-white text-[var(--text-secondary)] transition-colors flex items-center gap-1 text-xs font-medium cursor-pointer"
+                      onClick={() => {
+                        const key = selectedSub.blindFileKey || (selectedSub.trackingNumber ? `blind-manuscripts/${selectedSub.trackingNumber}/${(selectedSub.fileName || 'manuscript.docx').replace(/[^a-zA-Z0-9._-]/g, '_')}` : '');
+                        handleDownloadR2File(key, selectedSub.fileName);
+                      }}
+                      disabled={downloadingKey !== null}
+                      className="px-2.5 py-1.5 rounded-lg border border-[var(--border-subtle)] hover:bg-[var(--accent-navy)] hover:text-white text-[var(--text-secondary)] transition-colors flex items-center gap-1 text-xs font-medium cursor-pointer disabled:opacity-50"
                       title="Download blind manuscript from Cloudflare R2"
                     >
-                      <Download className="w-3.5 h-3.5" />
+                      {downloadingKey ? (
+                        <RefreshCw className="w-3.5 h-3.5 animate-spin" />
+                      ) : (
+                        <Download className="w-3.5 h-3.5" />
+                      )}
                       <span className="hidden sm:inline">Download</span>
                     </button>
                   </div>
@@ -2025,11 +2065,19 @@ export const AdminPage: React.FC = () => {
                       </div>
                     </div>
                     <button
-                      onClick={() => handleDownloadR2File(selectedSub.authorFileKey, selectedSub.authorInfoFileName)}
-                      className="px-2.5 py-1.5 rounded-lg border border-[var(--border-subtle)] hover:bg-[var(--accent-gold)] hover:text-black text-[var(--text-secondary)] transition-colors flex items-center gap-1 text-xs font-medium cursor-pointer"
+                      onClick={() => {
+                        const key = selectedSub.authorFileKey || (selectedSub.trackingNumber ? `author-dossiers/${selectedSub.trackingNumber}/${(selectedSub.authorInfoFileName || 'author_slip.docx').replace(/[^a-zA-Z0-9._-]/g, '_')}` : '');
+                        handleDownloadR2File(key, selectedSub.authorInfoFileName);
+                      }}
+                      disabled={downloadingKey !== null}
+                      className="px-2.5 py-1.5 rounded-lg border border-[var(--border-subtle)] hover:bg-[var(--accent-gold)] hover:text-black text-[var(--text-secondary)] transition-colors flex items-center gap-1 text-xs font-medium cursor-pointer disabled:opacity-50"
                       title="Download author dossier sheet from Cloudflare R2"
                     >
-                      <Download className="w-3.5 h-3.5" />
+                      {downloadingKey ? (
+                        <RefreshCw className="w-3.5 h-3.5 animate-spin" />
+                      ) : (
+                        <Download className="w-3.5 h-3.5" />
+                      )}
                       <span className="hidden sm:inline">Download</span>
                     </button>
                   </div>

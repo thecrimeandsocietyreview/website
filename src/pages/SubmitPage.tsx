@@ -435,6 +435,8 @@ export const SubmitPage: React.FC = () => {
           ethicsApproved: true,
           conflictDeclared: true,
           openDataAccessAccepted: true,
+          blindFileKey: result.blindFileKey || `blind-manuscripts/${result.trackingId}/${(result.blindFileName || blindManuscriptFileName || 'manuscript.docx').replace(/[^a-zA-Z0-9._-]/g, '_')}`,
+          authorFileKey: result.authorFileKey || `author-dossiers/${result.trackingId}/${(result.authorFileName || authorInfoFileName || 'author_slip.docx').replace(/[^a-zA-Z0-9._-]/g, '_')}`,
           fileName: result.blindFileName || blindManuscriptFileName || 'blind_manuscript.docx',
           fileSize: result.blindFileSize || blindManuscriptFileSize || '2.1 MB',
           submittedAt: result.submittedAt || new Date().toISOString().split('T')[0],

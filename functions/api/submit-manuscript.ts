@@ -315,6 +315,8 @@ export const onRequestPost = async (context: {
       JSON.stringify({
         success: true,
         trackingId: trackingId,
+        blindFileKey: blindFileKey,
+        authorFileKey: authorFileKey,
         submittedAt: nowIso.split("T")[0],
         blindFileName: blindFile.name,
         blindFileSize: blindFileSizeFormatted,

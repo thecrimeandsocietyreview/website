@@ -228,6 +228,8 @@ function localApiDevPlugin(env: Record<string, string>): Plugin {
               JSON.stringify({
                 success: true,
                 trackingId,
+                blindFileKey,
+                authorFileKey,
                 submittedAt: nowIso.split('T')[0],
                 blindFileName: blindFile.name,
                 blindFileSize,
