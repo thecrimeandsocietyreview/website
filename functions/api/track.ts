@@ -69,6 +69,11 @@ export const onRequestGet = async (context: {
       .first();
 
     if (submission) {
+      const isEmailVerified = Boolean(email);
+      const maskedAuthor = isEmailVerified
+        ? submission.author_name
+        : (submission.author_name || "").replace(/\B\w/g, "*");
+
       return new Response(
         JSON.stringify({
           success: true,
@@ -77,14 +82,15 @@ export const onRequestGet = async (context: {
             trackingNumber: submission.tracking_number,
             title: submission.title,
             articleType: submission.article_type,
-            authorName: submission.author_name,
+            authorName: maskedAuthor,
             status: submission.status,
             stageNumber: submission.stage_number,
             submittedAt: submission.submitted_at,
             updatedAt: submission.updated_at,
             blindFileName: submission.blind_file_name || "",
-            authorFileName: submission.author_file_name || "",
+            authorFileName: isEmailVerified ? (submission.author_file_name || "") : "",
             decisionNotes: submission.editorial_decision_notes || "",
+            isVerifiedAuthor: isEmailVerified,
           },
         }),
         { status: 200, headers: { "Content-Type": "application/json" } }

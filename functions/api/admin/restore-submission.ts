@@ -30,7 +30,7 @@ export const onRequestPost = async (context: {
     // 1. Insert back into active submissions table
     await context.env.DB.prepare(`
       INSERT INTO submissions (
-        tracking_number, author_name, author_email, author_phone,
+        tracking_number, author_name, author_email, author_phone, authorPhone,
         title, article_type, abstract, keywords,
         blind_file_key, blind_file_name, blind_file_size,
         author_file_key, author_file_name, author_file_size,
@@ -38,7 +38,7 @@ export const onRequestPost = async (context: {
         submitted_at, is_archived
       )
       SELECT 
-        tracking_number, author_name, author_email, author_phone,
+        tracking_number, author_name, author_email, COALESCE(author_phone, ''), COALESCE(author_phone, ''),
         title, article_type, abstract, keywords,
         blind_file_key, blind_file_name, blind_file_size,
         author_file_key, author_file_name, author_file_size,

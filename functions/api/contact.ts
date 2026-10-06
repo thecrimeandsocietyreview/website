@@ -62,7 +62,16 @@ export const onRequestPost = async (context: {
 
     // 2. Validate Turnstile token if secret key is configured
     const secretKey = context.env.TURNSTILE_SECRET || context.env.CLOUDFLARE_TURNSTILE_SECRET_KEY;
-    if (secretKey && turnstileToken) {
+    const isProdTurnstile = secretKey && !secretKey.startsWith("1x0000");
+
+    if (isProdTurnstile) {
+      if (!turnstileToken) {
+        return new Response(
+          JSON.stringify({ success: false, message: "Security verification token is required. Please complete verification." }),
+          { status: 400, headers: { "Content-Type": "application/json" } }
+        );
+      }
+
       try {
         const verifyBody = new URLSearchParams();
         verifyBody.append("secret", secretKey);

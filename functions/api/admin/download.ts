@@ -21,6 +21,19 @@ export const onRequestGet = async (context: {
       );
     }
 
+    // Strict security validation: Only allow legitimate manuscript and dossier prefixes
+    const isValidKey =
+      (key.startsWith("blind-manuscripts/") || key.startsWith("author-dossiers/")) &&
+      !key.includes("..") &&
+      !key.includes("//");
+
+    if (!isValidKey) {
+      return new Response(
+        JSON.stringify({ success: false, message: "Access denied: Invalid or unauthorized storage key." }),
+        { status: 403, headers: { "Content-Type": "application/json" } }
+      );
+    }
+
     if (!context.env.MANUSCRIPTS_BUCKET) {
       return new Response(
         JSON.stringify({ success: false, message: "Cloudflare R2 Bucket binding not configured." }),

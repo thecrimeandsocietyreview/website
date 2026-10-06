@@ -188,7 +188,16 @@ export const onRequestPost = async (context: {
 
     // 4. Validate Cloudflare Turnstile token
     const secretKey = context.env.TURNSTILE_SECRET || context.env.CLOUDFLARE_TURNSTILE_SECRET_KEY;
-    if (secretKey && turnstileToken) {
+    const isProdTurnstile = secretKey && !secretKey.startsWith("1x0000");
+
+    if (isProdTurnstile) {
+      if (!turnstileToken) {
+        return new Response(
+          JSON.stringify({ success: false, message: "Security verification token is required. Please complete Turnstile verification." }),
+          { status: 400, headers: { "Content-Type": "application/json" } }
+        );
+      }
+
       try {
         const verifyBody = new URLSearchParams();
         verifyBody.append("secret", secretKey);
@@ -204,7 +213,7 @@ export const onRequestPost = async (context: {
           const outcome: any = await verifyRes.json();
           if (!outcome.success) {
             return new Response(
-              JSON.stringify({ success: false, message: "Cloudflare security verification failed. Please refresh." }),
+              JSON.stringify({ success: false, message: "Cloudflare security verification failed. Please refresh and try again." }),
               { status: 403, headers: { "Content-Type": "application/json" } }
             );
           }

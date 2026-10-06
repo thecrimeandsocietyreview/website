@@ -364,6 +364,23 @@ function localApiDevPlugin(env: Record<string, string>): Plugin {
         }
 
         // =====================================================================
+        // ADMIN SESSION VERIFY ENDPOINT: GET /api/admin/verify
+        // =====================================================================
+        if (req.url === '/api/admin/verify' && (req.method === 'GET' || req.method === 'POST')) {
+          const authHeader = (req.headers['authorization'] as string) || '';
+          if (!authHeader.startsWith('Bearer ')) {
+            res.statusCode = 401;
+            res.setHeader('Content-Type', 'application/json');
+            res.end(JSON.stringify({ success: false, message: 'Unauthorized' }));
+            return;
+          }
+          res.statusCode = 200;
+          res.setHeader('Content-Type', 'application/json');
+          res.end(JSON.stringify({ success: true, message: 'Session valid' }));
+          return;
+        }
+
+        // =====================================================================
         // ADMIN ENDPOINT: GET /api/admin/submissions (Fetch real D1 data)
         // =====================================================================
         if (req.url === '/api/admin/submissions' && req.method === 'GET') {
@@ -818,6 +835,10 @@ function localApiDevPlugin(env: Record<string, string>): Plugin {
 
               if (rows.length > 0) {
                 const sub = rows[0];
+                const emailParam = (url.searchParams.get('email') || '').trim().toLowerCase();
+                const isEmailVerified = Boolean(emailParam && emailParam === (sub.author_email || '').toLowerCase());
+                const maskedAuthor = isEmailVerified ? sub.author_name : (sub.author_name || '').replace(/\B\w/g, '*');
+
                 res.statusCode = 200;
                 res.setHeader('Content-Type', 'application/json');
                 res.end(
@@ -828,12 +849,13 @@ function localApiDevPlugin(env: Record<string, string>): Plugin {
                       trackingNumber: sub.tracking_number,
                       title: sub.title,
                       articleType: sub.article_type,
-                      authorName: sub.author_name,
+                      authorName: maskedAuthor,
                       status: sub.status,
                       stageNumber: sub.stage_number,
                       submittedAt: sub.submitted_at,
                       updatedAt: sub.updated_at,
                       editorialDecisionNotes: sub.editorial_decision_notes || '',
+                      isVerifiedAuthor: isEmailVerified,
                     },
                   })
                 );

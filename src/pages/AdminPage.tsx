@@ -156,6 +156,12 @@ export const AdminPage: React.FC = () => {
   const [authLoading, setAuthLoading] = useState(false);
   const [authError, setAuthError] = useState('');
 
+  // Centralized Authorization Header Helper
+  const getAdminAuthHeaders = (): Record<string, string> => {
+    const token = localStorage.getItem('csr_admin_token') || '';
+    return token ? { Authorization: `Bearer ${token}` } : {};
+  };
+
   // Active Tab
   const [activeTab, setActiveTab] = useState<'submissions' | 'deleted' | 'cloudflare' | 'enquiries'>('submissions');
 
@@ -226,7 +232,13 @@ export const AdminPage: React.FC = () => {
   const fetchEnquiries = async () => {
     setEnquiriesLoading(true);
     try {
-      const res = await fetch('/api/admin/contact-enquiries');
+      const res = await fetch('/api/admin/contact-enquiries', {
+        headers: getAdminAuthHeaders(),
+      });
+      if (res.status === 401) {
+        handleLogout();
+        return;
+      }
       if (res.ok) {
         const data = await res.json();
         if (data.success && Array.isArray(data.enquiries)) {
@@ -259,7 +271,10 @@ export const AdminPage: React.FC = () => {
     try {
       await fetch('/api/admin/contact-enquiries', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: {
+          ...getAdminAuthHeaders(),
+          'Content-Type': 'application/json',
+        },
         body: JSON.stringify({ id, action: 'update_status', status })
       });
       showToast(`Enquiry #${id} marked as ${status}.`, 'success');
@@ -282,7 +297,10 @@ export const AdminPage: React.FC = () => {
     try {
       await fetch('/api/admin/contact-enquiries', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: {
+          ...getAdminAuthHeaders(),
+          'Content-Type': 'application/json',
+        },
         body: JSON.stringify({ id, action: 'delete' })
       });
       showToast('Enquiry record deleted.', 'success');
@@ -312,10 +330,13 @@ export const AdminPage: React.FC = () => {
   const fetchLiveSubmissions = async () => {
     setIsRefreshing(true);
     try {
-      const token = localStorage.getItem('csr_admin_token') || '';
       const res = await fetch('/api/admin/submissions', {
-        headers: token ? { Authorization: `Bearer ${token}` } : {},
+        headers: getAdminAuthHeaders(),
       });
+      if (res.status === 401) {
+        handleLogout();
+        return;
+      }
       if (res.ok) {
         const data = await res.json();
         if (data.success && Array.isArray(data.submissions)) {
@@ -370,7 +391,13 @@ export const AdminPage: React.FC = () => {
   const fetchDeletedSubmissions = async () => {
     setDeletedLoading(true);
     try {
-      const res = await fetch('/api/admin/deleted-submissions');
+      const res = await fetch('/api/admin/deleted-submissions', {
+        headers: getAdminAuthHeaders(),
+      });
+      if (res.status === 401) {
+        handleLogout();
+        return;
+      }
       if (res.ok) {
         const data = await res.json();
         const list = data.deletedSubmissions || data.deleted || [];
@@ -384,6 +411,25 @@ export const AdminPage: React.FC = () => {
       setDeletedLoading(false);
     }
   };
+
+  // Verify session validity on mount
+  useEffect(() => {
+    const token = localStorage.getItem('csr_admin_token');
+    if (!token) {
+      setIsAuthenticated(false);
+      return;
+    }
+
+    fetch('/api/admin/verify', {
+      headers: { Authorization: `Bearer ${token}` },
+    })
+      .then((res) => {
+        if (!res.ok) {
+          handleLogout();
+        }
+      })
+      .catch(() => {});
+  }, []);
 
   // Auto-fetch on mount when authenticated
   useEffect(() => {
@@ -462,6 +508,9 @@ export const AdminPage: React.FC = () => {
     setCurrentUser(null);
     localStorage.removeItem('csr_admin_token');
     localStorage.removeItem('csr_admin_user');
+    localStorage.removeItem('csr_user_submissions');
+    localStorage.removeItem('csr_contact_enquiries');
+    sessionStorage.clear();
   };
 
   // Download file from Cloudflare R2
@@ -478,7 +527,16 @@ export const AdminPage: React.FC = () => {
 
     try {
       const url = `/api/admin/download?key=${encodeURIComponent(key)}&name=${encodeURIComponent(fileName || 'manuscript.docx')}`;
-      const res = await fetch(url);
+      const res = await fetch(url, {
+        headers: getAdminAuthHeaders(),
+      });
+
+      if (res.status === 401) {
+        handleLogout();
+        showToast('Session expired. Please log in again.', 'error');
+        setDownloadingKey(null);
+        return;
+      }
 
       if (!res.ok) {
         const errJson = await res.json().catch(() => null);
@@ -542,7 +600,10 @@ export const AdminPage: React.FC = () => {
       try {
         await fetch('/api/admin/update-status', {
           method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
+          headers: {
+            ...getAdminAuthHeaders(),
+            'Content-Type': 'application/json',
+          },
           body: JSON.stringify({
             trackingNumber: targetSub.trackingNumber,
             status: newStatus,
@@ -582,7 +643,10 @@ export const AdminPage: React.FC = () => {
       if (targetSub.trackingNumber) {
         const res = await fetch('/api/admin/delete-submission', {
           method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
+          headers: {
+            ...getAdminAuthHeaders(),
+            'Content-Type': 'application/json',
+          },
           body: JSON.stringify({
             trackingNumber: targetSub.trackingNumber,
             reason: deleteReason || 'Withdrawn or deleted by Editorial Office'
@@ -620,7 +684,10 @@ export const AdminPage: React.FC = () => {
     try {
       const res = await fetch('/api/admin/restore-submission', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: {
+          ...getAdminAuthHeaders(),
+          'Content-Type': 'application/json',
+        },
         body: JSON.stringify({ trackingNumber })
       });
       const data = await res.json().catch(() => null);

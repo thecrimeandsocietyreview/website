@@ -1,6 +1,8 @@
 // Cloudflare Pages Function: /api/admin/login
 // Server-side authentication for Editorial Admin Console
 
+import { createAdminToken, timingSafeEqual, getJwtSecret } from "./auth";
+
 interface Env {
   DB?: D1Database;
   JWT_SECRET?: string;
@@ -51,7 +53,7 @@ export const onRequestPost = async (context: {
     }
 
     const computedHash = await hashPassword(password, user.salt);
-    if (computedHash !== user.password_hash) {
+    if (!timingSafeEqual(computedHash, user.password_hash)) {
       return new Response(
         JSON.stringify({ success: false, message: 'Invalid username or password.' }),
         { status: 401, headers: { 'Content-Type': 'application/json' } }
@@ -66,7 +68,7 @@ export const onRequestPost = async (context: {
       .bind(nowIso, user.id)
       .run();
 
-    // Create session token
+    // Create cryptographically signed HMAC-SHA256 session token
     const tokenPayload = {
       uid: user.id,
       username: user.username,
@@ -74,7 +76,7 @@ export const onRequestPost = async (context: {
       role: user.role,
       exp: Date.now() + 24 * 60 * 60 * 1000 // 24 hours
     };
-    const sessionToken = btoa(JSON.stringify(tokenPayload));
+    const sessionToken = await createAdminToken(tokenPayload, getJwtSecret(context.env));
 
     return new Response(
       JSON.stringify({
