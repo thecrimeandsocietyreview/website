@@ -20,16 +20,11 @@ export const AboutPage: React.FC = () => {
         </h1>
       </div>
 
-      {/* 1. PURPOSE OF THE JOURNAL (LIGHT CONTAINER WITH HERO-BG STYLE ARTWORK) */}
+      {/* 1. PURPOSE OF THE JOURNAL (PREMIUM EDITORIAL CARD) */}
       <section className="relative rounded-2xl border border-[var(--border-subtle)] bg-[var(--bg-card)] overflow-hidden shadow-sm">
-        {/* Background Artwork - Placed just like hero-bg */}
-        <img 
-          src="/abouttopcontainer.png" 
-          alt="The Crime &amp; Society Review Scholarly Purpose" 
-          className="absolute inset-y-0 right-0 w-full h-full object-cover object-right translate-x-[4%] sm:translate-x-[8%] lg:translate-x-[10%] select-none pointer-events-none"
-        />
-        {/* Ambient Gradient Overlay - Left clear for text, right transparent for artwork */}
-        <div className="absolute inset-0 bg-gradient-to-r from-white via-white/90 to-transparent dark:from-slate-950 dark:via-slate-950/90 dark:to-transparent pointer-events-none"></div>
+        {/* Subtle Decorative Ambient Glow */}
+        <div className="absolute top-0 right-0 -mr-16 -mt-16 w-80 h-80 rounded-full bg-amber-500/5 blur-3xl pointer-events-none"></div>
+        <div className="absolute bottom-0 right-1/4 -mb-16 w-60 h-60 rounded-full bg-indigo-500/5 blur-2xl pointer-events-none"></div>
 
         <div className="relative z-10 max-w-2xl lg:max-w-3xl space-y-4 p-6 sm:p-8">
           <h2 className="font-serif text-2xl sm:text-3xl font-bold text-[var(--text-primary)] tracking-tight">

@@ -26,6 +26,23 @@ function generateTrackingToken(length = 10): string {
 }
 
 /**
+ * Binary magic byte validator ensuring uploaded documents are genuine Word files (.docx or .doc)
+ */
+function isValidWordDocumentBuffer(buffer: ArrayBuffer, ext: string): boolean {
+  if (buffer.byteLength < 4) return false;
+  const header = new Uint8Array(buffer, 0, 4);
+  if (ext === ".docx") {
+    // ZIP magic bytes: 'PK' (0x50, 0x4B)
+    return header[0] === 0x50 && header[1] === 0x4b;
+  }
+  if (ext === ".doc") {
+    // Microsoft OLE CFBF: 0xD0, 0xCF, 0x11, 0xE0
+    return header[0] === 0xd0 && header[1] === 0xcf && header[2] === 0x11 && header[3] === 0xe0;
+  }
+  return false;
+}
+
+/**
  * Ensures required database tables exist in Cloudflare D1
  */
 async function ensureTables(db: D1Database): Promise<void> {
@@ -186,6 +203,30 @@ export const onRequestPost = async (context: {
       );
     }
 
+    // Binary Magic Byte Verification (Validates authentic Word format, blocks renamed executables/scripts)
+    const blindBuffer = await blindFile.arrayBuffer();
+    const authorBuffer = await authorFile.arrayBuffer();
+
+    if (!isValidWordDocumentBuffer(blindBuffer, blindExt)) {
+      return new Response(
+        JSON.stringify({
+          success: false,
+          message: "Blind Manuscript failed binary validation. Only authentic Microsoft Word documents (.docx, .doc) are permitted.",
+        }),
+        { status: 400, headers: { "Content-Type": "application/json" } }
+      );
+    }
+
+    if (!isValidWordDocumentBuffer(authorBuffer, authorExt)) {
+      return new Response(
+        JSON.stringify({
+          success: false,
+          message: "Author Information file failed binary validation. Only authentic Microsoft Word documents (.docx, .doc) are permitted.",
+        }),
+        { status: 400, headers: { "Content-Type": "application/json" } }
+      );
+    }
+
     // 4. Validate Cloudflare Turnstile token
     const secretKey = context.env.TURNSTILE_SECRET || context.env.CLOUDFLARE_TURNSTILE_SECRET_KEY;
     const isProdTurnstile = secretKey && !secretKey.startsWith("1x0000");
@@ -242,8 +283,7 @@ export const onRequestPost = async (context: {
     const authorFileSizeFormatted = `${(authorFile.size / (1024 * 1024)).toFixed(2)} MB`;
 
     if (context.env.MANUSCRIPTS_BUCKET) {
-      // Buffer upload to R2 for maximum reliability
-      const blindBuffer = await blindFile.arrayBuffer();
+      // Buffer upload to R2 using verified binary buffers
       await context.env.MANUSCRIPTS_BUCKET.put(blindFileKey, blindBuffer, {
         httpMetadata: {
           contentType: blindFile.type || "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
@@ -255,7 +295,6 @@ export const onRequestPost = async (context: {
         },
       });
 
-      const authorBuffer = await authorFile.arrayBuffer();
       await context.env.MANUSCRIPTS_BUCKET.put(authorFileKey, authorBuffer, {
         httpMetadata: {
           contentType: authorFile.type || "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
