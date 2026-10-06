@@ -858,6 +858,204 @@ function localApiDevPlugin(env: Record<string, string>): Plugin {
           }
         }
 
+        // =====================================================================
+        // CONTACT ENQUIRY ENDPOINT: POST /api/contact (Store in Cloudflare D1)
+        // =====================================================================
+        if (req.url === '/api/contact' && req.method === 'POST') {
+          try {
+            const chunks: Buffer[] = [];
+            for await (const chunk of req) chunks.push(Buffer.from(chunk));
+            const body = JSON.parse(Buffer.concat(chunks).toString() || '{}');
+
+            const name = (body.name || '').trim();
+            const email = (body.email || '').trim().toLowerCase();
+            const category = (body.category || 'general').trim();
+            const subject = (body.subject || '').trim();
+            const message = (body.message || '').trim();
+            const turnstileToken = (body.turnstileToken || '').trim();
+
+            if (!name || !email || !subject || !message) {
+              res.statusCode = 400;
+              res.setHeader('Content-Type', 'application/json');
+              res.end(JSON.stringify({ success: false, message: 'Name, email, subject, and message are required.' }));
+              return;
+            }
+
+            const nowIso = new Date().toISOString();
+            const accountId = env.CLOUDFLARE_ACCOUNT_ID?.trim();
+            const d1DbId = env.CLOUDFLARE_D1_DATABASE_ID?.trim() || '588fea4b-4ee9-4aac-9772-9806398d1203';
+            const cfToken = env.CLOUDFLARE_API_TOKEN?.trim();
+
+            if (accountId && cfToken) {
+              const insertRes = await fetch(
+                `https://api.cloudflare.com/client/v4/accounts/${accountId}/d1/database/${d1DbId}/query`,
+                {
+                  method: 'POST',
+                  headers: {
+                    Authorization: `Bearer ${cfToken}`,
+                    'Content-Type': 'application/json',
+                  },
+                  body: JSON.stringify({
+                    sql: `
+                      INSERT INTO contact_page_office_enquiry (
+                        name, email, category, subject, message, status,
+                        turnstile_token, ip_address, created_at, updated_at
+                      ) VALUES (?, ?, ?, ?, ?, 'New', ?, '127.0.0.1', ?, ?);
+                    `,
+                    params: [
+                      name,
+                      email,
+                      category,
+                      subject,
+                      message,
+                      turnstileToken ? turnstileToken.slice(0, 32) : '',
+                      nowIso,
+                      nowIso,
+                    ],
+                  }),
+                }
+              );
+
+              const insertJson: any = await insertRes.json().catch(() => null);
+              if (!insertJson?.success) {
+                console.error('[D1 Contact Insert Err]', insertJson?.errors);
+              }
+            }
+
+            res.statusCode = 200;
+            res.setHeader('Content-Type', 'application/json');
+            res.end(
+              JSON.stringify({
+                success: true,
+                message: 'Your inquiry has been successfully dispatched to the editorial triage desk.',
+                dispatchedAt: nowIso,
+              })
+            );
+            return;
+          } catch (e: any) {
+            console.error('[Contact API Error]', e);
+            res.statusCode = 500;
+            res.setHeader('Content-Type', 'application/json');
+            res.end(JSON.stringify({ success: false, message: e?.message || 'Failed to dispatch inquiry.' }));
+            return;
+          }
+        }
+
+        // =====================================================================
+        // ADMIN ENDPOINT: GET /api/admin/contact-enquiries (Fetch from D1)
+        // =====================================================================
+        if (req.url === '/api/admin/contact-enquiries' && req.method === 'GET') {
+          try {
+            const accountId = env.CLOUDFLARE_ACCOUNT_ID?.trim();
+            const d1DbId = env.CLOUDFLARE_D1_DATABASE_ID?.trim() || '588fea4b-4ee9-4aac-9772-9806398d1203';
+            const cfToken = env.CLOUDFLARE_API_TOKEN?.trim();
+
+            if (!accountId || !cfToken) {
+              res.statusCode = 200;
+              res.setHeader('Content-Type', 'application/json');
+              res.end(JSON.stringify({ success: true, count: 0, enquiries: [] }));
+              return;
+            }
+
+            const queryRes = await fetch(
+              `https://api.cloudflare.com/client/v4/accounts/${accountId}/d1/database/${d1DbId}/query`,
+              {
+                method: 'POST',
+                headers: {
+                  Authorization: `Bearer ${cfToken}`,
+                  'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                  sql: `SELECT * FROM contact_page_office_enquiry ORDER BY id DESC;`,
+                }),
+              }
+            );
+
+            const json: any = await queryRes.json().catch(() => null);
+            const results = json?.result?.[0]?.results || [];
+
+            res.statusCode = 200;
+            res.setHeader('Content-Type', 'application/json');
+            res.end(JSON.stringify({ success: true, count: results.length, enquiries: results }));
+            return;
+          } catch (e: any) {
+            console.error('[Admin Contact Enquiries Error]', e);
+            res.statusCode = 500;
+            res.setHeader('Content-Type', 'application/json');
+            res.end(JSON.stringify({ success: false, message: e?.message || 'Failed to query contact enquiries' }));
+            return;
+          }
+        }
+
+        // =====================================================================
+        // ADMIN ENDPOINT: POST /api/admin/contact-enquiries (Update Status / Delete)
+        // =====================================================================
+        if (req.url === '/api/admin/contact-enquiries' && req.method === 'POST') {
+          try {
+            const chunks: Buffer[] = [];
+            for await (const chunk of req) chunks.push(Buffer.from(chunk));
+            const body = JSON.parse(Buffer.concat(chunks).toString() || '{}');
+            const { id, action = 'update_status', status = 'Replied' } = body;
+
+            if (!id) {
+              res.statusCode = 400;
+              res.setHeader('Content-Type', 'application/json');
+              res.end(JSON.stringify({ success: false, message: 'Enquiry ID is required' }));
+              return;
+            }
+
+            const accountId = env.CLOUDFLARE_ACCOUNT_ID?.trim();
+            const d1DbId = env.CLOUDFLARE_D1_DATABASE_ID?.trim() || '588fea4b-4ee9-4aac-9772-9806398d1203';
+            const cfToken = env.CLOUDFLARE_API_TOKEN?.trim();
+
+            if (accountId && cfToken) {
+              const nowIso = new Date().toISOString();
+              if (action === 'delete') {
+                await fetch(
+                  `https://api.cloudflare.com/client/v4/accounts/${accountId}/d1/database/${d1DbId}/query`,
+                  {
+                    method: 'POST',
+                    headers: {
+                      Authorization: `Bearer ${cfToken}`,
+                      'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                      sql: `DELETE FROM contact_page_office_enquiry WHERE id = ?;`,
+                      params: [Number(id)],
+                    }),
+                  }
+                );
+              } else {
+                await fetch(
+                  `https://api.cloudflare.com/client/v4/accounts/${accountId}/d1/database/${d1DbId}/query`,
+                  {
+                    method: 'POST',
+                    headers: {
+                      Authorization: `Bearer ${cfToken}`,
+                      'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                      sql: `UPDATE contact_page_office_enquiry SET status = ?, updated_at = ? WHERE id = ?;`,
+                      params: [status, nowIso, Number(id)],
+                    }),
+                  }
+                );
+              }
+            }
+
+            res.statusCode = 200;
+            res.setHeader('Content-Type', 'application/json');
+            res.end(JSON.stringify({ success: true, message: `Enquiry #${id} successfully processed.` }));
+            return;
+          } catch (e: any) {
+            console.error('[Admin Contact Enquiry Action Error]', e);
+            res.statusCode = 500;
+            res.setHeader('Content-Type', 'application/json');
+            res.end(JSON.stringify({ success: false, message: e?.message || 'Operation failed' }));
+            return;
+          }
+        }
+
         next();
       });
     },

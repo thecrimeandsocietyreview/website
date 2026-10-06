@@ -56,6 +56,13 @@ export const ContactPage: React.FC = () => {
 
       if (response.ok && resData?.success) {
         setSubmitted(true);
+        setForm({
+          name: '',
+          email: '',
+          category: 'submission',
+          subject: '',
+          message: ''
+        });
         // Also save local dev backup
         try {
           const localList = JSON.parse(localStorage.getItem('csr_contact_enquiries') || '[]');
