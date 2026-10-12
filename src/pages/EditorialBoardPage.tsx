@@ -1,10 +1,10 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { 
-  Building2, 
-  Award, 
-  BookOpen, 
-  Mail, 
+import {
+  Building2,
+  Award,
+  BookOpen,
+  Mail,
   UserCheck,
   Code2,
   Cpu,
@@ -12,11 +12,11 @@ import {
 } from 'lucide-react';
 
 // Academic Silhouette Dummy Photo Component for members without photos
-const DummyPhoto: React.FC<{ label?: string }> = ({ 
-  label = 'Photo Pending' 
+const DummyPhoto: React.FC<{ label?: string }> = ({
+  label = 'Photo Pending'
 }) => {
   return (
-    <div 
+    <div
       className="w-full aspect-[4/5] rounded-xl border border-[var(--border-strong)] bg-neutral-100 dark:bg-neutral-800/80 flex flex-col items-center justify-center shrink-0 overflow-hidden shadow-2xs relative"
       aria-label="Official photo placeholder"
     >
@@ -40,32 +40,32 @@ const DummyPhoto: React.FC<{ label?: string }> = ({
 };
 
 // Member Photo with fallback to DummyPhoto
-const MemberPhoto: React.FC<{ 
-  photo?: string; 
-  name: string; 
-}> = ({ 
-  photo, 
-  name 
+const MemberPhoto: React.FC<{
+  photo?: string;
+  name: string;
+}> = ({
+  photo,
+  name
 }) => {
-  const [imgError, setImgError] = React.useState(false);
+    const [imgError, setImgError] = React.useState(false);
 
-  if (!photo || imgError) {
-    return <DummyPhoto label="Photo" />;
-  }
+    if (!photo || imgError) {
+      return <DummyPhoto label="Photo" />;
+    }
 
-  return (
-    <div className="w-full aspect-[4/5] rounded-xl border border-[var(--border-strong)] overflow-hidden shrink-0 shadow-2xs bg-neutral-100 dark:bg-neutral-800">
-      <img
-        src={photo}
-        alt={name}
-        loading="lazy"
-        decoding="async"
-        className="w-full h-full object-cover object-top will-change-auto"
-        onError={() => setImgError(true)}
-      />
-    </div>
-  );
-};
+    return (
+      <div className="w-full aspect-[4/5] rounded-xl border border-[var(--border-strong)] overflow-hidden shrink-0 shadow-2xs bg-neutral-100 dark:bg-neutral-800">
+        <img
+          src={photo}
+          alt={name}
+          loading="lazy"
+          decoding="async"
+          className="w-full h-full object-cover object-top will-change-auto"
+          onError={() => setImgError(true)}
+        />
+      </div>
+    );
+  };
 
 export const EditorialBoardPage: React.FC = () => {
   // Associate Editors List (Chronology: Professors -> Associate Professors -> Assistant Professors -> Analysts)
@@ -110,6 +110,12 @@ export const EditorialBoardPage: React.FC = () => {
       photo: "/editorial-board/Mr.GauravKumarMishra.jpeg"
     },
     {
+      name: "Dr. Santosh Patel",
+      designation: "Assistant Registrar",
+      institution: "Delhi Skill and Entrepreneurship University",
+      photo: "/editorial-board/Dr.SantoshPatel.jpeg"
+    },
+    {
       name: "Dr. Shekh Belal Ahmad",
       designation: "Assistant Professor",
       institution: "Aligarh Muslim University (AMU)",
@@ -134,6 +140,12 @@ export const EditorialBoardPage: React.FC = () => {
       photo: "/editorial-board/Dr.AsifHasan.jpeg"
     },
     {
+      name: "Ms. Anshu Singh",
+      designation: "Assistant Professor of Research in Forensic Accounting & Financial Investigations",
+      institution: "Rashtriya Raksha University",
+      photo: "/editorial-board/Ms.AnshuSingh.jpeg"
+    },
+    {
       name: "Dr. Neha Tanwar",
       designation: "Assistant Professor",
       institution: "IILM University, Gurugram",
@@ -154,6 +166,12 @@ export const EditorialBoardPage: React.FC = () => {
       designation: "Junior Research Fellow, Criminology",
       institution: "Sardar Patel University of Police, Security and Criminal Justice (SPUP)",
       photo: "/editorial-board/GopalNathKarna.jpeg"
+    },
+    {
+      name: "Ms. Sushree Saswati Mishra",
+      designation: "Junior Research Fellow (Ph.D. Scholar)",
+      institution: "The West Bengal National University of Juridical Sciences (WBNUJS), Kolkata",
+      photo: "/editorial-board/Ms.SushreeSaswatiMishra.jpeg"
     }
   ];
 
@@ -179,7 +197,7 @@ export const EditorialBoardPage: React.FC = () => {
 
         <div className="flex flex-wrap justify-center gap-3 sm:gap-5">
           {/* Chief Editor Card */}
-          <div 
+          <div
             className="w-[calc(50%-6px)] sm:w-[calc(33.333%-14px)] lg:w-[calc(25%-15px)] p-3 sm:p-5 rounded-2xl border border-[var(--border-strong)] bg-[var(--bg-card)] hover:border-[var(--accent-gold)]/40 transition-[border-color,box-shadow] duration-200 flex flex-col justify-between space-y-3 shadow-2xs group"
             style={{ contentVisibility: 'auto', containIntrinsicSize: '200px 320px' }}
           >
@@ -206,7 +224,7 @@ export const EditorialBoardPage: React.FC = () => {
           </div>
 
           {/* Co-Editor-in-Chief Card */}
-          <div 
+          <div
             className="w-[calc(50%-6px)] sm:w-[calc(33.333%-14px)] lg:w-[calc(25%-15px)] p-3 sm:p-5 rounded-2xl border border-[var(--border-strong)] bg-[var(--bg-card)] hover:border-[var(--accent-gold)]/40 transition-[border-color,box-shadow] duration-200 flex flex-col justify-between space-y-3 shadow-2xs group"
             style={{ contentVisibility: 'auto', containIntrinsicSize: '200px 320px' }}
           >
@@ -332,7 +350,7 @@ export const EditorialBoardPage: React.FC = () => {
         </div>
 
         <div className="flex flex-wrap justify-center gap-3 sm:gap-5">
-          <div 
+          <div
             className="w-[calc(50%-6px)] sm:w-[calc(33.333%-14px)] lg:w-[calc(25%-15px)] p-3 sm:p-5 rounded-2xl border border-[var(--border-subtle)] bg-[var(--bg-card)] hover:border-[var(--accent-gold)]/40 transition-[border-color,box-shadow] duration-200 flex flex-col justify-between space-y-3 shadow-2xs group"
             style={{ contentVisibility: 'auto', containIntrinsicSize: '200px 320px' }}
           >
