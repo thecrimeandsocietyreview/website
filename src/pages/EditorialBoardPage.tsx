@@ -128,7 +128,7 @@ export const EditorialBoardPage: React.FC = () => {
       photo: "/editorial-board/MohitCharan.jpeg"
     },
     {
-      name: "Ms. Kanika Gaur",
+      name: "Dr. Kanika Gaur",
       designation: "Assistant Professor",
       institution: "Chitkara University, Punjab",
       photo: "/editorial-board/Ms.KanikaGaur.jpeg"
@@ -162,7 +162,7 @@ export const EditorialBoardPage: React.FC = () => {
       photo: "/editorial-board/Mr.RenjithThamarakshan.jpeg"
     },
     {
-      name: "Gopal Nath Karna",
+      name: "Mr. Gopal Nath Karna",
       designation: "Junior Research Fellow, Criminology",
       institution: "Sardar Patel University of Police, Security and Criminal Justice (SPUP)",
       photo: "/editorial-board/GopalNathKarna.jpeg"
