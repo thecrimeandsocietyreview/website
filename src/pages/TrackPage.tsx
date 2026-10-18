@@ -144,6 +144,7 @@ export const TrackPage: React.FC = () => {
   const currentStageNumber = useMemo(() => {
     if (!submission) return 1;
     const s = (submission.status || '').trim().toLowerCase();
+    if (s === 'rejected') return 0;
     if (s === 'published') return 6;
     if (s === 'accepted') return 5;
     if (s.includes('revision')) return 4;
@@ -158,6 +159,13 @@ export const TrackPage: React.FC = () => {
     if (!submission) return null;
     const s = submission.status.toLowerCase();
 
+    if (s === 'rejected') {
+      return {
+        bg: 'bg-rose-500/15 text-rose-700 dark:text-rose-400 border-rose-500/30',
+        dot: 'bg-rose-500',
+        label: 'Rejected',
+      };
+    }
     if (s === 'published') {
       return {
         bg: 'bg-emerald-500/15 text-emerald-700 dark:text-emerald-400 border-emerald-500/30',
@@ -305,6 +313,19 @@ export const TrackPage: React.FC = () => {
               <span>Submitted: {submission.submittedAt ? submission.submittedAt.split('T')[0] : 'N/A'}</span>
             </div>
           </div>
+
+          {/* Rejection Notice Banner if Rejected */}
+          {submission.status.toLowerCase() === 'rejected' && (
+            <div className="p-4 rounded-xl border border-rose-500/30 bg-rose-500/10 text-rose-800 dark:text-rose-200 text-xs space-y-1.5 animate-fadeIn">
+              <div className="flex items-center gap-2 font-bold font-serif text-sm text-rose-700 dark:text-rose-300">
+                <AlertCircle className="w-4 h-4 shrink-0 text-rose-600 dark:text-rose-400" />
+                <span>Editorial Decision: Submission Rejected / Declined</span>
+              </div>
+              <p className="font-serif leading-relaxed text-neutral-700 dark:text-neutral-300">
+                Following editorial review, this manuscript was not accepted for publication. Detailed comments or reasons have been shared via formal correspondence.
+              </p>
+            </div>
+          )}
 
           {/* 5. Clean Connecting LINE & DOTS Stepper (Responsive: Vertical on Mobile, Horizontal on Desktop) */}
           <div className="pt-2 pb-1">

@@ -509,6 +509,7 @@ export const AdminPage: React.FC = () => {
     if (newStatus === 'Revisions Required') stageNum = 4;
     if (newStatus === 'Accepted') stageNum = 5;
     if (newStatus === 'Published') stageNum = 6;
+    if (newStatus === 'Rejected') stageNum = 7;
 
     const targetSub = submissions.find(s => s.id === subId);
 
@@ -701,7 +702,8 @@ export const AdminPage: React.FC = () => {
     const triage = submissions.filter(s => s.status === 'Submitted' || s.status === 'Editorial Triage').length;
     const accepted = submissions.filter(s => s.status === 'Accepted' || s.status === 'Published').length;
     const revisions = submissions.filter(s => s.status === 'Revisions Required').length;
-    return { total, underReview, triage, accepted, revisions };
+    const rejected = submissions.filter(s => s.status === 'Rejected').length;
+    return { total, underReview, triage, accepted, revisions, rejected };
   }, [submissions]);
 
   // Office Enquiries Computed State
@@ -1001,7 +1003,7 @@ export const AdminPage: React.FC = () => {
           <div className="space-y-4 sm:space-y-5">
             
             {/* KPI Cards Row (Compact Horizontal Layout) */}
-            <div className="grid grid-cols-2 sm:grid-cols-5 gap-2.5 sm:gap-3">
+            <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-2.5 sm:gap-3">
               <div className="p-2.5 sm:p-3 rounded-xl border border-[var(--border-subtle)] bg-[var(--bg-card)] flex items-center gap-2.5 sm:gap-3">
                 <div className="text-2xl font-serif font-bold text-[var(--text-primary)] leading-none shrink-0">{stats.total}</div>
                 <div className="min-w-0">
@@ -1034,11 +1036,19 @@ export const AdminPage: React.FC = () => {
                 </div>
               </div>
 
-              <div className="p-2.5 sm:p-3 rounded-xl border border-[var(--border-subtle)] bg-[var(--bg-card)] flex items-center gap-2.5 sm:gap-3 col-span-2 sm:col-span-1">
+              <div className="p-2.5 sm:p-3 rounded-xl border border-[var(--border-subtle)] bg-[var(--bg-card)] flex items-center gap-2.5 sm:gap-3">
                 <div className="text-2xl font-serif font-bold text-emerald-600 leading-none shrink-0">{stats.accepted}</div>
                 <div className="min-w-0">
-                  <span className="text-[11px] font-mono text-[var(--text-muted)] block leading-tight truncate">Accepted / Record</span>
-                  <span className="text-[10px] text-emerald-600 font-mono block leading-tight truncate mt-0.5">Continuous Release</span>
+                  <span className="text-[11px] font-mono text-[var(--text-muted)] block leading-tight truncate">Accepted</span>
+                  <span className="text-[10px] text-emerald-600 font-mono block leading-tight truncate mt-0.5">Continuous Record</span>
+                </div>
+              </div>
+
+              <div className="p-2.5 sm:p-3 rounded-xl border border-[var(--border-subtle)] bg-[var(--bg-card)] flex items-center gap-2.5 sm:gap-3">
+                <div className="text-2xl font-serif font-bold text-rose-500 leading-none shrink-0">{stats.rejected}</div>
+                <div className="min-w-0">
+                  <span className="text-[11px] font-mono text-[var(--text-muted)] block leading-tight truncate">Rejected</span>
+                  <span className="text-[10px] text-rose-500 font-mono block leading-tight truncate mt-0.5">Declined / Closed</span>
                 </div>
               </div>
             </div>
@@ -1066,7 +1076,8 @@ export const AdminPage: React.FC = () => {
                   { id: 'under-peer-review', label: 'Under Review' },
                   { id: 'revisions-required', label: 'Revisions' },
                   { id: 'accepted', label: 'Accepted' },
-                  { id: 'published', label: 'Published' }
+                  { id: 'published', label: 'Published' },
+                  { id: 'rejected', label: 'Rejected' }
                 ].map(tab => (
                   <button
                     key={tab.id}
@@ -1194,6 +1205,8 @@ export const AdminPage: React.FC = () => {
                                 ? 'bg-blue-500/10 text-blue-600 dark:text-blue-400 border border-blue-500/20'
                                 : sub.status === 'Revisions Required'
                                 ? 'bg-purple-500/10 text-purple-600 dark:text-purple-400 border border-purple-500/20'
+                                : sub.status === 'Rejected'
+                                ? 'bg-rose-500/10 text-rose-600 dark:text-rose-400 border border-rose-500/20'
                                 : 'bg-amber-500/10 text-amber-600 dark:text-amber-400 border border-amber-500/20'
                             }`}>
                               <span className="w-1.5 h-1.5 rounded-full bg-current" />
@@ -1930,6 +1943,8 @@ export const AdminPage: React.FC = () => {
                       ? 'bg-blue-500/10 text-blue-600 border border-blue-500/20'
                       : selectedSub.status === 'Revisions Required'
                       ? 'bg-purple-500/10 text-purple-600 border border-purple-500/20'
+                      : selectedSub.status === 'Rejected'
+                      ? 'bg-rose-500/10 text-rose-600 border border-rose-500/20'
                       : 'bg-amber-500/10 text-amber-600 border border-amber-500/20'
                   }`}>
                     {selectedSub.status}
@@ -2116,6 +2131,7 @@ export const AdminPage: React.FC = () => {
                       <option value="Revisions Required">4. Revisions Required</option>
                       <option value="Accepted">5. Accepted (Passed Review)</option>
                       <option value="Published">6. Published (Continuous Record)</option>
+                      <option value="Rejected">7. Rejected (Declined)</option>
                     </select>
                   </div>
 
@@ -2130,6 +2146,8 @@ export const AdminPage: React.FC = () => {
                         ? 'bg-amber-500/15 text-amber-700 dark:text-amber-400 border border-amber-500/30'
                         : selectedSub.status === 'Under Peer Review'
                         ? 'bg-purple-500/15 text-purple-700 dark:text-purple-400 border border-purple-500/30'
+                        : selectedSub.status === 'Rejected'
+                        ? 'bg-rose-500/15 text-rose-700 dark:text-rose-400 border border-rose-500/30'
                         : 'bg-slate-500/15 text-slate-700 dark:text-slate-300 border border-slate-500/30'
                     }`}>
                       {selectedSub.status}

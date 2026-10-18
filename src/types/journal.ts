@@ -51,7 +51,7 @@ export interface SubmissionDraft {
   fileName: string;
   fileSize: string;
   submittedAt: string;
-  status: 'Submitted' | 'Editorial Triage' | 'Under Peer Review' | 'Revisions Required' | 'Accepted' | 'Published';
+  status: 'Submitted' | 'Editorial Triage' | 'Under Peer Review' | 'Revisions Required' | 'Accepted' | 'Published' | 'Rejected';
   currentStageNumber: number; // 1 to 6
   authorMode?: 'manual' | 'upload';
   authorDetails?: AuthorSubmissionDetail[];
