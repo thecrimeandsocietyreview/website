@@ -357,9 +357,9 @@ export default function Feature() {
                             </span>
                           </div>
 
-                          <h4 className="mt-2 text-[14px] sm:text-[14.5px] font-bold tracking-tight text-slate-950 font-sans">
+                          <h3 className="mt-2 text-[14px] sm:text-[14.5px] font-bold tracking-tight text-slate-950 font-sans">
                             {card.name}
-                          </h4>
+                          </h3>
 
                           <p className="mt-1 text-[11.5px] leading-snug text-slate-800 font-sans text-justify">
                             {card.desc}
@@ -398,9 +398,9 @@ export default function Feature() {
                           #{String(i + 1).padStart(2, "0")}
                         </span>
                       </div>
-                      <h4 className="mt-2 text-[14px] sm:text-[14.5px] font-bold text-slate-950">
+                      <h3 className="mt-2 text-[14px] sm:text-[14.5px] font-bold text-slate-950">
                         {card.name}
-                      </h4>
+                      </h3>
                       <p className="mt-1 text-[11.5px] leading-snug text-slate-800 text-justify">
                         {card.desc}
                       </p>

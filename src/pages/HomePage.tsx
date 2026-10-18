@@ -1,11 +1,13 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { 
   ArrowRight, 
   BookOpen, 
   Target, 
   Award, 
-  FileText
+  FileText,
+  HelpCircle,
+  ChevronDown
 } from 'lucide-react';
 import { JOURNAL_METADATA } from '../data/mockJournalData';
 import { GlobalNetworkSection } from '../components/common/GlobalNetworkSection';
@@ -13,7 +15,36 @@ import Feature from '@/components/ui/block-feature';
 import { ShaderBackground } from '@/components/ui/shader-state';
 import { TextFlip } from '@/components/animata/text/text-flip';
 
+const FAQS = [
+  {
+    q: "What is the interdisciplinary scope of The Crime & Society Review?",
+    a: "The Crime & Society Review publishes peer-reviewed research across criminal law (BNS, BNSS, BSA), forensic science, criminology, criminal justice, forensic psychology, victimology, cybercrime, and societal justice through the multi-perspective Rashomon framework."
+  },
+  {
+    q: "Does the journal charge any Article Processing Charges (APC) or author fees?",
+    a: "No. The journal strictly operates on a zero-fee Diamond Open Access model. There are ₹0 Article Processing Charges (APC) and zero submission, processing, or publication fees for authors worldwide."
+  },
+  {
+    q: "What is the peer-review process and review turnaround timeline?",
+    a: "All manuscripts undergo rigorous double-blind peer review by at least two independent expert referees. Preliminary editorial triage is completed within 24–48 hours, and first-round peer-review decisions are communicated within 3–4 weeks."
+  },
+  {
+    q: "What article types and formats are considered for publication?",
+    a: "We accept Research Articles, Review Articles, Theoretical & Conceptual Papers, Methodological Notes, Case Studies, Policy & Practice Analyses, Short Communications, and Book Reviews formatted in Microsoft Word (.doc/.docx) following APA 7th edition referencing."
+  },
+  {
+    q: "How can corresponding authors track the live status of their submissions?",
+    a: "Authors receive a unique tracking identifier (e.g. CSR-2026-XXXXXXXXXX) immediately upon submission. You can track real-time editorial decisions, reviewer assignments, and production stages live via our Track Manuscript portal."
+  }
+];
+
 export const HomePage: React.FC = () => {
+  const [openFaq, setOpenFaq] = useState<number | null>(null);
+
+  const toggleFaq = (idx: number) => {
+    setOpenFaq(openFaq === idx ? null : idx);
+  };
+
   return (
     <div className="space-y-6 sm:space-y-10 pb-12">
 
@@ -237,6 +268,60 @@ export const HomePage: React.FC = () => {
             </Link>
           </div>
 
+        </div>
+      </section>
+
+      {/* ========================================================
+          FREQUENTLY ASKED QUESTIONS (GEO & LLM ANSWER ALIGNMENT)
+      ======================================================== */}
+      <section className="max-w-6xl mx-auto px-4 sm:px-6">
+        <div className="rounded-2xl border border-[var(--border-subtle)] bg-[var(--bg-card)] p-5 sm:p-8 space-y-6 shadow-2xs">
+          <div className="text-center space-y-1.5 max-w-2xl mx-auto">
+            <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[11px] font-mono font-semibold bg-[var(--accent-gold)]/10 text-[var(--accent-gold)] border border-[var(--accent-gold)]/20">
+              <HelpCircle className="w-3.5 h-3.5" /> Editorial Policy &amp; Submissions
+            </div>
+            <h2 className="font-serif text-2xl sm:text-3xl font-bold text-[var(--text-primary)] tracking-tight">
+              Frequently Asked Questions
+            </h2>
+            <p className="text-xs sm:text-sm text-[var(--text-secondary)] font-serif">
+              Answers to common author, indexing, and peer-review inquiries.
+            </p>
+          </div>
+
+          <div className="space-y-2.5 pt-1">
+            {FAQS.map((faq, idx) => {
+              const isOpen = openFaq === idx;
+              return (
+                <div
+                  key={idx}
+                  className="rounded-xl border border-[var(--border-subtle)] bg-[var(--bg-page)] overflow-hidden transition-all duration-200"
+                >
+                  <button
+                    type="button"
+                    onClick={() => toggleFaq(idx)}
+                    className="w-full p-4 sm:p-5 flex items-center justify-between gap-4 text-left cursor-pointer hover:bg-[var(--accent-navy)]/5 transition-colors"
+                    aria-expanded={isOpen}
+                  >
+                    <h3 className="font-serif font-bold text-xs sm:text-sm md:text-base text-[var(--text-primary)] leading-snug">
+                      {faq.q}
+                    </h3>
+                    <ChevronDown
+                      className={`w-4 h-4 text-[var(--accent-gold)] shrink-0 transition-transform duration-200 ${
+                        isOpen ? 'rotate-180' : ''
+                      }`}
+                    />
+                  </button>
+                  {isOpen && (
+                    <div className="px-4 pb-4 sm:px-5 sm:pb-5 pt-1 border-t border-[var(--border-subtle)] animate-fadeIn">
+                      <p className="text-xs sm:text-sm text-[var(--text-secondary)] font-serif leading-relaxed text-justify">
+                        {faq.a}
+                      </p>
+                    </div>
+                  )}
+                </div>
+              );
+            })}
+          </div>
         </div>
       </section>
 

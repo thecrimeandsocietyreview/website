@@ -56,7 +56,7 @@ export const CONTACT_DETAILS = {
     title: "Editorial Office",
     email: "thecrimeandsocietyreview@gmail.com",
     phone: "",
-    address: ""
+    address: "DSSM. School of social science, Central University of Gujarat (CUG), Kundhela, Taluka-Dabhoi, Vadodara - 391107, Gujarat, India"
   },
   submissions: {
     title: "Submissions & Editorial Triage",

@@ -4,7 +4,9 @@ import {
   Compass, 
   ShieldCheck, 
   CheckCircle2, 
-  ExternalLink 
+  ExternalLink,
+  Mail,
+  MapPin 
 } from 'lucide-react';
 import { JOURNAL_METADATA } from '../../data/mockJournalData';
 import { VisitorCounter } from './VisitorCounter';
@@ -91,6 +93,25 @@ export const Footer: React.FC = () => {
               </div>
             </div>
 
+            {/* Official Editorial Desk Contact & Institutional Address */}
+            <div className="pt-1.5 space-y-2 text-xs text-[var(--text-secondary)]">
+              <div className="flex items-center gap-2 font-mono">
+                <Mail className="w-3.5 h-3.5 text-[var(--accent-gold)] shrink-0" />
+                <a 
+                  href="mailto:thecrimeandsocietyreview@gmail.com" 
+                  className="hover:text-[var(--accent-gold)] transition-colors underline decoration-dotted"
+                >
+                  thecrimeandsocietyreview@gmail.com
+                </a>
+              </div>
+              <div className="flex items-start gap-2 font-serif text-[11px] sm:text-xs leading-relaxed text-[var(--text-secondary)]">
+                <MapPin className="w-3.5 h-3.5 text-[var(--accent-gold)] shrink-0 mt-0.5" />
+                <span>
+                  DSSM. School of social science, Central University of Gujarat (CUG), Kundhela, Taluka-Dabhoi, Vadodara - 391107, Gujarat, India
+                </span>
+              </div>
+            </div>
+
             {/* Visitor Counter */}
             <div className="pt-0.5">
               <VisitorCounter />
@@ -101,9 +122,9 @@ export const Footer: React.FC = () => {
           <div className="lg:col-span-4 space-y-2.5">
             <div className="flex items-center gap-2 border-b border-[var(--border-subtle)] pb-2">
               <Compass className="w-4 h-4 text-[var(--accent-gold)]" />
-              <h4 className="text-xs font-bold uppercase tracking-wider text-[var(--text-primary)] font-mono">
+              <h3 className="text-xs font-bold uppercase tracking-wider text-[var(--text-primary)] font-mono">
                 Journal Directory
-              </h4>
+              </h3>
             </div>
 
             <div className="grid grid-cols-2 gap-x-4 gap-y-2 text-xs font-serif">
@@ -144,9 +165,9 @@ export const Footer: React.FC = () => {
           <div className="lg:col-span-3 space-y-2.5">
             <div className="flex items-center gap-2 border-b border-[var(--border-subtle)] pb-2">
               <ShieldCheck className="w-4 h-4 text-[var(--accent-gold)]" />
-              <h4 className="text-xs font-bold uppercase tracking-wider text-[var(--text-primary)] font-mono">
+              <h3 className="text-xs font-bold uppercase tracking-wider text-[var(--text-primary)] font-mono">
                 Scholarly Standards
-              </h4>
+              </h3>
             </div>
 
             <ul className="space-y-1.5 text-xs font-serif">
@@ -182,10 +203,10 @@ export const Footer: React.FC = () => {
           <div>
             © {new Date().getFullYear()} The Crime &amp; Society Review. All rights reserved.
           </div>
-          <div className="flex items-center gap-2 text-[11px]">
-            <span>Continuous Rolling Scholarly Publication</span>
+          <div className="flex items-center gap-2 text-[11px] flex-wrap justify-center sm:justify-end">
+            <span>Continuous Rolling Scholarly Record</span>
             <span>•</span>
-            <span className="text-[var(--accent-gold)]">ISSN: Coming Soon</span>
+            <span className="text-[var(--accent-gold)]">Vol. 1 (2026) Active</span>
             <span>•</span>
             <Link to="/admin" className="text-[var(--text-muted)] hover:text-[var(--accent-gold)] transition-colors">
               Editorial Admin

@@ -7,7 +7,8 @@ import {
   ExternalLink,
   Globe,
   ShieldCheck,
-  AlertCircle
+  AlertCircle,
+  MapPin
 } from 'lucide-react';
 import { Turnstile, type TurnstileInstance } from '@marsidev/react-turnstile';
 import { CONTACT_DETAILS } from '../data/mockJournalData';
@@ -303,8 +304,8 @@ export const ContactPage: React.FC = () => {
                 </p>
               </div>
 
-              {/* Single Official Email */}
-              <div className="pt-3 border-t border-slate-800 space-y-2 font-mono text-xs">
+              {/* Single Official Email & Institutional Address */}
+              <div className="pt-3 border-t border-slate-800 space-y-2.5 font-mono text-xs">
                 <div className="flex items-start gap-2.5 p-3 rounded-xl bg-slate-900/90 border border-slate-800">
                   <Mail className="w-4 h-4 text-amber-400 shrink-0 mt-0.5" />
                   <div>
@@ -312,6 +313,16 @@ export const ContactPage: React.FC = () => {
                     <a href="mailto:thecrimeandsocietyreview@gmail.com" className="text-sky-400 hover:text-sky-300 transition-colors font-medium text-xs sm:text-sm break-all">
                       thecrimeandsocietyreview@gmail.com
                     </a>
+                  </div>
+                </div>
+
+                <div className="flex items-start gap-2.5 p-3 rounded-xl bg-slate-900/90 border border-slate-800 font-serif">
+                  <MapPin className="w-4 h-4 text-amber-400 shrink-0 mt-0.5" />
+                  <div>
+                    <span className="text-slate-400 block text-[10px] uppercase font-bold font-mono">Institutional Editorial Office:</span>
+                    <p className="text-slate-200 text-xs leading-relaxed mt-0.5">
+                      DSSM. School of social science, Central University of Gujarat (CUG), Kundhela, Taluka-Dabhoi, Vadodara - 391107, Gujarat, India
+                    </p>
                   </div>
                 </div>
               </div>
