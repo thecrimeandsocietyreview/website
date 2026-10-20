@@ -123,7 +123,7 @@ export const AdvisoryBoardPage: React.FC = () => {
       name: "Prof. (Dr.) Sony Kunjappan",
       designation: "Professor & Head, Department of Studies in Social Management",
       institution: "Central University of Gujarat (CUG)",
-      photo: "" // Photo pending
+      photo: "/advisory-board/Prof.(Dr.)SonyKunjappan.jpg"
     },
     {
       name: "Prof. (Dr.) Priya Sepaha",
