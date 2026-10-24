@@ -319,9 +319,9 @@ export const ContactPage: React.FC = () => {
                 <div className="flex items-start gap-2.5 p-3 rounded-xl bg-slate-900/90 border border-slate-800 font-serif">
                   <MapPin className="w-4 h-4 text-amber-400 shrink-0 mt-0.5" />
                   <div>
-                    <span className="text-slate-400 block text-[10px] uppercase font-bold font-mono">Institutional Editorial Office:</span>
+                    <span className="text-slate-400 block text-[10px] uppercase font-bold font-mono">Editorial Office:</span>
                     <p className="text-slate-200 text-xs leading-relaxed mt-0.5">
-                      DSSM. School of social science, Central University of Gujarat (CUG), Kundhela, Taluka-Dabhoi, Vadodara - 391107, Gujarat, India
+                      Dahegam, Gandhinagar, Gujarat - 382305
                     </p>
                   </div>
                 </div>

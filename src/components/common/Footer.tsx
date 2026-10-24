@@ -54,7 +54,7 @@ export const Footer: React.FC = () => {
               <div className="flex items-start gap-2 font-serif text-[11px] sm:text-xs leading-relaxed text-[var(--text-secondary)]">
                 <MapPin className="w-3.5 h-3.5 text-[var(--accent-gold)] shrink-0 mt-0.5" />
                 <span>
-                  DSSM. School of social science, Central University of Gujarat (CUG), Kundhela, Taluka-Dabhoi, Vadodara - 391107, Gujarat, India
+                  Dahegam, Gandhinagar, Gujarat - 382305
                 </span>
               </div>
             </div>
