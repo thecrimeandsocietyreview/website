@@ -34,6 +34,7 @@ import { Turnstile, type TurnstileInstance } from '@marsidev/react-turnstile';
 import confetti from 'canvas-confetti';
 import { SubmissionDraft } from '../types/journal';
 import { SubmitAnimatedButton } from '../components/common/SubmitAnimatedButton';
+import { ManuscriptTracker } from '../components/common/ManuscriptTracker';
 
 interface CountryCodeOption {
   code: string;
@@ -726,10 +727,11 @@ Editorial Desk: thecrimeandsocietyreview@gmail.com
         {/* Action Buttons */}
         <div className="flex flex-wrap items-center justify-center gap-3 pt-4">
           <Link
-            to={`/track?id=${encodeURIComponent(trackingId)}`}
-            className="px-5 py-2.5 rounded-xl bg-[var(--accent-navy)] text-white text-xs font-semibold flex items-center gap-2 hover:opacity-90 shadow-xs active:scale-[0.98] transition-all"
+            to={`/submit?id=${encodeURIComponent(trackingId)}#track`}
+            onClick={() => setIsSubmitted(false)}
+            className="px-5 py-2.5 rounded-xl bg-gradient-to-r from-amber-600 to-amber-500 text-slate-950 font-bold text-xs flex items-center gap-2 hover:opacity-95 shadow-md active:scale-[0.98] transition-all"
           >
-            <Clock className="w-4 h-4 text-[var(--accent-gold)]" />
+            <Clock className="w-4 h-4 text-slate-950" />
             <span>Track Manuscript Status Live →</span>
           </Link>
 
@@ -844,6 +846,21 @@ Editorial Desk: thecrimeandsocietyreview@gmail.com
               className={`text-[var(--accent-gold)] font-bold cursor-pointer transition-colors ${activeJumpId === 'checklist' ? 'underline' : 'hover:underline'}`}
             >
               16. Checklist
+            </button>
+            <span className="text-[var(--border-strong)]">•</span>
+            <button 
+              type="button"
+              onClick={(e) => {
+                e.preventDefault();
+                document.getElementById('track')?.scrollIntoView({ behavior: 'smooth' });
+              }} 
+              className="text-amber-600 dark:text-amber-400 font-bold cursor-pointer transition-colors hover:underline inline-flex items-center gap-1.5"
+            >
+              <span className="relative flex h-1.5 w-1.5">
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-amber-400 opacity-75"></span>
+                <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-amber-500"></span>
+              </span>
+              <span>Track</span>
             </button>
           </div>
 
@@ -1324,6 +1341,12 @@ Editorial Desk: thecrimeandsocietyreview@gmail.com
             Locked in place on desktop - Stays sticky throughout entire page scroll
         ======================================================== */}
         <div className="order-1 lg:order-2 lg:col-span-6 lg:h-full lg:overflow-y-auto pr-1 pb-4 custom-scrollbar">
+          {/* ========================================================
+              INTEGRATED MANUSCRIPT TRACKING FACILITY (PROMINENT HIGHLIGHT BANNER)
+              Placed immediately above the Manuscript Submission Form
+          ======================================================== */}
+          <ManuscriptTracker />
+
           <div className="p-6 rounded-2xl border border-[var(--border-strong)] bg-[var(--bg-card)] space-y-6 shadow-md">
             
             {/* Form Top Instruction */}

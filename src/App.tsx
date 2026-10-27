@@ -29,6 +29,12 @@ const ScrollToTop: React.FC = () => {
   return null;
 };
 
+// Redirect tracking URLs with search parameters directly to integrated Submission section tracker
+const TrackRedirect: React.FC = () => {
+  const location = useLocation();
+  return <Navigate to={{ pathname: '/submit', search: location.search, hash: '#track' }} replace />;
+};
+
 // Subtle Scholarly Page Loading Fallback
 const PageLoadingFallback: React.FC = () => (
   <div className="min-h-[50vh] flex flex-col items-center justify-center p-8 space-y-3 animate-fadeIn">
@@ -102,18 +108,16 @@ const AppLayout: React.FC = () => {
             {/* 8. Submission */}
             <Route path="/submit" element={<SubmitPage />} />
 
-            {/* 9. Manuscript Tracking Portal */}
-            <Route path="/track" element={<TrackPage />} />
+            {/* 9. Manuscript Tracking (Redirects to integrated Submission tracker) */}
+            <Route path="/track" element={<TrackRedirect />} />
+            <Route path="/tracking" element={<TrackRedirect />} />
+            <Route path="/track-manuscript" element={<TrackRedirect />} />
 
             {/* 10. Contact Us */}
             <Route path="/contact" element={<ContactPage />} />
 
             {/* 11. Admin Console */}
             <Route path="/admin" element={<AdminPage />} />
-
-            {/* Clean Redirects */}
-            <Route path="/tracking" element={<Navigate to="/track" replace />} />
-            <Route path="/track-manuscript" element={<Navigate to="/track" replace />} />
             <Route path="/issues" element={<Navigate to="/current-issue" replace />} />
             <Route path="/articles" element={<Navigate to="/current-issue" replace />} />
             <Route path="/archive" element={<Navigate to="/current-issue" replace />} />

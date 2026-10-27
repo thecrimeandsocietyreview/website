@@ -21,7 +21,7 @@ export const GlobalNetworkSection: React.FC = () => {
             </h2>
 
             <p className="text-[11px] sm:text-xs md:text-sm lg:text-base text-slate-100 max-w-md leading-relaxed mb-3 sm:mb-6 md:mb-8 font-serif text-justify font-normal">
-              Connecting legal scholars, forensic scientists, criminologists, and judicial academies across premier institutions worldwide. Advancing evidence-based scholarship on the BNS, BNSS, and BSA. Drag the globe to explore international research collaborations.
+              A multidisciplinary scholarly platform advancing original research, critical policy discourse, and evidence-informed perspectives on crime, law, justice, forensic science, and the evolving challenges of contemporary society.
             </p>
 
             {/* 3 Stats in a Row */}

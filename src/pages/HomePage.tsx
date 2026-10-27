@@ -18,23 +18,23 @@ import { TextFlip } from '@/components/animata/text/text-flip';
 const FAQS = [
   {
     q: "What is the interdisciplinary scope of The Crime & Society Review?",
-    a: "The Crime & Society Review publishes peer-reviewed research across criminal law (BNS, BNSS, BSA), forensic science, criminology, criminal justice, forensic psychology, victimology, cybercrime, and societal justice through the multi-perspective Rashomon framework."
+    a: "The Crime & Society Review is a multidisciplinary scholarly journal dedicated to advancing original research and critical discourse at the intersection of criminology, criminal justice, law, forensic science, psychology, sociology, public policy, governance, technology, and allied disciplines. The journal encourages evidence-based scholarship, interdisciplinary perspectives, and policy-oriented research addressing contemporary challenges in crime prevention, criminal justice administration, legal reform, and social transformation."
   },
   {
-    q: "Does the journal charge any Article Processing Charges (APC) or author fees?",
-    a: "No. The journal strictly operates on a zero-fee Diamond Open Access model. There are ₹0 Article Processing Charges (APC) and zero submission, processing, or publication fees for authors worldwide."
+    q: "Does The Crime & Society Review charge any Article Processing Charges (APC) or author fees?",
+    a: "No. Currently, The Crime & Society Review does not charge any Article Processing Charges (APCs) or submission fees. Authors can submit their manuscripts without any author-side publication charges. Should the journal’s fee policy change in the future, the updated policy will be communicated transparently through the official website."
   },
   {
     q: "What is the peer-review process and review turnaround timeline?",
-    a: "All manuscripts undergo rigorous double-blind peer review by at least two independent expert referees. Preliminary editorial triage is completed within 24–48 hours, and first-round peer-review decisions are communicated within 3–4 weeks."
+    a: "All manuscripts submitted to The Crime & Society Review undergo an initial editorial assessment followed by peer review in accordance with the journal’s editorial policies. A unique manuscript tracking ID is generated immediately upon successful submission. An acknowledgement of receipt is communicated via email within 24-48 hours. The review process and editorial decision typically take 7-15 days, depending on the manuscript’s scope, length, research quality, and reviewer availability. For manuscripts accepted for publication, the journal aims to complete the publication process and make the article available on its official website within 30 days of submission, subject to the completion of any required revisions, author approvals, and publication formalities."
   },
   {
     q: "What article types and formats are considered for publication?",
-    a: "We accept Research Articles, Review Articles, Theoretical & Conceptual Papers, Methodological Notes, Case Studies, Policy & Practice Analyses, Short Communications, and Book Reviews formatted in Microsoft Word (.doc/.docx) following APA 7th edition referencing."
+    a: "The Crime & Society Review considers manuscripts across a range of scholarly article types in accordance with its Aims and Scope and editorial policies. Authors are advised to consult the journal’s Aims and Scope section and review the guidelines for the specific issue to which they intend to submit their manuscript to ensure that the article type, subject matter, and formatting requirements align with the journal’s publication criteria."
   },
   {
     q: "How can corresponding authors track the live status of their submissions?",
-    a: "Authors receive a unique tracking identifier (e.g. CSR-2026-XXXXXXXXXX) immediately upon submission. You can track real-time editorial decisions, reviewer assignments, and production stages live via our Track Manuscript portal."
+    a: "Upon successful submission, a unique manuscript tracking ID is generated immediately. Corresponding authors can use this ID to monitor the current status of their submissions through the Track Submission section on The Crime & Society Review’s official website, enabling convenient access to the latest available updates on the editorial and review process."
   }
 ];
 
