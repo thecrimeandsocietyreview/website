@@ -15,6 +15,7 @@ const EditorialBoardPage = lazy(() => import('./pages/EditorialBoardPage').then(
 const AdvisoryBoardPage = lazy(() => import('./pages/AdvisoryBoardPage').then(m => ({ default: m.AdvisoryBoardPage })));
 const RashomonPage = lazy(() => import('./pages/RashomonPage').then(m => ({ default: m.RashomonPage })));
 const IssuesPage = lazy(() => import('./pages/IssuesPage').then(m => ({ default: m.IssuesPage })));
+const DemoCurrentIssuePage = lazy(() => import('./pages/DemoCurrentIssuePage').then(m => ({ default: m.DemoCurrentIssuePage })));
 const AimsScopePage = lazy(() => import('./pages/AimsScopePage').then(m => ({ default: m.AimsScopePage })));
 const ContactPage = lazy(() => import('./pages/ContactPage').then(m => ({ default: m.ContactPage })));
 const AdminPage = lazy(() => import('./pages/AdminPage').then(m => ({ default: m.AdminPage })));
@@ -104,6 +105,7 @@ const AppLayout: React.FC = () => {
 
             {/* 7. Current Issue */}
             <Route path="/current-issue" element={<IssuesPage />} />
+            <Route path="/demo-current-issue" element={<DemoCurrentIssuePage />} />
 
             {/* 8. Submission */}
             <Route path="/submit" element={<SubmitPage />} />
