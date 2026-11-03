@@ -106,6 +106,8 @@ const AppLayout: React.FC = () => {
             {/* 7. Current Issue */}
             <Route path="/current-issue" element={<IssuesPage />} />
             <Route path="/demo-current-issue" element={<DemoCurrentIssuePage />} />
+            <Route path="/demo-issue" element={<DemoCurrentIssuePage />} />
+            <Route path="/demo" element={<DemoCurrentIssuePage />} />
 
             {/* 8. Submission */}
             <Route path="/submit" element={<SubmitPage />} />

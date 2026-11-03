@@ -1,3 +1,4 @@
+// The Crime & Society Review - Published Issue Showcase Demo
 import React, { useState, useMemo } from 'react';
 import { Link } from 'react-router-dom';
 import {

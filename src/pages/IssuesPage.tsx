@@ -200,15 +200,6 @@ export const IssuesPage: React.FC = () => {
         </div>
 
         <div className="flex flex-wrap items-center gap-2.5">
-          <Link
-            to="/demo-current-issue"
-            className="text-xs font-semibold px-3.5 py-1.5 rounded-full bg-amber-500/15 text-amber-700 dark:text-amber-300 border border-amber-500/30 hover:bg-amber-500/25 transition-all flex items-center gap-1.5 shadow-2xs"
-            title="Preview how accepted research papers are displayed once published"
-          >
-            <Sparkles className="w-3.5 h-3.5 text-amber-500" />
-            <span>Preview Published Issue (Demo)</span>
-          </Link>
-
           <div className="text-xs font-mono text-[var(--text-muted)] bg-[var(--bg-card)] px-3.5 py-1.5 rounded-full border border-[var(--border-subtle)] flex items-center gap-2 shadow-2xs">
             <span className="relative flex h-2 w-2">
               <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
