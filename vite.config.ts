@@ -2,7 +2,7 @@ import { defineConfig, loadEnv, Plugin } from 'vite';
 import react from '@vitejs/plugin-react';
 import path from 'path';
 import crypto from 'crypto';
-import { S3Client, PutObjectCommand } from '@aws-sdk/client-s3';
+import { S3Client, PutObjectCommand, CopyObjectCommand, DeleteObjectCommand, GetObjectCommand } from '@aws-sdk/client-s3';
 
 const ALPHABET = "23456789ABCDEFGHJKLMNPQRSTUVWXYZ";
 
@@ -610,11 +610,97 @@ function localApiDevPlugin(env: Record<string, string>): Plugin {
             const accountId = env.CLOUDFLARE_ACCOUNT_ID?.trim();
             const d1DbId = env.CLOUDFLARE_D1_DATABASE_ID?.trim() || '588fea4b-4ee9-4aac-9772-9806398d1203';
             const cfToken = env.CLOUDFLARE_API_TOKEN?.trim();
+            const r2Bucket = env.VITE_CLOUDFLARE_R2_BUCKET_NAME?.trim() || 'thecsrjournal-manuscripts';
+            const r2AccessKey = env.CLOUDFLARE_R2_ACCESS_KEY_ID?.trim();
+            const r2SecretKey = env.CLOUDFLARE_R2_SECRET_ACCESS_KEY?.trim();
 
             if (accountId && cfToken && trackingNumber) {
               const nowIso = new Date().toISOString();
 
-              // 1. Copy complete submission record into deleted_submissions table
+              // 1. Fetch current submission details from submissions table
+              const subRes = await fetch(
+                `https://api.cloudflare.com/client/v4/accounts/${accountId}/d1/database/${d1DbId}/query`,
+                {
+                  method: 'POST',
+                  headers: {
+                    Authorization: `Bearer ${cfToken}`,
+                    'Content-Type': 'application/json',
+                  },
+                  body: JSON.stringify({
+                    sql: `SELECT * FROM submissions WHERE tracking_number = ?;`,
+                    params: [trackingNumber],
+                  }),
+                }
+              );
+              const subJson: any = await subRes.json().catch(() => null);
+              const sub = subJson?.result?.[0]?.results?.[0];
+
+              let newBlindKey = sub?.blind_file_key || '';
+              let newAuthorKey = sub?.author_file_key || '';
+
+              if (newBlindKey) {
+                if (newBlindKey.startsWith('blind-manuscripts/')) {
+                  newBlindKey = newBlindKey.replace(/^blind-manuscripts\//, 'deleted_blind-manuscripts/');
+                } else if (!newBlindKey.startsWith('deleted_blind-manuscripts/')) {
+                  newBlindKey = `deleted_blind-manuscripts/${newBlindKey}`;
+                }
+              }
+
+              if (newAuthorKey) {
+                if (newAuthorKey.startsWith('author-dossiers/')) {
+                  newAuthorKey = newAuthorKey.replace(/^author-dossiers\//, 'deleted_author-dossier/');
+                } else if (!newAuthorKey.startsWith('deleted_author-dossier/')) {
+                  newAuthorKey = `deleted_author-dossier/${newAuthorKey}`;
+                }
+              }
+
+              // 2. Shift files in Cloudflare R2
+              if (accountId && r2AccessKey && r2SecretKey) {
+                const s3 = new S3Client({
+                  region: 'auto',
+                  endpoint: `https://${accountId}.r2.cloudflarestorage.com`,
+                  credentials: {
+                    accessKeyId: r2AccessKey,
+                    secretAccessKey: r2SecretKey,
+                  },
+                });
+
+                if (sub?.blind_file_key && sub.blind_file_key !== newBlindKey) {
+                  try {
+                    await s3.send(new CopyObjectCommand({
+                      Bucket: r2Bucket,
+                      CopySource: `${r2Bucket}/${encodeURI(sub.blind_file_key)}`,
+                      Key: newBlindKey,
+                    }));
+                    await s3.send(new DeleteObjectCommand({
+                      Bucket: r2Bucket,
+                      Key: sub.blind_file_key,
+                    }));
+                    console.log(`[R2 Dev] Shifted blind file to: ${newBlindKey}`);
+                  } catch (r2Err) {
+                    console.error('[R2 Shift Blind File Err]', r2Err);
+                  }
+                }
+
+                if (sub?.author_file_key && sub.author_file_key !== newAuthorKey) {
+                  try {
+                    await s3.send(new CopyObjectCommand({
+                      Bucket: r2Bucket,
+                      CopySource: `${r2Bucket}/${encodeURI(sub.author_file_key)}`,
+                      Key: newAuthorKey,
+                    }));
+                    await s3.send(new DeleteObjectCommand({
+                      Bucket: r2Bucket,
+                      Key: sub.author_file_key,
+                    }));
+                    console.log(`[R2 Dev] Shifted author file to: ${newAuthorKey}`);
+                  } catch (r2Err) {
+                    console.error('[R2 Shift Author File Err]', r2Err);
+                  }
+                }
+              }
+
+              // 3. Copy complete submission record into deleted_submissions table with shifted keys
               await fetch(
                 `https://api.cloudflare.com/client/v4/accounts/${accountId}/d1/database/${d1DbId}/query`,
                 {
@@ -636,19 +722,19 @@ function localApiDevPlugin(env: Record<string, string>): Plugin {
                       SELECT 
                         id, tracking_number, author_name, author_email, author_phone,
                         title, article_type, abstract, keywords,
-                        blind_file_key, blind_file_name, blind_file_size,
-                        author_file_key, author_file_name, author_file_size,
+                        ?, blind_file_name, blind_file_size,
+                        ?, author_file_name, author_file_size,
                         status, stage_number, editorial_decision_notes, assigned_reviewers,
                         submitted_at, ?, ?
                       FROM submissions
                       WHERE tracking_number = ?;
                     `,
-                    params: [nowIso, reason, trackingNumber],
+                    params: [newBlindKey, newAuthorKey, nowIso, reason, trackingNumber],
                   }),
                 }
               ).catch((err) => console.error('[D1 Backup To Deleted Err]', err));
 
-              // 2. Blacklist in retired_tracking_ids so tracking ID cannot be reused
+              // 4. Blacklist in retired_tracking_ids so tracking ID cannot be reused
               await fetch(
                 `https://api.cloudflare.com/client/v4/accounts/${accountId}/d1/database/${d1DbId}/query`,
                 {
@@ -664,7 +750,7 @@ function localApiDevPlugin(env: Record<string, string>): Plugin {
                 }
               ).catch((err) => console.error('[D1 Retire Tracking Err]', err));
 
-              // 3. Permanently delete submission from active submissions table
+              // 5. Permanently delete submission from active submissions table
               const deleteRes = await fetch(
                 `https://api.cloudflare.com/client/v4/accounts/${accountId}/d1/database/${d1DbId}/query`,
                 {
@@ -695,7 +781,7 @@ function localApiDevPlugin(env: Record<string, string>): Plugin {
 
             res.statusCode = 200;
             res.setHeader('Content-Type', 'application/json');
-            res.end(JSON.stringify({ success: true, message: 'Submission archived to deleted_submissions and removed from active list.' }));
+            res.end(JSON.stringify({ success: true, message: 'Submission archived and files shifted to deleted folders in R2.' }));
             return;
           } catch (e: any) {
             console.error('[Admin Delete Error]', e);
@@ -765,12 +851,94 @@ function localApiDevPlugin(env: Record<string, string>): Plugin {
             const accountId = env.CLOUDFLARE_ACCOUNT_ID?.trim();
             const d1DbId = env.CLOUDFLARE_D1_DATABASE_ID?.trim() || '588fea4b-4ee9-4aac-9772-9806398d1203';
             const cfToken = env.CLOUDFLARE_API_TOKEN?.trim();
+            const r2Bucket = env.VITE_CLOUDFLARE_R2_BUCKET_NAME?.trim() || 'thecsrjournal-manuscripts';
+            const r2AccessKey = env.CLOUDFLARE_R2_ACCESS_KEY_ID?.trim();
+            const r2SecretKey = env.CLOUDFLARE_R2_SECRET_ACCESS_KEY?.trim();
 
             if (accountId && cfToken && trackingNumber) {
               const nowIso = new Date().toISOString();
 
-              // 1. Copy back from deleted_submissions into submissions
-              await fetch(
+              // 1. Fetch deleted submission from D1
+              const delRes = await fetch(
+                `https://api.cloudflare.com/client/v4/accounts/${accountId}/d1/database/${d1DbId}/query`,
+                {
+                  method: 'POST',
+                  headers: {
+                    Authorization: `Bearer ${cfToken}`,
+                    'Content-Type': 'application/json',
+                  },
+                  body: JSON.stringify({
+                    sql: `SELECT * FROM deleted_submissions WHERE tracking_number = ? ORDER BY id DESC LIMIT 1;`,
+                    params: [trackingNumber],
+                  }),
+                }
+              );
+              const delJson: any = await delRes.json().catch(() => null);
+              const delSub = delJson?.result?.[0]?.results?.[0];
+
+              let restoredBlindKey = delSub?.blind_file_key || '';
+              let restoredAuthorKey = delSub?.author_file_key || '';
+
+              if (restoredBlindKey && restoredBlindKey.startsWith('deleted_blind-manuscripts/')) {
+                restoredBlindKey = restoredBlindKey.replace(/^deleted_blind-manuscripts\//, 'blind-manuscripts/');
+              }
+              if (restoredAuthorKey) {
+                if (restoredAuthorKey.startsWith('deleted_author-dossier/')) {
+                  restoredAuthorKey = restoredAuthorKey.replace(/^deleted_author-dossier\//, 'author-dossiers/');
+                } else if (restoredAuthorKey.startsWith('deleted_author-dossiers/')) {
+                  restoredAuthorKey = restoredAuthorKey.replace(/^deleted_author-dossiers\//, 'author-dossiers/');
+                }
+              }
+
+              // 2. Shift files back to active folders in R2
+              if (accountId && r2AccessKey && r2SecretKey) {
+                const s3 = new S3Client({
+                  region: 'auto',
+                  endpoint: `https://${accountId}.r2.cloudflarestorage.com`,
+                  credentials: {
+                    accessKeyId: r2AccessKey,
+                    secretAccessKey: r2SecretKey,
+                  },
+                });
+
+                if (delSub?.blind_file_key && delSub.blind_file_key !== restoredBlindKey) {
+                  try {
+                    await s3.send(new CopyObjectCommand({
+                      Bucket: r2Bucket,
+                      CopySource: `${r2Bucket}/${encodeURI(delSub.blind_file_key)}`,
+                      Key: restoredBlindKey,
+                    }));
+                    await s3.send(new DeleteObjectCommand({
+                      Bucket: r2Bucket,
+                      Key: delSub.blind_file_key,
+                    }));
+                    console.log(`[R2 Dev] Restored blind file to: ${restoredBlindKey}`);
+                  } catch (r2Err) {
+                    console.error('[R2 Restore Blind File Err]', r2Err);
+                  }
+                }
+
+                if (delSub?.author_file_key && delSub.author_file_key !== restoredAuthorKey) {
+                  try {
+                    await s3.send(new CopyObjectCommand({
+                      Bucket: r2Bucket,
+                      CopySource: `${r2Bucket}/${encodeURI(delSub.author_file_key)}`,
+                      Key: restoredAuthorKey,
+                    }));
+                    await s3.send(new DeleteObjectCommand({
+                      Bucket: r2Bucket,
+                      Key: delSub.author_file_key,
+                    }));
+                    console.log(`[R2 Dev] Restored author file to: ${restoredAuthorKey}`);
+                  } catch (r2Err) {
+                    console.error('[R2 Restore Author File Err]', r2Err);
+                  }
+                }
+              }
+
+              // 3. Copy back from deleted_submissions into submissions with restored keys
+              // NOTE: submissions table requires BOTH author_phone and authorPhone (authorPhone is NOT NULL)
+              const insertRes = await fetch(
                 `https://api.cloudflare.com/client/v4/accounts/${accountId}/d1/database/${d1DbId}/query`,
                 {
                   method: 'POST',
@@ -781,7 +949,7 @@ function localApiDevPlugin(env: Record<string, string>): Plugin {
                   body: JSON.stringify({
                     sql: `
                       INSERT INTO submissions (
-                        tracking_number, author_name, author_email, author_phone,
+                        tracking_number, author_name, author_email, author_phone, authorPhone,
                         title, article_type, abstract, keywords,
                         blind_file_key, blind_file_name, blind_file_size,
                         author_file_key, author_file_name, author_file_size,
@@ -789,21 +957,34 @@ function localApiDevPlugin(env: Record<string, string>): Plugin {
                         is_archived, submitted_at, updated_at
                       )
                       SELECT 
-                        tracking_number, author_name, author_email, author_phone,
+                        tracking_number, author_name, author_email, COALESCE(author_phone, ''), COALESCE(author_phone, ''),
                         title, article_type, abstract, keywords,
-                        blind_file_key, blind_file_name, blind_file_size,
-                        author_file_key, author_file_name, author_file_size,
-                        status, stage_number, editorial_decision_notes, assigned_reviewers,
+                        ?, blind_file_name, blind_file_size,
+                        ?, author_file_name, author_file_size,
+                        COALESCE(status, 'Submitted'), COALESCE(stage_number, 1), COALESCE(editorial_decision_notes, ''), COALESCE(assigned_reviewers, '[]'),
                         0, submitted_at, ?
                       FROM deleted_submissions
-                      WHERE tracking_number = ?;
+                      WHERE tracking_number = ?
+                      ORDER BY id DESC LIMIT 1;
                     `,
-                    params: [nowIso, trackingNumber],
+                    params: [restoredBlindKey, restoredAuthorKey, nowIso, trackingNumber],
                   }),
                 }
               );
 
-              // 2. Remove from retired_tracking_ids
+              const insertJson: any = await insertRes.json().catch(() => null);
+              if (!insertJson?.success) {
+                console.error('[D1 Restore Insert Failed]', insertJson?.errors);
+                res.statusCode = 500;
+                res.setHeader('Content-Type', 'application/json');
+                res.end(JSON.stringify({
+                  success: false,
+                  message: insertJson?.errors?.[0]?.message || 'Failed to insert restored submission into submissions table'
+                }));
+                return;
+              }
+
+              // 4. Remove from retired_tracking_ids ONLY after successful insert
               await fetch(
                 `https://api.cloudflare.com/client/v4/accounts/${accountId}/d1/database/${d1DbId}/query`,
                 {
@@ -819,7 +1000,7 @@ function localApiDevPlugin(env: Record<string, string>): Plugin {
                 }
               );
 
-              // 3. Delete from deleted_submissions
+              // 5. Delete from deleted_submissions ONLY after successful insert
               await fetch(
                 `https://api.cloudflare.com/client/v4/accounts/${accountId}/d1/database/${d1DbId}/query`,
                 {
@@ -838,13 +1019,178 @@ function localApiDevPlugin(env: Record<string, string>): Plugin {
 
             res.statusCode = 200;
             res.setHeader('Content-Type', 'application/json');
-            res.end(JSON.stringify({ success: true, message: 'Submission restored successfully.' }));
+            res.end(JSON.stringify({ success: true, message: 'Submission restored successfully and files shifted back.' }));
             return;
           } catch (e: any) {
             console.error('[Admin Restore Error]', e);
             res.statusCode = 500;
             res.setHeader('Content-Type', 'application/json');
             res.end(JSON.stringify({ success: false, message: e?.message || 'Failed to restore' }));
+            return;
+          }
+        }
+
+        // =====================================================================
+        // ADMIN ENDPOINT: POST /api/admin/permanent-delete-submission (Purge Files & Archive Metadata)
+        // =====================================================================
+        if (req.url === '/api/admin/permanent-delete-submission' && req.method === 'POST') {
+          try {
+            const chunks: Buffer[] = [];
+            for await (const chunk of req) chunks.push(Buffer.from(chunk));
+            const body = JSON.parse(Buffer.concat(chunks).toString() || '{}');
+            const { trackingNumber, reason = 'Permanently purged by Editorial Office' } = body;
+
+            const accountId = env.CLOUDFLARE_ACCOUNT_ID?.trim();
+            const d1DbId = env.CLOUDFLARE_D1_DATABASE_ID?.trim() || '588fea4b-4ee9-4aac-9772-9806398d1203';
+            const cfToken = env.CLOUDFLARE_API_TOKEN?.trim();
+            const r2Bucket = env.VITE_CLOUDFLARE_R2_BUCKET_NAME?.trim() || 'thecsrjournal-manuscripts';
+            const r2AccessKey = env.CLOUDFLARE_R2_ACCESS_KEY_ID?.trim();
+            const r2SecretKey = env.CLOUDFLARE_R2_SECRET_ACCESS_KEY?.trim();
+
+            if (accountId && cfToken && trackingNumber) {
+              const nowIso = new Date().toISOString();
+
+              // 1. Fetch record from deleted_submissions (or submissions)
+              const delRes = await fetch(
+                `https://api.cloudflare.com/client/v4/accounts/${accountId}/d1/database/${d1DbId}/query`,
+                {
+                  method: 'POST',
+                  headers: {
+                    Authorization: `Bearer ${cfToken}`,
+                    'Content-Type': 'application/json',
+                  },
+                  body: JSON.stringify({
+                    sql: `SELECT * FROM deleted_submissions WHERE tracking_number = ? ORDER BY id DESC LIMIT 1;`,
+                    params: [trackingNumber],
+                  }),
+                }
+              );
+              const delJson: any = await delRes.json().catch(() => null);
+              let delSub = delJson?.result?.[0]?.results?.[0];
+
+              if (!delSub) {
+                const subRes = await fetch(
+                  `https://api.cloudflare.com/client/v4/accounts/${accountId}/d1/database/${d1DbId}/query`,
+                  {
+                    method: 'POST',
+                    headers: {
+                      Authorization: `Bearer ${cfToken}`,
+                      'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                      sql: `SELECT * FROM submissions WHERE tracking_number = ? LIMIT 1;`,
+                      params: [trackingNumber],
+                    }),
+                  }
+                );
+                const subJson: any = await subRes.json().catch(() => null);
+                delSub = subJson?.result?.[0]?.results?.[0];
+              }
+
+              if (!delSub) {
+                res.statusCode = 404;
+                res.setHeader('Content-Type', 'application/json');
+                res.end(JSON.stringify({ success: false, message: 'Submission not found.' }));
+                return;
+              }
+
+              // 2. Purge files permanently from Cloudflare R2
+              if (accountId && r2AccessKey && r2SecretKey) {
+                const s3 = new S3Client({
+                  region: 'auto',
+                  endpoint: `https://${accountId}.r2.cloudflarestorage.com`,
+                  credentials: {
+                    accessKeyId: r2AccessKey,
+                    secretAccessKey: r2SecretKey,
+                  },
+                });
+
+                const keysToDelete: string[] = [];
+                if (delSub.blind_file_key) keysToDelete.push(delSub.blind_file_key);
+                if (delSub.author_file_key) keysToDelete.push(delSub.author_file_key);
+
+                if (delSub.blind_file_name) {
+                  const cleanBlind = delSub.blind_file_name.replace(/[^a-zA-Z0-9._-]/g, '_');
+                  keysToDelete.push(`deleted_blind-manuscripts/${trackingNumber}/${cleanBlind}`);
+                  keysToDelete.push(`blind-manuscripts/${trackingNumber}/${cleanBlind}`);
+                }
+                if (delSub.author_file_name) {
+                  const cleanAuthor = delSub.author_file_name.replace(/[^a-zA-Z0-9._-]/g, '_');
+                  keysToDelete.push(`deleted_author-dossier/${trackingNumber}/${cleanAuthor}`);
+                  keysToDelete.push(`author-dossiers/${trackingNumber}/${cleanAuthor}`);
+                }
+
+                for (const key of Array.from(new Set(keysToDelete))) {
+                  try {
+                    await s3.send(new DeleteObjectCommand({
+                      Bucket: r2Bucket,
+                      Key: key,
+                    }));
+                    console.log(`[R2 Dev Permanent Purge] Deleted key: ${key}`);
+                  } catch (r2Err) {
+                    console.warn(`[R2 Dev Permanent Purge Err] Could not delete key ${key}:`, r2Err);
+                  }
+                }
+              }
+
+              // 3. Ensure tracking ID stays in retired_tracking_ids so it is never reissued
+              await fetch(
+                `https://api.cloudflare.com/client/v4/accounts/${accountId}/d1/database/${d1DbId}/query`,
+                {
+                  method: 'POST',
+                  headers: {
+                    Authorization: `Bearer ${cfToken}`,
+                    'Content-Type': 'application/json',
+                  },
+                  body: JSON.stringify({
+                    sql: `INSERT OR REPLACE INTO retired_tracking_ids (tracking_number, retired_at, reason) VALUES (?, ?, ?);`,
+                    params: [trackingNumber, nowIso, `Permanently deleted: ${reason}`],
+                  }),
+                }
+              );
+
+              // 4. Permanently erase from deleted_submissions
+              await fetch(
+                `https://api.cloudflare.com/client/v4/accounts/${accountId}/d1/database/${d1DbId}/query`,
+                {
+                  method: 'POST',
+                  headers: {
+                    Authorization: `Bearer ${cfToken}`,
+                    'Content-Type': 'application/json',
+                  },
+                  body: JSON.stringify({
+                    sql: `DELETE FROM deleted_submissions WHERE tracking_number = ?;`,
+                    params: [trackingNumber],
+                  }),
+                }
+              );
+
+              // 5. Permanently erase from submissions (if still present)
+              await fetch(
+                `https://api.cloudflare.com/client/v4/accounts/${accountId}/d1/database/${d1DbId}/query`,
+                {
+                  method: 'POST',
+                  headers: {
+                    Authorization: `Bearer ${cfToken}`,
+                    'Content-Type': 'application/json',
+                  },
+                  body: JSON.stringify({
+                    sql: `DELETE FROM submissions WHERE tracking_number = ?;`,
+                    params: [trackingNumber],
+                  }),
+                }
+              );
+            }
+
+            res.statusCode = 200;
+            res.setHeader('Content-Type', 'application/json');
+            res.end(JSON.stringify({ success: true, message: `Submission ${trackingNumber} and all its uploaded files have been permanently deleted.` }));
+            return;
+          } catch (e: any) {
+            console.error('[Admin Permanent Delete Error]', e);
+            res.statusCode = 500;
+            res.setHeader('Content-Type', 'application/json');
+            res.end(JSON.stringify({ success: false, message: e?.message || 'Failed to permanently delete' }));
             return;
           }
         }

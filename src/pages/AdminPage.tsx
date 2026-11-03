@@ -122,6 +122,10 @@ export const AdminPage: React.FC = () => {
   const [restoreTargetNumber, setRestoreTargetNumber] = useState<string | null>(null);
   const [isRestoring, setIsRestoring] = useState(false);
 
+  // Custom Permanent Delete Modal State
+  const [permanentDeleteTarget, setPermanentDeleteTarget] = useState<any | null>(null);
+  const [isPermanentlyDeleting, setIsPermanentlyDeleting] = useState(false);
+
   // Toast Notification State
   const [toastNotification, setToastNotification] = useState<{ message: string; type: 'success' | 'error' } | null>(null);
   const showToast = (message: string, type: 'success' | 'error' = 'success') => {
@@ -631,6 +635,9 @@ export const AdminPage: React.FC = () => {
       const data = await res.json().catch(() => null);
       if (res.ok && data?.success) {
         showToast(data.message || `Submission ${trackingNumber} successfully restored!`, 'success');
+        setDeletedSubmissions((prev) =>
+          prev.filter((s) => (s.tracking_number || s.trackingNumber) !== trackingNumber)
+        );
         fetchLiveSubmissions();
         fetchDeletedSubmissions();
         setRestoreTargetNumber(null);
@@ -641,6 +648,36 @@ export const AdminPage: React.FC = () => {
       showToast(`Network error: ${err?.message || 'Could not connect'}`, 'error');
     } finally {
       setIsRestoring(false);
+    }
+  };
+
+  // Executes permanent purge: deletes files from R2 and removes all submission records completely
+  const executePermanentDelete = async (trackingNumber: string) => {
+    setIsPermanentlyDeleting(true);
+    try {
+      const res = await fetch('/api/admin/permanent-delete-submission', {
+        method: 'POST',
+        headers: {
+          ...getAdminAuthHeaders(),
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ trackingNumber, reason: 'Permanently purged by Editorial Office' })
+      });
+      const data = await res.json().catch(() => null);
+      if (res.ok && data?.success) {
+        showToast(data.message || `Submission ${trackingNumber} permanently purged.`, 'success');
+        setDeletedSubmissions((prev) =>
+          prev.filter((s) => (s.tracking_number || s.trackingNumber) !== trackingNumber)
+        );
+        fetchDeletedSubmissions();
+        setPermanentDeleteTarget(null);
+      } else {
+        showToast(`Permanent purge failed: ${data?.message || 'Database error'}`, 'error');
+      }
+    } catch (err: any) {
+      showToast(`Network error: ${err?.message || 'Could not connect'}`, 'error');
+    } finally {
+      setIsPermanentlyDeleting(false);
     }
   };
 
@@ -1414,16 +1451,26 @@ export const AdminPage: React.FC = () => {
                               </div>
                             </td>
 
-                            {/* Restore Action */}
+                            {/* Restore & Permanent Delete Actions */}
                             <td className="sticky right-0 z-10 py-3.5 px-4 text-right whitespace-nowrap bg-[var(--bg-card)] group-hover:bg-[var(--bg-card-hover)] shadow-[-6px_0_12px_-4px_rgba(0,0,0,0.15)]">
-                              <button
-                                onClick={() => handleRestoreSubmission(sub.tracking_number)}
-                                className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/30 hover:bg-emerald-500/20 text-xs font-semibold transition-colors cursor-pointer"
-                                title="Restore this submission back into active manuscripts"
-                              >
-                                <RotateCcw className="w-3.5 h-3.5" />
-                                <span>Restore Manuscript</span>
-                              </button>
+                              <div className="flex items-center justify-end gap-2">
+                                <button
+                                  onClick={() => handleRestoreSubmission(sub.tracking_number)}
+                                  className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/30 hover:bg-emerald-500/20 text-xs font-semibold transition-colors cursor-pointer"
+                                  title="Restore this submission back into active manuscripts"
+                                >
+                                  <RotateCcw className="w-3.5 h-3.5" />
+                                  <span>Restore</span>
+                                </button>
+                                <button
+                                  onClick={() => setPermanentDeleteTarget(sub)}
+                                  className="inline-flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg bg-red-500/10 text-red-600 dark:text-red-400 border border-red-500/30 hover:bg-red-500/20 text-xs font-semibold transition-colors cursor-pointer"
+                                  title="Permanently purge files from Cloudflare R2 and archive metadata"
+                                >
+                                  <Trash2 className="w-3.5 h-3.5" />
+                                  <span>Permanent Delete</span>
+                                </button>
+                              </div>
                             </td>
                           </tr>
                         ))
@@ -2371,6 +2418,71 @@ export const AdminPage: React.FC = () => {
                   <>
                     <RotateCcw className="w-3.5 h-3.5" />
                     <span>Confirm Restore</span>
+                  </>
+                )}
+              </button>
+            </div>
+
+          </div>
+        </div>
+      )}
+
+      {/* ===================================================================== */}
+      {/* MODAL 3B: PERMANENT PURGE CONFIRMATION MODAL */}
+      {/* ===================================================================== */}
+      {permanentDeleteTarget && (
+        <div className="fixed inset-0 z-50 bg-black/65 backdrop-blur-xs flex items-center justify-center p-4 animate-fadeIn">
+          <div className="w-full max-w-md rounded-2xl border border-red-500/30 bg-[var(--bg-card)] shadow-2xl overflow-hidden animate-scaleUp p-6 space-y-4">
+            
+            <div className="flex items-start gap-3.5">
+              <div className="w-11 h-11 rounded-xl bg-red-500/10 border border-red-500/25 text-red-600 dark:text-red-400 flex items-center justify-center shrink-0">
+                <Trash2 className="w-5 h-5" />
+              </div>
+              <div className="flex-1 min-w-0">
+                <h3 className="font-serif font-bold text-base text-[var(--text-primary)]">
+                  Permanently Purge Manuscript?
+                </h3>
+                <p className="text-xs text-[var(--text-secondary)] mt-1">
+                  Submission <span className="font-mono font-bold text-red-500">{permanentDeleteTarget.tracking_number}</span> will be permanently deleted from storage.
+                </p>
+              </div>
+            </div>
+
+            <div className="rounded-xl border border-red-500/20 bg-red-500/5 p-3 text-xs space-y-2">
+              <p className="font-semibold text-red-600 dark:text-red-400 flex items-center gap-1.5">
+                <span>⚠️ This action is irreversible</span>
+              </p>
+              <ul className="list-disc list-inside space-y-1 text-[11px] text-[var(--text-muted)]">
+                <li>All uploaded Word documents in Cloudflare R2 will be <strong>permanently erased</strong>.</li>
+                <li>All submission records and author information will be <strong>completely removed</strong>.</li>
+                <li>Tracking ID stays retired so it is never reused.</li>
+              </ul>
+            </div>
+
+            <div className="flex items-center justify-end gap-2.5 pt-2">
+              <button
+                type="button"
+                onClick={() => setPermanentDeleteTarget(null)}
+                disabled={isPermanentlyDeleting}
+                className="px-3.5 py-1.5 rounded-lg border border-[var(--border-subtle)] bg-[var(--bg-page)] text-xs font-semibold hover:bg-[var(--bg-card)] transition-colors cursor-pointer"
+              >
+                Cancel
+              </button>
+              <button
+                type="button"
+                onClick={() => executePermanentDelete(permanentDeleteTarget.tracking_number)}
+                disabled={isPermanentlyDeleting}
+                className="px-4 py-1.5 rounded-lg bg-red-600 hover:bg-red-700 text-white font-semibold text-xs flex items-center gap-1.5 transition-colors cursor-pointer disabled:opacity-50"
+              >
+                {isPermanentlyDeleting ? (
+                  <>
+                    <RefreshCw className="w-3.5 h-3.5 animate-spin" />
+                    <span>Purging Files...</span>
+                  </>
+                ) : (
+                  <>
+                    <Trash2 className="w-3.5 h-3.5" />
+                    <span>Purge &amp; Delete Permanently</span>
                   </>
                 )}
               </button>

@@ -9,6 +9,7 @@ import { onRequestPost as contactPost } from "./api/contact";
 import { onRequestGet as adminContactEnquiriesGet, onRequestPost as adminContactEnquiriesPost } from "./api/admin/contact-enquiries";
 import { onRequestGet as adminDeletedSubmissionsGet } from "./api/admin/deleted-submissions";
 import { onRequestPost as adminRestoreSubmissionPost } from "./api/admin/restore-submission";
+import { onRequestPost as adminPermanentDeleteSubmissionPost } from "./api/admin/permanent-delete-submission";
 import { onRequestGet as adminReviewersGet } from "./api/admin/reviewers";
 import { verifyAdminRequest } from "./api/admin/auth";
 
@@ -293,6 +294,14 @@ export default {
     if (pathname === "/api/admin/restore-submission") {
       if (method === "POST") {
         const response = await adminRestoreSubmissionPost({ request, env });
+        return addCorsAndSecurity(response, request);
+      }
+      return jsonError("Method not allowed", 405, request);
+    }
+
+    if (pathname === "/api/admin/permanent-delete-submission") {
+      if (method === "POST") {
+        const response = await adminPermanentDeleteSubmissionPost({ request, env });
         return addCorsAndSecurity(response, request);
       }
       return jsonError("Method not allowed", 405, request);

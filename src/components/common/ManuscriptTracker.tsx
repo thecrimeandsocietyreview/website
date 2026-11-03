@@ -13,8 +13,7 @@ import {
   ChevronDown,
   ChevronUp,
   Clock,
-  Sparkles,
-  ArrowRight
+  Sparkles
 } from 'lucide-react';
 
 interface TrackedSubmission {
@@ -52,23 +51,7 @@ export const ManuscriptTracker: React.FC = () => {
   const [errorMsg, setErrorMsg] = useState<string | null>(null);
   const [submission, setSubmission] = useState<TrackedSubmission | null>(null);
   const [isCopiedId, setIsCopiedId] = useState(false);
-  const [recentId, setRecentId] = useState<string | null>(null);
   const [isExpanded, setIsExpanded] = useState(true);
-
-  // Read latest submitted ID from localStorage for convenience
-  useEffect(() => {
-    try {
-      const localListStr = localStorage.getItem('csr_user_submissions');
-      if (localListStr) {
-        const localList = JSON.parse(localListStr);
-        if (Array.isArray(localList) && localList.length > 0) {
-          const last = localList[0];
-          const tid = last.trackingNumber || last.trackingId;
-          if (tid) setRecentId(tid);
-        }
-      }
-    } catch (e) {}
-  }, []);
 
   // Scroll into view if URL contains #track or query ID
   useEffect(() => {
@@ -317,24 +300,6 @@ export const ManuscriptTracker: React.FC = () => {
               )}
             </button>
           </form>
-
-          {/* Quick-fill helper for recent submission */}
-          {recentId && !submission && (
-            <div className="flex items-center gap-2 text-xs font-mono text-[var(--text-muted)]">
-              <span>Recently submitted on this device:</span>
-              <button
-                type="button"
-                onClick={() => {
-                  setInputTracking(recentId);
-                  executeTrack(recentId);
-                }}
-                className="px-2 py-0.5 rounded bg-amber-500/10 hover:bg-amber-500/20 text-amber-700 dark:text-amber-300 border border-amber-500/30 text-[11px] font-bold cursor-pointer transition-colors inline-flex items-center gap-1"
-              >
-                <span>{recentId}</span>
-                <ArrowRight className="w-2.5 h-2.5" />
-              </button>
-            </div>
-          )}
 
           {/* Error Message Alert */}
           {errorMsg && (

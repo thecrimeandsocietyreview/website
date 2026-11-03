@@ -37,6 +37,8 @@ CREATE TABLE IF NOT EXISTS retired_tracking_ids (
   reason TEXT NOT NULL
 );
 
+
+
 -- Fast lookup indexes
 CREATE INDEX IF NOT EXISTS idx_submissions_tracking ON submissions(tracking_number);
 CREATE INDEX IF NOT EXISTS idx_submissions_email ON submissions(author_email);

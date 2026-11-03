@@ -21,9 +21,13 @@ export const onRequestGet = async (context: {
       );
     }
 
-    // Strict security validation: Only allow legitimate manuscript and dossier prefixes
+    // Strict security validation: Only allow legitimate manuscript and dossier prefixes (both active and deleted archives)
     const isValidKey =
-      (key.startsWith("blind-manuscripts/") || key.startsWith("author-dossiers/")) &&
+      (key.startsWith("blind-manuscripts/") ||
+       key.startsWith("author-dossiers/") ||
+       key.startsWith("deleted_blind-manuscripts/") ||
+       key.startsWith("deleted_author-dossier/") ||
+       key.startsWith("deleted_author-dossiers/")) &&
       !key.includes("..") &&
       !key.includes("//");
 
