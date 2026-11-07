@@ -7,7 +7,12 @@ import {
   Award, 
   FileText,
   HelpCircle,
-  ChevronDown
+  ChevronDown,
+  Globe,
+  Calendar,
+  Layers,
+  Languages,
+  Sparkles
 } from 'lucide-react';
 import { JOURNAL_METADATA } from '../data/mockJournalData';
 import { GlobalNetworkSection } from '../components/common/GlobalNetworkSection';
@@ -65,7 +70,31 @@ export const HomePage: React.FC = () => {
               {/* Left Column: Journal Brand, Badges, Title, Action Buttons */}
               <div className="lg:col-span-7 space-y-6">
                 
-                {/* Badges */}
+                {/* Journal Metadata Badges: Format, Frequency, Subject, Language, Starting Year */}
+                <div className="flex flex-wrap items-center justify-start gap-2 text-xs">
+                  <span className="px-2.5 py-1 rounded-full font-mono text-[10px] sm:text-[11px] font-semibold bg-white/10 text-slate-200 border border-white/15 flex items-center gap-1.5 shadow-2xs backdrop-blur-sm">
+                    <Globe className="w-3 h-3 text-amber-300" />
+                    <span><strong className="text-white/70 font-normal">Format:</strong> Online</span>
+                  </span>
+                  <span className="px-2.5 py-1 rounded-full font-mono text-[10px] sm:text-[11px] font-semibold bg-white/10 text-slate-200 border border-white/15 flex items-center gap-1.5 shadow-2xs backdrop-blur-sm">
+                    <Calendar className="w-3 h-3 text-amber-300" />
+                    <span><strong className="text-white/70 font-normal">Frequency:</strong> Fortnightly</span>
+                  </span>
+                  <span className="px-2.5 py-1 rounded-full font-mono text-[10px] sm:text-[11px] font-semibold bg-white/10 text-slate-200 border border-white/15 flex items-center gap-1.5 shadow-2xs backdrop-blur-sm">
+                    <Layers className="w-3 h-3 text-amber-300" />
+                    <span><strong className="text-white/70 font-normal">Subject:</strong> Multidisciplinary Subjects</span>
+                  </span>
+                  <span className="px-2.5 py-1 rounded-full font-mono text-[10px] sm:text-[11px] font-semibold bg-white/10 text-slate-200 border border-white/15 flex items-center gap-1.5 shadow-2xs backdrop-blur-sm">
+                    <Languages className="w-3 h-3 text-amber-300" />
+                    <span><strong className="text-white/70 font-normal">Language:</strong> English</span>
+                  </span>
+                  <span className="px-2.5 py-1 rounded-full font-mono text-[10px] sm:text-[11px] font-semibold bg-white/10 text-slate-200 border border-white/15 flex items-center gap-1.5 shadow-2xs backdrop-blur-sm">
+                    <Sparkles className="w-3 h-3 text-amber-300" />
+                    <span><strong className="text-white/70 font-normal">Starting Year:</strong> 2026</span>
+                  </span>
+                </div>
+
+                {/* Status Badges: Academic Journal, ISSN, Open Access */}
                 <div className="flex flex-wrap items-center justify-start gap-2.5 text-xs">
                   <span className="px-3 py-1 rounded-full font-mono text-[11px] font-bold bg-amber-400/20 text-amber-300 border border-amber-400/30 flex items-center gap-1.5 shadow-2xs backdrop-blur-sm">
                     <Award className="w-3.5 h-3.5 text-amber-400" /> Academic Journal

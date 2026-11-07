@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { 
   FileText, 
@@ -11,7 +11,9 @@ import {
   Users, 
   Layers, 
   Globe, 
-  ShieldCheck
+  ShieldCheck,
+  X,
+  BookOpen
 } from 'lucide-react';
 
 interface PriorityTrack {
@@ -182,18 +184,30 @@ const PRIORITY_TRACKS: PriorityTrack[] = [
 ];
 
 export const IssuesPage: React.FC = () => {
+  const [showTracksModal, setShowTracksModal] = useState(false);
+
+  // Close modal on Escape key and lock body scroll
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') setShowTracksModal(false);
+    };
+    if (showTracksModal) {
+      document.body.style.overflow = 'hidden';
+      window.addEventListener('keydown', handleKeyDown);
+    } else {
+      document.body.style.overflow = 'unset';
+    }
+    return () => {
+      document.body.style.overflow = 'unset';
+      window.removeEventListener('keydown', handleKeyDown);
+    };
+  }, [showTracksModal]);
+
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12 space-y-8 animate-fadeIn">
       {/* Top Header & Breadcrumb */}
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-2 border-b border-[var(--border-subtle)]">
         <div className="space-y-1">
-          <div className="flex items-center gap-2 text-xs font-mono text-[var(--accent-gold)]">
-            <span>VOLUME 01</span>
-            <span>•</span>
-            <span>ISSUE 01</span>
-            <span>•</span>
-            <span className="font-semibold">OCTOBER – DECEMBER 2026</span>
-          </div>
           <h1 className="font-serif text-3xl sm:text-4xl font-extrabold text-[var(--text-primary)] tracking-tight">
             Inaugural Issue — Volume 01, Issue 01
           </h1>
@@ -207,18 +221,6 @@ export const IssuesPage: React.FC = () => {
             </span>
             <span className="font-semibold text-emerald-600 dark:text-emerald-400">Call for Papers Open</span>
           </div>
-
-          <a
-            href="/currentissue/Content-vol-1-oct-dec-2026.pdf"
-            target="_blank"
-            rel="noopener noreferrer"
-            download="Content-vol-1-oct-dec-2026.pdf"
-            className="text-xs font-semibold px-3.5 py-1.5 rounded-full bg-[var(--accent-navy)] text-white hover:opacity-90 transition-opacity flex items-center gap-1.5 shadow-2xs"
-            title="Download Official Content & Thematic Tracks PDF"
-          >
-            <Download className="w-3.5 h-3.5" />
-            <span>Download Topics PDF</span>
-          </a>
         </div>
       </div>
 
@@ -233,8 +235,8 @@ export const IssuesPage: React.FC = () => {
           {/* Issue Cover Artwork Container */}
           <div className="bg-[var(--bg-card)] p-4 sm:p-5 rounded-2xl border border-[var(--border-subtle)] shadow-md space-y-4">
             
-            {/* Clean Static Image (No hover zoom / scale / overlay) */}
-            <div className="relative rounded-xl overflow-hidden shadow-lg border border-amber-500/20 bg-slate-950">
+            {/* Clean Static Image (Small, Compact) */}
+            <div className="relative rounded-xl overflow-hidden shadow-lg border border-amber-500/20 bg-slate-950 max-w-[210px] sm:max-w-[230px] mx-auto">
               <img 
                 src="/currentissue/vol-1-oct-dec-2026.jpeg" 
                 alt="The Crime & Society Review - Volume I Issue I Cover: Rethinking Crime, Justice & Society" 
@@ -327,15 +329,6 @@ export const IssuesPage: React.FC = () => {
             <div className="absolute top-0 right-0 w-80 h-80 bg-amber-500/10 rounded-full blur-3xl pointer-events-none" />
             
             <div className="relative z-10 space-y-2">
-              <div className="flex flex-wrap items-center gap-2">
-                <span className="px-2.5 py-0.5 rounded-full text-[10px] font-mono font-bold tracking-wider uppercase bg-amber-400/20 text-amber-300 border border-amber-400/30">
-                  Volume-I ; Issue-I ; October-December/2026
-                </span>
-                <span className="px-2.5 py-0.5 rounded-full text-[10px] font-mono font-semibold bg-white/10 text-slate-300 border border-white/20">
-                  Official Editorial Content
-                </span>
-              </div>
-
               <h2 className="font-serif text-2xl sm:text-3xl font-extrabold text-white tracking-tight leading-tight">
                 Rethinking Crime, Justice &amp; Society:
                 <br />
@@ -345,88 +338,50 @@ export const IssuesPage: React.FC = () => {
               </h2>
 
               <p className="text-xs sm:text-sm text-slate-300 font-serif leading-relaxed pt-1">
-                Priority Editorial Tracks for Vol-I ; Issue-I ; October-December/2026 (Inaugural Issue). 
-                The journal invites high-quality empirical studies, doctrinal evaluations, forensic methodologies, and critical policy perspectives across six structured tracks. Accepted papers receive DOI assignment and continuous publication.
+                Priority Editorial Tracks for Vol-I ; Issue-I ; October-December/2026 (Inaugural Issue). The journal invites high-quality empirical studies, doctrinal evaluations, forensic methodologies, and critical policy perspectives across six structured tracks. Accepted papers receive DOI assignment and continuous publication.
               </p>
+
+              <div className="pt-2">
+                <button
+                  type="button"
+                  onClick={() => setShowTracksModal(true)}
+                  className="text-xs sm:text-sm text-amber-300 hover:text-amber-200 underline underline-offset-4 decoration-amber-400/80 hover:decoration-amber-200 transition-colors cursor-pointer font-serif font-medium inline-flex items-center gap-1.5 group"
+                >
+                  <span>view full issue description</span>
+                  <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-0.5 transition-transform" />
+                </button>
+              </div>
             </div>
           </div>
 
-          {/* List of Thematic Priority Tracks */}
-          <div className="space-y-4">
-            {PRIORITY_TRACKS.map((track) => {
-              const IconComponent = track.icon;
-              return (
-                <div
-                  key={track.id}
-                  className="p-5 sm:p-6 rounded-2xl border border-[var(--border-subtle)] bg-[var(--bg-card)] hover:border-[var(--accent-gold)]/60 transition-colors duration-150 shadow-2xs space-y-4 group"
-                >
-                  {/* Track Header */}
-                  <div className="flex items-start justify-between gap-3">
-                    <div className="flex items-start gap-3">
-                      <div className="w-10 h-10 rounded-xl bg-amber-500/10 text-amber-600 dark:text-amber-400 flex items-center justify-center shrink-0 border border-amber-500/20">
-                        <IconComponent className="w-5 h-5" />
-                      </div>
-                      <div className="space-y-0.5">
-                        <div className="flex items-center gap-2">
-                          <span className="text-[10px] font-mono font-bold uppercase tracking-wider text-[var(--accent-gold)]">
-                            {track.trackNumber}
-                          </span>
-                          <span className="text-[10px] font-mono text-[var(--text-muted)] bg-[var(--bg-page)] px-2 py-0.5 rounded border border-[var(--border-subtle)]">
-                            {track.category}
-                          </span>
-                        </div>
-                        <h3 className="font-serif text-base sm:text-lg font-bold text-[var(--text-primary)] group-hover:text-[var(--accent-navy)] transition-colors leading-snug">
-                          {track.title}
-                        </h3>
-                      </div>
-                    </div>
+          {/* In place of tracks 1 to 6: Coming Soon section */}
+          <div className="p-8 sm:p-12 rounded-2xl border border-[var(--border-subtle)] bg-[var(--bg-card)] text-center space-y-4 shadow-2xs">
+            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-mono font-bold tracking-wider uppercase bg-amber-500/10 text-[var(--accent-gold)] border border-amber-500/20">
+              <span className="relative flex h-2 w-2">
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-amber-400 opacity-75"></span>
+                <span className="relative inline-flex rounded-full h-2 w-2 bg-amber-500"></span>
+              </span>
+              <span>Coming Soon</span>
+            </div>
 
-                    <Link
-                      to="/submit"
-                      className="hidden sm:inline-flex items-center gap-1 text-[11px] font-mono font-semibold text-[var(--accent-gold)] hover:text-[var(--accent-gold-hover)] shrink-0 px-2.5 py-1 rounded-md border border-[var(--border-subtle)] hover:border-[var(--accent-gold)] transition-colors"
-                      title="Submit manuscript for this track"
-                    >
-                      <span>Submit</span>
-                      <ArrowRight className="w-3 h-3" />
-                    </Link>
-                  </div>
+            <h3 className="font-serif text-xl sm:text-2xl font-bold text-[var(--text-primary)]">
+              Inaugural Issue Articles — Coming Soon
+            </h3>
 
-                  {/* Track Description */}
-                  <p className="text-xs text-[var(--text-secondary)] font-serif leading-relaxed text-justify">
-                    {track.description}
-                  </p>
+            <p className="text-xs sm:text-sm text-[var(--text-secondary)] font-serif max-w-lg mx-auto leading-relaxed text-justify sm:text-center">
+              Manuscripts for Volume 01, Issue 01 are currently undergoing double-blind peer review and editorial production under our continuous rolling publication model. Accepted papers will be released continuously with persistent DOIs.
+            </p>
 
-                  {/* Topics Pill Cloud from the PDF */}
-                  <div className="space-y-1.5 pt-2 border-t border-[var(--border-subtle)]">
-                    <span className="text-[10px] font-mono uppercase tracking-wider text-[var(--text-muted)] block">
-                      Included Research Areas ({track.topics.length}):
-                    </span>
-                    <div className="flex flex-wrap gap-1.5">
-                      {track.topics.map((topic, i) => (
-                        <span
-                          key={i}
-                          className="text-[11px] px-2.5 py-1 rounded-lg border font-serif bg-[var(--bg-page)] text-[var(--text-primary)] border-[var(--border-subtle)]"
-                        >
-                          {topic}
-                        </span>
-                      ))}
-                    </div>
-                  </div>
-
-                  {/* Mobile Submit Button */}
-                  <div className="sm:hidden pt-2">
-                    <Link
-                      to="/submit"
-                      className="w-full py-2 px-3 rounded-lg bg-[var(--bg-page)] border border-[var(--border-subtle)] text-[var(--accent-navy)] text-xs font-semibold flex items-center justify-center gap-1.5 hover:border-[var(--accent-gold)]"
-                    >
-                      <span>Submit Manuscript under {track.trackNumber}</span>
-                      <ArrowRight className="w-3 h-3" />
-                    </Link>
-                  </div>
-
-                </div>
-              );
-            })}
+            <div className="pt-2">
+              <button
+                type="button"
+                onClick={() => setShowTracksModal(true)}
+                className="text-xs font-mono text-[var(--accent-gold)] hover:underline inline-flex items-center gap-1.5"
+              >
+                <span>Click here to view full issue description &amp; priority tracks</span>
+                <ArrowRight className="w-3 h-3" />
+              </button>
+            </div>
           </div>
 
           {/* Bottom Callout & Submission Info */}
@@ -468,6 +423,149 @@ export const IssuesPage: React.FC = () => {
         </div>
 
       </div>
+
+      {/* Full Issue Description & Priority Tracks Modal */}
+      {showTracksModal && (
+        <div 
+          className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-6 bg-black/75 backdrop-blur-sm animate-fadeIn"
+          onClick={() => setShowTracksModal(false)}
+        >
+          <div 
+            className="relative w-full max-w-4xl max-h-[90vh] bg-[var(--bg-card)] border border-[var(--border-strong)] rounded-2xl sm:rounded-3xl shadow-2xl flex flex-col overflow-hidden"
+            onClick={(e) => e.stopPropagation()}
+          >
+            {/* Modal Header */}
+            <div className="p-5 sm:p-6 border-b border-[var(--border-subtle)] flex items-start justify-between gap-4 bg-[var(--bg-card)] sticky top-0 z-10">
+              <div className="space-y-1">
+                <div className="flex items-center gap-2">
+                  <span className="text-[10px] font-mono font-bold tracking-wider uppercase px-2.5 py-0.5 rounded-full bg-amber-500/10 text-[var(--accent-gold)] border border-amber-500/20">
+                    Full Issue Description
+                  </span>
+                  <span className="text-[10px] font-mono text-[var(--text-muted)]">
+                    Volume 01 • Issue 01 (2026)
+                  </span>
+                </div>
+                <h3 className="font-serif text-lg sm:text-2xl font-bold text-[var(--text-primary)] leading-snug">
+                  Rethinking Crime, Justice &amp; Society: Emerging Perspectives for the 21st Century
+                </h3>
+              </div>
+              <button
+                type="button"
+                onClick={() => setShowTracksModal(false)}
+                className="p-2 rounded-xl text-[var(--text-muted)] hover:text-[var(--text-primary)] hover:bg-[var(--bg-card-hover)] transition-colors shrink-0 cursor-pointer"
+                aria-label="Close modal"
+              >
+                <X className="w-5 h-5" />
+              </button>
+            </div>
+
+            {/* Modal Body - Scrollable Tracks 1 to 6 */}
+            <div className="p-5 sm:p-6 overflow-y-auto space-y-6 flex-1">
+              {/* Comprehensive Description Banner */}
+              <div className="p-4 sm:p-5 rounded-xl bg-[var(--bg-page)] border border-[var(--border-subtle)] space-y-2">
+                <h4 className="font-serif font-bold text-sm text-[var(--text-primary)] flex items-center gap-2">
+                  <BookOpen className="w-4 h-4 text-[var(--accent-gold)]" />
+                  <span>Inaugural Editorial Overview &amp; Call for Papers</span>
+                </h4>
+                <p className="text-xs text-[var(--text-secondary)] font-serif leading-relaxed text-justify">
+                  Priority Editorial Tracks for Vol-I ; Issue-I ; October-December/2026 (Inaugural Issue). The journal invites high-quality empirical studies, doctrinal evaluations, forensic methodologies, and critical policy perspectives across six structured tracks. Accepted papers receive DOI assignment and continuous publication.
+                </p>
+              </div>
+
+              {/* Six Priority Tracks */}
+              <div className="space-y-4">
+                <h4 className="font-mono text-xs font-bold uppercase tracking-wider text-[var(--text-primary)]">
+                  Six Priority Editorial Tracks
+                </h4>
+
+                {PRIORITY_TRACKS.map((track) => {
+                  const IconComponent = track.icon;
+                  return (
+                    <div
+                      key={track.id}
+                      className="p-5 rounded-xl border border-[var(--border-subtle)] bg-[var(--bg-card)] hover:border-[var(--accent-gold)]/60 transition-colors shadow-2xs space-y-3"
+                    >
+                      <div className="flex items-start justify-between gap-3">
+                        <div className="flex items-start gap-3">
+                          <div className="w-9 h-9 rounded-lg bg-amber-500/10 text-amber-600 dark:text-amber-400 flex items-center justify-center shrink-0 border border-amber-500/20">
+                            <IconComponent className="w-4 h-4" />
+                          </div>
+                          <div>
+                            <div className="flex items-center gap-2">
+                              <span className="text-[10px] font-mono font-bold uppercase tracking-wider text-[var(--accent-gold)]">
+                                {track.trackNumber}
+                              </span>
+                              <span className="text-[10px] font-mono text-[var(--text-muted)] bg-[var(--bg-page)] px-2 py-0.5 rounded border border-[var(--border-subtle)]">
+                                {track.category}
+                              </span>
+                            </div>
+                            <h5 className="font-serif text-sm sm:text-base font-bold text-[var(--text-primary)] leading-snug pt-0.5">
+                              {track.title}
+                            </h5>
+                          </div>
+                        </div>
+
+                        <Link
+                          to="/submit"
+                          onClick={() => setShowTracksModal(false)}
+                          className="inline-flex items-center gap-1 text-[11px] font-mono font-semibold text-[var(--accent-gold)] hover:text-[var(--accent-gold-hover)] shrink-0 px-2.5 py-1 rounded-md border border-[var(--border-subtle)] hover:border-[var(--accent-gold)] transition-colors"
+                        >
+                          <span>Submit</span>
+                          <ArrowRight className="w-3 h-3" />
+                        </Link>
+                      </div>
+
+                      <p className="text-xs text-[var(--text-secondary)] font-serif leading-relaxed text-justify">
+                        {track.description}
+                      </p>
+
+                      <div className="space-y-1.5 pt-2 border-t border-[var(--border-subtle)]">
+                        <span className="text-[10px] font-mono uppercase tracking-wider text-[var(--text-muted)] block">
+                          Included Research Areas ({track.topics.length}):
+                        </span>
+                        <div className="flex flex-wrap gap-1.5">
+                          {track.topics.map((topic, i) => (
+                            <span
+                              key={i}
+                              className="text-[11px] px-2 py-0.5 rounded-md border font-serif bg-[var(--bg-page)] text-[var(--text-primary)] border-[var(--border-subtle)]"
+                            >
+                              {topic}
+                            </span>
+                          ))}
+                        </div>
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+
+            {/* Modal Footer */}
+            <div className="p-4 sm:p-5 border-t border-[var(--border-subtle)] bg-[var(--bg-card)] flex flex-wrap items-center justify-between gap-3">
+              <span className="text-xs font-mono text-[var(--text-muted)]">
+                ₹0 APC • Double-Blind Peer Review • Continuous Publication
+              </span>
+              <div className="flex items-center gap-2">
+                <Link
+                  to="/submit"
+                  onClick={() => setShowTracksModal(false)}
+                  className="px-4 py-2 rounded-xl bg-[var(--accent-gold)] text-slate-950 text-xs font-bold hover:bg-[var(--accent-gold-hover)] transition-colors flex items-center gap-1.5"
+                >
+                  <span>Submit to This Issue</span>
+                  <ArrowRight className="w-3.5 h-3.5" />
+                </Link>
+                <button
+                  type="button"
+                  onClick={() => setShowTracksModal(false)}
+                  className="px-4 py-2 rounded-xl border border-[var(--border-strong)] text-xs font-semibold text-[var(--text-secondary)] hover:text-[var(--text-primary)] transition-colors cursor-pointer"
+                >
+                  Close
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };

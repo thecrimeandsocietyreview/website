@@ -15,7 +15,7 @@ const EditorialBoardPage = lazy(() => import('./pages/EditorialBoardPage').then(
 const AdvisoryBoardPage = lazy(() => import('./pages/AdvisoryBoardPage').then(m => ({ default: m.AdvisoryBoardPage })));
 const RashomonPage = lazy(() => import('./pages/RashomonPage').then(m => ({ default: m.RashomonPage })));
 const IssuesPage = lazy(() => import('./pages/IssuesPage').then(m => ({ default: m.IssuesPage })));
-const DemoCurrentIssuePage = lazy(() => import('./pages/DemoCurrentIssuePage').then(m => ({ default: m.DemoCurrentIssuePage })));
+const ArchivePage = lazy(() => import('./pages/ArchivePage').then(m => ({ default: m.ArchivePage })));
 const AimsScopePage = lazy(() => import('./pages/AimsScopePage').then(m => ({ default: m.AimsScopePage })));
 const ContactPage = lazy(() => import('./pages/ContactPage').then(m => ({ default: m.ContactPage })));
 const AdminPage = lazy(() => import('./pages/AdminPage').then(m => ({ default: m.AdminPage })));
@@ -103,11 +103,9 @@ const AppLayout: React.FC = () => {
             {/* 6. The Rashomon Approach */}
             <Route path="/rashomon-approach" element={<RashomonPage />} />
 
-            {/* 7. Current Issue */}
+            {/* 7. Current Issue & Archive */}
             <Route path="/current-issue" element={<IssuesPage />} />
-            <Route path="/demo-current-issue" element={<DemoCurrentIssuePage />} />
-            <Route path="/demo-issue" element={<DemoCurrentIssuePage />} />
-            <Route path="/demo" element={<DemoCurrentIssuePage />} />
+            <Route path="/archive" element={<ArchivePage />} />
 
             {/* 8. Submission */}
             <Route path="/submit" element={<SubmitPage />} />
@@ -124,7 +122,6 @@ const AppLayout: React.FC = () => {
             <Route path="/admin" element={<AdminPage />} />
             <Route path="/issues" element={<Navigate to="/current-issue" replace />} />
             <Route path="/articles" element={<Navigate to="/current-issue" replace />} />
-            <Route path="/archive" element={<Navigate to="/current-issue" replace />} />
             <Route path="/for-authors" element={<Navigate to="/submit" replace />} />
             <Route path="/for-reviewers" element={<Navigate to="/editorial-board" replace />} />
             <Route path="/history" element={<Navigate to="/about" replace />} />

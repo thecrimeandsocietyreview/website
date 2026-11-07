@@ -41,6 +41,7 @@ export const Header: React.FC = () => {
     { label: 'Advisory Board', fullLabel: 'Advisory Board', path: '/advisory-board' },
     { label: 'Rashomon Approach', fullLabel: 'The Rashomon Approach', path: '/rashomon-approach' },
     { label: 'Current Issue', fullLabel: 'Current Issue', path: '/current-issue' },
+    { label: 'Archive', fullLabel: 'Journal Archive', path: '/archive' },
     { label: 'Submission', fullLabel: 'Submission Guidelines', path: '/submit' },
     { label: 'Contact Us', fullLabel: 'Contact Us', path: '/contact' },
   ];

@@ -350,7 +350,7 @@ export const ManuscriptTracker: React.FC = () => {
                     </span>
                   )}
                   <a
-                    href={`mailto:thecrimeandsocietyreview@gmail.com?subject=Query%20-%20${encodeURIComponent(submission.trackingNumber)}`}
+                    href={`mailto:editor@thecsrjournal.com?subject=Query%20-%20${encodeURIComponent(submission.trackingNumber)}`}
                     className="p-1.5 rounded-lg border border-[var(--border-subtle)] bg-[var(--bg-page)] text-[var(--text-secondary)] hover:text-[var(--text-primary)] transition-colors"
                     title="Email Editorial Desk"
                   >

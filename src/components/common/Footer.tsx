@@ -45,16 +45,16 @@ export const Footer: React.FC = () => {
               <div className="flex items-center gap-2 font-mono">
                 <Mail className="w-3.5 h-3.5 text-[var(--accent-gold)] shrink-0" />
                 <a 
-                  href="mailto:thecrimeandsocietyreview@gmail.com" 
+                  href="mailto:editor@thecsrjournal.com" 
                   className="hover:text-[var(--accent-gold)] transition-colors underline decoration-dotted"
                 >
-                  thecrimeandsocietyreview@gmail.com
+                  editor@thecsrjournal.com
                 </a>
               </div>
               <div className="flex items-start gap-2 font-serif text-[11px] sm:text-xs leading-relaxed text-[var(--text-secondary)]">
                 <MapPin className="w-3.5 h-3.5 text-[var(--accent-gold)] shrink-0 mt-0.5" />
                 <span>
-                  Dahegam, Gandhinagar, Gujarat - 382305
+                  Lavad Dahegam, Gandhinagar, Gujarat, Pincode - 382305 / India
                 </span>
               </div>
             </div>
@@ -95,6 +95,9 @@ export const Footer: React.FC = () => {
               </Link>
               <Link to="/current-issue" className="text-[var(--text-secondary)] hover:text-[var(--accent-navy)] hover:translate-x-0.5 transition-all flex items-center gap-1.5">
                 <span className="text-[var(--accent-gold)] text-[11px]">›</span> Current Issue
+              </Link>
+              <Link to="/archive" className="text-[var(--text-secondary)] hover:text-[var(--accent-navy)] hover:translate-x-0.5 transition-all flex items-center gap-1.5">
+                <span className="text-[var(--accent-gold)] text-[11px]">›</span> Archive
               </Link>
               <Link to="/submit" className="text-[var(--text-secondary)] hover:text-[var(--accent-navy)] hover:translate-x-0.5 transition-all flex items-center gap-1.5 font-medium text-[var(--accent-navy)]">
                 <span className="text-[var(--accent-gold)] text-[11px]">›</span> Submission

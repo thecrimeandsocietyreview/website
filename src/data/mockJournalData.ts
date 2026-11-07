@@ -7,6 +7,11 @@ export const JOURNAL_METADATA = {
   doiPrefix: "10.59821/csr",
   currentVolume: 1,
   currentYear: 2026,
+  startingYear: 2026,
+  format: "Online",
+  frequency: "Fortnightly",
+  subject: "Multidisciplinary Subjects",
+  language: "English",
   publicationModel: "Continuous Rolling Publication (UGC-CARE Category II Aligned • Immediate Version of Record)",
   license: "Creative Commons Attribution 4.0 International (CC BY 4.0)",
   indexingTargets: [
@@ -54,22 +59,22 @@ export const ACCEPTED_ARTICLE_TYPES_8 = [
 export const CONTACT_DETAILS = {
   editorialOffice: {
     title: "Editorial Office",
-    email: "thecrimeandsocietyreview@gmail.com",
+    email: "editor@thecsrjournal.com",
     phone: "",
-    address: "Dahegam, Gandhinagar, Gujarat - 382305"
+    address: "Lavad Dahegam, Gandhinagar, Gujarat, Pincode - 382305 / India"
   },
   submissions: {
     title: "Submissions & Editorial Triage",
-    email: "thecrimeandsocietyreview@gmail.com",
+    email: "editor@thecsrjournal.com",
     deskHours: "Monday – Saturday, 09:30 AM – 06:00 PM IST"
   },
   reviewers: {
     title: "Reviewer & Editorial Board Enquiries",
-    email: "thecrimeandsocietyreview@gmail.com"
+    email: "editor@thecsrjournal.com"
   },
   publisher: {
     title: "Publisher & Institutional Relations",
-    email: "thecrimeandsocietyreview@gmail.com",
+    email: "editor@thecsrjournal.com",
     entity: "The Crime & Society Review Press"
   }
 };

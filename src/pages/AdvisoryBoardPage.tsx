@@ -1,14 +1,18 @@
 import React from 'react';
 import { 
   Building2, 
-  Award,
-  BookOpen
+  Award, 
+  BookOpen,
+  MapPin,
+  Mail
 } from 'lucide-react';
 
 interface AdvisoryMember {
   name: string;
   designation: string;
   institution: string;
+  address?: string;
+  email?: string;
   photo?: string;
   roleBadge?: string;
 }
@@ -72,8 +76,8 @@ const MemberPhoto: React.FC<{
 const AdvisoryMemberCard: React.FC<{ member: AdvisoryMember }> = ({ member }) => {
   return (
     <div
-      className="w-[calc(50%-6px)] sm:w-[calc(33.333%-14px)] lg:w-[calc(25%-15px)] p-3 sm:p-5 rounded-2xl border border-[var(--border-subtle)] bg-[var(--bg-card)] hover:border-[var(--accent-gold)]/40 transition-[border-color,box-shadow] duration-200 flex flex-col justify-between space-y-3 shadow-2xs group"
-      style={{ contentVisibility: 'auto', containIntrinsicSize: '200px 320px' }}
+      className="w-[calc(50%-6px)] sm:w-[calc(33.333%-14px)] lg:w-[calc(25%-15px)] p-3 sm:p-5 rounded-2xl border border-[var(--border-subtle)] bg-[var(--bg-card)] hover:border-[var(--accent-gold)]/50 transition-[border-color,box-shadow] duration-200 flex flex-col justify-between space-y-3 shadow-2xs group"
+      style={{ contentVisibility: 'auto', containIntrinsicSize: '200px 340px' }}
     >
       <div className="space-y-2.5">
         <MemberPhoto photo={member.photo} name={member.name} />
@@ -93,9 +97,34 @@ const AdvisoryMemberCard: React.FC<{ member: AdvisoryMember }> = ({ member }) =>
         </div>
       </div>
 
-      <div className="pt-2 border-t border-[var(--border-subtle)] flex items-center justify-center gap-1 text-[10px] sm:text-xs text-[var(--text-secondary)] font-mono">
-        <Building2 className="w-3 h-3 sm:w-3.5 sm:h-3.5 text-[var(--accent-gold)] shrink-0" />
-        <span className="leading-snug truncate sm:whitespace-normal">{member.institution}</span>
+      <div className="space-y-2 pt-2 border-t border-[var(--border-subtle)]">
+        {/* Institution */}
+        <div className="flex items-center justify-center gap-1 text-[10px] sm:text-xs text-[var(--text-secondary)] font-mono text-center">
+          <Building2 className="w-3 h-3 sm:w-3.5 sm:h-3.5 text-[var(--accent-gold)] shrink-0" />
+          <span className="leading-snug truncate sm:whitespace-normal">{member.institution}</span>
+        </div>
+
+        {/* Postal Address (if provided) */}
+        {member.address && (
+          <div className="flex items-start justify-center gap-1 text-[9px] sm:text-[10px] text-[var(--text-muted)] font-serif text-center leading-tight">
+            <MapPin className="w-2.5 h-2.5 sm:w-3 sm:h-3 text-[var(--accent-gold)] shrink-0 mt-0.5" />
+            <span className="line-clamp-2">{member.address}</span>
+          </div>
+        )}
+
+        {/* Official Email */}
+        {member.email && (
+          <div className="pt-1.5 border-t border-[var(--border-subtle)]/70 flex items-center justify-center gap-1.5 text-[10px] sm:text-[11px] font-mono text-[var(--accent-navy)] dark:text-[var(--accent-gold)]">
+            <Mail className="w-3 h-3 text-[var(--accent-gold)] shrink-0" />
+            <a 
+              href={`mailto:${member.email}`} 
+              className="truncate hover:underline" 
+              title={member.email}
+            >
+              {member.email}
+            </a>
+          </div>
+        )}
       </div>
     </div>
   );
@@ -106,7 +135,9 @@ export const AdvisoryBoardPage: React.FC = () => {
   const chiefAdvisor: AdvisoryMember = {
     name: "Prof. Arvind Tiwari",
     designation: "Professor, School of Law, Rights and Constitutional Governance",
-    institution: "Tata Institute of Social Sciences (TISS), Mumbai",
+    institution: "Tata Institute of Social Sciences (TISS)",
+    address: "TISS, Deonar, Mumbai, Maharashtra, 400088",
+    email: "tiwari_a@tiss.ac.in",
     photo: "/advisory-board/Prof.ArvindTiwari.jpeg",
     roleBadge: "Chief Advisor"
   };
@@ -117,12 +148,16 @@ export const AdvisoryBoardPage: React.FC = () => {
       name: "Dr. Hassan Imam",
       designation: "Professor & Chairperson, CAS, Department of History",
       institution: "Aligarh Muslim University (AMU)",
+      address: "Department of History, AMU, Aligarh, Uttar Pradesh, 202002",
+      email: "hassanimam_alig@yahoo.co.in",
       photo: "/advisory-board/Dr.HassanImam.jpeg"
     },
     {
       name: "Prof. (Dr.) Sony Kunjappan",
       designation: "Professor & Head, Department of Studies in Social Management",
       institution: "Central University of Gujarat (CUG)",
+      address: "Central University of Gujarat, Kundhela, Vadodara, Gujarat – 391107, India",
+      email: "sony@cug.ac.in",
       photo: "/advisory-board/Prof.(Dr.)SonyKunjappan.jpg"
     },
     {
@@ -135,6 +170,8 @@ export const AdvisoryBoardPage: React.FC = () => {
       name: "Dr. Md. Shabbir Alam",
       designation: "Professor of Finance & Economics",
       institution: "Dhofar University, Oman",
+      address: "P.O. Box 2509, Postal Code 211, Salalah, Sultanate of Oman",
+      email: "mdshabbir@du.edu.om",
       photo: "/advisory-board/Dr.MdShabbirAlam.jpeg"
     }
   ];

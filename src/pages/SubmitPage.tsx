@@ -613,7 +613,7 @@ CONFIRMATIONS:
 - Open Access: Open Access (CC BY 4.0, ₹0 APC)
 - ISSN: Coming Soon
 
-Editorial Desk: thecrimeandsocietyreview@gmail.com
+Editorial Desk: editor@thecsrjournal.com
 =====================================================`;
 
     const blob = new Blob([slipText], { type: 'text/plain' });
@@ -715,10 +715,10 @@ Editorial Desk: thecrimeandsocietyreview@gmail.com
             <p className="leading-relaxed">
               If any detail, author information, or document was missed, or if you need to submit a correction, please email our editorial desk along with your <strong>Tracking ID ({trackingId})</strong> at{' '}
               <a
-                href={`mailto:thecrimeandsocietyreview@gmail.com?subject=Submission%20Correction%20/%20Query%20-%20${trackingId}`}
+                href={`mailto:editor@thecsrjournal.com?subject=Submission%20Correction%20/%20Query%20-%20${trackingId}`}
                 className="font-mono text-[var(--accent-navy)] dark:text-[var(--accent-gold)] underline font-semibold hover:opacity-80"
               >
-                thecrimeandsocietyreview@gmail.com
+                editor@thecsrjournal.com
               </a>.
             </p>
           </div>

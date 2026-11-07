@@ -310,8 +310,8 @@ export const ContactPage: React.FC = () => {
                   <Mail className="w-4 h-4 text-amber-400 shrink-0 mt-0.5" />
                   <div>
                     <span className="text-slate-400 block text-[10px] uppercase font-bold">Official Email:</span>
-                    <a href="mailto:thecrimeandsocietyreview@gmail.com" className="text-sky-400 hover:text-sky-300 transition-colors font-medium text-xs sm:text-sm break-all">
-                      thecrimeandsocietyreview@gmail.com
+                    <a href="mailto:editor@thecsrjournal.com" className="text-sky-400 hover:text-sky-300 transition-colors font-medium text-xs sm:text-sm break-all">
+                      editor@thecsrjournal.com
                     </a>
                   </div>
                 </div>
@@ -321,7 +321,7 @@ export const ContactPage: React.FC = () => {
                   <div>
                     <span className="text-slate-400 block text-[10px] uppercase font-bold font-mono">Editorial Office:</span>
                     <p className="text-slate-200 text-xs leading-relaxed mt-0.5">
-                      Dahegam, Gandhinagar, Gujarat - 382305
+                      Lavad Dahegam, Gandhinagar, Gujarat, Pincode - 382305 / India
                     </p>
                   </div>
                 </div>
