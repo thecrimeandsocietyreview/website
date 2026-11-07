@@ -1,9 +1,9 @@
 import React, { useState, useRef } from 'react';
-import { 
-  Mail, 
-  Send, 
-  CheckCircle2, 
-  Clock, 
+import {
+  Mail,
+  Send,
+  CheckCircle2,
+  Clock,
   ExternalLink,
   Globe,
   ShieldCheck,
@@ -78,7 +78,7 @@ export const ContactPage: React.FC = () => {
             created_at: new Date().toISOString(),
           });
           localStorage.setItem('csr_contact_enquiries', JSON.stringify(localList.slice(0, 50)));
-        } catch (e) {}
+        } catch (e) { }
       } else {
         setTurnstileError(resData?.message || 'Failed to dispatch enquiry. Please try again.');
         turnstileRef.current?.reset();
@@ -121,7 +121,7 @@ export const ContactPage: React.FC = () => {
 
       {/* Main Form & Postal Chambers */}
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
-        
+
         {/* Contact Form (7 cols) */}
         <div className="lg:col-span-7 p-6 sm:p-7 rounded-2xl border border-[var(--border-strong)] bg-[var(--bg-card)] space-y-5 shadow-md">
           <div className="space-y-1">
@@ -285,7 +285,7 @@ export const ContactPage: React.FC = () => {
 
         {/* Physical Address & Hours (5 cols) */}
         <div className="lg:col-span-5 space-y-6">
-          
+
           {/* Editorial Office Card (FEATURED DARK CARD) */}
           <div className="p-6 sm:p-7 rounded-3xl border border-slate-800 bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950 text-white space-y-5 shadow-xl relative overflow-hidden">
             <div className="absolute top-0 right-0 w-48 h-48 bg-amber-500/5 rounded-full blur-2xl pointer-events-none" />
@@ -293,7 +293,7 @@ export const ContactPage: React.FC = () => {
               <Mail className="w-4 h-4 text-amber-400" />
               <span>Official Correspondence</span>
             </div>
-            
+
             <div className="space-y-3.5 text-xs sm:text-sm font-serif text-slate-300 relative z-10">
               <div>
                 <strong className="text-white block font-sans text-base">
@@ -308,55 +308,58 @@ export const ContactPage: React.FC = () => {
               <div className="pt-3 border-t border-slate-800 space-y-2.5 font-mono text-xs">
                 <div className="flex items-start gap-2.5 p-3 rounded-xl bg-slate-900/90 border border-slate-800">
                   <Mail className="w-4 h-4 text-amber-400 shrink-0 mt-0.5" />
-                  <div>
-                    <span className="text-slate-400 block text-[10px] uppercase font-bold">Official Email:</span>
-                    <a href="mailto:editor@thecsrjournal.com" className="text-sky-400 hover:text-sky-300 transition-colors font-medium text-xs sm:text-sm break-all">
-                      editor@thecsrjournal.com
-                    </a>
+                      <div className="space-y-1">
+                        <span className="text-slate-400 block text-[10px] uppercase font-bold">Official Editorial Emails:</span>
+                        <a href="mailto:editor@thecsrjournal.com" className="text-sky-400 hover:text-sky-300 transition-colors font-medium text-xs sm:text-sm break-all block">
+                          editor@thecsrjournal.com
+                        </a>
+                        <a href="mailto:thecrimeandsocietyreview@gmail.com" className="text-slate-300 hover:text-white transition-colors font-medium text-xs sm:text-sm break-all block">
+                          thecrimeandsocietyreview@gmail.com
+                        </a>
+                      </div>
+                  </div>
+
+                  <div className="flex items-start gap-2.5 p-3 rounded-xl bg-slate-900/90 border border-slate-800 font-serif">
+                    <MapPin className="w-4 h-4 text-amber-400 shrink-0 mt-0.5" />
+                    <div>
+                      <span className="text-slate-400 block text-[10px] uppercase font-bold font-mono">Editorial Office:</span>
+                      <p className="text-slate-200 text-xs leading-relaxed mt-0.5">
+                        Lavad Dahegam, Gandhinagar, Gujarat, Pincode - 382305 / India
+                      </p>
+                    </div>
                   </div>
                 </div>
+              </div>
 
-                <div className="flex items-start gap-2.5 p-3 rounded-xl bg-slate-900/90 border border-slate-800 font-serif">
-                  <MapPin className="w-4 h-4 text-amber-400 shrink-0 mt-0.5" />
-                  <div>
-                    <span className="text-slate-400 block text-[10px] uppercase font-bold font-mono">Editorial Office:</span>
-                    <p className="text-slate-200 text-xs leading-relaxed mt-0.5">
-                      Lavad Dahegam, Gandhinagar, Gujarat, Pincode - 382305 / India
-                    </p>
-                  </div>
+              <div className="pt-3 border-t border-slate-800 space-y-1 text-xs font-mono text-slate-400 relative z-10">
+                <div className="flex items-center gap-2 text-slate-200 font-semibold">
+                  <Clock className="w-3.5 h-3.5 text-amber-400" />
+                  <span>Editorial Desk Hours</span>
+                </div>
+                <p>{CONTACT_DETAILS.submissions.deskHours}</p>
+                <p className="text-[11px] text-slate-500">Closed on Sundays and National Gazette Holidays.</p>
+              </div>
+            </div>
+
+            {/* Academic & Bibliographic Repositories */}
+            <div className="p-6 rounded-2xl border border-[var(--border-subtle)] bg-[var(--bg-card)] space-y-3">
+              <h3 className="font-serif font-bold text-base text-[var(--text-primary)] flex items-center gap-2">
+                <Globe className="w-4 h-4 text-[var(--accent-gold)]" />
+                <span>Academic Indexing &amp; Repositories</span>
+              </h3>
+              <div className="space-y-2 text-xs font-mono">
+                <div className="p-3 rounded-lg bg-[var(--bg-page)] border border-[var(--border-subtle)] flex items-center justify-between">
+                  <span className="font-medium text-[var(--text-primary)]">Google Scholar</span>
+                  <span className="px-2 py-0.5 rounded text-[10px] font-bold uppercase bg-amber-500/10 text-amber-600 dark:text-amber-400 border border-amber-500/20">
+                    Coming Soon
+                  </span>
                 </div>
               </div>
             </div>
 
-            <div className="pt-3 border-t border-slate-800 space-y-1 text-xs font-mono text-slate-400 relative z-10">
-              <div className="flex items-center gap-2 text-slate-200 font-semibold">
-                <Clock className="w-3.5 h-3.5 text-amber-400" />
-                <span>Editorial Desk Hours</span>
-              </div>
-              <p>{CONTACT_DETAILS.submissions.deskHours}</p>
-              <p className="text-[11px] text-slate-500">Closed on Sundays and National Gazette Holidays.</p>
-            </div>
-          </div>
-
-          {/* Academic & Bibliographic Repositories */}
-          <div className="p-6 rounded-2xl border border-[var(--border-subtle)] bg-[var(--bg-card)] space-y-3">
-            <h3 className="font-serif font-bold text-base text-[var(--text-primary)] flex items-center gap-2">
-              <Globe className="w-4 h-4 text-[var(--accent-gold)]" />
-              <span>Academic Indexing &amp; Repositories</span>
-            </h3>
-            <div className="space-y-2 text-xs font-mono">
-              <div className="p-3 rounded-lg bg-[var(--bg-page)] border border-[var(--border-subtle)] flex items-center justify-between">
-                <span className="font-medium text-[var(--text-primary)]">Google Scholar</span>
-                <span className="px-2 py-0.5 rounded text-[10px] font-bold uppercase bg-amber-500/10 text-amber-600 dark:text-amber-400 border border-amber-500/20">
-                  Coming Soon
-                </span>
-              </div>
-            </div>
           </div>
 
         </div>
-
       </div>
-    </div>
-  );
+      );
 };

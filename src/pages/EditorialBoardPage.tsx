@@ -203,6 +203,7 @@ export const EditorialBoardPage: React.FC = () => {
       email: "sgoswami@gnlu.ac.in",
       photo: "/editorial-board/Dr.SushilGoswami.jpeg"
     },
+    /* Temporarily hidden pending professional mail
     {
       name: "Mr. Gaurav Kumar Mishra",
       designation: "Senior Analyst (Public Policy)",
@@ -218,6 +219,7 @@ export const EditorialBoardPage: React.FC = () => {
       address: "DSEU, Dwarka, New Delhi – 110077",
       photo: "/editorial-board/Dr.SantoshPatel.jpeg"
     },
+    */
     {
       name: "Dr. Shekh Belal Ahmad",
       designation: "Assistant Professor",
@@ -226,6 +228,7 @@ export const EditorialBoardPage: React.FC = () => {
       email: "sbahmad.so@amu.ac.in",
       photo: "/editorial-board/Dr.ShekhBelalAhmad.jpeg"
     },
+    /* Temporarily hidden pending professional mail
     {
       name: "Mohit Charan",
       designation: "Assistant Professor",
@@ -241,6 +244,7 @@ export const EditorialBoardPage: React.FC = () => {
       address: "Chitkara University, NH-7, Punjab – 140401",
       photo: "/editorial-board/Ms.KanikaGaur.jpeg"
     },
+    */
     {
       name: "Dr. Asif Hasan",
       designation: "Assistant Professor, Department of Psychology",
@@ -282,6 +286,7 @@ export const EditorialBoardPage: React.FC = () => {
       designation: "Junior Research Fellow, Criminology",
       institution: "Sardar Patel University of Police, Security and Criminal Justice (SPUP)",
       address: "SPUP, Village Lordi Panditji, Jodhpur, Rajasthan, 342037",
+      email: "macr20gn@policeuniversity.ac.in",
       photo: "/editorial-board/GopalNathKarna.jpeg"
     },
     {
@@ -375,29 +380,15 @@ export const EditorialBoardPage: React.FC = () => {
         </div>
 
         <div className="flex flex-wrap justify-center gap-3 sm:gap-5">
-          <div
-            className="w-[calc(50%-6px)] sm:w-[calc(33.333%-14px)] lg:w-[calc(25%-15px)] p-3 sm:p-5 rounded-2xl border border-[var(--border-subtle)] bg-[var(--bg-card)] hover:border-[var(--accent-gold)]/50 transition-[border-color,box-shadow] duration-200 flex flex-col justify-between space-y-3 shadow-2xs group"
-            style={{ contentVisibility: 'auto', containIntrinsicSize: '200px 340px' }}
-          >
-            <div className="space-y-2.5">
-              <MemberPhoto photo="/editorial-board/abhinavkumar.jpeg" name="Abhinav Kumar" />
-              <div className="space-y-1 min-w-0 text-center">
-                <h3 className="font-serif font-bold text-xs sm:text-base text-[var(--text-primary)] group-hover:text-[var(--accent-navy)] transition-colors leading-snug text-center">
-                  Abhinav Kumar
-                </h3>
-                <p className="text-[10px] sm:text-xs font-serif text-[var(--accent-gold)] leading-tight line-clamp-2 text-center">
-                  Technical &amp; Web Systems Lead • Digital Production Editor
-                </p>
-              </div>
-            </div>
-
-            <div className="space-y-2 pt-2 border-t border-[var(--border-subtle)]">
-              <div className="flex items-center justify-center gap-1 text-[10px] sm:text-xs text-[var(--text-secondary)] font-mono text-center">
-                <Cpu className="w-3 h-3 sm:w-3.5 sm:h-3.5 text-[var(--accent-gold)] shrink-0" />
-                <span className="leading-snug truncate sm:whitespace-normal">Digital Systems &amp; Web Architecture</span>
-              </div>
-            </div>
-          </div>
+          <EditorialMemberCard
+            member={{
+              name: "Abhinav Kumar",
+              designation: "Technical & Web Systems Lead • Digital Production Editor",
+              institution: "National Institute of Electronics and Information Technology (NIELIT)",
+              email: "jr-fse04-edtech@nielit.ac.in",
+              photo: "/editorial-board/abhinavkumar.jpeg"
+            }}
+          />
         </div>
       </section>
 

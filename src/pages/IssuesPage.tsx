@@ -291,16 +291,32 @@ export const IssuesPage: React.FC = () => {
 
             <div className="text-xs space-y-2.5 text-[var(--text-secondary)] font-mono">
               <div className="flex justify-between items-center py-1 border-b border-[var(--border-subtle)]/60">
+                <span className="text-[var(--text-muted)]">Format:</span>
+                <strong className="text-[var(--text-primary)] font-semibold">Online</strong>
+              </div>
+              <div className="flex justify-between items-center py-1 border-b border-[var(--border-subtle)]/60">
+                <span className="text-[var(--text-muted)]">Publication Model/Frequency:</span>
+                <strong className="text-[var(--text-primary)] font-semibold">Fortnightly</strong>
+              </div>
+              <div className="flex justify-between items-center py-1 border-b border-[var(--border-subtle)]/60">
+                <span className="text-[var(--text-muted)]">Subject:</span>
+                <strong className="text-[var(--text-primary)] font-semibold text-right">Multidisciplinary Subjects</strong>
+              </div>
+              <div className="flex justify-between items-center py-1 border-b border-[var(--border-subtle)]/60">
+                <span className="text-[var(--text-muted)]">Language:</span>
+                <strong className="text-[var(--text-primary)] font-semibold">English</strong>
+              </div>
+              <div className="flex justify-between items-center py-1 border-b border-[var(--border-subtle)]/60">
+                <span className="text-[var(--text-muted)]">Starting Year:</span>
+                <strong className="text-[var(--text-primary)] font-semibold">2026</strong>
+              </div>
+              <div className="flex justify-between items-center py-1 border-b border-[var(--border-subtle)]/60">
                 <span className="text-[var(--text-muted)]">Volume &amp; Issue:</span>
                 <strong className="text-[var(--text-primary)] font-semibold">Volume 01, Issue 01</strong>
               </div>
               <div className="flex justify-between items-center py-1 border-b border-[var(--border-subtle)]/60">
                 <span className="text-[var(--text-muted)]">Publication Period:</span>
                 <strong className="text-[var(--text-primary)] font-semibold">Oct – Dec 2026</strong>
-              </div>
-              <div className="flex justify-between items-center py-1 border-b border-[var(--border-subtle)]/60">
-                <span className="text-[var(--text-muted)]">Publication Model:</span>
-                <strong className="text-[var(--text-primary)] font-semibold">Continuous Rolling Volume</strong>
               </div>
               <div className="flex justify-between items-center py-1 border-b border-[var(--border-subtle)]/60">
                 <span className="text-[var(--text-muted)]">Peer Review:</span>

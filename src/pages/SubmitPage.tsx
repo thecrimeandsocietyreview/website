@@ -1,10 +1,10 @@
 import React, { useState, useRef, useEffect, useMemo } from 'react';
 import { Link } from 'react-router-dom';
-import { 
-  Send, 
-  CheckCircle2, 
-  UploadCloud, 
-  FileText, 
+import {
+  Send,
+  CheckCircle2,
+  UploadCloud,
+  FileText,
   AlertCircle,
   Copy,
   Check,
@@ -23,11 +23,11 @@ import {
   Clock
 } from 'lucide-react';
 import ReactCountryFlag from 'react-country-flag';
-import { 
-  AsYouType, 
-  isValidPhoneNumber, 
-  getExampleNumber, 
-  type CountryCode 
+import {
+  AsYouType,
+  isValidPhoneNumber,
+  getExampleNumber,
+  type CountryCode
 } from 'libphonenumber-js';
 import examples from 'libphonenumber-js/mobile/examples';
 import { Turnstile, type TurnstileInstance } from '@marsidev/react-turnstile';
@@ -79,7 +79,7 @@ const getMaxDigitsForCountry = (country: CountryCode): number => {
     if (ex && ex.nationalNumber) {
       return ex.nationalNumber.length;
     }
-  } catch (e) {}
+  } catch (e) { }
   return 10;
 };
 
@@ -89,7 +89,7 @@ const getPlaceholderForCountry = (country: CountryCode): string => {
     if (ex && ex.nationalNumber) {
       return new AsYouType(country).input(ex.nationalNumber);
     }
-  } catch (e) {}
+  } catch (e) { }
   return '98765 43210';
 };
 
@@ -102,7 +102,7 @@ export const SubmitPage: React.FC = () => {
   const handleJump = (e: React.MouseEvent, targetId: string) => {
     e.preventDefault();
     setActiveJumpId(targetId);
-    
+
     const container = guidelinesContainerRef.current;
     const targetEl = document.getElementById(targetId);
 
@@ -111,7 +111,7 @@ export const SubmitPage: React.FC = () => {
       const containerRect = container.getBoundingClientRect();
       const targetRect = targetEl.getBoundingClientRect();
       const scrollPosition = targetRect.top - containerRect.top + container.scrollTop;
-      
+
       container.scrollTo({
         top: Math.max(0, scrollPosition - 8),
         behavior: 'smooth'
@@ -453,7 +453,7 @@ export const SubmitPage: React.FC = () => {
           const existing = localStorage.getItem('csr_user_submissions');
           const list = existing ? JSON.parse(existing) : [];
           localStorage.setItem('csr_user_submissions', JSON.stringify([newSubmission, ...list]));
-        } catch (err) {}
+        } catch (err) { }
 
         // Complete the button's rotating white circle animation + show "Submitted ✓" promptly without 2s freeze
         const elapsed = Date.now() - submitStartTime;
@@ -468,7 +468,7 @@ export const SubmitPage: React.FC = () => {
               spread: 75,
               origin: { y: 0.6 }
             });
-          } catch (err) {}
+          } catch (err) { }
         }, remainingAnimTime);
         return;
       }
@@ -529,7 +529,7 @@ export const SubmitPage: React.FC = () => {
           const existing = localStorage.getItem('csr_user_submissions');
           const list = existing ? JSON.parse(existing) : [];
           localStorage.setItem('csr_user_submissions', JSON.stringify([newSubmission, ...list]));
-        } catch (err) {}
+        } catch (err) { }
 
         const elapsed = Date.now() - submitStartTime;
         const remainingAnimTime = Math.max(0, 2600 - elapsed);
@@ -542,7 +542,7 @@ export const SubmitPage: React.FC = () => {
               spread: 75,
               origin: { y: 0.6 }
             });
-          } catch (err) {}
+          } catch (err) { }
         }, remainingAnimTime);
         return;
       }
@@ -571,7 +571,7 @@ export const SubmitPage: React.FC = () => {
               spread: 75,
               origin: { y: 0.6 }
             });
-          } catch (err) {}
+          } catch (err) { }
         }, remainingAnimTime);
         return;
       }
@@ -613,7 +613,7 @@ CONFIRMATIONS:
 - Open Access: Open Access (CC BY 4.0, ₹0 APC)
 - ISSN: Coming Soon
 
-Editorial Desk: editor@thecsrjournal.com
+Editorial Desk: editor@thecsrjournal.com / thecrimeandsocietyreview@gmail.com
 =====================================================`;
 
     const blob = new Blob([slipText], { type: 'text/plain' });
@@ -719,6 +719,13 @@ Editorial Desk: editor@thecsrjournal.com
                 className="font-mono text-[var(--accent-navy)] dark:text-[var(--accent-gold)] underline font-semibold hover:opacity-80"
               >
                 editor@thecsrjournal.com
+              </a>{' '}
+              or{' '}
+              <a
+                href={`mailto:thecrimeandsocietyreview@gmail.com?subject=Submission%20Correction%20/%20Query%20-%20${trackingId}`}
+                className="font-mono text-[var(--accent-navy)] dark:text-[var(--accent-gold)] underline font-semibold hover:opacity-80"
+              >
+                thecrimeandsocietyreview@gmail.com
               </a>.
             </p>
           </div>
@@ -772,88 +779,88 @@ Editorial Desk: editor@thecsrjournal.com
 
   return (
     <div className="w-full max-w-[1440px] mx-auto px-4 sm:px-6 py-4 animate-fadeIn lg:h-[calc(100vh-4.25rem)] lg:overflow-hidden">
-      
+
       {/* 2-Column Desktop Grid: Left Guidelines (6 cols), Right Form (6 cols) */}
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:h-full lg:overflow-hidden items-start">
-        
+
         {/* ========================================================
             GUIDELINES COLUMN: (6 cols on desktop, order-2 on mobile)
         ======================================================== */}
         <div className="order-2 lg:order-1 lg:col-span-6 flex flex-col lg:h-full lg:overflow-hidden">
-          
+
           {/* Quick Jump Bar - Stays stuck / pinned at top */}
           <div className="shrink-0 mb-3 p-3 rounded-xl border border-[var(--border-subtle)] bg-[var(--bg-card)] shadow-xs flex flex-wrap items-center gap-x-2 gap-y-1.5 text-xs font-mono sticky top-14 lg:static z-20">
             <span className="text-[var(--text-muted)] font-bold uppercase text-[10px] mr-0.5">Jump to Section:</span>
-            <button 
+            <button
               type="button"
-              onClick={(e) => handleJump(e, 'general-policy')} 
+              onClick={(e) => handleJump(e, 'general-policy')}
               className={`transition-colors cursor-pointer ${activeJumpId === 'general-policy' ? 'text-[var(--accent-navy)] font-bold underline' : 'hover:text-[var(--accent-navy)] hover:underline'}`}
             >
               1. Policy
             </button>
             <span className="text-[var(--border-strong)]">•</span>
-            <button 
+            <button
               type="button"
-              onClick={(e) => handleJump(e, 'originality')} 
+              onClick={(e) => handleJump(e, 'originality')}
               className={`transition-colors cursor-pointer ${activeJumpId === 'originality' ? 'text-[var(--accent-navy)] font-bold underline' : 'hover:text-[var(--accent-navy)] hover:underline'}`}
             >
               2. Originality
             </button>
             <span className="text-[var(--border-strong)]">•</span>
-            <button 
+            <button
               type="button"
-              onClick={(e) => handleJump(e, 'plagiarism')} 
+              onClick={(e) => handleJump(e, 'plagiarism')}
               className={`transition-colors cursor-pointer ${activeJumpId === 'plagiarism' ? 'text-[var(--accent-navy)] font-bold underline' : 'hover:text-[var(--accent-navy)] hover:underline'}`}
             >
               3. Plagiarism &amp; AI
             </button>
             <span className="text-[var(--border-strong)]">•</span>
-            <button 
+            <button
               type="button"
-              onClick={(e) => handleJump(e, 'authorship')} 
+              onClick={(e) => handleJump(e, 'authorship')}
               className={`transition-colors cursor-pointer ${activeJumpId === 'authorship' ? 'text-[var(--accent-navy)] font-bold underline' : 'hover:text-[var(--accent-navy)] hover:underline'}`}
             >
               4. Authorship
             </button>
             <span className="text-[var(--border-strong)]">•</span>
-            <button 
+            <button
               type="button"
-              onClick={(e) => handleJump(e, 'separate-files')} 
+              onClick={(e) => handleJump(e, 'separate-files')}
               className={`transition-colors cursor-pointer ${activeJumpId === 'separate-files' ? 'text-[var(--accent-navy)] font-bold underline' : 'hover:text-[var(--accent-navy)] hover:underline'}`}
             >
               5. Separate Files
             </button>
             <span className="text-[var(--border-strong)]">•</span>
-            <button 
+            <button
               type="button"
-              onClick={(e) => handleJump(e, 'formatting')} 
+              onClick={(e) => handleJump(e, 'formatting')}
               className={`transition-colors cursor-pointer ${activeJumpId === 'formatting' ? 'text-[var(--accent-navy)] font-bold underline' : 'hover:text-[var(--accent-navy)] hover:underline'}`}
             >
               8. Formatting
             </button>
             <span className="text-[var(--border-strong)]">•</span>
-            <button 
+            <button
               type="button"
-              onClick={(e) => handleJump(e, 'referencing')} 
+              onClick={(e) => handleJump(e, 'referencing')}
               className={`transition-colors cursor-pointer ${activeJumpId === 'referencing' ? 'text-[var(--accent-navy)] font-bold underline' : 'hover:text-[var(--accent-navy)] hover:underline'}`}
             >
               9. APA 7th
             </button>
             <span className="text-[var(--border-strong)]">•</span>
-            <button 
+            <button
               type="button"
-              onClick={(e) => handleJump(e, 'checklist')} 
+              onClick={(e) => handleJump(e, 'checklist')}
               className={`text-[var(--accent-gold)] font-bold cursor-pointer transition-colors ${activeJumpId === 'checklist' ? 'underline' : 'hover:underline'}`}
             >
               16. Checklist
             </button>
             <span className="text-[var(--border-strong)]">•</span>
-            <button 
+            <button
               type="button"
               onClick={(e) => {
                 e.preventDefault();
                 document.getElementById('track')?.scrollIntoView({ behavior: 'smooth' });
-              }} 
+              }}
               className="text-amber-600 dark:text-amber-400 font-bold cursor-pointer transition-colors hover:underline inline-flex items-center gap-1.5"
             >
               <span className="relative flex h-1.5 w-1.5">
@@ -865,473 +872,473 @@ Editorial Desk: editor@thecsrjournal.com
           </div>
 
           {/* Guidelines Content Scroll Container */}
-          <div 
+          <div
             ref={guidelinesContainerRef}
             className="flex-1 lg:overflow-y-auto lg:pr-3 space-y-10 text-[var(--text-secondary)] font-serif leading-relaxed text-sm scroll-smooth custom-scrollbar pb-16"
           >
-          {/* Section 1: General Submission Policy */}
-          <section id="general-policy" className="space-y-3 pt-1">
-            <div className="flex items-center gap-2 text-xs font-mono font-bold uppercase text-[var(--accent-gold)]">
-              <span>Section 01</span>
-            </div>
-            <h2 className="font-serif text-2xl font-bold text-[var(--text-primary)]">
-              General Submission Policy
-            </h2>
-            <p>
-              <em>The Crime &amp; Society Review</em> welcomes original, scholarly, and methodologically rigorous contributions that fall within the aims and scope of the journal. Manuscripts should make a clear and substantive contribution to the existing body of knowledge and should demonstrate appropriate engagement with relevant theoretical, empirical, methodological, or conceptual literature.
-            </p>
-            <p>
-              Submissions may include original research articles, review articles, theoretical and conceptual papers, methodological contributions, and other scholarly contributions considered appropriate by the Editorial Board. Authors are expected to ensure that their manuscripts comply with the journal's formatting, ethical, citation, and publication requirements before submission.
-            </p>
-            <div className="p-4 rounded-xl border border-[var(--border-subtle)] bg-[var(--bg-card)] space-y-1 text-xs">
-              <strong className="text-[var(--text-primary)] block font-sans">Official Intake Channel Only:</strong>
-              <p>
-                Manuscripts must be submitted exclusively through the journal's designated submission system. Submissions made through informal channels, including personal email or social-media platforms, may not be considered unless specifically requested by the Editorial Office.
-              </p>
-            </div>
-          </section>
-
-          {/* Section 2: Originality and Exclusivity */}
-          <section id="originality" className="space-y-3 border-t border-[var(--border-subtle)] pt-8">
-            <div className="flex items-center gap-2 text-xs font-mono font-bold uppercase text-[var(--accent-gold)]">
-              <span>Section 02</span>
-            </div>
-            <h2 className="font-serif text-2xl font-bold text-[var(--text-primary)]">
-              Originality and Exclusivity
-            </h2>
-            <p>
-              Manuscripts submitted to <em>The Crime &amp; Society Review</em> must be <strong>Original and Unpublished</strong>. A manuscript, or substantially similar version of the manuscript, should not simultaneously be under consideration by another journal, edited volume, conference proceeding, or other publication outlet.
-            </p>
-            <p>
-              Authors must confirm at the time of submission that the manuscript is not under simultaneous consideration elsewhere.
-            </p>
-          </section>
-
-          {/* Section 3: Plagiarism and Academic Integrity */}
-          <section id="plagiarism" className="space-y-3 border-t border-[var(--border-subtle)] pt-8">
-            <div className="flex items-center gap-2 text-xs font-mono font-bold uppercase text-[var(--accent-gold)]">
-              <span>Section 03</span>
-            </div>
-            <h2 className="font-serif text-2xl font-bold text-[var(--text-primary)]">
-              Plagiarism and Academic Integrity
-            </h2>
-            <p>
-              The journal maintains a zero-tolerance approach to plagiarism and other forms of academic misconduct. All submissions may be subjected to similarity and originality screening prior to or during the peer-review process. Authors must appropriately acknowledge and cite all ideas, arguments, data, language, figures, tables, and other material derived from previously published or unpublished sources.
-            </p>
-            <p>
-              Plagiarism includes, but is not limited to, direct copying without attribution, inadequate paraphrasing, mosaic or patchwork plagiarism, self-plagiarism, duplicate publication, and appropriation of another person's ideas or intellectual contributions. The journal may use recognised plagiarism/similarity-detection software as part of its editorial screening process.
-            </p>
-            
-            {/* Visual Callout for Thresholds */}
-            <div className="p-4 rounded-xl border border-amber-500/30 bg-amber-500/5 space-y-2 text-xs">
-              <div className="flex items-center gap-2 font-bold text-amber-700 dark:text-amber-400 font-sans">
-                <AlertCircle className="w-4 h-4 shrink-0" />
-                <span>Recommended Editorial Screening Thresholds</span>
+            {/* Section 1: General Submission Policy */}
+            <section id="general-policy" className="space-y-3 pt-1">
+              <div className="flex items-center gap-2 text-xs font-mono font-bold uppercase text-[var(--accent-gold)]">
+                <span>Section 01</span>
               </div>
-              <ul className="list-disc list-inside space-y-1 text-[var(--text-secondary)] pl-1">
-                <li><strong>Similarity Level:</strong> Manuscripts should ordinarily demonstrate a similarity level of <strong>less than 10%</strong>.</li>
-                <li><strong>AI-Generated Content:</strong> AI-generated substantive content should ordinarily <strong>not exceed 10%</strong> of the manuscript.</li>
+              <h2 className="font-serif text-2xl font-bold text-[var(--text-primary)]">
+                General Submission Policy
+              </h2>
+              <p>
+                <em>The Crime &amp; Society Review</em> welcomes original, scholarly, and methodologically rigorous contributions that fall within the aims and scope of the journal. Manuscripts should make a clear and substantive contribution to the existing body of knowledge and should demonstrate appropriate engagement with relevant theoretical, empirical, methodological, or conceptual literature.
+              </p>
+              <p>
+                Submissions may include original research articles, review articles, theoretical and conceptual papers, methodological contributions, and other scholarly contributions considered appropriate by the Editorial Board. Authors are expected to ensure that their manuscripts comply with the journal's formatting, ethical, citation, and publication requirements before submission.
+              </p>
+              <div className="p-4 rounded-xl border border-[var(--border-subtle)] bg-[var(--bg-card)] space-y-1 text-xs">
+                <strong className="text-[var(--text-primary)] block font-sans">Official Intake Channel Only:</strong>
+                <p>
+                  Manuscripts must be submitted exclusively through the journal's designated submission system. Submissions made through informal channels, including personal email or social-media platforms, may not be considered unless specifically requested by the Editorial Office.
+                </p>
+              </div>
+            </section>
+
+            {/* Section 2: Originality and Exclusivity */}
+            <section id="originality" className="space-y-3 border-t border-[var(--border-subtle)] pt-8">
+              <div className="flex items-center gap-2 text-xs font-mono font-bold uppercase text-[var(--accent-gold)]">
+                <span>Section 02</span>
+              </div>
+              <h2 className="font-serif text-2xl font-bold text-[var(--text-primary)]">
+                Originality and Exclusivity
+              </h2>
+              <p>
+                Manuscripts submitted to <em>The Crime &amp; Society Review</em> must be <strong>Original and Unpublished</strong>. A manuscript, or substantially similar version of the manuscript, should not simultaneously be under consideration by another journal, edited volume, conference proceeding, or other publication outlet.
+              </p>
+              <p>
+                Authors must confirm at the time of submission that the manuscript is not under simultaneous consideration elsewhere.
+              </p>
+            </section>
+
+            {/* Section 3: Plagiarism and Academic Integrity */}
+            <section id="plagiarism" className="space-y-3 border-t border-[var(--border-subtle)] pt-8">
+              <div className="flex items-center gap-2 text-xs font-mono font-bold uppercase text-[var(--accent-gold)]">
+                <span>Section 03</span>
+              </div>
+              <h2 className="font-serif text-2xl font-bold text-[var(--text-primary)]">
+                Plagiarism and Academic Integrity
+              </h2>
+              <p>
+                The journal maintains a zero-tolerance approach to plagiarism and other forms of academic misconduct. All submissions may be subjected to similarity and originality screening prior to or during the peer-review process. Authors must appropriately acknowledge and cite all ideas, arguments, data, language, figures, tables, and other material derived from previously published or unpublished sources.
+              </p>
+              <p>
+                Plagiarism includes, but is not limited to, direct copying without attribution, inadequate paraphrasing, mosaic or patchwork plagiarism, self-plagiarism, duplicate publication, and appropriation of another person's ideas or intellectual contributions. The journal may use recognised plagiarism/similarity-detection software as part of its editorial screening process.
+              </p>
+
+              {/* Visual Callout for Thresholds */}
+              <div className="p-4 rounded-xl border border-amber-500/30 bg-amber-500/5 space-y-2 text-xs">
+                <div className="flex items-center gap-2 font-bold text-amber-700 dark:text-amber-400 font-sans">
+                  <AlertCircle className="w-4 h-4 shrink-0" />
+                  <span>Recommended Editorial Screening Thresholds</span>
+                </div>
+                <ul className="list-disc list-inside space-y-1 text-[var(--text-secondary)] pl-1">
+                  <li><strong>Similarity Level:</strong> Manuscripts should ordinarily demonstrate a similarity level of <strong>less than 10%</strong>.</li>
+                  <li><strong>AI-Generated Content:</strong> AI-generated substantive content should ordinarily <strong>not exceed 10%</strong> of the manuscript.</li>
+                </ul>
+                <p className="text-[11px] text-[var(--text-muted)] italic pt-1">
+                  The Editorial Board reserves the right to examine manuscripts exceeding or falling below this threshold where the nature of the identified overlap warrants further investigation. Where plagiarism or other academic misconduct is established, the journal may reject the manuscript, withdraw it from consideration, notify the relevant institution, or retract a published article where necessary.
+                </p>
+              </div>
+            </section>
+
+            {/* Section 4: Authorship */}
+            <section id="authorship" className="space-y-3 border-t border-[var(--border-subtle)] pt-8">
+              <div className="flex items-center gap-2 text-xs font-mono font-bold uppercase text-[var(--accent-gold)]">
+                <span>Section 04</span>
+              </div>
+              <h2 className="font-serif text-2xl font-bold text-[var(--text-primary)]">
+                Authorship
+              </h2>
+              <p>
+                Authorship should be limited to individuals who have made a substantial intellectual or scholarly contribution to the work. All listed authors must have participated meaningfully in the research and/or preparation of the manuscript and must approve the final version submitted for publication.
+              </p>
+              <p>
+                The corresponding author is responsible for communicating with the journal and confirming that:
+              </p>
+              <ul className="list-disc list-inside space-y-1 pl-2 text-xs sm:text-sm">
+                <li>All listed authors have approved the manuscript.</li>
+                <li>All eligible contributors have been appropriately recognised.</li>
+                <li>All authors agree to the order of authorship.</li>
+                <li>The manuscript is original.</li>
+                <li>The submission is not under consideration elsewhere.</li>
+                <li>All required declarations have been provided.</li>
               </ul>
-              <p className="text-[11px] text-[var(--text-muted)] italic pt-1">
-                The Editorial Board reserves the right to examine manuscripts exceeding or falling below this threshold where the nature of the identified overlap warrants further investigation. Where plagiarism or other academic misconduct is established, the journal may reject the manuscript, withdraw it from consideration, notify the relevant institution, or retract a published article where necessary.
+              <p className="text-xs text-[var(--text-muted)] italic">
+                Any change in authorship after submission including addition, removal, or alteration of author order must be justified and approved by all authors and accepted by the Editorial Office.
               </p>
-            </div>
-          </section>
+            </section>
 
-          {/* Section 4: Authorship */}
-          <section id="authorship" className="space-y-3 border-t border-[var(--border-subtle)] pt-8">
-            <div className="flex items-center gap-2 text-xs font-mono font-bold uppercase text-[var(--accent-gold)]">
-              <span>Section 04</span>
-            </div>
-            <h2 className="font-serif text-2xl font-bold text-[var(--text-primary)]">
-              Authorship
-            </h2>
-            <p>
-              Authorship should be limited to individuals who have made a substantial intellectual or scholarly contribution to the work. All listed authors must have participated meaningfully in the research and/or preparation of the manuscript and must approve the final version submitted for publication.
-            </p>
-            <p>
-              The corresponding author is responsible for communicating with the journal and confirming that:
-            </p>
-            <ul className="list-disc list-inside space-y-1 pl-2 text-xs sm:text-sm">
-              <li>All listed authors have approved the manuscript.</li>
-              <li>All eligible contributors have been appropriately recognised.</li>
-              <li>All authors agree to the order of authorship.</li>
-              <li>The manuscript is original.</li>
-              <li>The submission is not under consideration elsewhere.</li>
-              <li>All required declarations have been provided.</li>
-            </ul>
-            <p className="text-xs text-[var(--text-muted)] italic">
-              Any change in authorship after submission including addition, removal, or alteration of author order must be justified and approved by all authors and accepted by the Editorial Office.
-            </p>
-          </section>
-
-          {/* Section 5: Separate Author Information and Manuscript Files */}
-          <section id="separate-files" className="space-y-4 border-t border-[var(--border-subtle)] pt-8">
-            <div className="flex items-center gap-2 text-xs font-mono font-bold uppercase text-[var(--accent-gold)]">
-              <span>Section 05</span>
-            </div>
-            <h2 className="font-serif text-2xl font-bold text-[var(--text-primary)]">
-              Separate Author Information and Manuscript Files
-            </h2>
-            <div className="p-3.5 rounded-xl bg-[var(--accent-navy)]/10 border border-[var(--accent-navy)]/20 text-xs flex items-start gap-2.5">
-              <ShieldCheck className="w-4 h-4 text-[var(--accent-navy)] shrink-0 mt-0.5" />
-              <span>
-                To facilitate <strong>double-blind peer review</strong>, <em>The Crime &amp; Society Review</em> requires authors to submit author information <strong>separately</strong> from the manuscript file. Author identities, affiliations, email addresses, acknowledgements, and identifying footnotes must not appear in the blinded manuscript.
-              </span>
-            </div>
-
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2">
-              {/* First Author Box */}
-              <div className="p-4 rounded-xl border border-[var(--border-subtle)] bg-[var(--bg-card)] space-y-2 text-xs">
-                <div className="flex items-center gap-2 font-sans font-bold text-[var(--text-primary)]">
-                  <User className="w-4 h-4 text-[var(--accent-gold)]" />
-                  <span>First Author Information Page</span>
-                </div>
-                <ul className="space-y-1 text-[var(--text-secondary)] font-mono text-[11px]">
-                  <li>• Full name</li>
-                  <li>• Institutional affiliation</li>
-                  <li>• Department / School / Centre</li>
-                  <li>• Institution</li>
-                  <li>• City and country</li>
-                  <li>• Email Address</li>
-                  <li>• Highest academic qualification</li>
-                  <li>• Designation / academic position</li>
-                  <li>• Corresponding-author status</li>
-                  <li>• Brief biographical note (if requested)</li>
-                </ul>
+            {/* Section 5: Separate Author Information and Manuscript Files */}
+            <section id="separate-files" className="space-y-4 border-t border-[var(--border-subtle)] pt-8">
+              <div className="flex items-center gap-2 text-xs font-mono font-bold uppercase text-[var(--accent-gold)]">
+                <span>Section 05</span>
+              </div>
+              <h2 className="font-serif text-2xl font-bold text-[var(--text-primary)]">
+                Separate Author Information and Manuscript Files
+              </h2>
+              <div className="p-3.5 rounded-xl bg-[var(--accent-navy)]/10 border border-[var(--accent-navy)]/20 text-xs flex items-start gap-2.5">
+                <ShieldCheck className="w-4 h-4 text-[var(--accent-navy)] shrink-0 mt-0.5" />
+                <span>
+                  To facilitate <strong>double-blind peer review</strong>, <em>The Crime &amp; Society Review</em> requires authors to submit author information <strong>separately</strong> from the manuscript file. Author identities, affiliations, email addresses, acknowledgements, and identifying footnotes must not appear in the blinded manuscript.
+                </span>
               </div>
 
-              {/* Co-Author Box */}
-              <div className="p-4 rounded-xl border border-[var(--border-subtle)] bg-[var(--bg-card)] space-y-2 text-xs">
-                <div className="flex items-center gap-2 font-sans font-bold text-[var(--text-primary)]">
-                  <User className="w-4 h-4 text-[var(--accent-gold)]" />
-                  <span>Second / Co-Author Information Page</span>
-                </div>
-                <ul className="space-y-1 text-[var(--text-secondary)] font-mono text-[11px]">
-                  <li>• Full name</li>
-                  <li>• Institutional affiliation</li>
-                  <li>• Department / School / Centre</li>
-                  <li>• Institution</li>
-                  <li>• City and country</li>
-                  <li>• Email Address</li>
-                  <li>• Highest academic qualification</li>
-                  <li>• Designation / academic position</li>
-                  <li>• Corresponding-author status</li>
-                  <li>• Brief biographical note (if requested)</li>
-                </ul>
-              </div>
-            </div>
-            <p className="text-xs text-[var(--text-muted)] italic">
-              The same structure should be followed for additional authors.
-            </p>
-          </section>
-
-          {/* Section 6: Manuscript File */}
-          <section id="manuscript-file" className="space-y-3 border-t border-[var(--border-subtle)] pt-8">
-            <div className="flex items-center gap-2 text-xs font-mono font-bold uppercase text-[var(--accent-gold)]">
-              <span>Section 06</span>
-            </div>
-            <h2 className="font-serif text-2xl font-bold text-[var(--text-primary)]">
-              Manuscript File (Blinded for Peer Review)
-            </h2>
-            <p>
-              The manuscript must be uploaded as a separate file from the author-information pages. The manuscript should contain only the scholarly content necessary for peer review and should not disclose the identity or institutional affiliation of the authors.
-            </p>
-            <p>
-              The manuscript should ordinarily include:
-            </p>
-            <div className="p-4 rounded-xl border border-[var(--border-subtle)] bg-[var(--bg-card)]">
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-4 gap-y-1 text-xs font-mono">
-                <div>1. Title of the article</div>
-                <div>8. Results / Findings</div>
-                <div>2. Abstract (250–300 words)</div>
-                <div>9. Discussion</div>
-                <div>3. Keywords (3–8 terms)</div>
-                <div>10. Implications (where applicable)</div>
-                <div>4. Introduction</div>
-                <div>11. Limitations</div>
-                <div>5. Review of Literature / Theoretical Framework</div>
-                <div>12. Conclusion</div>
-                <div>6. Research Questions / Hypotheses</div>
-                <div>13. References (APA 7th)</div>
-                <div>7. Methodology</div>
-                <div>14. Tables and Figures (where applicable)</div>
-              </div>
-            </div>
-          </section>
-
-          {/* Section 7: Manuscript Length & Abstract */}
-          <section id="length-abstract" className="space-y-4 border-t border-[var(--border-subtle)] pt-8">
-            <div className="flex items-center gap-2 text-xs font-mono font-bold uppercase text-[var(--accent-gold)]">
-              <span>Section 07</span>
-            </div>
-            <h2 className="font-serif text-2xl font-bold text-[var(--text-primary)]">
-              Manuscript Length and Abstract
-            </h2>
-            
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-              <div className="p-4 rounded-xl border border-[var(--border-subtle)] bg-[var(--bg-card)] space-y-2">
-                <strong className="text-sm font-sans font-bold text-[var(--text-primary)] block">
-                  Manuscript Length
-                </strong>
-                <p className="text-xs">
-                  Research articles should ordinarily contain approximately <strong>5,000–8,000 words</strong>, excluding references, tables, figures, and supplementary material.
-                </p>
-                <p className="text-[11px] text-[var(--text-muted)] italic">
-                  Review articles, conceptual papers, methodological articles, and special contributions may have different length requirements subject to the approval of the Editorial Office.
-                </p>
-              </div>
-
-              <div className="p-4 rounded-xl border border-[var(--border-subtle)] bg-[var(--bg-card)] space-y-2">
-                <strong className="text-sm font-sans font-bold text-[var(--text-primary)] block">
-                  Abstract Specifications
-                </strong>
-                <p className="text-xs">
-                  Each manuscript should include a structured or sufficiently informative abstract of approximately <strong>250–300 words (Maximum 300 words)</strong>. The abstract should be understandable independently of the main manuscript without unnecessary citations.
-                </p>
-                <div className="text-[11px] font-mono text-[var(--text-secondary)] space-y-0.5 pt-1">
-                  <div>• Background / Context</div>
-                  <div>• Purpose or Research Problem</div>
-                  <div>• Methodology</div>
-                  <div>• Key Findings &amp; Implications/Conclusion</div>
-                </div>
-              </div>
-            </div>
-
-            <p className="text-xs">
-              <strong>Keywords:</strong> Please provide <strong>3–8 keywords</strong> that assist readers in discovering the article through academic databases.
-            </p>
-          </section>
-
-          {/* Section 8: Formatting Requirements */}
-          <section id="formatting" className="space-y-4 border-t border-[var(--border-subtle)] pt-8">
-            <div className="flex items-center gap-2 text-xs font-mono font-bold uppercase text-[var(--accent-gold)]">
-              <span>Section 08</span>
-            </div>
-            <h2 className="font-serif text-2xl font-bold text-[var(--text-primary)]">
-              Formatting Requirements
-            </h2>
-            <p>
-              Authors should avoid excessive formatting, decorative fonts, unnecessary text boxes, or design elements that may interfere with the review and production process. Unless otherwise specified by a particular article type, manuscripts should follow these basic formatting requirements:
-            </p>
-
-            <div className="rounded-xl border border-[var(--border-subtle)] overflow-hidden text-xs">
-              <table className="w-full text-left border-collapse">
-                <tbody>
-                  <tr className="border-b border-[var(--border-subtle)] bg-[var(--bg-card-hover)]">
-                    <td className="p-2.5 font-bold font-sans text-[var(--text-primary)] w-1/3">File format</td>
-                    <td className="p-2.5 font-mono text-[var(--accent-navy)] font-semibold">Microsoft Word (.doc / .docx) — Max 5 MB</td>
-                  </tr>
-                  <tr className="border-b border-[var(--border-subtle)]">
-                    <td className="p-2.5 font-bold font-sans text-[var(--text-primary)]">Font &amp; Size</td>
-                    <td className="p-2.5 font-mono">Garamond, 12 pt</td>
-                  </tr>
-                  <tr className="border-b border-[var(--border-subtle)] bg-[var(--bg-card-hover)]">
-                    <td className="p-2.5 font-bold font-sans text-[var(--text-primary)]">Line spacing &amp; Alignment</td>
-                    <td className="p-2.5 font-mono">1.2 Spacing, Justified</td>
-                  </tr>
-                  <tr className="border-b border-[var(--border-subtle)]">
-                    <td className="p-2.5 font-bold font-sans text-[var(--text-primary)]">Page size &amp; Margins</td>
-                    <td className="p-2.5 font-mono">A4, 1 inch (2.54 cm) on all sides</td>
-                  </tr>
-                  <tr className="border-b border-[var(--border-subtle)] bg-[var(--bg-card-hover)]">
-                    <td className="p-2.5 font-bold font-sans text-[var(--text-primary)]">Page numbers &amp; Paragraphs</td>
-                    <td className="p-2.5 font-mono">Consecutive numbers, Consistently formatted paragraphs</td>
-                  </tr>
-                  <tr className="border-b border-[var(--border-subtle)]">
-                    <td className="p-2.5 font-bold font-sans text-[var(--text-primary)]">Tables and figures</td>
-                    <td className="p-2.5 font-mono">Numbered consecutively with titles and captions</td>
-                  </tr>
-                  <tr>
-                    <td className="p-2.5 font-bold font-sans text-[var(--text-primary)]">Headings</td>
-                    <td className="p-2.5 font-mono">Clearly differentiated and consistently formatted</td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-          </section>
-
-          {/* Section 9: Referencing and Citation Style */}
-          <section id="referencing" className="space-y-3 border-t border-[var(--border-subtle)] pt-8">
-            <div className="flex items-center gap-2 text-xs font-mono font-bold uppercase text-[var(--accent-gold)]">
-              <span>Section 09</span>
-            </div>
-            <h2 className="font-serif text-2xl font-bold text-[var(--text-primary)]">
-              Referencing and Citation Style (APA 7th Edition)
-            </h2>
-            <p>
-              <em>The Crime &amp; Society Review</em> follows the <strong>American Psychological Association (APA), 7th edition</strong> style for in-text citations and references.
-            </p>
-            <div className="p-4 rounded-xl border border-[var(--border-subtle)] bg-[var(--bg-card)] space-y-2 text-xs">
-              <div className="flex items-center gap-2 font-bold font-sans text-[var(--text-primary)]">
-                <BookOpen className="w-4 h-4 text-[var(--accent-gold)]" />
-                <span>Citation Placement: Footnote or Endnote</span>
-              </div>
-              <p>
-                The citation should be placed in <strong>footnote or Endnote</strong>. Authors must ensure that every source cited in the manuscript appears in the reference list and that every reference listed is cited in the manuscript.
-              </p>
-            </div>
-          </section>
-
-          {/* Section 10: Tables, Figures, and Illustrations */}
-          <section id="tables-figures" className="space-y-3 border-t border-[var(--border-subtle)] pt-8">
-            <div className="flex items-center gap-2 text-xs font-mono font-bold uppercase text-[var(--accent-gold)]">
-              <span>Section 10</span>
-            </div>
-            <h2 className="font-serif text-2xl font-bold text-[var(--text-primary)]">
-              Tables, Figures, and Illustrations
-            </h2>
-            <p>
-              Tables and figures should be relevant, necessary, clearly labelled, and appropriately referenced in the manuscript text. Each table should have a descriptive title, while figures should have an appropriate caption.
-            </p>
-            <p>
-              Authors must ensure that all tables, figures, photographs, diagrams, maps, and other visual materials are either original, appropriately licensed, or reproduced with the necessary written permission.
-            </p>
-          </section>
-
-          {/* Section 11: Research Methodology and Data Transparency */}
-          <section id="methodology-transparency" className="space-y-3 border-t border-[var(--border-subtle)] pt-8">
-            <div className="flex items-center gap-2 text-xs font-mono font-bold uppercase text-[var(--accent-gold)]">
-              <span>Section 11</span>
-            </div>
-            <h2 className="font-serif text-2xl font-bold text-[var(--text-primary)]">
-              Research Methodology and Data Transparency
-            </h2>
-            <p>
-              Empirical manuscripts must provide sufficient methodological information to enable readers to understand how the research was conducted and how the findings were derived. Authors should not fabricate, manipulate, selectively report, or misrepresent research data.
-            </p>
-            <div className="p-4 rounded-xl border border-[var(--border-subtle)] bg-[var(--bg-card)]">
-              <span className="text-xs font-bold font-sans text-[var(--text-primary)] block mb-2">
-                Where applicable, empirical manuscripts must clearly report:
-              </span>
-              <div className="grid grid-cols-2 sm:grid-cols-3 gap-2 text-xs font-mono text-[var(--text-secondary)]">
-                <div>• Research design</div>
-                <div>• Study setting</div>
-                <div>• Population &amp; sample</div>
-                <div>• Sampling strategy</div>
-                <div>• Data collection</div>
-                <div>• Instruments / measures</div>
-                <div>• Variables analyzed</div>
-                <div>• Analytical techniques</div>
-                <div>• Ethical safeguards</div>
-                <div>• Inclusion/exclusion</div>
-                <div>• Study limitations</div>
-                <div>• Validity &amp; reliability</div>
-              </div>
-            </div>
-          </section>
-
-          {/* Section 12: Research Ethics */}
-          <section id="research-ethics" className="space-y-3 border-t border-[var(--border-subtle)] pt-8">
-            <div className="flex items-center gap-2 text-xs font-mono font-bold uppercase text-[var(--accent-gold)]">
-              <span>Section 12</span>
-            </div>
-            <h2 className="font-serif text-2xl font-bold text-[var(--text-primary)]">
-              Research Ethics
-            </h2>
-            <p>
-              Research involving human participants must comply with applicable ethical standards and institutional requirements. Where applicable, authors should provide information concerning ethical approval, informed consent, confidentiality, anonymity, data protection, and participant safeguards.
-            </p>
-            <p>
-              For research involving vulnerable populations, additional safeguards should be clearly documented. Where ethical approval is not applicable, authors may be required to provide an appropriate statement explaining why.
-            </p>
-          </section>
-
-          {/* Section 13: Declaration of Originality */}
-          <section id="declaration-originality" className="space-y-3 border-t border-[var(--border-subtle)] pt-8">
-            <div className="flex items-center gap-2 text-xs font-mono font-bold uppercase text-[var(--accent-gold)]">
-              <span>Section 13</span>
-            </div>
-            <h2 className="font-serif text-2xl font-bold text-[var(--text-primary)]">
-              Declaration of Originality
-            </h2>
-            <p>
-              At submission, the corresponding author must confirm that:
-            </p>
-            <div className="p-4 rounded-xl border border-[var(--border-subtle)] bg-[var(--bg-card)] text-xs space-y-1.5">
-              <p>• The manuscript is original and has not been published previously in substantially similar form.</p>
-              <p>• The manuscript is not currently under consideration by another publication outlet.</p>
-              <p>• All sources, quotations, data, and intellectual contributions have been appropriately cited and acknowledged.</p>
-            </div>
-          </section>
-
-          {/* Section 14: Peer Review */}
-          <section id="peer-review" className="space-y-3 border-t border-[var(--border-subtle)] pt-8">
-            <div className="flex items-center gap-2 text-xs font-mono font-bold uppercase text-[var(--accent-gold)]">
-              <span>Section 14</span>
-            </div>
-            <h2 className="font-serif text-2xl font-bold text-[var(--text-primary)]">
-              Peer Review Process
-            </h2>
-            <p>
-              All manuscripts that pass the journal's initial editorial screening may be subjected to <strong>double-blind peer review</strong>, unless the Editorial Board determines that another review model is appropriate for a particular contribution. Passing the initial screening does not guarantee peer review or publication.
-            </p>
-            <div className="p-4 rounded-xl border border-[var(--border-subtle)] bg-[var(--bg-card)]">
-              <span className="text-xs font-bold font-sans text-[var(--text-primary)] block mb-2">
-                During the initial screening, the Editorial Office assesses:
-              </span>
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs font-mono text-[var(--text-secondary)]">
-                <div>1. Relevance to aims &amp; scope</div>
-                <div>6. Ethical compliance</div>
-                <div>2. Originality of contribution</div>
-                <div>7. Plagiarism &amp; similarity check</div>
-                <div>3. Scholarly &amp; theoretical contribution</div>
-                <div>8. AI-use compliance (&lt; 10%)</div>
-                <div>4. Methodological quality &amp; rigor</div>
-                <div>9. Citation and referencing (APA 7th)</div>
-                <div>5. Academic writing &amp; coherence</div>
-                <div>10. Adherence to formatting requirements</div>
-              </div>
-            </div>
-          </section>
-
-          {/* Section 15: Language and Academic Writing */}
-          <section id="language" className="space-y-3 border-t border-[var(--border-subtle)] pt-8">
-            <div className="flex items-center gap-2 text-xs font-mono font-bold uppercase text-[var(--accent-gold)]">
-              <span>Section 15</span>
-            </div>
-            <h2 className="font-serif text-2xl font-bold text-[var(--text-primary)]">
-              Language and Academic Writing
-            </h2>
-            <p>
-              Manuscripts should be written in clear, precise, formal academic English. Authors are responsible for ensuring grammatical accuracy, coherence, terminology, and readability.
-            </p>
-            <p>
-              The journal encourages inclusive and respectful scholarly language and discourages language that is unnecessarily discriminatory, stigmatising, sensationalist, or unsupported by evidence.
-            </p>
-          </section>
-
-          {/* Section 16: Submission Checklist (DARK LUXURY CARD) */}
-          <section id="checklist" className="space-y-4 border-t border-[var(--border-subtle)] pt-8 pb-12">
-            <div className="p-6 sm:p-8 rounded-3xl border border-slate-800 bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950 text-white space-y-4 shadow-xl relative overflow-hidden">
-              <div className="absolute top-0 right-0 w-80 h-80 bg-amber-500/5 rounded-full blur-3xl pointer-events-none" />
-              
-              <div className="space-y-1 relative z-10 border-b border-slate-800 pb-3">
-                <h2 className="font-serif text-2xl font-bold text-white tracking-tight">
-                  Submission Checklist
-                </h2>
-                <p className="text-xs text-slate-300 font-serif">
-                  Authors must verify and adhere to each requirement before submitting their manuscript:
-                </p>
-              </div>
-
-              <div className="space-y-2 p-4 sm:p-5 rounded-2xl border border-slate-800 bg-slate-900/90 relative z-10">
-                {checklistItems.map((item, idx) => (
-                  <div
-                    key={idx}
-                    className="flex items-start gap-3 p-2 rounded-lg hover:bg-slate-800/80 transition-colors"
-                  >
-                    <span className="w-5 h-5 rounded-full bg-amber-500/20 text-amber-400 border border-amber-500/30 font-mono text-[10px] flex items-center justify-center font-bold shrink-0 mt-0.5">
-                      {idx + 1}
-                    </span>
-                    <span className="text-xs text-slate-200 font-sans leading-relaxed">
-                      {item}
-                    </span>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2">
+                {/* First Author Box */}
+                <div className="p-4 rounded-xl border border-[var(--border-subtle)] bg-[var(--bg-card)] space-y-2 text-xs">
+                  <div className="flex items-center gap-2 font-sans font-bold text-[var(--text-primary)]">
+                    <User className="w-4 h-4 text-[var(--accent-gold)]" />
+                    <span>First Author Information Page</span>
                   </div>
-                ))}
+                  <ul className="space-y-1 text-[var(--text-secondary)] font-mono text-[11px]">
+                    <li>• Full name</li>
+                    <li>• Institutional affiliation</li>
+                    <li>• Department / School / Centre</li>
+                    <li>• Institution</li>
+                    <li>• City and country</li>
+                    <li>• Email Address</li>
+                    <li>• Highest academic qualification</li>
+                    <li>• Designation / academic position</li>
+                    <li>• Corresponding-author status</li>
+                    <li>• Brief biographical note (if requested)</li>
+                  </ul>
+                </div>
+
+                {/* Co-Author Box */}
+                <div className="p-4 rounded-xl border border-[var(--border-subtle)] bg-[var(--bg-card)] space-y-2 text-xs">
+                  <div className="flex items-center gap-2 font-sans font-bold text-[var(--text-primary)]">
+                    <User className="w-4 h-4 text-[var(--accent-gold)]" />
+                    <span>Second / Co-Author Information Page</span>
+                  </div>
+                  <ul className="space-y-1 text-[var(--text-secondary)] font-mono text-[11px]">
+                    <li>• Full name</li>
+                    <li>• Institutional affiliation</li>
+                    <li>• Department / School / Centre</li>
+                    <li>• Institution</li>
+                    <li>• City and country</li>
+                    <li>• Email Address</li>
+                    <li>• Highest academic qualification</li>
+                    <li>• Designation / academic position</li>
+                    <li>• Corresponding-author status</li>
+                    <li>• Brief biographical note (if requested)</li>
+                  </ul>
+                </div>
               </div>
-            </div>
-          </section>
+              <p className="text-xs text-[var(--text-muted)] italic">
+                The same structure should be followed for additional authors.
+              </p>
+            </section>
+
+            {/* Section 6: Manuscript File */}
+            <section id="manuscript-file" className="space-y-3 border-t border-[var(--border-subtle)] pt-8">
+              <div className="flex items-center gap-2 text-xs font-mono font-bold uppercase text-[var(--accent-gold)]">
+                <span>Section 06</span>
+              </div>
+              <h2 className="font-serif text-2xl font-bold text-[var(--text-primary)]">
+                Manuscript File (Blinded for Peer Review)
+              </h2>
+              <p>
+                The manuscript must be uploaded as a separate file from the author-information pages. The manuscript should contain only the scholarly content necessary for peer review and should not disclose the identity or institutional affiliation of the authors.
+              </p>
+              <p>
+                The manuscript should ordinarily include:
+              </p>
+              <div className="p-4 rounded-xl border border-[var(--border-subtle)] bg-[var(--bg-card)]">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-4 gap-y-1 text-xs font-mono">
+                  <div>1. Title of the article</div>
+                  <div>8. Results / Findings</div>
+                  <div>2. Abstract (250–300 words)</div>
+                  <div>9. Discussion</div>
+                  <div>3. Keywords (3–8 terms)</div>
+                  <div>10. Implications (where applicable)</div>
+                  <div>4. Introduction</div>
+                  <div>11. Limitations</div>
+                  <div>5. Review of Literature / Theoretical Framework</div>
+                  <div>12. Conclusion</div>
+                  <div>6. Research Questions / Hypotheses</div>
+                  <div>13. References (APA 7th)</div>
+                  <div>7. Methodology</div>
+                  <div>14. Tables and Figures (where applicable)</div>
+                </div>
+              </div>
+            </section>
+
+            {/* Section 7: Manuscript Length & Abstract */}
+            <section id="length-abstract" className="space-y-4 border-t border-[var(--border-subtle)] pt-8">
+              <div className="flex items-center gap-2 text-xs font-mono font-bold uppercase text-[var(--accent-gold)]">
+                <span>Section 07</span>
+              </div>
+              <h2 className="font-serif text-2xl font-bold text-[var(--text-primary)]">
+                Manuscript Length and Abstract
+              </h2>
+
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div className="p-4 rounded-xl border border-[var(--border-subtle)] bg-[var(--bg-card)] space-y-2">
+                  <strong className="text-sm font-sans font-bold text-[var(--text-primary)] block">
+                    Manuscript Length
+                  </strong>
+                  <p className="text-xs">
+                    Research articles should ordinarily contain approximately <strong>5,000–8,000 words</strong>, excluding references, tables, figures, and supplementary material.
+                  </p>
+                  <p className="text-[11px] text-[var(--text-muted)] italic">
+                    Review articles, conceptual papers, methodological articles, and special contributions may have different length requirements subject to the approval of the Editorial Office.
+                  </p>
+                </div>
+
+                <div className="p-4 rounded-xl border border-[var(--border-subtle)] bg-[var(--bg-card)] space-y-2">
+                  <strong className="text-sm font-sans font-bold text-[var(--text-primary)] block">
+                    Abstract Specifications
+                  </strong>
+                  <p className="text-xs">
+                    Each manuscript should include a structured or sufficiently informative abstract of approximately <strong>250–300 words (Maximum 300 words)</strong>. The abstract should be understandable independently of the main manuscript without unnecessary citations.
+                  </p>
+                  <div className="text-[11px] font-mono text-[var(--text-secondary)] space-y-0.5 pt-1">
+                    <div>• Background / Context</div>
+                    <div>• Purpose or Research Problem</div>
+                    <div>• Methodology</div>
+                    <div>• Key Findings &amp; Implications/Conclusion</div>
+                  </div>
+                </div>
+              </div>
+
+              <p className="text-xs">
+                <strong>Keywords:</strong> Please provide <strong>3–8 keywords</strong> that assist readers in discovering the article through academic databases.
+              </p>
+            </section>
+
+            {/* Section 8: Formatting Requirements */}
+            <section id="formatting" className="space-y-4 border-t border-[var(--border-subtle)] pt-8">
+              <div className="flex items-center gap-2 text-xs font-mono font-bold uppercase text-[var(--accent-gold)]">
+                <span>Section 08</span>
+              </div>
+              <h2 className="font-serif text-2xl font-bold text-[var(--text-primary)]">
+                Formatting Requirements
+              </h2>
+              <p>
+                Authors should avoid excessive formatting, decorative fonts, unnecessary text boxes, or design elements that may interfere with the review and production process. Unless otherwise specified by a particular article type, manuscripts should follow these basic formatting requirements:
+              </p>
+
+              <div className="rounded-xl border border-[var(--border-subtle)] overflow-hidden text-xs">
+                <table className="w-full text-left border-collapse">
+                  <tbody>
+                    <tr className="border-b border-[var(--border-subtle)] bg-[var(--bg-card-hover)]">
+                      <td className="p-2.5 font-bold font-sans text-[var(--text-primary)] w-1/3">File format</td>
+                      <td className="p-2.5 font-mono text-[var(--accent-navy)] font-semibold">Microsoft Word (.doc / .docx) — Max 5 MB</td>
+                    </tr>
+                    <tr className="border-b border-[var(--border-subtle)]">
+                      <td className="p-2.5 font-bold font-sans text-[var(--text-primary)]">Font &amp; Size</td>
+                      <td className="p-2.5 font-mono">Garamond, 12 pt</td>
+                    </tr>
+                    <tr className="border-b border-[var(--border-subtle)] bg-[var(--bg-card-hover)]">
+                      <td className="p-2.5 font-bold font-sans text-[var(--text-primary)]">Line spacing &amp; Alignment</td>
+                      <td className="p-2.5 font-mono">1.2 Spacing, Justified</td>
+                    </tr>
+                    <tr className="border-b border-[var(--border-subtle)]">
+                      <td className="p-2.5 font-bold font-sans text-[var(--text-primary)]">Page size &amp; Margins</td>
+                      <td className="p-2.5 font-mono">A4, 1 inch (2.54 cm) on all sides</td>
+                    </tr>
+                    <tr className="border-b border-[var(--border-subtle)] bg-[var(--bg-card-hover)]">
+                      <td className="p-2.5 font-bold font-sans text-[var(--text-primary)]">Page numbers &amp; Paragraphs</td>
+                      <td className="p-2.5 font-mono">Consecutive numbers, Consistently formatted paragraphs</td>
+                    </tr>
+                    <tr className="border-b border-[var(--border-subtle)]">
+                      <td className="p-2.5 font-bold font-sans text-[var(--text-primary)]">Tables and figures</td>
+                      <td className="p-2.5 font-mono">Numbered consecutively with titles and captions</td>
+                    </tr>
+                    <tr>
+                      <td className="p-2.5 font-bold font-sans text-[var(--text-primary)]">Headings</td>
+                      <td className="p-2.5 font-mono">Clearly differentiated and consistently formatted</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </section>
+
+            {/* Section 9: Referencing and Citation Style */}
+            <section id="referencing" className="space-y-3 border-t border-[var(--border-subtle)] pt-8">
+              <div className="flex items-center gap-2 text-xs font-mono font-bold uppercase text-[var(--accent-gold)]">
+                <span>Section 09</span>
+              </div>
+              <h2 className="font-serif text-2xl font-bold text-[var(--text-primary)]">
+                Referencing and Citation Style (APA 7th Edition)
+              </h2>
+              <p>
+                <em>The Crime &amp; Society Review</em> follows the <strong>American Psychological Association (APA), 7th edition</strong> style for in-text citations and references.
+              </p>
+              <div className="p-4 rounded-xl border border-[var(--border-subtle)] bg-[var(--bg-card)] space-y-2 text-xs">
+                <div className="flex items-center gap-2 font-bold font-sans text-[var(--text-primary)]">
+                  <BookOpen className="w-4 h-4 text-[var(--accent-gold)]" />
+                  <span>Citation Placement: Footnote or Endnote</span>
+                </div>
+                <p>
+                  The citation should be placed in <strong>footnote or Endnote</strong>. Authors must ensure that every source cited in the manuscript appears in the reference list and that every reference listed is cited in the manuscript.
+                </p>
+              </div>
+            </section>
+
+            {/* Section 10: Tables, Figures, and Illustrations */}
+            <section id="tables-figures" className="space-y-3 border-t border-[var(--border-subtle)] pt-8">
+              <div className="flex items-center gap-2 text-xs font-mono font-bold uppercase text-[var(--accent-gold)]">
+                <span>Section 10</span>
+              </div>
+              <h2 className="font-serif text-2xl font-bold text-[var(--text-primary)]">
+                Tables, Figures, and Illustrations
+              </h2>
+              <p>
+                Tables and figures should be relevant, necessary, clearly labelled, and appropriately referenced in the manuscript text. Each table should have a descriptive title, while figures should have an appropriate caption.
+              </p>
+              <p>
+                Authors must ensure that all tables, figures, photographs, diagrams, maps, and other visual materials are either original, appropriately licensed, or reproduced with the necessary written permission.
+              </p>
+            </section>
+
+            {/* Section 11: Research Methodology and Data Transparency */}
+            <section id="methodology-transparency" className="space-y-3 border-t border-[var(--border-subtle)] pt-8">
+              <div className="flex items-center gap-2 text-xs font-mono font-bold uppercase text-[var(--accent-gold)]">
+                <span>Section 11</span>
+              </div>
+              <h2 className="font-serif text-2xl font-bold text-[var(--text-primary)]">
+                Research Methodology and Data Transparency
+              </h2>
+              <p>
+                Empirical manuscripts must provide sufficient methodological information to enable readers to understand how the research was conducted and how the findings were derived. Authors should not fabricate, manipulate, selectively report, or misrepresent research data.
+              </p>
+              <div className="p-4 rounded-xl border border-[var(--border-subtle)] bg-[var(--bg-card)]">
+                <span className="text-xs font-bold font-sans text-[var(--text-primary)] block mb-2">
+                  Where applicable, empirical manuscripts must clearly report:
+                </span>
+                <div className="grid grid-cols-2 sm:grid-cols-3 gap-2 text-xs font-mono text-[var(--text-secondary)]">
+                  <div>• Research design</div>
+                  <div>• Study setting</div>
+                  <div>• Population &amp; sample</div>
+                  <div>• Sampling strategy</div>
+                  <div>• Data collection</div>
+                  <div>• Instruments / measures</div>
+                  <div>• Variables analyzed</div>
+                  <div>• Analytical techniques</div>
+                  <div>• Ethical safeguards</div>
+                  <div>• Inclusion/exclusion</div>
+                  <div>• Study limitations</div>
+                  <div>• Validity &amp; reliability</div>
+                </div>
+              </div>
+            </section>
+
+            {/* Section 12: Research Ethics */}
+            <section id="research-ethics" className="space-y-3 border-t border-[var(--border-subtle)] pt-8">
+              <div className="flex items-center gap-2 text-xs font-mono font-bold uppercase text-[var(--accent-gold)]">
+                <span>Section 12</span>
+              </div>
+              <h2 className="font-serif text-2xl font-bold text-[var(--text-primary)]">
+                Research Ethics
+              </h2>
+              <p>
+                Research involving human participants must comply with applicable ethical standards and institutional requirements. Where applicable, authors should provide information concerning ethical approval, informed consent, confidentiality, anonymity, data protection, and participant safeguards.
+              </p>
+              <p>
+                For research involving vulnerable populations, additional safeguards should be clearly documented. Where ethical approval is not applicable, authors may be required to provide an appropriate statement explaining why.
+              </p>
+            </section>
+
+            {/* Section 13: Declaration of Originality */}
+            <section id="declaration-originality" className="space-y-3 border-t border-[var(--border-subtle)] pt-8">
+              <div className="flex items-center gap-2 text-xs font-mono font-bold uppercase text-[var(--accent-gold)]">
+                <span>Section 13</span>
+              </div>
+              <h2 className="font-serif text-2xl font-bold text-[var(--text-primary)]">
+                Declaration of Originality
+              </h2>
+              <p>
+                At submission, the corresponding author must confirm that:
+              </p>
+              <div className="p-4 rounded-xl border border-[var(--border-subtle)] bg-[var(--bg-card)] text-xs space-y-1.5">
+                <p>• The manuscript is original and has not been published previously in substantially similar form.</p>
+                <p>• The manuscript is not currently under consideration by another publication outlet.</p>
+                <p>• All sources, quotations, data, and intellectual contributions have been appropriately cited and acknowledged.</p>
+              </div>
+            </section>
+
+            {/* Section 14: Peer Review */}
+            <section id="peer-review" className="space-y-3 border-t border-[var(--border-subtle)] pt-8">
+              <div className="flex items-center gap-2 text-xs font-mono font-bold uppercase text-[var(--accent-gold)]">
+                <span>Section 14</span>
+              </div>
+              <h2 className="font-serif text-2xl font-bold text-[var(--text-primary)]">
+                Peer Review Process
+              </h2>
+              <p>
+                All manuscripts that pass the journal's initial editorial screening may be subjected to <strong>double-blind peer review</strong>, unless the Editorial Board determines that another review model is appropriate for a particular contribution. Passing the initial screening does not guarantee peer review or publication.
+              </p>
+              <div className="p-4 rounded-xl border border-[var(--border-subtle)] bg-[var(--bg-card)]">
+                <span className="text-xs font-bold font-sans text-[var(--text-primary)] block mb-2">
+                  During the initial screening, the Editorial Office assesses:
+                </span>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs font-mono text-[var(--text-secondary)]">
+                  <div>1. Relevance to aims &amp; scope</div>
+                  <div>6. Ethical compliance</div>
+                  <div>2. Originality of contribution</div>
+                  <div>7. Plagiarism &amp; similarity check</div>
+                  <div>3. Scholarly &amp; theoretical contribution</div>
+                  <div>8. AI-use compliance (&lt; 10%)</div>
+                  <div>4. Methodological quality &amp; rigor</div>
+                  <div>9. Citation and referencing (APA 7th)</div>
+                  <div>5. Academic writing &amp; coherence</div>
+                  <div>10. Adherence to formatting requirements</div>
+                </div>
+              </div>
+            </section>
+
+            {/* Section 15: Language and Academic Writing */}
+            <section id="language" className="space-y-3 border-t border-[var(--border-subtle)] pt-8">
+              <div className="flex items-center gap-2 text-xs font-mono font-bold uppercase text-[var(--accent-gold)]">
+                <span>Section 15</span>
+              </div>
+              <h2 className="font-serif text-2xl font-bold text-[var(--text-primary)]">
+                Language and Academic Writing
+              </h2>
+              <p>
+                Manuscripts should be written in clear, precise, formal academic English. Authors are responsible for ensuring grammatical accuracy, coherence, terminology, and readability.
+              </p>
+              <p>
+                The journal encourages inclusive and respectful scholarly language and discourages language that is unnecessarily discriminatory, stigmatising, sensationalist, or unsupported by evidence.
+              </p>
+            </section>
+
+            {/* Section 16: Submission Checklist (DARK LUXURY CARD) */}
+            <section id="checklist" className="space-y-4 border-t border-[var(--border-subtle)] pt-8 pb-12">
+              <div className="p-6 sm:p-8 rounded-3xl border border-slate-800 bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950 text-white space-y-4 shadow-xl relative overflow-hidden">
+                <div className="absolute top-0 right-0 w-80 h-80 bg-amber-500/5 rounded-full blur-3xl pointer-events-none" />
+
+                <div className="space-y-1 relative z-10 border-b border-slate-800 pb-3">
+                  <h2 className="font-serif text-2xl font-bold text-white tracking-tight">
+                    Submission Checklist
+                  </h2>
+                  <p className="text-xs text-slate-300 font-serif">
+                    Authors must verify and adhere to each requirement before submitting their manuscript:
+                  </p>
+                </div>
+
+                <div className="space-y-2 p-4 sm:p-5 rounded-2xl border border-slate-800 bg-slate-900/90 relative z-10">
+                  {checklistItems.map((item, idx) => (
+                    <div
+                      key={idx}
+                      className="flex items-start gap-3 p-2 rounded-lg hover:bg-slate-800/80 transition-colors"
+                    >
+                      <span className="w-5 h-5 rounded-full bg-amber-500/20 text-amber-400 border border-amber-500/30 font-mono text-[10px] flex items-center justify-center font-bold shrink-0 mt-0.5">
+                        {idx + 1}
+                      </span>
+                      <span className="text-xs text-slate-200 font-sans leading-relaxed">
+                        {item}
+                      </span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </section>
 
           </div>
         </div>
@@ -1348,7 +1355,7 @@ Editorial Desk: editor@thecsrjournal.com
           <ManuscriptTracker />
 
           <div className="p-6 rounded-2xl border border-[var(--border-strong)] bg-[var(--bg-card)] space-y-6 shadow-md">
-            
+
             {/* Form Top Instruction */}
             <div className="space-y-1.5 border-b border-[var(--border-subtle)] pb-4">
               <h2 className="font-serif text-xl font-bold text-[var(--text-primary)]">
@@ -1368,7 +1375,7 @@ Editorial Desk: editor@thecsrjournal.com
             )}
 
             <form onSubmit={handleSubmitForm} className="space-y-6">
-              
+
               {/* 1. SUBMITTING AUTHOR INFORMATION */}
               <div className="space-y-4">
                 <div className="flex items-center gap-2 text-xs font-mono font-bold uppercase text-[var(--accent-gold)] border-b border-[var(--border-subtle)] pb-1.5">
@@ -1435,9 +1442,8 @@ Editorial Desk: editor@thecsrjournal.com
                             />
                             <span className="font-semibold text-xs">{selectedCountry.code}</span>
                             <ChevronDown
-                              className={`w-3 h-3 text-[var(--text-muted)] transition-transform duration-200 ${
-                                isCountryDropdownOpen ? 'rotate-180' : ''
-                              }`}
+                              className={`w-3 h-3 text-[var(--text-muted)] transition-transform duration-200 ${isCountryDropdownOpen ? 'rotate-180' : ''
+                                }`}
                             />
                           </button>
 
@@ -1484,11 +1490,10 @@ Editorial Desk: editor@thecsrjournal.com
                                     const truncated = rawPhoneDigits.slice(0, newMax);
                                     setAuthorPhone(new AsYouType(c.country as CountryCode).input(truncated));
                                   }}
-                                  className={`w-full flex items-center justify-between px-3 py-1.5 text-xs hover:bg-[var(--accent-gold)]/10 text-left transition-colors cursor-pointer ${
-                                    selectedCountry.country === c.country && selectedCountry.code === c.code
+                                  className={`w-full flex items-center justify-between px-3 py-1.5 text-xs hover:bg-[var(--accent-gold)]/10 text-left transition-colors cursor-pointer ${selectedCountry.country === c.country && selectedCountry.code === c.code
                                       ? 'bg-[var(--accent-gold)]/15 font-semibold text-[var(--accent-navy)] dark:text-[var(--accent-gold)]'
                                       : 'text-[var(--text-primary)]'
-                                  }`}
+                                    }`}
                                 >
                                   <div className="flex items-center gap-2 truncate">
                                     <ReactCountryFlag
@@ -1869,13 +1874,12 @@ Editorial Desk: editor@thecsrjournal.com
                         if (validationError) setValidationError('');
                       }}
                       placeholder="Enter code"
-                      className={`w-24 text-xs p-2 rounded-lg border bg-[var(--bg-page)] text-[var(--text-primary)] font-mono tracking-wider focus:outline-hidden focus:ring-1 ${
-                        userCaptcha.length === 4
+                      className={`w-24 text-xs p-2 rounded-lg border bg-[var(--bg-page)] text-[var(--text-primary)] font-mono tracking-wider focus:outline-hidden focus:ring-1 ${userCaptcha.length === 4
                           ? userCaptcha === captchaCode
                             ? 'border-emerald-500 text-emerald-600 focus:ring-emerald-500'
                             : 'border-red-500 text-red-600 focus:ring-red-500'
                           : 'border-[var(--border-subtle)] focus:ring-[var(--accent-navy)]'
-                      }`}
+                        }`}
                     />
                     {userCaptcha.length === 4 && userCaptcha === captchaCode && (
                       <Check className="w-3.5 h-3.5 text-emerald-500 absolute right-2 top-2.5 pointer-events-none" />

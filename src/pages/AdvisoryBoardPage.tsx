@@ -160,12 +160,14 @@ export const AdvisoryBoardPage: React.FC = () => {
       email: "sony@cug.ac.in",
       photo: "/advisory-board/Prof.(Dr.)SonyKunjappan.jpg"
     },
+    /* Temporarily hidden pending professional mail
     {
       name: "Prof. (Dr.) Priya Sepaha",
       designation: "Professor of Law",
       institution: "National Law Institute University (NLIU), Bhopal",
       photo: "/advisory-board/Prof.(Dr)PriyaSepaha.jpeg"
     },
+    */
     {
       name: "Dr. Md. Shabbir Alam",
       designation: "Professor of Finance & Economics",

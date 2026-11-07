@@ -60,21 +60,25 @@ export const CONTACT_DETAILS = {
   editorialOffice: {
     title: "Editorial Office",
     email: "editor@thecsrjournal.com",
+    altEmail: "thecrimeandsocietyreview@gmail.com",
     phone: "",
     address: "Lavad Dahegam, Gandhinagar, Gujarat, Pincode - 382305 / India"
   },
   submissions: {
     title: "Submissions & Editorial Triage",
     email: "editor@thecsrjournal.com",
+    altEmail: "thecrimeandsocietyreview@gmail.com",
     deskHours: "Monday – Saturday, 09:30 AM – 06:00 PM IST"
   },
   reviewers: {
     title: "Reviewer & Editorial Board Enquiries",
-    email: "editor@thecsrjournal.com"
+    email: "editor@thecsrjournal.com",
+    altEmail: "thecrimeandsocietyreview@gmail.com"
   },
   publisher: {
     title: "Publisher & Institutional Relations",
     email: "editor@thecsrjournal.com",
+    altEmail: "thecrimeandsocietyreview@gmail.com",
     entity: "The Crime & Society Review Press"
   }
 };
