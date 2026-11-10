@@ -214,11 +214,11 @@ export const ArchivePage: React.FC = () => {
                     href="/currentissue/Content-vol-1-oct-dec-2026.pdf"
                     target="_blank"
                     rel="noopener noreferrer"
-                    download="Content-vol-1-oct-dec-2026.pdf"
                     className="px-4 py-2 rounded-xl border border-[var(--border-subtle)] bg-[var(--bg-page)] hover:bg-[var(--bg-card-hover)] text-[var(--text-primary)] font-semibold text-xs flex items-center gap-1.5 shadow-2xs transition-all"
+                    title="Open PDF in new tab"
                   >
-                    <Download className="w-3.5 h-3.5 text-amber-500" />
-                    <span>Download Issue Contents PDF</span>
+                    <FileText className="w-3.5 h-3.5 text-amber-500" />
+                    <span>View Issue Contents (PDF)</span>
                   </a>
                 </div>
 
@@ -334,11 +334,11 @@ export const ArchivePage: React.FC = () => {
                       href={article.pdfUrl}
                       target="_blank"
                       rel="noopener noreferrer"
-                      download
                       className="px-3 py-1.5 rounded-lg bg-[var(--accent-gold)] hover:bg-[var(--accent-gold-hover)] text-slate-950 font-bold inline-flex items-center gap-1 shadow-2xs transition-colors"
+                      title="Open PDF in new tab"
                     >
-                      <Download className="w-3 h-3" />
-                      <span>Download PDF ({article.pages} pp.)</span>
+                      <FileText className="w-3 h-3" />
+                      <span>View PDF ({article.pages} pp.)</span>
                     </a>
 
                     <button

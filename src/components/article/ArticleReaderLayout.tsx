@@ -356,15 +356,15 @@ export const ArticleReaderLayout: React.FC<ArticleReaderLayoutProps> = ({ articl
                 <ChevronDown className={`w-3 h-3 text-[var(--text-muted)] transition-transform duration-200 ${showTocDropdown ? 'rotate-180' : ''}`} />
               </button>
 
-              {/* PDF Download Button */}
+              {/* PDF Viewer Button (Opens in New Tab) */}
               <a
                 href={article.pdfUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                download
                 className="px-3 py-1.5 rounded-lg bg-[var(--accent-gold)] hover:bg-[var(--accent-gold-hover)] text-slate-950 font-semibold flex items-center gap-1.5 shadow-xs transition-colors shrink-0"
+                title="Open PDF in new tab"
               >
-                <Download className="w-3.5 h-3.5" />
+                <FileText className="w-3.5 h-3.5" />
                 <span>PDF/EPUB</span>
               </a>
 
@@ -693,11 +693,11 @@ export const ArticleReaderLayout: React.FC<ArticleReaderLayoutProps> = ({ articl
               href={article.pdfUrl}
               target="_blank"
               rel="noopener noreferrer"
-              download
               className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-[var(--accent-gold)] text-slate-950 font-bold hover:bg-[var(--accent-gold-hover)]"
+              title="Open PDF in new tab"
             >
-              <Download className="w-3.5 h-3.5" />
-              <span>Download Original PDF</span>
+              <FileText className="w-3.5 h-3.5" />
+              <span>View Full PDF</span>
             </a>
           </div>
         </div>
