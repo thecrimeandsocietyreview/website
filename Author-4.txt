@@ -1,0 +1,606 @@
+ 
+The Crime & Society Review Rethinking Crime, Justice & Society 
+Emerging Perspectives for the 21st Century 
+Volume I ; Issue I (Oct-Dec/2026)  
+Online/Fortnightly/Multi-Disciplinary/English/2026  
+Missing, Murdered, and Marginalized: Racial Disparities in Media 
+Coverage of  Missing and Murdered Women 
+Acceptance:  Nov 07, 2026 ; Publication: Nov 10, 2026 
+Emily Zapisocki 
+Masters Student, Thompson Rivers University, Faculty of  Arts, Kamloops, Canada 
+Kamloops, Canada 
+Email: ezapisoc@ualberta.ca 
+Abstract 
+The news media plays a significant part in informing public opinion through their characterizations of  
+different people. With victimization, the news media perpetuates ideas of  who is synonymous with the 
+ideal victim, subsequently influencing which missing person cases gain attention in the news media. 
+Framed within theories of  implicit bias and intersectionality, the research investigates if  the differential 
+demographic makeups between victims’ impact how the news media reports on the story and which 
+stories are deemed important. Through the utilization of  critical discourse analysis and content analysis, 
+it was found that the news media is significantly more likely to both report on cases of  missing white 
+women when compared with missing Indigenous women as well as more likely to blame Indigenous 
+women for their victimization. 
+Keywords: News Media Reporting, Biases, Mixed-Methods, Content Analysis, Discourse Analysis, 
+Missing White Woman Syndrome, MMIWG, Crime Victims 
+1. Introduction 
+The news media is any organization that gathers, writes, and disseminates online mass communication 
+about current events, including online news outlets and social media platforms. This accounts for both 
+officially recognized online and social media outlets, in addition to more informal news media groups. 
+The news media plays a crucial role in shaping public discourse and opinion. Through their 
+characterizations of  different people, they can create and reinforce stereotypes. With this, an 
+investigation is needed into the power wielded by media institutions and the role they play in 
+perpetuating hierarchical depictions of  different bodies. Like every institution, society built the media 
+within a racialized, gendered, and colonial framework. As such, they reinforce specific notions. These 
+narratives work to reproduce the systems of  power in which they thrive. Thus, through an investigation 
+into Missing White Woman Syndrome and the Missing and Murdered Indigenous Women and Girls 
+epidemic, the origins and evolution of  this hierarchy will be explored. This will be further explored 
+through a critical discourse and content analysis of  the prevalence of, and vocabulary used within white 
+versus Indigenous stories. Ultimately, the media perpetuates specific notions of  white versus 
+Indigenous women and, as such, works to reinforce socially constructed ideas of  race. This reveals that 
+society sees white bodies as more valuable than Indigenous bodies. This is what the proposed research 
+aims to investigate further through the following research question: How do differential demographics 
+between victims impact what missing person cases are prioritized and how the victim is portrayed in 
+the news media? 
+59
+ 
+The Crime & Society Review Rethinking Crime, Justice & Society 
+Emerging Perspectives for the 21st Century 
+Volume I ; Issue I (Oct-Dec/2026)  
+Online/Fortnightly/Multi-Disciplinary/English/2026  
+1. Literature Review 
+Missing White Woman Syndrome refers to the overabundance of  media coverage dedicated to missing 
+person cases involving white women and the correlating lack of  coverage of  missing racialized women 
+(Furey et al. 2023, 1541). It also refers to the media’s tunnel-vision focus on young, white, attractive, 
+and rich women (Moss 2019, 741; Slakoff  and Fradella 2019, 81). Society views the disappearances of  
+white women as an attack on itself  due to how it positions them within a larger social context. This 
+pushes the media to prioritize their stories, mobilizing entire societies to look for the person. In 
+contrast, the media is less likely to write stories about Indigenous women, and when they do, the stories 
+often perpetuate specific stereotypes. They are framed with stigmatizing high-risk narratives that 
+associate Indigenous women with sex work and substance abuse to reduce perceived newsworthiness 
+and blame the victim (Moeke-Pickering et al. 2018, 57). This paints a picture of  what an appropriate 
+victim looks like, normalizing the disappearances of  Indigenous women (Furey et al. 2023, 1542; Razak 
+2000, 106; Razak 2016, 298). Even when cases of  Indigenous women going missing reach the media, 
+outlets frequently paint them in a negative light and blame them for their disappearances (Razak 2016, 
+298). Also, within the coverage, media outlets do not humanize missing racialized women in the same 
+way that they humanize white women, leading to the belief  that white women possess more value than 
+their racialized counterparts (Razak 2016, 291; Slakoff  and Fradella 2019, 82).  
+Based on the longstanding history of  colonialization, Indigenous women and girls have been going 
+missing for decades with little to no public acknowledgement. Colonial violence, racism, and 
+oppression connect thousands of  missing Indigenous women and girls (Macklin 2021, 1090-91; 
+National Inquiry into Missing and Murdered Indigenous Women and Girls 2019, 4).  Mainstream 
+culture largely fails to acknowledge the connected forms of  violence that Indigenous women 
+experience. Authorities have conducted no investigation comparable to those for missing white women, 
+and the public shows little awareness of  the genocide (Macklin 2021, 1089-90; Simpson 2016, 4). While 
+there would be public outrage if  these acts had been committed against white bodies, popular 
+narratives continue to portray Indigenous people as lesser humans to justify the minuscule amounts of  
+media attention that outlets give to Indigenous women (Alexander 2010, 98; Macklin 2021, 1104; Razak 
+2016, 291). The silence surrounding this crisis exemplifies Judith Butler’s assertion that what is 
+speakable in the public sphere is related to who is framed as human and whose deaths are counted as 
+grievable (Macklin 2021, 1090). Based on this, decolonial theorists have shown that the category of  the 
+human has always failed to account for gendered and racialized bodies, amplifying the intersectional 
+nuance of  the issue (Macklin 2021, 1090; National Inquiry into Missing and Murdered Indigenous 
+Women and Girls 2019, 37). 
+Despite popular narratives, it is becoming increasingly clear that Canada as a post-colonial state is a 
+myth. Since Canadian society was built within coloniality, racism continues to embed itself  within the 
+social infrastructure. Race-based ideas and racism persist because these notions built the very structures 
+in which Canadians live (National Inquiry into Missing and Murdered Indigenous Women and Girls 
+2019, 4). Based on the desire to separate modern society from its colonial past, many institutions have 
+60
+ 
+The Crime & Society Review Rethinking Crime, Justice & Society 
+Emerging Perspectives for the 21st Century 
+Volume I ; Issue I (Oct-Dec/2026)  
+Online/Fortnightly/Multi-Disciplinary/English/2026  
+adopted a colour-blind approach to racism. While some may feel that this is a step in the right direction, 
+race-neutral theories work to reproduce racial lines and disadvantage Indigenous individuals (Midzain-
+Gobin and Smith 2020, 484). By adopting colour-blindness, institutions fail to recognize and 
+accommodate intersectional, colonial experiences. The political, social, and economic world situates 
+women of  colour in a way that fundamentally differs from white women or racialized men; as such, 
+women of  colour experience racism in a way that is different from their male counterparts and face 
+sexism that is not directly comparable to white women (Crenshaw 1991, 1252). Thus, other dimensions 
+of  identity, like race and class, fundamentally situate the violence that some women experience, making 
+intervention strategies centered around only one facet of  their identity ineffective in eliminating the 
+violence against them (Crenshaw 1991, 1242, 1246). This further perpetuates a hierarchy where society 
+only caters to the normative white experience (Midzain-Gobin and Smith 2020, 479). This enables and 
+promotes an inaccurate depiction of  Canada, one that erases the ongoing recreation of  settler 
+colonialism (Midzain-Gobin and Smith 2020, 479).  
+The phenomenon of  Missing White Woman Syndrome can be further understood through a case study 
+of  Gabby Petito, a young white woman who went missing and was eventually found to be murdered by 
+her boyfriend. In 2021, Gabby and her boyfriend were travelling across the United States in their van 
+when Gabby disappeared (Furey et al. 2023). She was a low-level influencer who was largely unknown 
+to the average person. Yet upon going missing, her online profile grew substantially. The media quickly 
+latched onto Gabby’s case, and the story spread around the world in an instant. This not only pushed 
+the police to dedicate vast resources to finding her but also motivated the public to take the search into 
+their own hands. Gabby’s name spread like wildfire. This prompted a couple who had been camping in 
+a similar area to Gabby to search their camera footage (Chang-Yeh 2022, 2). In doing so, they found a 
+video of  Gabby’s van, ultimately leading the police to her body (Romano as cited in Chang-Yeh 2022, 
+2). As a result, within 8 days of  her disappearance, Gabby’s body was found along with a journal in 
+which her boyfriend had written his confession (Furey et al. 2023, 1538). It is due to the vast media 
+attention afforded to Gabby that an otherwise unrelated member of  the public was able to play a 
+significant role in her case.  
+This phenomenon is also evident in the case of  Natalee Holloway, a young white woman who went 
+missing in 2005 while on a school trip to Aruba. Leaving the bar one night, Natalee was seen getting 
+into a car with a group of  young local men and was never seen again (Tucker 2009, 72). Following her 
+disappearance, and for many years after, the media homed in on Natalee’s case. Countless articles were 
+released spreading awareness of  Natalee’s case and urging the public to share any information that 
+could help in finding her (Tucker 2009, 71). While not all the media attention was positive, there was 
+nonetheless ample media attention, so word of  Natalee’s disappearance spread. 20 years later, her body 
+has never been found, no one has officially been charged, and Natalee has been declared deceased, yet 
+she remains a popular topic for news media and television documentaries (Moss 2019, 746). Online 
+chat forums and interactive websites continue to garner attention for Natalee’s case years later as people 
+discuss her disappearance with hopes of  solving the case themselves (Tucker 2009, 71-2). Despite the 
+61
+ 
+The Crime & Society Review Rethinking Crime, Justice & Society 
+Emerging Perspectives for the 21st Century 
+Volume I ; Issue I (Oct-Dec/2026)  
+Online/Fortnightly/Multi-Disciplinary/English/2026  
+years that have gone by, society, and consequently the media, continue to latch on to Natalee’s 
+disappearance, novelizing her and influencing who is seen as newsworthy.  
+In contrast to the media attention given to Gabby and Natalee, the cases of  Cindy Gladue and Pamela 
+George highlight stark disparities. Cindy Gladue, an Indigenous woman living in Edmonton, went 
+missing in 2011. Ultimately, when found, it was concluded that Cindy had been murdered by a white 
+male truck driver after paying for her services as a sex worker (Makepeace 2023, 1; Razak 2016, 286). 
+Cindy was found having bled to death after the offender left an 11-centimeter wound in her vagina 
+(Madigan et al. 2025, 120). Unlike Gabby and Natalee, little media attention was initially afforded to 
+Cindy, and it was only after a controversial court even that coverage increased. Even then, the coverage 
+overtly blamed Cindy for her victimization and blatantly ignored the dehumanization that she faced 
+(Razak 2016, 287-88). Labels such “as ‘native,’ ‘hooker’, and ‘prostitute’” (Madigan et al. 2025, 120) 
+were frequently used to justify the offender’s treatment of  Cindy and depict her as lesser. Cindy’s case 
+has been studied by many to investigate how colonialism continues to manifest through settlers’ 
+possessiveness towards Indigenous women’s bodies. How Cindy was treated via the media shows a 
+clearer picture of  the role the media plays in the dehumanization of  Indigenous women.   
+In 1995, Pamela George was murdered by two white men in Regina. Pamela was working as a sex 
+worker when the two men persuaded her to get into their car (Razack 2000, 92). After driving to an 
+isolated field, the men took turns beating Pamela, ultimately leaving her in the mud to die (Razack 2000, 
+92). Like Cindy’s case, racial stereotypes propagated narratives around Pamela’s death. These narratives 
+drew on the contrast between the space that Pamela came from, a space where violence was regular and 
+violations of  bodies routinely occurred, with the space that the offenders came from, one of  wealth, 
+whiteness, and privilege (Razack 2000, 93). The media reproduced biased narratives and created further 
+stereotypes where ‘Indigenous woman’ was synonymous with ‘sex-worker’, thus validating the 
+degradation of  her body. Through this, the media reduced Pamela to a lower-class body that was to be 
+paid for, used, and disposed of. This reinforced the offenders’ identities as superior white men.  
+The media ignored the intersectional nature of  Cindy and Pamela’s victimization and failed to account 
+for the ongoing legacy of  colonialism that impacted their cases. By not contextualizing their 
+positionalities as Indigenous women, the media left out the colonial and gendered entitlement that the 
+offenders felt towards their bodies (Razak 2016, 292-93). In ignoring both the historical and modern 
+contexts surrounding the crimes, the media replicated the colonial narratives that have subjugated, 
+dehumanized, and labelled Indigenous women as the other for decades (Makepeace 2023, 2; Razak 
+2016, 290; Simpson 2016, 14). The continued lack of  recognition of  missing and murdered Indigenous 
+women creates a cycle in which Indigenous bodies are viewed as less important than their white 
+counterparts. Society sees Indigenous bodies as disposable, whereas it depicts white bodies as 
+invaluable (Furey et al. 2023, 1542; Simpson 2016, 13; Slakoff  and Fradella 2019, 82). When society 
+sees them as lesser, the media is not as likely to cover their stories, further perpetuating the idea that 
+Indigenous women are not newsworthy. This reinforces a damaging cyclical process. Comprehensively, 
+genocidal pasts and colonial presents embed the lives and deaths of  Indigenous women in North 
+62
+ 
+The Crime & Society Review Rethinking Crime, Justice & Society 
+Emerging Perspectives for the 21st Century 
+Volume I ; Issue I (Oct-Dec/2026)  
+Online/Fortnightly/Multi-Disciplinary/English/2026  
+America; they are not random acts in an otherwise model state (Midzain-Gobin and Smith 2020, 487; 
+Razak 2000, 129; Simpson 2016, 13).  
+Looking more broadly, this epidemic also poses great barriers to legislative and policy action. Research 
+on Missing White Woman syndrome shows how the media influences public consciousness and crime 
+control policy (Furey et al. 2023, 1540; Slakoff  and Fradella 2019, 83). The media, as an institution, 
+plays a role in depicting what the public should consider a problem. This directly impacts policy. 
+Government officials are significantly more likely to implement reactionary policies on issues that the 
+public deems important. The common use of  language to paint narratives around white women as 
+perfect victims creates a moral panic within a society where the public puts pressure on governments to 
+implement policy changes. Moral panics occur when something is framed as a threat to societal values 
+and interests (Slakoff  and Fradella 2019, 83). The media, as well as other agents of  social control, 
+sensationalize these threats to manipulate what people see as an emergent issue (Slakoff  and Fradella 
+2019, 83). With this, the media can control what factors surrounding missing women people deduce to 
+be important, thus defining where the panic lies. This provides an important revelation when 
+attempting to dissect how institutions define who deserves societal panic.  
+3. Methodology 
+This research used a mixed-method approach incorporating both qualitative and quantitative methods 
+through content analysis and critical discourse analysis. This approach was chosen to utilize the benefits 
+of  both qualitative and quantitative research methods. 
+First, the quantitative content analysis provided a broad view by looking at what stories news 
+algorithms promote. For this, a Google search was conducted with the search words “missing women 
+in Canada in 2024 and 2025”. The results of  the search were then looked through. Notes were made 
+about the order of  the stories, as well as the number of  stories that addressed missing white versus 
+missing Indigenous women. For this, n=35 stories, which covered all the news articles about missing 
+women in 2024 and 2025 retrieved by the engine. Next, 5 online news outlets were scanned with the 
+search word “missing”. It was then looked at how many of  the top 10 search results were stories of  
+missing white women, stories of  missing Indigenous women, or unrelated news stories that had the 
+word “missing” in their headlines. Here, n=50, which accounts for the top 10 search results on each of  
+the 5 online news outlets used. These news outlets included: CBC, CTV News, City News, Global 
+News, and the Vancouver Sun. Next, the official statistics on missing people and homicides in Canada 
+in 2024 were pulled to compare the number of  news stories per race with the actual number of  missing 
+people. Interestingly, there were barriers to finding data on missing people in Canada that were sorted 
+by both race and gender, which will be further discussed later. Quantitative methodology was also used 
+to see the number of  articles written about each of  the previously discussed cases. For this, n=830, 
+which accounts for all the articles that came up when searches were made for Pamela George, Cindy 
+Gladue, Gabby Petito, and Natalee Holloway.  
+Next, the qualitative discourse analysis created a focused view on each specific article and how it 
+depicted different stories. A comparison between the vocabulary used in stories about white women 
+63
+ 
+The Crime & Society Review Rethinking Crime, Justice & Society 
+Emerging Perspectives for the 21st Century 
+Volume I ; Issue I (Oct-Dec/2026)  
+Online/Fortnightly/Multi-Disciplinary/English/2026  
+versus Indigenous women was conducted using the website Flourish Studio. Articles about missing 
+white woman were entered into the website to create a word bubble from the words used in the articles, 
+and the frequency with which certain words appeared. This was then done a second time with the 
+articles about missing Indigenous women. For this, the 28 articles about missing white women and the 
+7 articles about missing Indigenous women that were initially gathered above were reused. The two-
+word bubbles were then compared to identify the differences in the most frequently used words. 
+4. Limitations 
+Overall, the study had some limitations. This was largely due to the use of  secondary research and data 
+analysis. By only using pre-existing data, gaps in the research emerged, which made it difficult to 
+thoroughly apply the data to the research question. Since the research question was framed within the 
+context of  white women and Indigenous women, and the pre-existing data did not break down the 
+quantities of  missing women based on race, it was difficult to comprehensively analyze the data. This 
+means that some limitations arose when trying to directly compare the number of  news stories with the 
+number of  reported missing women based on race.  
+There was data on the number of  missing people in Canada in 2024 who were Indigenous. As well, it 
+was indicated what percentage of  these missing Indigenous people were women. So, while they did not 
+supply specific datasets on what percentage of  the total amount of  missing people were represented by 
+Indigenous women, this was roughly calculable by combining the percentages provided. Thus, while the 
+use of  secondary data is helpful in getting a general idea of  the statistics on missing people in Canada 
+in 2024, the lack of  specificity about how many missing women were Indigenous, white, or other races 
+created limitations for the research. It was not feasible to assume that the number of  missing women 
+subtracted by the number of  missing Indigenous women equalled the number of  missing white women 
+because this would not account for the possibility of  missing women in Canada who were neither white 
+nor Indigenous.  
+Further, the data supplied by Statistics Canada is not comprehensive, as a vast majority of  missing 
+persons cases in Canada go unreported both to the police and by the police to government information 
+collection agencies. In fact, according to the National Centre for Missing Persons and Unidentified 
+Remains, anywhere from “25%-75% of  missing persons reports made to police are not entered into the 
+Canadian Police Information System” (Canada’s Missing 2024, para.12), resulting in discrepancies 
+between the number of  missing person cases opened by police and the number reported to the 
+government.  
+Qualitatively, there are some limitations with the findings due to the number of  articles used. It was not 
+possible within the confines of  the project to thoroughly investigate every article written about missing 
+women in 2024 and 2025. Furthermore, barriers to finding articles arose because not every article was 
+retrieved by the algorithm. This was difficult to get around. Thus, the qualitative findings are not 
+comprehensive of  all the articles written across 2024 and 2025 on the subject.  
+5. Findings 
+64
+ 
+The Crime & Society Review Rethinking Crime, Justice & Society 
+Emerging Perspectives for the 21st Century 
+Volume I ; Issue I (Oct-Dec/2026)  
+Online/Fortnightly/Multi-Disciplinary/English/2026  
+Overall, it was found that there was a large discrepancy between the number of  news stories focused 
+on missing white women versus missing Indigenous women. Based on Table 1, among the 35 articles 
+retrieved when searching for missing women in 2024 and 2025, 80% of  the articles were about cases 
+involving white women. In contrast, only 20% regarded cases of  Indigenous women.  
+ 
+Table 2 highlights the differences in which news articles are pulled to the top and label as “relevant” or 
+“priority” when searching for the word “missing”.  The algorithms often prioritized articles unrelated 
+to missing people but containing the word “missing” in their headlines, as well as articles about missing 
+men. Among the websites that showed articles of  missing women, the results mirrored the general 
+Google search. Articles about missing white women were labelled as important at a ratio of  7:1 when 
+compared with missing Indigenous women.  
+ 
+Tables 3 and 4 were compiled from the data that Statistics Canada published about cases of  Missing 
+people in Canada in 2024 and homicides in Canada in 2024. Table 3 shows that of  the 35,109 missing 
+people advisories issued in 2024, 88% of  those alerts were issued for non-Indigenous people of  all 
+genders. Among the 35,109 people, 44.33% were women of  all races, and 12% were Indigenous people 
+of  all genders. Among those 4213 Indigenous people, a staggering 58.98% of  the alerts were for  
+65
+ 
+The Crime & Society Review Rethinking Crime, Justice & Society 
+Emerging Perspectives for the 21st Century 
+Volume I ; Issue I (Oct-Dec/2026)  
+Online/Fortnightly/Multi-Disciplinary/English/2026  
+Indigenous women (Canada’s Missing 2024, para.10), which means that 7.08% of  the total number of  
+alerts were for Indigenous women. Lastly, Table 4 shows the number of  homicides discovered in 
+Canada in 2024. Of  the total homicide victims in 2024, 28.59% were Indigenous (Government of  
+Canada 2025, table 1). Thus, as per Table 4, of  the total homicides in Canada in 2024, 9.01% were 
+Indigenous women despite them making up only 3.08% of  the total Canadian population as per the 
+2021 Canadian Census (Government of  Canada 2022, table 1).  
+ 
+Table 5 shows that when searching for news articles about Cindy Gladue and Pamela George, 160 and 
+70 articles, respectively, were pulled by the algorithms. In contrast, Gabby Petito and Natalee Holloway 
+had 300 articles each in the search results. Of  the total 830 articles that came up when searching for all 
+4 women, 27.71% of  the articles were written about the missing Indigenous women, whereas 72.28% 
+Source: Canada’s Missing. “2024 Fast Fact Sheet”. Last Modified March 6, 2025. https://canadasmissing.ca/pubs/2024/index-
+eng.htm.
+Sources: Statistics Canada. 2024. “Number of  Homicide Victims, by Indigenous Identity and Missing Person Status”. https://www150.statcan.gc.ca/
+t1/tbl1/en/tv.action?pid=3510012601; Statistics Canada. 2025. “Number, Percentage and Rate of  Homicide Victims by Gender and Indigenous 
+Identity”. https://www150.statcan.gc.ca/t1/tbl1/en/tv.action?pid=3510015601. 
+66
+ 
+The Crime & Society Review Rethinking Crime, Justice & Society 
+Emerging Perspectives for the 21st Century 
+Volume I ; Issue I (Oct-Dec/2026)  
+Online/Fortnightly/Multi-Disciplinary/English/2026  
+were written about the missing white women. Here, articles were written about missing white women 
+2.6 times more than they were written about missing Indigenous women. 
+ 
+Shifting to the qualitative findings, there is a large difference between the words frequently used by 
+journalists when writing stories about missing and murdered white women versus missing and 
+murdered Indigenous women. Looking at Figure 1, the words “lifestyle”, “environment”, and “health” 
+stood out as some of  the commonly used words. These words all imply some level of  blameworthiness 
+to the missing person, whether that blameworthiness is based on the person’s lifestyle choices, the 
+environment they were in, or their unsatisfactory health choices. Notably, the word “missing” is 
+missing. There appears to be a lack of  recognition that the person is missing if  they are Indigenous, but 
+rather justifications based on stereotypes that associate Indigenous people with unfavourable 
+environments and lifestyles, making their disappearance less newsworthy.  
+ 
+Figure 1: Word Bubble based on New Stories of  Missing Indigenous Women developed on 
+https://flourish.studio
+67
+ 
+The Crime & Society Review Rethinking Crime, Justice & Society 
+Emerging Perspectives for the 21st Century 
+Volume I ; Issue I (Oct-Dec/2026)  
+Online/Fortnightly/Multi-Disciplinary/English/2026  
+Figure 2 shows the most common words in articles about missing white women. In contrast to Figure 
+1, some of  the biggest words in Figure 2 include “missing”, “help”, and “last”. These are words that 
+one would generally associate with a missing person. The articles are quick to mention that the person 
+is missing and do not hesitate to frequently remind readers of  this through repetition of  the word. The 
+articles often include key details like the last time the missing person was seen, or who they were last 
+seen with, demonstrated by the prevalence of  the word “last”. The word “help” also appeared often, 
+indicating that the news articles frequently stressed the importance of  finding the missing person by 
+emphasizing how the public could assist. To reiterate, Figure 2 presents no surprises. It shows the 
+common words one would associate with a news article about a missing person. Yet these are words 
+that are evidently absent in Figure 1, and thus the articles about missing Indigenous women.  
+ 
+6. Discussion 
+Overall, it was found that, similarly to previous literature, there is a stark difference in the words used 
+by journalists when writing articles about missing white versus missing Indigenous women. Articles 
+about missing white women were more likely to literally inform the public that the person was missing. 
+The articles provided key details, like the last time the person was seen. They more frequently asked for 
+help, urged people to share a case, and rarely used any words that villainized the missing person. In 
+contrast, the discourse analysis revealed the prevalence of  words relating to the missing woman’s 
+lifestyle, environment, and life choices when the woman was Indigenous. The articles lacked words that 
+depicted the severity and urgency of  the case. They tended to infrequently mention that the woman 
+was missing. While this is what previous literature depicted, it is shocking to see not only what words 
+were selectively used for articles about Indigenous women, but also which important power words were 
+Figure 2: Word Bubble based on New Stories of  Missing White Women developed on https://
+flourish.studio 
+68
+ 
+The Crime & Society Review Rethinking Crime, Justice & Society 
+Emerging Perspectives for the 21st Century 
+Volume I ; Issue I (Oct-Dec/2026)  
+Online/Fortnightly/Multi-Disciplinary/English/2026  
+‘coincidentally’ nowhere to be found. The word bubble for missing Indigenous women’s articles shows 
+how race-based stereotypes are reproduced as the media blames Indigenous women’s victimization 
+through intentionally tailored stereotypes. 
+Also, certain cases were written about more than others. While searching both the internet and specific 
+news databases, the 2024 cases of  Kelsey Watt and Chantalle Moore had higher rates of  articles written 
+about them. Interestingly, these were both cases involving missing white women. Conversely, when 
+searching, none of  the cases involving missing Indigenous women had more than 1 article pulled by the 
+algorithms. Thus, it appears that while certain cases gain more traction in the media than others, these 
+cases always seem to involve a missing white woman.    
+This lack of  concern for missing Indigenous women is also seen in the quantitative results. Articles 
+written about missing Indigenous women occurred at a ratio of  1:4 when contrasted with missing white 
+women. This stark difference was also observed when searches for news articles about Cindy Gladue, 
+Pamela George, Natalee Holloway, and Gabby Petito were conducted. Similarly to above, there were 
+significantly more articles written about the missing white women than there were about the missing 
+Indigenous women. Further, the online algorithms were significantly less likely to categorize a news 
+article about a missing Indigenous woman as important. Since algorithms are powered by artificial 
+intelligence networks that inform them of  what to prioritize based on the average person’s priorities, 
+these search results reflect larger societal values. Since algorithms mirror society, if  the algorithm does 
+not feel that an article about an Indigenous woman is worth sending forward for people to see, this is 
+likely because people have programmed the algorithm to think this way. As well, there was a stark 
+difference in the number of  articles written about missing white versus Indigenous women. Similarly to 
+the algorithms, this demonstrates that journalists do not prioritize writing about Indigenous women. 
+Homicides of  Indigenous women account for 9.01% of  the total homicides in 2024, and cases of  them 
+going missing accounted for 7.08% of  the total missing people in Canada in 2024, despite Indigenous 
+women only making up 3.08% of  the total population (Government of  Canada 2022, table 1). This 
+means Indigenous women are being murdered 3 times more than what is proportional for their 
+population makeup and going missing 2.3 times more. Yet, despite these staggering numbers, which 
+indicate that Indigenous women are disproportionately affected by violence, the news media continues 
+to brush the epidemic aside and not prioritize their stories. 
+It is also important to recognize how difficult it was to find official Government of  Canada statistics on 
+missing people based on race. There was no online information about missing people in Canada 
+separated by race, and while there was some information about Indigenous identity, it was small, at the 
+bottom of  the website, and not incorporated into the larger depictions of  the results. This meant that it 
+was up to the reader to convert the percentage provided to properly understand the number of  missing 
+Indigenous people in 2024. As well, this left out any further classifications and made it difficult to 
+decipher how many missing people in Canada fell under different racial categories. Furthermore, while 
+the data was organized by gender, again, there were barriers to properly understanding what percentage 
+of  the missing women were Indigenous. Here, too, there was a small note that explained 59% of  the 
+69
+ 
+The Crime & Society Review Rethinking Crime, Justice & Society 
+Emerging Perspectives for the 21st Century 
+Volume I ; Issue I (Oct-Dec/2026)  
+Online/Fortnightly/Multi-Disciplinary/English/2026  
+overall larger Indigenous percentage was represented by women. Despite this, the onus is on the person 
+reading the results to conduct calculations and figure out how many Indigenous women went missing 
+and what percentage of  the total missing people were Indigenous women. While there was data on the 
+homicides of  Indigenous women, it is interesting to think about why, in the light of  the Truth and 
+Reconciliation’s 94 Calls to Action, data about missing Indigenous women is not being overtly 
+published. It is difficult to believe that the government is struggling to publish this data for any reason 
+other than to hide the results. It certainly fuels the idea that Canada is not as post-colonial as it wants 
+the public to think. 
+7. Conclusion  
+Comprehensively, this paper has worked to explore the issue of  Missing White Woman syndrome and 
+the impact it has had on societal perceptions of  Indigenous women. It has worked to explore how the 
+media reproduces biases of  Indigenous women by differentially assigning humanizing words to white 
+versus Indigenous women, as well as writing articles about missing Indigenous women at a lower rate. 
+With the growing prevalence of  the media and its continued influence, more people need to be taught 
+about its biases. The multifaceted way in which the media can simultaneously perpetuate racist 
+narratives while garnering sympathy for certain women demonstrates their influence. Without a proper 
+investigation into these echo chambers of  information, the public will continue to go down a path 
+where colonial and racialized histories are reproduced. Ultimately, it is through the meticulously chosen 
+narratives around missing women that racist stereotypes are reproduced; through this, institutions, like 
+the media, work to reinforce both a gendered and a racial hierarchy. 
+70
+ 
+The Crime & Society Review Rethinking Crime, Justice & Society 
+Emerging Perspectives for the 21st Century 
+Volume I ; Issue I (Oct-Dec/2026)  
+Online/Fortnightly/Multi-Disciplinary/English/2026  
+8. References 
+20.Aboriginal Alert. n.d. “2024 Missing Indigenous Alerts in Canada Review & Insights.” Accessed 
+November 9, 2025. https://www.aboriginalalert.ca/resources/2024-missing-indigenous-alerts-in-canada-
+review-insights. 
+21.Alexander, Michelle. 2010. “The Color of  Justice.” In The New Jim Crow: Mass Incarceration in the Age of  
+Colorblindness. The New Press.  
+22.“Australian Man Found Guilty of  Killing B.C.’s Tatiana Dokhotaru in Front of  Young Son” Global 
+News. n.d. Accessed November 9, 2025. https://globalnews.ca/news/11517088/australian-man-guilty-
+killing-bc-tatiana-dokhotaru/. 
+23.“B.C. First Nation Offers Reward for Information in Missing Woman Case.” n.d. Accessed November 9, 
+2025. https://www.ctvnews.ca/vancouver/article/bc-first-nation-offers-reward-for-information-in-
+missing-woman-case/. 
+24.CBC. 2024. “Man Arrested in Connection with Suspicious Disappearance of  Woman in Hemmingford, 
+Que.” CBC News, September 26. https://www.cbc.ca/news/canada/montreal/hemmingford-missing-
+person-investigation-update-1.7334925. 
+25.CBC. 2025. “Man Charged with Murder in Missing Woman's Homicide.” CBC News, May 25. https://
+www.cbc.ca/news/canada/ottawa/man-charged-with-murder-in-missing-woman-s-homicide-1.7543342. 
+26.CBC. 2025. “Man Arrested after Human Remains Found in Missing Woman's B.C. Home.” CBC News, 
+August 28. https://www.cbc.ca/news/canada/british-columbia/man-arrested-after-human-remains-
+found-in-missing-woman-s-b-c-home-1.7620567. 
+27.Chang-Yeh, Lark. 2022. " Missing White Woman Syndrome: A Historical and Sociological Look into the 
+Case of  Gabby Petito." UC Berkley. https://escholarship.org/uc/item/7qq295gk  
+28.“Cold Case: Missing Woman In Fort Frances, Ontario – Melanie Lapish, 35 – Last Seen February 26, 
+2024.” 2025. Ontario Cold Cases. Missing People Canada, October 12. https://missingpeople.ca/cold-case-
+missing-woman-in-fort-frances-ontario-melanie-lapish-35-last-seen-february-26-2024/. 
+29.Crawford, Emma. 2025. “Charges Laid in Case of  Langley Woman Missing since Last Year.” CityNews 
+Vancouver, October 31. https://vancouver.citynews.ca/2025/10/31/langley-bc-woman-homicide-charges-
+laid/. 
+30.Crenshaw, Kimberle. 1991. “Mapping the Margins: Intersectionality, Identity Politics, and Violence 
+against Women of  Color.” Stanford Law Review 43 (6): 1241-99. https://doi.org/10.2307/1229039.  
+31.Furey, Lauren, Jason Turcotte, Janean Sorrell, Nadia Urbina, Emily Frisan, and Nicolas Corrales. 2023. 
+“Miss(ing) Representation: Examining How Race Shaped News Coverage of  Missing Women 
+Surrounding Gabby Petito’s Disappearance.” Journalism Practice 1 9  ( 7 ) :  1 5 3 8 - 5 5 .  https://doi.org/
+10.1080/17512786.2023.2259378. 
+32.Garrett, Catherine. 2025. “Family of  Missing Indigenous Woman Hopeful New Billboard, Reward Could 
+Provide Answers.” CBC News, April 11. https://www.cbc.ca/news/canada/edmonton/missing-
+indigenous-woman-reward-1.7506043. 
+33.Global News. n.d. “Man Arrested after Missing Woman’s Body Discovered Southwest of  Montreal" 
+Montreal Global News Accessed November 9, 2025. https://globalnews.ca/news/10776945/man-
+arrested-missing-woman-body-southwest-montreal/. 
+34.Global News. n.d. “Man Charged with Killing Missing N.S. Woman Was Heading to Mexico: Police | 
+Globalnews.Ca.” Accessed November 9, 2025. https://globalnews.ca/news/10754196/suspicious-
+disappearance-esther-jones-nova-scotia/. 
+71
+ 
+The Crime & Society Review Rethinking Crime, Justice & Society 
+Emerging Perspectives for the 21st Century 
+Volume I ; Issue I (Oct-Dec/2026)  
+Online/Fortnightly/Multi-Disciplinary/English/2026  
+35.Globe and Mail. 2025. “Remains Found in B.C. Interior Identified as Nicole Bell, Woman Missing since 
+2017.” June 18. https://www.theglobeandmail.com/canada/british-columbia/article-nicole-bell-bc-
+interior-rcmp-remains-murder/. 
+36.Government of  Canada, Statistics Canada. 2022. “Profile Table, Census Profile, 2021 Census of  
+Population - Canada.” https://www12.statcan.gc.ca/census-recensement/2021/dp-pd/prof/index.cfm?
+Lang=E. 
+37.Government of  Canada, Statistics Canada. 2025. “Number of  Homicide Victims, by Indigenous Identity 
+and Missing Person Status.” https://www150.statcan.gc.ca/t1/tbl1/en/tv.action?pid=3510012601. 
+38.Government of  Canada, Statistics Canada. 2025. “Number, Percentage and Rate of  Homicide Victims, 
+by Gender and Indigenous Identity.” https://www150.statcan.gc.ca/t1/tbl1/en/tv.action?
+pid=3510015601. 
+39.“Human Remains Found in B.C. Home Are Missing Woman Jessica Cunningham.” n.d. Accessed 
+November 9, 2025. https://www.ctvnews.ca/vancouver/article/homicide-team-says-remains-found-in-
+bc-home-belong-to-missing-woman/. 
+40.“Investigators Name Person of  Interest in Disappearance of  Vancouver Island Woman.” n.d. Accessed 
+November 9, 2025. https://www.ctvnews.ca/vancouver/article/investigators-name-person-of-interest-
+in-disappearance-of-vancouver-island-woman/. 
+41.Jerrett, Andrea. 2025. “Man Charged with Manslaughter in Death of  Missing New Brunswick Woman.” 
+CTVNews, April 23. https://www.ctvnews.ca/atlantic/new-brunswick/article/man-charged-with-
+manslaughter-in-death-of-missing-new-brunswick-woman/. 
+42.Joyce, Shelley, and Andrew Kurjata. 2025. “RCMP Suspect Foul Play in Disappearance of  Jennifer 
+Provencal.” CBC News, October 10. https://www.cbc.ca/news/canada/british-columbia/jennifer-
+provencal-missing-9.6935365. 
+43.Law, Sarah. 2025. “Ontario Offers $50K Reward for Information on Missing Woman from Fort 
+Frances.” CBC News, March 10. https://www.cbc.ca/news/canada/thunder-bay/melanie-lapish-missing-
+woman-fort-frances-1.7479433. 
+44.Macklin, Rebecca. 2021. “Natural Violence, Unnatural Bodies: Negotiating the Boundaries of  the Human 
+in MMIWG Narratives.” Interventions: The International Journal of  Postcolonial Studies 23 (8): 1089–1105. 
+https://doi.org/10.1080/1369801X.2020.1816848. 
+45.Madigan, Brook, Natalie Snow, and Arsala Khan. 2025. “#JusticeforCindy: A Content Analysis of  Legacy 
+a n d S o c i a l M e d i a .” Journal of Ethnicity in Criminal Justice  23  (2):  118–40.  
+doi:10.1080/15377938.2025.2485889.  
+46.Makepeace, Jay. 2023. “The Media’s Representation of  Cindy Gladue: An Analysis.” Spectrum 10. https://
+doi.org/10.29173/spectrum160.  
+47.McNeil, Susan. n.d. “RCMP Major Crime Unit Investigates Case of  Woman Missing from Big River.” 
+paNOW. Accessed November 9, 2025. https://panow.com/2025/06/16/rcmp-major-crime-unit-
+investigates-case-of-woman-missing-from-big-river/. 
+48.Meiklejohn, Michelle. 2025. “Search for Missing Boater near Nanaimo Now a Missing Person Case.” 
+CityNews Vancouver, May 17. https://vancouver.citynews.ca/2025/05/17/nanaimo-missing-woman-boat-
+washes-ashore/. 
+49.Midzain-Gobin, Liam, and Heather A. Smith. 2020. “Debunking the Myth of  Canada as a Non-Colonial 
+Power.” American Review of Canadian Studies  5 0  ( 4 ) :  4 7 9 – 9 7 .  https://doi.org/
+10.1080/02722011.2020.1849329.  
+72
+ 
+The Crime & Society Review Rethinking Crime, Justice & Society 
+Emerging Perspectives for the 21st Century 
+Volume I ; Issue I (Oct-Dec/2026)  
+Online/Fortnightly/Multi-Disciplinary/English/2026  
+50.“Missing Woman in Edmonton, Alberta – Bobbie Rae Steinhauer, 34 – Last Seen September 9, 2025.” 
+2025. Missing in Alberta. Missing People Canada, November 7. https://missingpeople.ca/missing-woman-
+in-edmonton-alberta-bobbie-rae-steinhauer-34-last-seen-september-9-2025/. 
+51.“Missing Woman in Ferryland, Newfoundland – Ida Keough, 76 – Last Seen September 7, 2025” n.d. 
+Accessed November 9, 2025. https://missingpeople.ca/missing-woman-in-ferryland-newfoundland-ida-
+keough-76-last-seen-september-7-2025/. 
+52.Moeke-Pickering, Taima, Sheila Cote-Meek, and Ann Pegoraro. 2018. " Understanding the ways missing 
+and murdered Indigenous women are framed and handled by social media users." Media International 
+Australia 196 (1): 54-64. https://doi.org/10.1177/1329878X18803730    
+53.Moss, Jada L. 2019. “The Forgotten Victims of  Missing White Woman Syndrome: An Examination of  
+Legal Measures That Contribute to the Lack of  Search and Recovery of  Missing Black Girls and 
+Women.” William & Mary Journal of  Race, Gender & Social Justice  2 5  ( 3 ) :  7 3 7 – 6 4 .  https://
+research.ebsco.com/linkprocessor/plink?id=93932f04-2e7c-3e89-93b3-99fe1be0be81.   
+54.Mulcahy, Karyn. 2025. “SUV Belonging to Missing Woman Spotted in 3 Provinces: Police.” CTVNews, 
+July 19. https://www.ctvnews.ca/edmonton/article/suv-belonging-to-missing-woman-last-seen-in-
+edmonton-spotted-in-3-provinces-police/. 
+55.“Murder Charge Laid in Case of  Missing Woman Chantelle Moore.” n.d. Accessed November 9, 2025. 
+https://www.ctvnews.ca/vancouver/article/port-moody-man-charged-with-murder-indignity-to-human-
+remains-in-case-of-missing-woman/. 
+56.National Inquiry into Missing and Murdered Indigenous Women and Girls. 2019. “Reclaiming Power and 
+Place. Executive Summary of  the Final Report. National Inquiry into Missing and Murdered Indigenous 
+Women and Girls”. https://www.mmiwg-ffada.ca/wp-content/uploads/2019/06/
+Final_Report_Vol_1a-1.pdf. 
+57.“New Details Emerge in Missing Woman Case | CKPG Today.” n.d. Accessed November 9, 2025. 
+https://ckpgtoday.ca/2025/05/28/new-details-emerge-in-missing-woman-case/. 
+58.Razack, Sherene H. 2000. "Gendered Racial Violence and Spatialized Justice: The Murder of  Pamela 
+George," Canadian Journal of  Law and Society 15 (2): 91-130. https://doi.org/10.1017/
+S0829320100006384. 
+59.Razack, Sherene H. 2016. “Gendering Disposability”. Canadian Journal of  Women and the Law 28 (2): 
+285-307. University of  Toronto Press. https://doi.org/10.3138/cjwl.28.2.285.  
+60.“RCMP Suspect Foul Play in Disappearance of  Jennifer Provencal | CBC News.” n.d. Accessed 
+November 9, 2025. https://www.cbc.ca/news/canada/british-columbia/jennifer-provencal-
+missing-9.6935365. 
+61.Royal Canadian Mounted Police. n.d. “Missing Woman Last Seen in the Comox Valley.” Accessed 
+November 9, 2025. https://rcmp.ca/en/bc/comox-valley/news/2025/10/missing-woman-last-seen-
+comox-valley. 
+62.Staff  News. 2024. “Arrest Made in Case of  Missing Hemmingford Woman: SQ.” CityNews Montreal, 
+September 26. https://montreal.citynews.ca/2024/09/26/arrest-missing-hemmingford-woman-kelsey-
+watt/. 
+63.Staff  News. 2024. “‘We Have Our Answers’: Body of  Missing Woman Found in Saskatoon Landfill.” 
+CityNews Halifax, August 6. https://halifax.citynews.ca/2024/08/06/body-of-missing-woman-found-in-
+saskatoon-landfill-police-say-suspect-dead/. 
+64.Staff  News. 2024. “Missing Nova Scotia Woman Was Killed, Man Facing First-Degree Murder Charge: 
+RCMP .” CityNews Halifax, September 13. https://halifax.citynews.ca/2024/09/13/police-to-update-
+investigation-into-suspicious-case-of-missing-n-s-woman/. 
+73
+ 
+The Crime & Society Review Rethinking Crime, Justice & Society 
+Emerging Perspectives for the 21st Century 
+Volume I ; Issue I (Oct-Dec/2026)  
+Online/Fortnightly/Multi-Disciplinary/English/2026  
+65.Steacy, Lisa. 2024. “B.C. First Nation Offers Reward for Information in Missing Woman Case.” 
+CTVNews, September 8. https://www.ctvnews.ca/vancouver/article/bc-first-nation-offers-reward-for-
+information-in-missing-woman-case/. 
+66.Simpson, Audra. 2016. “The State is a Man: Theresa Spence, Loretta Saunders and the Gender of  Settler 
+Sovereignty”. John Hopkins University Press 19 (4). https://muse.jhu.edu/article/633280. 
+67.Slakoff, Danielle C., and Henry F. Fradella. 2019. “Media Messages Surrounding Missing Women and 
+Girls: The ‘Missing White Woman Syndrome’ and Other Factors That Influence Newsworthiness.” 
+Criminology, Criminal Justice, Law and Society 20 (3): 80-102. https://research.ebsco.com/linkprocessor/
+plink?id=776beb8b-bda4-35c6-9209-ef409febdcb2. 
+68.Trevithick, Matthew. 2024. “No More Secrets; Volunteer Group Urges in Disappearances of  Two 
+London Women.” CBC News, October 7. https://www.cbc.ca/news/canada/london/no-more-secrets-
+volunteer-group-urges-in-disappearances-of-two-london-women-1.7344484. 
+69.Tucker, Elizabeth. 2009. “Guardians of the Living: Characterization of Missing Women on the Internet.” 
+In Folklore and the Internet: Vernacular Expression in a Digital World, edited by Trevor J. Blank, 67–79. University 
+Press of  Colorado. https://doi.org/10.2307/j.ctt4cgrx5.6.  
+70.Vancouver Sun. n.d. “Murder Charges Laid in Case of  Missing Surrey Woman Chantelle Moore.” 
+Accessed November 9, 2025. https://vancouversun.com/news/murder-charges-laid-in-case-of-missing-
+surrey-woman-chantelle-moore. 
+71.“Woman, 3-Year-Old Boy Found Dead in Missing Persons Case: N.S. Police | Globalnews.Ca.” n.d. 
+Accessed November 9, 2025. https://globalnews.ca/news/10320382/ns-missing-toddler-lucas-robert-
+cooper/. 
+72.“2024 Fast Fact Sheet.” 2025. February 24. https://canadasmissing.ca/pubs/2024/index-eng.htm. 
+74

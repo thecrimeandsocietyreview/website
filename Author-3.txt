@@ -1,0 +1,380 @@
+ 
+The Crime & Society Review Rethinking Crime, Justice & Society 
+Emerging Perspectives for the 21st Century 
+Volume I ; Issue I (Oct-Dec/2026)  
+Online/Fortnightly/Multi-Disciplinary/English/2026  
+Expectancy Calculations, Hygiene Expectations, and Task Productivity: A 
+Quantitative Appraisal of  Salary Adjustments in Selected Nigerian 
+Pharmaceutical Manufacturing Enterprises 
+Acceptance:  Nov 02, 2026 ; Publication: Nov 10, 2026 
+Adewumi Adewale Emmanuel 
+Department of  Sociology, Faculty of  Social and Management Sciences, Wesley 
+University, Ondo, Nigeria / Research Center on Work Environment 
+Ondo, Ondo State, Nigeria 
+Email: adewale.adewumi@wesleyuni.edu.ng  
+Abstract 
+The above study is a quantitative analysis of  the influence of  employees’ perception of  salary increase 
+policies on the motivational status and productivity of  operations in two major pharmaceutical 
+industries in Osun State, Nigeria namely: De-Shalom Pharmaceutical Laboratory Nigeria Limited (Ilesa) 
+and Sam-Ace Limited (Ede). The theoretical framework adopted for the study was based on the 
+expectancy theory by Victor Vroom (M=E×I×V) and Two-factor theory by Frederick Herzberg. The 
+sample used in the study comprises of  n=367 out of  N=4,501 members selected by Taro Yamane 
+method of  formula and stratified random sampling in production, quality control, administration, and 
+security departments. Quantitative data were gathered through a structured questionnaire with a four-
+point Likert scale using SPSS software version 28. Results show that salary is viewed as an important 
+hygiene factor, with its absence leading to extreme dissatisfaction and demotivation among workers as 
+53.6% of  the respondent’s report lack of  procedural clarity and fairness in current wage adjustment (x 
+̅=1.85). Nevertheless, when salary increments are seen as possible rewards tied to performance, there is 
+a huge increase in expectations and instrumentality perceptions, leading to increased levels of  work 
+effort (80.3%), job dedication (62.9%) and daily task effectiveness (72.7%). The study concludes that 
+salary increments should be implemented in a manner that is transparent as motivation rewards based 
+on merit and not just maintenance rewards arbitrarily. 
+Keywords: Salary Increase, Expectancy Theory, Herzberg Two-Factor Theory, Employee Motivation, 
+Operational Productivity, Hygiene Factors, Pharmaceutical Industry. 
+1. Introduction 
+Organizational management of  employee compensation continues to be one of  the core pillars of  
+organizational success, talent retention, and labor relations in the current environment of  developing 
+nations (Abbah, 2014; Adeyemi & Ojo, 2024). In the case of  Nigeria, macroeconomic instability, high 
+rates of  inflation, and devaluation of  currency have continued to reduce the purchasing power of  the 
+populace, thus making salary management an important aspect of  organizational assessment (Adanlawo 
+& Nkomo, 2023; Dajo & Akor, 2022). When salary structures do not reflect economic realities or are 
+opaque in nature, organizations typically end up having low morale and high labor turnover. 
+50
+ 
+The Crime & Society Review Rethinking Crime, Justice & Society 
+Emerging Perspectives for the 21st Century 
+Volume I ; Issue I (Oct-Dec/2026)  
+Online/Fortnightly/Multi-Disciplinary/English/2026  
+Pharmaceutical Manufacturing Industry in South-Western Nigeria, represented by companies like De-
+Shalom Pharmaceutical Laboratory Nigeria Limited (in Ilesa, Osun State) and Sam-Ace Limited 
+(Gbongan-Ibadan Road, Ede, Osun State), is characterized by a very strict regulatory framework, which 
+involves accuracy, constant monitoring, and adherence to GMP (Good Manufacturing Practices) 
+(Alkandi et al., 2023). Adherence to high standards is mostly dependent on motivation, dedication, and 
+attention of  people working on factory floors, quality control specialists, and administrative staff  
+(Alkandi et al., 2023). However, the process of  wage evaluation in semi-urban manufacturing plants 
+tends to be perceived as opaque and inconsistent (Ali, 2020). 
+Although many past studies have considered the compensation structure, few empirical studies have 
+examined salary increments through the combined perspective of  Vroom's Expectancy Theory and 
+Herzberg's Motivation-Hygiene Theory in the Nigerian pharmaceutical manufacturing industry 
+(Sowunmi, 2024). The current study fills this void by exploring how pharmaceutical employees appraise 
+the process of  salary increments, compute the expectancy-instrumentality drivers and hygiene 
+expectations, and the effects of  these expectations on productivity and efficiency of  tasks performed 
+each day. 
+1.1 Research Questions 
+1.What are the perceptions of  employees regarding salary increase practices in De-
+Shalom Pharmaceutical Laboratory Nigeria Limited and Sam-Ace Limited? 
+2.How does salary increase influence employee motivation through the dual lens 
+of  expectancy calculations and motivator-hygiene dynamics? 
+3.In what ways do salary increments impact operational productivity and task 
+efficiency within the selected pharmaceutical manufacturing firms? 
+2. Review Of  Literature & Theoretical Framework 
+2.1 Conceptual Review 
+Salary Adjustments and Compensation Governance 
+The term salary increase can be defined as any increment made on the base monetary pay taking into 
+account performance appraisals, experience, cost of  living, or market-based increments (Alananzeh et 
+al., 2023; Adeyemi & Ojo, 2024). The pay governance is the system of  regulations, appraisal, and 
+communication that guide pay adjustments (John, 2024). In manufacturing environments, a good pay 
+governance system makes sure that employees understand the relationship between their performance 
+and rewards (Paananen, 2024). 
+Workplace Motivation 
+Motivation is referred to as the psychological forces that drive and give direction and energy to the 
+behavior of  individuals for accomplishing organizational objectives (Ryan & Deci, 2023). Motivation is 
+divided into intrinsic factors (getting satisfaction out of  the activity itself) and extrinsic factors 
+(involving external monetary and non-monetary rewards) (Zhou & Zhang, 2024). In manufacturing 
+51
+ 
+The Crime & Society Review Rethinking Crime, Justice & Society 
+Emerging Perspectives for the 21st Century 
+Volume I ; Issue I (Oct-Dec/2026)  
+Online/Fortnightly/Multi-Disciplinary/English/2026  
+plants, extrinsic monetary motivators play a critical role in ensuring individual efforts match 
+organizational production objectives (Alkandi et al., 2023). 
+Operational Productivity 
+Motivation is referred to as the psychological forces that drive and give direction and energy to the 
+behavior of  individuals for accomplishing organizational objectives (Ryan & Deci, 2023). Motivation is 
+divided into intrinsic factors (getting satisfaction out of  the activity itself) and extrinsic factors 
+(involving external monetary and non-monetary rewards) (Zhou & Zhang, 2024). In manufacturing 
+plants, extrinsic monetary motivators play a critical role in ensuring individual efforts match 
+organizational production objectives (Alkandi et al., 2023). 
+2.2 Theoretical Framework 
+This research incorporates both major motivational process/content theories: Expectancy Theory (V . 
+Vroom, 1964) and Two-Factor Theory (F. Herzberg, 1959). 
+1. Victor Vroom’s Expectancy Theory 
+According to Vroom (1964), the effort a person puts in (M) depends on the product of  three major 
+components through the following cognitive calculation: 
+ 
+Expectancy (E→P): Expectancy refers to the subjective probability that the effort (E) put forward by 
+the individual will lead to task performance (P). 
+Instrumentality (P→R): Instrumentality is the subjective probability that the task performance (P) will 
+lead to organizational reward (R) such as salary raise. 
+Valence (V): Valence refers to the value that an individual attaches to organizational reward (R). 
+If  any one of  the variables is zero, for instance when workers perceive that performance does not 
+guarantee increment in salary (I=0) or when workers are paid without considering their performance 
+(E=0), motivation will become zero irrespective of  the worth of  the incentive (V). 
+2. Frederick Herzberg’s Two-Factor Theory 
+Herzberg (1959) separated work-related variables into two independent categories: 
+•Hygiene Variables (Extrinsic / Dissatisfiers): Such variables as base pay, 
+organizational policies, supervision, and physical work environment. Satisfactory 
+hygiene variables prevent job dissatisfaction, but do not generate intrinsic job 
+satisfaction or motivation. 
+•Motivators (Intrinsic / Satisfiers): Such variables as achievement, recognition, 
+responsibility, and personal development. They lead to job satisfaction and 
+increased effort. 
+In the context of  compensation management, base pay is a hygiene variable, and unsatisfactory or 
+M=E×I×V
+52
+ 
+The Crime & Society Review Rethinking Crime, Justice & Society 
+Emerging Perspectives for the 21st Century 
+Volume I ; Issue I (Oct-Dec/2026)  
+Online/Fortnightly/Multi-Disciplinary/English/2026  
+inequitable pay leads to serious dissatisfaction. In contrast, if  increases in salary are structured in a way 
+that they become performance-based, then they acquire features of  a motivator by offering recognition 
+of  performance (Herzberg, 1968; Kaufman, 2023). 
+2.3 Integrated Theoretical Model Narrative 
+•Hygiene Threshold (Herzberg): Basic salary and the cost-of-living increase 
+meet the requirements of  hygiene, ensuring that there is no dissatisfaction and 
+administrative frustration at work. 
+•Cognitive Process (Vroom): The employee judges the performance appraisal 
+process. In case the employee believes in high expectancy (E: "My efforts will 
+result in good performance") and high instrumentality (I: "Good performance will 
+result in a decent salary raise") along with high valence (V: "Salary raise is 
+important to me"), then motivation (M) is greatly increased. 
+•Motivator (Herzberg): Performance-based salary raise is acknowledged as an 
+explicit recognition of  achievement and importance, thereby turning 
+compensation into a motivator. 
+•Consequences of  behavior: It is the double process of  psychology that makes 
+people work harder and perform better. 
+3. Methodology 
+3.1 Research Design & Study Area 
+The descriptive survey research design was used in this study to obtain quantitative data from two large 
+industrial pharmaceutical organizations within Osun State, Nigeria: 
+De-Shalom Pharmaceutical Laboratory Nigeria Limited: Peace Haven, Oke Ooye Street, Iyemogun, 
+Ilesa, Osun State (specialized in compounding, oral liquids, and tablets production). 
+Sam-Ace Limited: Km 14 Gbongan-Ibadan Road, Ede, Osun State (specialized in OTC pain relievers, 
+ORS, and liquids). 
+3.2 Target Population and Sample Size 
+The target population size (N): N=4,501 employees from both companies (2,201 for De-Shalom and 
+2,300 for Sam-Ace) including Production, Quality Control, Human Resources/ Administration, and 
+Security/Maintenance. 
+The sample size (n): Based on the Taro Yamane equation with a 0.05 margin of  error: 
+ n= N 1+N
+53
+ 
+The Crime & Society Review Rethinking Crime, Justice & Society 
+Emerging Perspectives for the 21st Century 
+Volume I ; Issue I (Oct-Dec/2026)  
+Online/Fortnightly/Multi-Disciplinary/English/2026  
+3.3 Sampling & Data Collection 
+Stratified random sampling method was employed for the distribution of  structured questionnaires 
+(EPSIMPQ). The tool was developed using a 4-point Likert scale (where 4 indicates “Strongly Agree 
+[SA]”, 3 indicates “Agree [A]”, 2 indicates “Disagree [D]”, 1 indicates “Strongly Disagree [SD]”). 100% 
+retrieval rate (n=367) was obtained. 
+3.4 Data Analysis 
+The data analysis was carried out using SPSS version 28. The descriptive statistics such as Frequencies, 
+Percentages, Means [x ̅], and Standard Deviations [SD] were used. A mean criterion of  x ̅ ≥ 2.50 was 
+set for agreement. 
+Sex
+Male 200 54.5%
+Female 162 44.1%
+Prefer not to say 5 1.4%
+Age Group
+18 – 25 years 120 32.7%
+26 – 44 years 209 56.9%
+45 years and above 38 10.4%
+Organization
+De-Shalom Pharmaceutical 
+Lab. 201 54.8%
+Sam-Ace Limited 166 45.2%
+Highest Education
+Primary School Certificate 24 6.5%
+Secondary School (SSCE) 48 13.1%
+OND / NCE Diploma 142 38.7%
+HND / B.Sc Degree 131 35.7%
+Postgraduate Degree 22 6.0%
+Length of  Service
+Less than 1 year 56 15.3%
+1 – 3 years 179 48.8%
+4 – 6 years 101 27.5%
+7 – 10 years 27 7.4%
+Above 10 years 4 1.1%
+54
+ 
+The Crime & Society Review Rethinking Crime, Justice & Society 
+Emerging Perspectives for the 21st Century 
+Volume I ; Issue I (Oct-Dec/2026)  
+Online/Fortnightly/Multi-Disciplinary/English/2026  
+4. Results & Empirical Findings 
+4.1 Socio-Demographic Profile of  Respondents ( ) 
+Table 1: Socio-Demographic Profile of  Sampled Respondents 
+4.2 Research Question 1: Employees' Perceptions of  Salary Increase Practices 
+n=367
+Table 2: Employees' Perceptions of  Salary Increase Practices and Governance
+Perceptual 
+Evaluation 
+Statement
+Decision
+Process 
+Transparency: 
+The salary 
+increase process 
+is fair and 
+transparent.
+40 (10.8%)50 (13.6%) 35 (9.5%) 197 (53.6%) 1.851.09 Disagree
+Criteria Clarity: 
+I clearly 
+understand 
+criteria used for 
+salary increments.
+36 (9.8%) 33 (8.9%)50 (13.6%) 208 (56.6%) 1.781.04 Disagree
+Merit Linkage: 
+Salary increases 
+are genuinely 
+based on 
+performance and 
+merit.
+37 (10.0%)80 (21.7%)40 (10.8%) 200 (54.4%) 1.881.11 Disagree
+Review 
+Frequency: I am 
+satisfied with the 
+frequency of  
+salary reviews.
+22 (5.9%) 30 (8.2%)78 (21.2%) 205 (55.8%) 1.630.93 Disagree
+Source: Field Survey, 2024. Benchmark Decision Mean = 2.50.
+SA ()4 A ()3 D ()2 SD ()1 Mean ()¯x SD
+55
+ 
+The Crime & Society Review Rethinking Crime, Justice & Society 
+Emerging Perspectives for the 21st Century 
+Volume I ; Issue I (Oct-Dec/2026)  
+Online/Fortnightly/Multi-Disciplinary/English/2026  
+4.3 Research Question 2: Influence of  Salary Increase on Employee Motivation 
+Table 3: Influence of  Salary Increase on Motivation (Expectancy & Motivator Dimensions) 
+4.4 Research Question 3: Impact of  Salary Increments on Employee Productivity 
+5. Discussion 
+Empirical findings shed light on the motivational pattern in the investigated pharmaceutical production 
+companies. With regard to Research Question 1 (Table 2), it is noted that the majority of  the employees 
+are dissatisfied with the current pay review system. There was significant disagreement regarding pay 
+transparency (x ̅=1.85) and pay for performance (x ̅=1.88). According to Herzberg's Two-Factor 
+Theory, the salary in question first of  all plays a role of  the basic hygiene factors. As soon as the pay 
+Table 4: Impact of  Salary Increments on Operational Productivity and Output
+Operational 
+Impact 
+Statement
+Decision
+Productivity 
+Drive: Salary 
+increases 
+encourage me 
+to maintain 
+high 
+productivity.
+295 (80.3%)45 (12.2%)8 (2.1%) 14 (3.8%) 3.69 0.73 Agree
+Initiative & 
+Extra Effort: I 
+take more 
+initiative after 
+receiving a fair 
+pay raise.
+275 (74.9%)68 (18.5%)12 (3.2%) 3 (0.8%) 3.65 0.61 Agree
+Target 
+Compliance: 
+A good salary 
+review 
+motivates me 
+to meet 
+production 
+targets.
+286 (77.9%)48 (13.0%)14 (3.8%) 10 (2.7%) 3.65 0.71 Agree
+Task Focus & 
+Efficiency: 
+Salary increases 
+improve daily 
+operational 
+efficiency.
+267 (72.7%)60 (16.3%)5 (1.3%) 18 (4.9%) 3.54 0.86 Agree
+Source: Field Survey, 2024. Benchmark Decision Mean = 2.50.
+SD ()1A ()3 Mean ()¯xD ()2 SDSA ()4
+56
+ 
+The Crime & Society Review Rethinking Crime, Justice & Society 
+Emerging Perspectives for the 21st Century 
+Volume I ; Issue I (Oct-Dec/2026)  
+Online/Fortnightly/Multi-Disciplinary/English/2026  
+review process is seen as arbitrary or uncertain, serious dissatisfaction occurs (Alananzeh et al., 2023; 
+Greenberg & Colquitt, 2023). From the perspective of  Vroom's Expectancy Theory, such uncertainty 
+lowers instrumentality (I→0); when employees doubt that increased efforts will lead to the raise, 
+motivation falls down (Ali, 2020). 
+In contrast, findings from Research Questions 2 and 3 (Tables 3 and 4) clearly indicate that if  the salary 
+increase is seen as a fair, reasonable, and realistic process, it plays a very important role in influencing 
+the behavior of  employees. More than 80% of  the respondents strongly agreed that fair salary increases 
+result in increased productivity on a daily basis (x ̅=3.69), and about 69.4% said that pay increases have 
+increased job satisfaction and morale (x ̅=3.50). This supports the concept of  Vroom's model, whereby 
+when employees see there is a clear path connecting effort to performance and performance to valued 
+reward (E×I×V), the motivation to work increases. When pay increases are used as a form of  reward 
+for performance, salary goes beyond being a simple hygiene factor and serves as a motivator (Kaufman, 
+2023; Sowunmi, 2024). 
+6. Conclusion & Policy Recommendations 
+6.1 Conclusion 
+This study investigates how the employees perceive the process of  salary increase, workplace 
+motivation, and organizational productivity at De-Shalom Pharmaceutical Laboratory Nigeria Limited 
+and Sam-Ace Limited based in Osun State, Nigeria. Drawing from the framework of  the Expectancy 
+Theory by Vroom and Two Factor Theory by Herzberg, it can be seen that although the existing 
+process of  wage review is considered opaque and inconsistent, salary is still a crucial motivating factor 
+for the employees’ work and productivity. The process of  transparent salary payment is a source of  
+hygiene factors and motivates the employees. 
+6.2 Policy Recommendations 
+•Enhancing Instrumentality by Ensuring Good Pay Governance: The 
+management should define and communicate performance evaluation standards 
+objectively, which have a direct relation between performance evaluations and 
+salary increases. 
+•Implementing Pay Review Cycles: A consistent cycle of  annual or biannual 
+reviews should be put into place to ensure that wages keep up with inflation, 
+retaining the role of  salary as a good hygiene factor. 
+•Improving Appraisal Communication: HR managers should give structured 
+feedback on performance evaluations to increase expectancy (E →P) of  
+employees. 
+57
+ 
+The Crime & Society Review Rethinking Crime, Justice & Society 
+Emerging Perspectives for the 21st Century 
+Volume I ; Issue I (Oct-Dec/2026)  
+Online/Fortnightly/Multi-Disciplinary/English/2026  
+7. References 
+1.AAbbah, M. T. (2014). Employee motivation: The key to effective organizational management in Nigeria. 
+IOSR Journal of  Business and Management, 16(4), 01-08. 
+2.Adanlawo, E. F., & Nkomo, N. Y . (2023). Compensation as a motivating factor of  job satisfaction and 
+performance. International Journal of  Research in Business and Social Science, 12(3), 131-139. 
+3.Adeyemi, A. O., & Ojo, T. A. (2024). Compensation challenges and employee motivation: Insights from 
+Nigerian companies. African Journal of  Business Management, 18(1), 89-104. 
+4.Alananzeh, O. A., Almuhaisen, F., Jawabreh, O., Fahmawee, E. A. D. A., Ali, B. J., & Ali, A. (2023). The 
+impact of  job stability, work environment, administration, salary and incentives on employee retention. 
+Journal of  Statistics Applications & Probability, 12(2), 425-439. 
+5.Ali, S. H. (2020). Organizational justice as a moderating factor between job enrichment and work 
+motivation. Arabian Journal of  Business and Management Review, 9(4), 143-153. 
+6.Alkandi, I. G., Khan, M. A., Fallatah, M., Alabdulhadi, A., Alanizan, S., & Alharbi, J. (2023). The impact 
+of  incentive and reward systems on employee performance in industrial sectors. Sustainability, 15(4), 3415. 
+7.Dajo, U., & Akor, L. (2022). Impact of  social unrest on Nigeria’s socio-economic development. 
+International Journal of  Public Administration and Management Research, 7(4), 16-27. 
+8.Greenberg, J., & Colquitt, J. A. (2023). The role of  pay fairness in employee motivation and satisfaction: 
+A meta-analytic review. Journal of  Applied Psychology, 108(4), 567-589.  
+9.Herzberg, F. (1959). The Motivation to Work. John Wiley & Sons. 
+10.Herzberg, F. (1968). One more time: How do you motivate employees? Harvard Business Review, 46(1), 
+53-62. 
+11.John, M. C. (2024). Organizational Justice and Employee Citizenship Behaviour in the Civil Service in Kenya  
+(Doctoral dissertation, JKUAT). 
+12.Kaufman, S. B. (2023). Self-actualizing people in the 21st century: Integration with contemporary theory 
+and research on personality and well-being. Journal of  Humanistic Psychology, 63(1), 51-83.  
+13.Paananen, V . (2024). Increasing Organizational Trust and Employee Engagement Through Pay Transparency. 
+14.Patel, R. K., & Zhang, Y . (2024). Efficiency in production: A comprehensive review of  input-output 
+analysis. International Journal of  Production Economics, 250-, 108-123. 
+15.Ryan, R. M., & Deci, E. L. (2023). Workplace motivation: The role of  intrinsic and extrinsic factors in 
+employee performance. Annual Review of  Organizational Psychology and Organizational Behavior, 10, 123-145.  
+16.Smith, J. A., & Brown, L. M. (2023). Measuring productivity in modern economies: A comprehensive 
+approach. Journal of  Economic Perspectives, 37(2), 45-67. 
+17.Sowunmi, E. (2024). Workplace Factors That Motivate Organizational Representative Employees in Nigeria  
+(Doctoral dissertation, Walden University). 
+18.Vroom, V . H. (1964). Work and Motivation. John Wiley & Sons. 
+19.Zhou, Z., & Zhang, Y . (2024). Intrinsic and extrinsic motivation in distance education: A self-
+determination perspective. American Journal of  Distance Education, 38(1), 51-64. 
+58

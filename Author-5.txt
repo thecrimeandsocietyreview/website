@@ -1,0 +1,601 @@
+ 
+The Crime & Society Review Rethinking Crime, Justice & Society 
+Emerging Perspectives for the 21st Century 
+Volume I ; Issue I (Oct-Dec/2026)  
+Online/Fortnightly/Multi-Disciplinary/English/2026  
+Walls Closing In: The Need For Prison Advocacy 
+Acceptance:  Nov 07, 2026 ; Publication: Nov 10, 2026 
+Dr. Samir Kumar Nanda 
+Social Fellow, Prison Advocacy( Access to Justice) 
+National Law University Odisha 
+Kataka, India 
+Email: samir.kumar.nanda@nluo.ac.in 
+Abstract 
+Prison advocacy in the twenty-first century represents a paradigmatic shift from punitive incarceration 
+to constitutional correction, human dignity, and social reintegration. In India, the prison system remains 
+overburdened with an occupancy rate of  131.4% and under trial prisoners constituting 75.8% of  total 
+inmates (National Crime Records Bureau [NCRB], 2022). This structural crisis exposes deep fissures 
+between constitutional guarantees under Articles 14, 19, 21 and 39A and ground realities of  access to 
+justice. The present article, situated within the theme of  The Crime & Society Review – Rethinking 
+Crime, Justice & Society, critically examines the historical evolution of  prison reforms, contemporary 
+challenges of  overcrowding, legal aid deficits, and socio-legal exclusion of  vulnerable groups including 
+women, children, persons with mental illness, and Scheduled Castes and Tribes. Drawing upon 
+doctrinal and empirical analysis, the paper conceptualizes prison advocacy as a rights-based, multi-
+stakeholder intervention encompassing free legal aid, timely bail facilitation under Section 479 of  
+Bharatiya Nagarik Suraksha Sanhita (BNSS) 2023, legal literacy, psychosocial support including stress 
+and anger management, and rehabilitation planning. The article presents a detailed case study of  the 
+Prison Advocacy Project at National Law University Odisha (NLUO), Cuttack, launched in 2024 in 
+collaboration with Azim Premji Foundation, which has within one year interacted with 881 under trial 
+prisoners, secured bail for 90 prisoners (60 free of  cost), provided legal assistance in 28 cases, and 
+conducted 52 legal awareness sessions covering 13 topics benefiting over 2000 inmates across 
+Choudwar Circle Jail, Banki Sub-Jail, Bhubaneswar Special Jail and Khordha District Jail. The Banki 
+Sub-Jail witnessed significant reduction in population, demonstrating efficacy of  timely legal 
+intervention. The paper argues that such academic-civil society-state partnerships must be 
+institutionalized nationally as part of  Sustainable Development Goal 16 and Digital Social Citizenship 
+framework. 
+Keywords: Prison Advocacy, Under trial Prisoners, Legal Aid, Criminal Justice Reform, Rehabilitation, 
+NLUO, Article 21, BNSS, SDG 16, Digital Social Citizenship 
+1. Introduction: Rethinking Crime, Justice And Society 
+India Justice Report 2025 prepared by consortium of  eight organizations including Tata Trusts offers 
+comprehensive audit of  four pillars – police, prisons, judiciary, legal aid (India Justice Report, 2025). 
+Odisha improved from 11th in 2022 to 8th in 2025, positive indication of  systemic reforms, however 
+beneath progress lies persisting alarming crisis surge in population of  under trial prisoners which 
+continues to strain prison infrastructure and challenge ideals of  justice. As per Prison Statistics India 
+75
+ 
+The Crime & Society Review Rethinking Crime, Justice & Society 
+Emerging Perspectives for the 21st Century 
+Volume I ; Issue I (Oct-Dec/2026)  
+Online/Fortnightly/Multi-Disciplinary/English/2026  
+2022, Indian prisons housed 5,73,220 inmates against sanctioned capacity 4,36,266, recording 
+occupancy rate 131.4% (NCRB, 2022). More critically, 75.8% of  these inmates were under trials – 
+persons presumed innocent but confined due to inability to access bail or legal representation (NCRB, 
+2022). Approximately 65.4% of  inmates are illiterate or educated below Class X, making it difficult to 
+understand charge sheets, bail orders or legal remedies (NCRB, 2022). About 31% belong to Scheduled 
+Castes and Tribes, and 80% come from poor and marginalized backgrounds (Centre for Research & 
+Planning, Supreme Court of  India, 2024).The colonial model viewed prison as institution to impose 
+unpleasant compulsory isolation with rigid discipline and bare necessities (Taft, 1956). Post-
+constitutional India views prison through lens of  Article 21 – right to life with dignity, as interpreted in 
+Maneka Gandhi v. Union of  India (1978) and Sunil Batra v. Delhi Administration (1978). Justice 
+Krishna Iyer in Sunil Batra declared prisoners are not non-persons. In Hussainara Khatoon v. Home 
+Secretary, State of  Bihar (1979), Justice P .N. Bhagwati held that speedy trial and free legal aid are 
+integral to Article 21, and lakhs of  under trials languishing without trial is travesty of  justice. Similarly, 
+in M.H. Hoskot v. State of  Maharashtra (1978) and Suk Das v. Union Territory of  Arunachal Pradesh 
+(1986), Supreme Court emphasized legal aid at state cost.Author's 2.5 decades experience in Labour & 
+Employment Department, Government of  Odisha, handling child labour, Dadan labour, migrant 
+labour, rescue and rehabilitation, shows same marginalized communities who migrate for livelihood – 
+poor, SC/ST, informal workers – disproportionately populate prisons, often for minor, survival-driven 
+offences like ticketless travel, petty theft, loitering, linked to unemployment and lack of  social security 
+(NCRB, 2022). 
+Objectives:  
+(a)Trace historical evolution of  prison reforms;  
+(b)Examine constitutional and legal safeguards including Section 479 BNSS 
+2023 and Supreme Court directives in In Re: Inhuman Conditions in 1382 
+Prisons (2024);  
+(c)Analyse contemporary challenges;  
+(d)Conceptualize prison advocacy as emerging 21st century paradigm;  
+(e)Present Prison Advocacy Project at NLUO as replicable best practice; (f) 
+Recommend way forward including Digital Social Citizenship. 
+2. Conceptual Framework 
+Four theories of  punishment: deterrent, retributive, preventive, reformative (Paranjape, 2019). Ancient 
+India emphasized deterrence – Manusmriti recommended prisons along public roads so punishment 
+visible. Colonial regime institutionalized deterrence via Prisons Act 1894. Post-independence, 
+reformative theory gained primacy, influenced by international norms like UN Standard Minimum 
+Rules for Treatment of  Prisoners (Nelson Mandela Rules, 2015). Coyle (2002) argues prison 
+management must be based on human rights, not merely security. Petersilia (2003) highlights 
+importance of  re-entry planning – housing, employment, family acceptance – to reduce recidivism. 
+76
+ 
+The Crime & Society Review Rethinking Crime, Justice & Society 
+Emerging Perspectives for the 21st Century 
+Volume I ; Issue I (Oct-Dec/2026)  
+Online/Fortnightly/Multi-Disciplinary/English/2026  
+Prison defined under Section 3 Prisons Act 1894 includes any place used under order of  court or 
+competent authority for detention, including subsidiary jails, reformatories, Borstal institutions (Prisons 
+Act, 1894). Model Prison Manual 2016 defines correctional institution as place where prisoners 
+detained for reformation and rehabilitation, not merely punishment (Ministry of  Home Affairs, 2016). 
+3. Historical Evolution 
+Ancient and Medieval: Ramayana mentions Lord Rama enquiring about state of  prisons in Ayodhya. 
+Mahabharata refers to karagriha and one of  18 state officials as head of  prisons. Manusmriti 
+recommends deterrent construction. Pre-Buddhist era infamous for cruelty – daily whippings, shackles, 
+forced labour. Fa-Hien and Hiuen Tsang documented Emperor Ashoka's Naraka hellish prisons before 
+conversion. Under Muslim rule, forts converted into prisons, relatively milder.Colonial: 1805 H.S. 
+Strachey surveyed Company territories documenting 43 civil, 75 criminal, 68 mixed jails (Government 
+of  India, 1838). Macaulay Report 1835 – after murder of  Magistrate Richardson, Superintendent 
+Calcutta Jail, Lord Macaulay emphasized best criminal code ineffective without sound punishment 
+mechanism – recommended abolition outdoor labour, indoor work, classification, inspectors, central 
+jails. Prison Discipline Committee 1836-38 chaired by H. Shakespeare reported 1838, exposed 
+corruption, recommended separation undertrial-convicted, IG Prisons. Commission on Jail 
+Management and Discipline 1864 – minimum space 54 sq ft and 640 cubic ft, sanitation, diet, medical, 
+gender-age separation. Calcutta Conference 1877 – unified framework. Fourth Jail Commission 1888 
+Lord Dufferin – echoed need consolidated Prisons Act – leading to Prisons Act 1894.Post-
+Independence: Indian Jail Committee 1919-20 landmark – shift deterrence to reformation, trained staff, 
+juvenile justice, opposed child incarceration with adults. Government of  India Act 1935 – prisons state 
+subject. Reckless Commission 1952 – UN support Dr. W .C. Reckless – jails as reformative centres, 
+juvenile courts, revision manuals, alternatives short imprisonment. Model Prison Manual 1960 – 
+scientific correctional treatment. Mulla Committee 1980-83 – magnum opus – national prison policy, 
+human rights, legal aid, living conditions, women, open prisons, aftercare. 
+4. Constitutional And Legal Safeguards 
+Sunil Batra (1978, 1980) – prisoners retain fundamental rights. Article 21 includes dignity, health, 
+speedy trial, free legal aid (Hussainara Khatoon 1979). Article 39A obligation for free legal aid. Section 
+479 BNSS 2023 – mandates release of  undertrials completing one-third for first-time offenders or one-
+half  of  maximum sentence. Supreme Court in Re: Inhuman Conditions in 1382 Prisons (W .P . 
+406/2013) order 23 Oct 2024 directed retrospective application of  Section 479, jail superintendents to 
+identify eligible women and undertrials, mandatory reporting. Model Prison Manual 2016 Rule 5.47 
+orientation programme, Rule 5.35 handbook rights. Early Access to Justice – police stations must 
+display legal aid contact, inform arrestee rights, leaflet (D.K. Basu v. State of  West Bengal, 1997). At 
+police station – rights from interrogation, consult advocate, grounds of  arrest, bail rights, leaflet, 
+intimation to Legal Aid Committee. At prison – display rights, orientation, legal aid clinic, Undertrial 
+Review Committee weekly. 
+77
+ 
+The Crime & Society Review Rethinking Crime, Justice & Society 
+Emerging Perspectives for the 21st Century 
+Volume I ; Issue I (Oct-Dec/2026)  
+Online/Fortnightly/Multi-Disciplinary/English/2026  
+5. Contemporary Challenges 
+Overcrowding: 131.4% occupancy nationally, 75.8% under trial (NCRB 2022). Inability to afford legal 
+representation major reason extended detention. Socio-Legal Exclusion: One-third under trials SC/ST, 
+80% poor backgrounds (Centre for Research & Planning 2024). Women, Juveniles, Mental Health: 
+Women 4.2% population, 17% with children, 66% under trials. Juvenile Justice Act 2015 illegal to 
+incarcerate below 18 in regular jails. Yet Odisha has only four observation homes Angul, Rourkela, 
+Bhawanipatna, Berhampur for 30 districts forcing long travel for Juvenile Justice Board hearings. 
+iProbono data based on 570 districts reveals 9,681 children under 18 wrongfully detained Indian jails 
+Jan 2016-Dec 2021 (iProbono, 2022). Violence: Caste-based segregation banned in Sukanya Shantha v. 
+Union of  India (2024). 
+6. Emergence Of  Prison Advocacy 
+Prison advocacy is organized intervention to ensure dignity, accountability, reintegration. As Justice P .N. 
+Bhagwati observed, "Legal aid is not charity, but a necessary adjunct to administration of  
+justice" (Hussainara Khatoon, 1979). 
+7. Case Study: Prison Advocacy Project NLUO-A 21St Century Model 
+Prison advocacy is defined as organized efforts by legal professionals, academicians, civil society, and 
+community leaders to protect prisoners' rights, ensure access to justice, promote humane treatment, 
+and facilitate reintegration (Coyle, 2002). In the 21st century paradigm, it moves beyond welfare to 
+rights-based empowerment. 
+Advocacy encompasses:- Free, competent legal representation from arrest to acquittal; Facilitation of  
+bail under Section 479 BNSS; Legal literacy and rights awareness; Psychosocial support — stress and 
+anger management; Rehabilitation and reintegration planning .As Justice P .N. Bhagwati observed in 
+Hussainara Khatoon (1979), "Legal aid is not charity, but a necessary adjunct to administration of  
+justice." 
+Genesis-On 10th December 2020, coinciding with International Human Rights Day, Prison 
+Establishment Day was observed for first time in Odisha, symbolizing shift from punitive to 
+rehabilitative justice. Recognizing acute under trial crisis, National Law University Odisha (NLUO), 
+Cuttack, in collaboration with Azim Premji Foundation, launched Prison Advocacy Project in 2024, 
+piloted from February 2025. 
+Objectives and Scope-The project seeks to address socio-legal needs of  vulnerable prisoners through: 
+Providing free legal aid ensuring competent representation; Facilitating timely bail through efficient 
+procedures; Promoting rehabilitation via counselling, education, skill development; Conducting 
+monthly sensitization workshops on prisoners' rights Strengthening research and advocacy for systemic 
+reforms. Initially piloted in four prisons — Circle Jail Choudwar, Sub-Jail Banki, Special Jail 
+Bhubaneswar, and District Jail Khordha — the project has comprehensive mission (NLUO, 2025). 
+78
+ 
+The Crime & Society Review Rethinking Crime, Justice & Society 
+Emerging Perspectives for the 21st Century 
+Volume I ; Issue I (Oct-Dec/2026)  
+Online/Fortnightly/Multi-Disciplinary/English/2026  
+Leadership and Vision-Under leadership of  Prof. Dr. Ved Kumari (Vice-Chancellor), Prof. Dr. 
+Rangin Pallav Tripathy (Registrar and Project Director), Dr. Kuntirani Padhan (Project Coordinator-
+cum-Assistant Professor), and Dr. Suman Dash Bhattamishra (Project Advisor, Associate Professor), 
+the project bridges law and society (NLUO, 2025). 
+Impact: - Empirical Evidence -Within one year (Feb 2024-Feb 2025):881 under trial prisoners 
+personally interacted for legal-social needs assessment; Bail secured for 90 under trials, including 60 free 
+of  cost;28 individual legal support cases pursued; 1 acquittal secured;52 legal awareness sessions 
+covering 13 topics (bail, free legal aid, rights under BNSS, stress management, anger management, 
+reintegration) benefiting 2000+ inmates; Most remarkable decline in Banki Sub-Jail population due to 
+sustained bail assistance, demonstrating that timely legal aid directly reduces overcrowding (NLUO 
+Prison Advocacy Project Report, 2025).Success attributed to cooperation of  Odisha Prisons 
+Department, jail authorities, legal professionals, civil society, and media including World Watch 
+newspaper, Cuttack. 
+"Emerging Lessons from Field Interventions: Towards a Holistic Model of  Prison Advocacy."  
+Case Study 1: Samir Naik – Overcoming Prolonged Detention through Legal Intervention and 
+Social Support 
+Background: Samir Naik, aged 31, a resident of  Alasua village, Cuttack district, was 
+arrested on 23 June 2024 in connection with multiple theft-related cases. His prolonged 
+detention adversely affected his family relationships and financial stability, compelling his 
+wife and young son to move to her parental home. 
+Project Intervention: During a routine prison visit on 21 February 2025, the Prison 
+Advocacy Project team identified his case and assessed his legal and social circumstances. 
+Following sustained legal efforts, bail applications were filed before the Assistant Sessions 
+Judge, Banki, on 5 June and 8 July 2025. 
+Outcome and Impact: Samir was released on bail on 14 July 2025. The Project 
+subsequently facilitated compliance with court requirements and initiated efforts towards 
+family reunification and restoration of  his previous employment at a prawn processing 
+factory in Chennai. 
+Significance: The case demonstrates how persistent legal assistance, combined with 
+family-oriented social intervention, can help address the consequences of  prolonged 
+detention. 
+Case Study 2: Anam Paltasingh – Restoring Livelihood through Timely Legal Assistance 
+Background: Anam Paltasingh, aged 41, a mason from Kankadahada village, Khordha, 
+was arrested on 16 August 2025 in connection with G.R. Case No. 772/2025. His detention 
+disrupted his regular livelihood and family stability. 
+79
+ 
+The Crime & Society Review Rethinking Crime, Justice & Society 
+Emerging Perspectives for the 21st Century 
+Volume I ; Issue I (Oct-Dec/2026)  
+Online/Fortnightly/Multi-Disciplinary/English/2026  
+Project Intervention: The Prison Advocacy Legal Fellow met him on 26 August 2025. A 
+bail application was filed on 1 September 2025, while the Project staff  conducted a home 
+visit on 3 September to assess his family circumstances and facilitate arrangements for a 
+bailer. 
+Outcome and Impact: Anam was released from District Jail, Khordha, on 17 September 
+2025. A subsequent home visit on 26 September facilitated his social reintegration. With 
+the Project's support, he resumed his previous occupation as a mason. 
+Significance: The case illustrates the importance of  combining timely legal intervention 
+with livelihood restoration to ensure dignified rehabilitation. 
+Case Study 3: Harish Chandra Naik – Reclaiming Dignity through Legal and Social Advocacy 
+Background: Harish Chandra Naik, aged 35, a daily wage labourer from Alasua village, 
+Cuttack, was arrested on 29 March 2025 in connection with two criminal cases. His 
+incarceration affected the economic security of  his wife and children. 
+Project Intervention: The Prison Advocacy Legal Fellow interacted with him on 11 April 
+2025. A home visit was subsequently conducted on 2 September to document his 
+background and facilitate bail arrangements. The bail application was filed on 24 
+September 2025. 
+Outcome and Impact: The District and Sessions Judge, Cuttack, granted bail on 9 
+October 2025, and Harish was released from Banki Sub-Jail on 14 October 2025. The 
+Project facilitated his social reintegration and return to daily wage employment. 
+Significance: This case highlights the importance of  coordinated legal and social 
+interventions in restoring livelihood, family stability and individual dignity. 
+Case Study 4: Jyoti Ranjan Naik – A Second Chance through Timely Legal Intervention 
+Background: Jyoti Ranjan Naik, aged 23, a daily labourer from Golobai village, Khordha, 
+was arrested on 31 August 2025. His sudden detention disrupted his livelihood and 
+affected his family's circumstances. 
+Project Intervention: On 26 September 2025, the Prison Advocacy Legal Fellow met him 
+at District Jail, Khordha. The Project staff  also conducted a home visit to assess his family 
+background and facilitate bail-related arrangements. A bail application was promptly 
+pursued. 
+Outcome and Impact: Jyoti was released on bail on 9 October 2025. Before his release, a 
+home visit was conducted on 4 October to prepare his family and community for his 
+return. Following his release, he resumed his previous occupation as a labourer. 
+Significance: The case demonstrates that effective prison advocacy requires not only legal 
+assistance but also advance preparation for family and community reintegration. 
+80
+ 
+The Crime & Society Review Rethinking Crime, Justice & Society 
+Emerging Perspectives for the 21st Century 
+Volume I ; Issue I (Oct-Dec/2026)  
+Online/Fortnightly/Multi-Disciplinary/English/2026  
+Case Study 5: Pravat Kumar Pradhan – Promoting Behavioural Change and Family 
+Reconciliation 
+Background: Pravat Kumar Pradhan, aged 30, from Pasania village, Banki, was detained in 
+connection with a domestic dispute involving alleged physical assault on his father. He 
+remained in Sub-Jail, Banki, for 19 days. 
+Project Intervention: The Prison Advocacy Project team met him on 3 June 2025 and 
+assessed his legal and personal circumstances. A bail application was filed before the 
+District and Sessions Judge, Cuttack, on 11 June 2025. 
+Outcome and Impact: Pravat was granted bail and released on 20 June 2025. Following 
+his release, the Project provided counselling and encouragement towards behavioural 
+improvement, conflict resolution and family reconciliation. He was also supported in 
+returning to his previous employment. 
+Significance: This case illustrates the role of  prison advocacy in addressing not only legal 
+difficulties but also underlying family conflicts and the need for behavioural reform. 
+Case Study 6: Rajkishore Mallick – Restoring Family Economic Stability through 
+Rehabilitation 
+Background: Rajkishore Mallick, aged 40, a daily wage labourer from Badapari village, 
+Khordha, was arrested on 25 June 2025. His detention deprived his wife and three children 
+of  their principal source of  income. 
+Project Intervention: The Prison Advocacy Project identified his case during its regular 
+legal aid visits. The team facilitated the filing of  a bail application before the JMFC, 
+Khordha, while also extending counselling support and coordinating with his employer for 
+post-release employment. 
+Outcome and Impact: Rajkishore was released on bail on 23 July 2025. Following the 
+intervention of  the Project, he resumed his previous occupation, thereby contributing to 
+the restoration of  his family's economic stability. 
+Significance: The case demonstrates how legal assistance combined with employment-
+related support can reduce the economic vulnerability of  families affected by incarceration. 
+Case Study 7: Ratnakar Hati – Access to Justice and the Importance of  Legal Defence 
+Background: Ratnakar Hati, aged 23, a resident of  Banara, Banki, was arrested on 15 
+September 2025 in connection with G.R. Case No. 20/2022, involving serious criminal 
+allegations. 
+Project Intervention: The Prison Advocacy Legal Fellow met him on the day of  his arrest 
+and initiated legal assistance. The Project also conducted a home visit on 18 September 
+81
+ 
+The Crime & Society Review Rethinking Crime, Justice & Society 
+Emerging Perspectives for the 21st Century 
+Volume I ; Issue I (Oct-Dec/2026)  
+Online/Fortnightly/Multi-Disciplinary/English/2026  
+2025 to assess his social circumstances and prepare for his eventual return to the 
+community. 
+Outcome and Impact: On 16 October 2025, the Additional District and Sessions Judge, 
+Cuttack, acquitted Ratnakar. Following the judicial outcome, the Project facilitated his 
+social reintegration and return to community life. 
+Significance: This case highlights the importance of  effective legal representation, fair 
+trial guarantees and social support in safeguarding the rights and dignity of  individuals 
+facing criminal proceedings. 
+Case Study 8: Dipak Kumar Naik – From Custody to Livelihood Restoration 
+Background: Dipak Kumar Naik, aged 25, a married daily labourer from Alasua village, 
+Cuttack, was admitted to Banki Sub-Jail on 21 September 2026. His detention interrupted 
+his livelihood and affected his family circumstances. 
+Project Intervention: During a routine prison visit on 22 September 2026, the Fellow 
+(Social) interacted with him and assessed his legal and social needs. Advocate Ashutosh 
+Mishra, Fellow (Law), filed a bail application before the District and Sessions Judge, 
+Cuttack, on 1 October 2026. 
+Outcome and Impact: Bail was granted on 13 October, and Dipak was released on 14 
+October 2026. The Fellow (Social) subsequently conducted a home visit and engaged with 
+family members and neighbours to facilitate his acceptance. He also resumed his previous 
+occupation as a daily labourer. 
+Significance: The case demonstrates the effectiveness of  coordinated legal and social 
+interventions extending beyond release from custody. 
+Case Study 9: Pravakar Sahoo – Reuniting a Family through Integrated Intervention 
+Background: Pravakar Sahoo, aged 30, a driver from Malabiharpur village, Banki, was 
+admitted to jail on 14 August 2026 in connection with a case under the Odisha Excise Act. 
+His detention affected his wife and two young children, as he was the principal earning 
+member of  the family. 
+Project Intervention: The Fellow (Social Work) interacted with him on 18 August 2026. 
+Following the intervention of  the Legal Fellow, a bail application was filed on 19 August 
+before the competent court. 
+Outcome and Impact: Bail was granted on 24 August, and Pravakar was released on 25 
+August 2026. A follow-up village visit was conducted on 7 September to facilitate family 
+and community reintegration. He reunited with his wife and children and resumed his 
+previous occupation as a driver. 
+82
+ 
+The Crime & Society Review Rethinking Crime, Justice & Society 
+Emerging Perspectives for the 21st Century 
+Volume I ; Issue I (Oct-Dec/2026)  
+Online/Fortnightly/Multi-Disciplinary/English/2026  
+Significance: The case highlights the importance of  family-centred rehabilitation and 
+livelihood restoration in achieving sustainable social reintegration. 
+Case Study 10: Sanjay Kumar Pradhan – Rebuilding Life through Community Acceptance 
+Background: Sanjay Kumar Pradhan, aged 24, a married driver from G. Nahalpur village, 
+Cuttack, was admitted to District Jail, Khordha, on 2 July 2026. His detention interrupted 
+his professional activities and affected his family circumstances. 
+Project Intervention: During a routine jail visit on 15 July 2026, the Fellow (Social) 
+assessed his circumstances. Subsequently, the Fellow (Law) filed a bail application before 
+the Additional District Judge, Khordha, on 9 September 2026. 
+Outcome and Impact: Bail was granted on 19 September 2026, and Sanjay was released 
+on the same day. Both Fellows subsequently conducted a home visit and interacted with his 
+family members and neighbours to facilitate social acceptance. He successfully resumed his 
+previous occupation as a driver. 
+Significance: This case demonstrates that community sensitisation and livelihood 
+restoration are essential components of  post-release rehabilitation. 
+Case Study 11: Saroj Naik – Strengthening Livelihood and Community Reintegration 
+Background: Saroj Naik, aged 42, a married daily wage labourer from Muktapur village, 
+Banki, was admitted to jail on 21 July 2026. His detention affected his ability to earn and 
+support his family. 
+Project Intervention: The Fellow (Social Work) interacted with him on 27 July 2026 and 
+assessed his circumstances. The Project subsequently facilitated legal assistance through its 
+Legal Fellow. 
+Outcome and Impact: Saroj was released on bail on 4 August 2026. On 7 August, the 
+Social Work Fellow visited his village and facilitated his return to family and community 
+life. He successfully resumed his previous occupation as a daily labourer. 
+Significance: The case reflects how timely legal assistance and post-release social support 
+can protect livelihood opportunities and strengthen family and community relationships. 
+Case Study 12: Siba Parida – Integrating Psychosocial Support with Legal Assistance 
+Background: Siba Parida, aged 23, an unmarried driver from Kotalanga village, Khordha, 
+was admitted to District Jail, Khordha, on 22 June 2026. During the initial interaction, the 
+Fellow (Social Work) observed that he appeared disturbed and experienced difficulty 
+communicating coherently. 
+Project Intervention: On 24 June 2026, the Fellow coordinated with the Jail Medical 
+Department for his examination. The medical authorities found him medically and 
+83
+ 
+The Crime & Society Review Rethinking Crime, Justice & Society 
+Emerging Perspectives for the 21st Century 
+Volume I ; Issue I (Oct-Dec/2026)  
+Online/Fortnightly/Multi-Disciplinary/English/2026  
+mentally fit, with no clinical mental illness detected. A home visit was also conducted to 
+coordinate with his family and facilitate the necessary documents for bail. 
+Outcome and Impact: A bail application was filed on 24 June before the Additional 
+District Judge, Khordha. Bail was granted on 6 July 2026. Following his release, the Fellow 
+visited his village on 8 July and engaged with family members, relatives and neighbours to 
+facilitate his reintegration. 
+Significance: The case highlights the importance of  early psychosocial assessment, 
+coordination with prison medical authorities, family engagement and timely legal assistance. 
+Case Study 13: Sushanta Behera – Restoring Family Relationships through Social Intervention 
+Background: Sushanta Behera, aged 38, a married resident of  Lokeswarpur, Khordha 
+Town, was lodged in District Jail, Khordha, on 17 July 2026 in connection with a case 
+arising from a family dispute. 
+Project Intervention: During a routine prison visit on 7 October 2026, the Social Fellow 
+of  the Prison Advocacy Project interacted with him and assessed his circumstances. The 
+Legal Fellow subsequently filed a bail application before the Additional District Judge, 
+Khordha, on 13 October 2026. 
+Outcome and Impact: Bail was granted on 16 October 2026. On 30 October, the Social 
+Fellow conducted a follow-up village visit and facilitated interaction with his family and 
+community members. Through sustained social intervention, Sushanta was successfully 
+reintegrated into his family and society. 
+Significance: The case illustrates the role of  social work intervention in addressing family-
+related challenges and promoting acceptance and rehabilitation after release. 
+Case Study 14: Bipin Behera – Transformation through Legal Awareness and De-Addiction 
+Motivation 
+Background: Bipin Behera, aged 42, a cow grazer from Similipur village, Banki, was 
+lodged in Sub-Jail, Banki, as an under-trial prisoner. He had been struggling with habitual 
+smoking. 
+Project Intervention: On 16 September 2025, he participated in a Legal Awareness 
+Programme organised by the Prison Advocacy Project on the theme "Substance Abuse: 
+Dangers and De-Addiction Support." The programme sensitised participants to the 
+harmful effects of  tobacco and substance use. 
+Outcome and Impact: Influenced by the awareness session, Bipin voluntarily pledged to 
+quit smoking and adopt a healthier lifestyle. With continued encouragement and follow-up 
+support, he remained committed to his decision. He was subsequently released on bail. 
+84
+ 
+The Crime & Society Review Rethinking Crime, Justice & Society 
+Emerging Perspectives for the 21st Century 
+Volume I ; Issue I (Oct-Dec/2026)  
+Online/Fortnightly/Multi-Disciplinary/English/2026  
+Significance: The case demonstrates how prison-based legal awareness and behavioural 
+sensitisation can motivate individuals towards positive lifestyle changes and personal 
+reform. 
+Case Study 15: Barjabandhu Pradhan – Age Is No Barrier to Personal Transformation 
+Background: Barjabandhu Pradhan, aged 70, a farmer from Baraput village, Banki, was 
+lodged in Sub-Jail, Banki, as an under-trial prisoner. He had a longstanding habit of  
+tobacco consumption dating back to his childhood. 
+Project Intervention: On 16 September 2025, he participated in the Prison Advocacy 
+Project's Legal Awareness Programme on "Substance Abuse: Dangers and De-Addiction 
+Support." The session highlighted the physical, psychological and social consequences of  
+substance use. 
+Outcome and Impact: Motivated by the programme, Barjabandhu voluntarily resolved to 
+give up tobacco consumption and adopt a healthier lifestyle. Despite his advanced age and 
+longstanding habit, he remained committed to his decision with continued motivation and 
+follow-up support. He was subsequently released on bail. 
+Significance: His experience demonstrates that awareness, motivation and willingness to 
+change can encourage personal transformation irrespective of  age or circumstances. 
+8. Core Components – Stress, Anger, Reintegration 
+Stress Management: Deep breathing, meditation, structured routine, physical movement, positive 
+thinking, emotional support. Right to healthcare: Article 21 includes health, Prison Act 1894 mandates 
+facilities, Nelson Mandela Rules reinforce. If  denied, right to consult doctors, counselling, legal 
+intervention via Prison Welfare Officer, legal aid. Anger Management: Types – Passive Silent treatment, 
+Aggressive Verbal/physical abuse, Assertive Healthy respectful expression. Legal implications – assault, 
+domestic violence. Management – recognition, deep breathing, walking away, journaling, counselling 
+(Howells et al., 2005).Reintegration: Educational literacy, vocational livelihood skills entrepreneurship, 
+psychological counselling anger trauma recovery, social overcoming stigma rebuilding identity. 
+Challenges – discrimination, housing, mental health, employment after release. Former inmates carry 
+lifelong stigma. First-time offenders with support could rebuild lives, absence rehabilitation pushes back 
+crime. World Bank (2023) each year incarceration reduces lifetime earnings 30-40%. 
+9. Changing Narratives: From Punishment To Reform And SDG 16 
+Traditional retributive view shifting to correctional philosophy. Inmates voicing concerns during 
+inspections – cultural shift. SDG 16 connects prisoner rights to peaceful, inclusive societies, access to 
+justice, accountable institutions (United Nations, 2015). SDG 17 partnerships – NLUO model. Global 
+models: Norway principle normality recidivism below 20% vs 60-70% India/US (Pratt, 2008), South 
+Africa ubuntu, US Equal Justice Initiative (Stevenson, 2014), UK Howard League (2022). India needs 
+culturally rooted model combining legal aid, community participation, technology. Restorative justice 
+85
+ 
+The Crime & Society Review Rethinking Crime, Justice & Society 
+Emerging Perspectives for the 21st Century 
+Volume I ; Issue I (Oct-Dec/2026)  
+Online/Fortnightly/Multi-Disciplinary/English/2026  
+(Zehr, 1990) repairing harm via dialogue, transformative justice questioning structural inequalities caste 
+class gender poverty (Morris, 2000). For petty offences – theft food, ticketless travel – punitive 
+incarceration fails. Bharatiya Nyaya Sanhita 2023 introduces community service. Link to MGNREGA, 
+Food Security, PAReSHRAM. Economics: Per prisoner per year cost Rs 1,10,000 (MHA 2022). 
+4,34,302 under trials annual cost Rs 4,777 crores. Bail for 60 via NLUO saved Rs 66 lakhs plus restored 
+labour – daily wage, mason, driver. 
+10. Digital Social Citizenship And Way Forward 
+Digital Social Citizenship: 
+(a)Digital Prisoner ID linked Aadhaar with privacy, case status, bail eligibility; 
+(b)AI case tracking alerting jail superintendent, DLSA, UTRC when under 
+trial completes one-third/one-half  sentence;  
+(c)Digital legal literacy modules in Odia, Hindi, Bengali, Telugu, Santhali, Ho, 
+Munda; 
+(d)Video-conferencing for bail (State of  Maharashtra v. Praful Desai 2003);  
+(e)Skill certificates under PMKVY recognized via Skill India portal;  
+(f)PAReSHRAM-type portal for ex-prisoners linking employers. NITI Aayog 
+AI for All (2018) emphasizes bias audit, human oversight. Comparative: 
+Delhi Prison Legal Aid Clinic DLSA NLU Delhi 24x7; Maharashtra Prayas 
+TISS 1990 women children; Kerala open prison Nettukaltheri work 
+outside; Telengana video-conferencing reduced transport 80% (India 
+Justice Report 2025). Odisha NLUO unique – academic rigor, Legal Social 
+Fellows daily, Azim Premji Foundation, focus under trial bail, university-led 
+sustainable via clinical legal education, replicable in NLUs network under 
+NALSA Defense Counsel System 2022.15-Point Agenda: 
+National Prison Advocacy Policy MHA mandating Clinic in law universities. 
+i.Amend Model Manual include Fellow per 100 inmates. 
+ii.UTRC weekly District Judge mandatory data Sec 479. 
+iii.Display legal aid contacts with QR code Odia. 
+iv.Leaflets in Odia Santhali Ho Munda. 
+v.One observation home per district juveniles. 
+vi.Gender-sensitive infra women barracks creche R.D. Upadhyay. 
+vii.Transgender-inclusive NALSA Act 2019. 
+viii.Digital Social Citizenship digital ID AI alerts video skill PAReSHRAM. 
+86
+ 
+The Crime & Society Review Rethinking Crime, Justice & Society 
+Emerging Perspectives for the 21st Century 
+Volume I ; Issue I (Oct-Dec/2026)  
+Online/Fortnightly/Multi-Disciplinary/English/2026  
+ix.Open prisons one per state Kerala model. 
+x.Reintegration fund Rs 50000 per released via MGNREGA PMKVY 
+PMAY . 
+xi.Mental health one psychologist per 200 Mental Healthcare Act 2017. 
+xii.Annual Prison Justice Report NLUO table Assembly. 
+xiii.Community Panchayati Raj SHGs trade unions acceptance. 
+xiv.Budget 2% prison budget advocacy legal aid. 
+11. Conclusion 
+A humane effective prison system must begin proper classification inmates ensuring individuals not 
+further harmed undifferentiated punitive environment. Separation under trial convicted juveniles adults 
+casual habitual criminals essential not only maintaining discipline but facilitating meaningful reform. 
+Importance engaging prisoners constructive labour safeguarding mental well-being preparing 
+reintegration cannot overstated Yet under trial prisoners who form majority continue suffer 
+disproportionately due systemic delays procedural shortcomings. Their plight highlights urgent need 
+accessible legal support sustained advocacy within correctional system. In this landscape Prison 
+Advocacy Project at NLUO collaboration Azim Premji Foundation stands out beacon transformative 
+intervention. Ultimately realizing just dignified prison system not responsibility state alone. Calls 
+collective commitment government judiciary legal professionals educational institutions society. Must 
+strive transform prisons spaces reform opportunity human dignity. If  commitment remains 
+unwavering, dream of  constitutional, rehabilitative, equitable prison system India will become not just 
+ideal but lived reality – core to Rethinking Crime, Justice & Society in 21st Century. 
+87
+ 
+The Crime & Society Review Rethinking Crime, Justice & Society 
+Emerging Perspectives for the 21st Century 
+Volume I ; Issue I (Oct-Dec/2026)  
+Online/Fortnightly/Multi-Disciplinary/English/2026  
+References 
+73.Centre for Research & Planning, Supreme Court of  India. (2024). Reports on prisons 
+in India. Supreme Court of  India. 
+74.Coyle, A. (2002). A human rights approach to prison management: Handbook for 
+prison staff. International Centre for Prison Studies. 
+75.Government of  India. (1838). Report of  Prison Discipline Committee. Calcutta. 
+76.Government of  India. (1960). Model Prison Manual. Ministry of  Home Affairs. 
+77.Howells, K., Day, A., Williamson, P ., Bubner, S., Jauncey, S., Parker, A., & Heseltine, K. 
+(2005). Brief  anger management programs with offenders: Outcomes and predictors of  
+change. Legal and Criminological Psychology, 10(2), 159-174. 
+78.Howard League for Penal Reform. (2022). Annual report 2022. London. 
+79.India Justice Report. (2025). India Justice Report 2025: Ranking states on police, 
+judiciary, prisons and legal aid. Tata Trusts. 
+80.Indian Jail Committee. (1920). Report of  the Indian Jail Committee 1919-20. 
+Government of  India. 
+81.iProbono. (2022). Wrongful detention of  children in Indian prisons: Analysis of  570 
+districts (2016-2021). 
+82.Jail Management Commission. (1864). Report of  Commission on Jail Management and 
+Discipline. Government of  India. 
+83.Macaulay, T. B. (1835). Report on prison reforms. Supreme Council of  India. 
+84.Ministry of  Home Affairs. (2016). Model Prison Manual 2016. Government of  India. 
+85.Ministry of  Home Affairs. (2022). Expenditure on prisoners. Lok Sabha Unstarred 
+Question. 
+86.Mulla Committee Report. (1983). Report of  All India Committee on Jail Reforms 
+(1980-83). Government of  India. 
+87.NALSA. (2022). Legal Aid Defence Counsel System: Guidelines. National Legal 
+Services Authority. 
+88.National Crime Records Bureau. (2022). Prison statistics India 2022. Ministry of  Home 
+Affairs, Government of  India. 
+89.NITI Aayog. (2018). National strategy for artificial intelligence: AI for All. Government 
+of  India. 
+90.NITI Aayog. (2022). Policy recommendations on legal aid reform. Government of  
+India. 
+91.NLUO. (2025). Prison Advocacy Project: Annual report 2024-25. National Law 
+University Odisha, Cuttack. 
+92.Paranjape, N. V . (2019). Criminology and penology with victimology (17th ed.). Central 
+Law Publications. 
+93.Petersilia, J. (2003). When prisoners come home: Parole and prisoner re-entry. Oxford 
+University Press. 
+88
+ 
+The Crime & Society Review Rethinking Crime, Justice & Society 
+Emerging Perspectives for the 21st Century 
+Volume I ; Issue I (Oct-Dec/2026)  
+Online/Fortnightly/Multi-Disciplinary/English/2026  
+94.Pratt, J. (2008). Scandinavian exceptionalism in an era of  penal excess. British Journal 
+of  Criminology, 48(2), 119-137. 
+95.Prisons Act, 1894, No. 9, Acts of  Parliament, 1894 (India). 
+96.Reckless, W . C. (1952). Jail administration in India. United Nations Technical Assistance 
+Administration. 
+97.Stevenson, B. (2014). Just mercy: A story of  justice and redemption. Spiegel & Grau. 
+98.Taft, D. R. (1956). Criminology (3rd ed.). Macmillan. 
+99.United Nations. (2015). Transforming our world: The 2030 agenda for sustainable 
+development. https://sdgs.un.org/2030agenda 
+100.United Nations Office on Drugs and Crime. (2015). The United Nations standard 
+minimum rules for the treatment of  prisoners (the Nelson Mandela Rules). UNODC. 
+101.West Bengal Government. (1977). Report of  Jail Code Revision Committee. Home 
+Department. 
+102.World Bank. (2023). Costs of  incarceration and poverty. World Development Report. 
+103.Zehr, H. (1990). Changing lenses: A new focus for crime and justice. Herald Press. 
+104.Morris, R. (2000). Stories of  transformative justice. Canadian Scholars Press. 
+105.D.K. Basu v. State of  West Bengal, (1997) 1 SCC 416. 
+106.Hussainara Khatoon v. Home Secretary, State of  Bihar, (1979) 3 SCC 532. 
+107.In Re: Inhuman Conditions in 1382 Prisons, W .P . (C) No. 406/2013, Supreme Court of  
+India Order dated 23 October 2024. 
+108.Maneka Gandhi v. Union of  India, (1978) 1 SCC 248. 
+109.M.H. Hoskot v. State of  Maharashtra, (1978) 3 SCC 544. 
+110.NALSA v. Union of  India, (2014) 5 SCC 438. 
+111.R.D. Upadhyay v. State of  Andhra Pradesh, (2007) 15 SCC 337. 
+112.State of  Maharashtra v. Dr. Praful B. Desai, (2003) 4 SCC 601. 
+113.Sukanya Shantha v. Union of  India, W .P . (C) No. 1404/2023, Supreme Court of  India 
+(2024). 
+114.Suk Das v. Union Territory of  Arunachal Pradesh, (1986) 2 SCC 401. 
+115.Sunil Batra v. Delhi Administration, (1978) 4 SCC 494; (1980) 3 SCC 488. 
+89

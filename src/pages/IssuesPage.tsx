@@ -13,8 +13,16 @@ import {
   Globe, 
   ShieldCheck,
   X,
-  BookOpen
+  BookOpen,
+  Unlock,
+  ChevronDown,
+  ChevronUp,
+  Check,
+  Copy,
+  ExternalLink,
+  Quote
 } from 'lucide-react';
+import { ARTICLES_DATA, ArticleData } from '../data/articlesData';
 
 interface PriorityTrack {
   id: number;
@@ -185,6 +193,19 @@ const PRIORITY_TRACKS: PriorityTrack[] = [
 
 export const IssuesPage: React.FC = () => {
   const [showTracksModal, setShowTracksModal] = useState(false);
+  const [expandedArticleId, setExpandedArticleId] = useState<string | null>(null);
+  const [copiedId, setCopiedId] = useState<string | null>(null);
+
+  const toggleArticleExpanded = (id: string) => {
+    setExpandedArticleId(prev => prev === id ? null : id);
+  };
+
+  const handleCopyCitation = (article: ArticleData) => {
+    const citation = `${article.authors.map(a => a.name).join(', ')} (${article.year}). ${article.title}. The Crime & Society Review, 1(1), ${article.pages}. ${article.doi}`;
+    navigator.clipboard.writeText(citation);
+    setCopiedId(article.id);
+    setTimeout(() => setCopiedId(null), 2500);
+  };
 
   // Close modal on Escape key and lock body scroll
   useEffect(() => {
@@ -370,33 +391,178 @@ export const IssuesPage: React.FC = () => {
             </div>
           </div>
 
-          {/* In place of tracks 1 to 6: Coming Soon section */}
-          <div className="p-8 sm:p-12 rounded-2xl border border-[var(--border-subtle)] bg-[var(--bg-card)] text-center space-y-4 shadow-2xs">
-            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-mono font-bold tracking-wider uppercase bg-amber-500/10 text-[var(--accent-gold)] border border-amber-500/20">
-              <span className="relative flex h-2 w-2">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-amber-400 opacity-75"></span>
-                <span className="relative inline-flex rounded-full h-2 w-2 bg-amber-500"></span>
+          {/* Published Articles in Volume 01, Issue 01 (Matching Image 1 UI) */}
+          <div className="rounded-2xl border border-[var(--border-subtle)] bg-[var(--bg-card)] shadow-2xs overflow-hidden">
+            {/* Header bar */}
+            <div className="p-5 sm:p-6 border-b border-[var(--border-subtle)] flex flex-wrap items-center justify-between gap-3 bg-[var(--bg-card)]">
+              <div>
+                <div className="flex items-center gap-2">
+                  <span className="text-[10px] font-mono font-bold tracking-wider uppercase px-2.5 py-0.5 rounded-full bg-amber-500/10 text-[var(--accent-gold)] border border-amber-500/20">
+                    Volume 01 • Issue 01
+                  </span>
+                  <span className="text-xs font-mono text-[var(--text-muted)]">
+                    October – December 2026
+                  </span>
+                </div>
+                <h3 className="font-serif text-xl sm:text-2xl font-bold text-[var(--text-primary)] pt-1">
+                  Articles in this Issue
+                </h3>
+              </div>
+              <span className="text-xs font-mono text-[var(--text-secondary)] bg-[var(--bg-page)] px-3 py-1 rounded-full border border-[var(--border-subtle)]">
+                {ARTICLES_DATA.length} Research Articles
               </span>
-              <span>Coming Soon</span>
             </div>
 
-            <h3 className="font-serif text-xl sm:text-2xl font-bold text-[var(--text-primary)]">
-              Inaugural Issue Articles — Coming Soon
-            </h3>
+            {/* Articles List with Image 1 UI */}
+            <div className="divide-y divide-[var(--border-subtle)]">
+              {ARTICLES_DATA.map((article) => {
+                const isExpanded = expandedArticleId === article.id;
+                return (
+                  <article key={article.id} className="p-5 sm:p-6 space-y-2.5 hover:bg-[var(--bg-card-hover)]/40 transition-colors">
+                    {/* Meta Top Line (Orange Lock, Open Access, Research Article, Date) */}
+                    <div className="flex flex-wrap items-center gap-x-2.5 gap-y-1 text-xs text-[var(--text-muted)] font-sans">
+                      <div className="inline-flex items-center gap-1 font-medium text-amber-600 dark:text-amber-400">
+                        <Unlock className="w-3.5 h-3.5 stroke-[2.5]" />
+                        <span>Open Access</span>
+                      </div>
+                      <span className="text-[var(--text-muted)] opacity-60">|</span>
+                      <span className="text-[var(--text-secondary)] font-medium">{article.articleType}</span>
+                      <span className="text-[var(--text-muted)] opacity-60">|</span>
+                      <span className="text-[var(--text-secondary)]">First published {article.firstPublished}</span>
+                    </div>
 
-            <p className="text-xs sm:text-sm text-[var(--text-secondary)] font-serif max-w-lg mx-auto leading-relaxed text-justify sm:text-center">
-              Manuscripts for Volume 01, Issue 01 are currently undergoing double-blind peer review and editorial production under our continuous rolling publication model. Accepted papers will be released continuously with persistent DOIs.
-            </p>
+                    {/* Article Title (Clickable Blue Link) */}
+                    <Link
+                      to={`/article/${article.slug}`}
+                      className="text-sky-700 dark:text-sky-400 hover:text-sky-900 dark:hover:text-sky-300 font-serif text-base sm:text-lg lg:text-[19px] font-bold leading-snug hover:underline block transition-colors"
+                    >
+                      {article.title}
+                    </Link>
 
-            <div className="pt-2">
-              <button
-                type="button"
-                onClick={() => setShowTracksModal(true)}
-                className="text-xs font-mono text-[var(--accent-gold)] hover:underline inline-flex items-center gap-1.5"
-              >
-                <span>Click here to view full issue description &amp; priority tracks</span>
-                <ArrowRight className="w-3 h-3" />
-              </button>
+                    {/* Authors Line & View All Button */}
+                    <div className="flex items-center justify-between gap-3 text-xs sm:text-sm font-serif text-[var(--text-secondary)] pt-0.5">
+                      <div className="flex flex-wrap items-center gap-x-1 gap-y-1">
+                        {article.authors.map((author, aIdx) => (
+                          <span key={aIdx} className="inline-flex items-center">
+                            <span>{author.name}</span>
+                            {author.orcid && (
+                              <span
+                                title={`ORCID iD: ${author.orcid}`}
+                                className="inline-flex items-center justify-center w-3.5 h-3.5 rounded-full bg-[#a6ce39] text-white font-bold text-[8px] ml-1 shrink-0 select-none"
+                              >
+                                iD
+                              </span>
+                            )}
+                            {aIdx < article.authors.length - 1 && <span className="mr-1">,</span>}
+                          </span>
+                        ))}
+                      </div>
+
+                      <button
+                        type="button"
+                        onClick={() => toggleArticleExpanded(article.id)}
+                        className="text-xs font-sans text-sky-700 dark:text-sky-400 hover:underline inline-flex items-center gap-1 shrink-0 cursor-pointer font-medium"
+                      >
+                        <span>{isExpanded ? 'View less' : 'View all'}</span>
+                        {isExpanded ? <ChevronUp className="w-3.5 h-3.5" /> : <ChevronDown className="w-3.5 h-3.5" />}
+                      </button>
+                    </div>
+
+                    {/* Collapsible Details Drawer */}
+                    {isExpanded && (
+                      <div className="pt-3 pb-1 space-y-3.5 animate-fadeIn">
+                        {/* Authors Full Affiliations */}
+                        <div className="p-3.5 rounded-xl bg-[var(--bg-page)] border border-[var(--border-subtle)] space-y-2 text-xs">
+                          <span className="font-mono text-[10px] uppercase font-bold text-[var(--text-muted)] tracking-wider block">
+                            Author Affiliations
+                          </span>
+                          {article.authors.map((a, i) => (
+                            <div key={i} className="space-y-0.5">
+                              <span className="font-serif font-bold text-[var(--text-primary)]">{a.name}</span>
+                              <span className="text-[var(--text-secondary)] block">
+                                {a.designation} — {a.institution}, {a.location}
+                              </span>
+                              {a.email && (
+                                <a href={`mailto:${a.email}`} className="text-sky-700 dark:text-sky-400 hover:underline block text-[11px] font-mono">
+                                  {a.email}
+                                </a>
+                              )}
+                            </div>
+                          ))}
+                        </div>
+
+                        {/* Abstract Snippet */}
+                        <div className="p-3.5 rounded-xl bg-[var(--bg-page)] border border-[var(--border-subtle)] space-y-1.5 text-xs font-serif">
+                          <span className="font-mono text-[10px] uppercase font-bold text-[var(--text-muted)] tracking-wider block font-sans">
+                            Abstract Preview
+                          </span>
+                          <p className="text-[var(--text-secondary)] leading-relaxed text-justify line-clamp-3">
+                            {article.abstract.fullText}
+                          </p>
+                          <Link
+                            to={`/article/${article.slug}`}
+                            className="text-sky-700 dark:text-sky-400 hover:underline font-sans font-semibold inline-flex items-center gap-1 text-[11px] pt-1"
+                          >
+                            <span>Read full abstract and text</span>
+                            <ArrowRight className="w-3 h-3" />
+                          </Link>
+                        </div>
+                      </div>
+                    )}
+
+                    {/* Action Bar Beneath Article (Read, Download PDF, Cite) */}
+                    <div className="flex flex-wrap items-center gap-x-3 gap-y-1.5 pt-1.5 text-xs font-sans">
+                      <Link
+                        to={`/article/${article.slug}`}
+                        className="font-semibold text-sky-700 dark:text-sky-400 hover:underline inline-flex items-center gap-1"
+                      >
+                        <span>Read Full Text (HTML)</span>
+                        <ArrowRight className="w-3 h-3" />
+                      </Link>
+
+                      <span className="text-[var(--text-muted)] opacity-50">•</span>
+
+                      <a
+                        href={article.pdfUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        download
+                        className="text-[var(--text-secondary)] hover:text-[var(--text-primary)] inline-flex items-center gap-1 font-medium transition-colors"
+                      >
+                        <Download className="w-3 h-3 text-amber-500" />
+                        <span>Download PDF ({article.pages} pp.)</span>
+                      </a>
+
+                      <span className="text-[var(--text-muted)] opacity-50">•</span>
+
+                      <button
+                        type="button"
+                        onClick={() => handleCopyCitation(article)}
+                        className="text-[var(--text-secondary)] hover:text-[var(--text-primary)] inline-flex items-center gap-1 cursor-pointer font-medium transition-colors"
+                      >
+                        {copiedId === article.id ? (
+                          <>
+                            <Check className="w-3 h-3 text-emerald-600" />
+                            <span className="text-emerald-600 font-semibold">Citation Copied!</span>
+                          </>
+                        ) : (
+                          <>
+                            <Quote className="w-3 h-3 text-amber-500" />
+                            <span>Cite</span>
+                          </>
+                        )}
+                      </button>
+
+                      <span className="text-[var(--text-muted)] opacity-50 hidden sm:inline">•</span>
+
+                      <span className="text-[11px] font-mono text-[var(--text-muted)] hidden sm:inline truncate max-w-xs">
+                        {article.doi.replace('https://doi.org/', 'doi: ')}
+                      </span>
+                    </div>
+
+                  </article>
+                );
+              })}
             </div>
           </div>
 

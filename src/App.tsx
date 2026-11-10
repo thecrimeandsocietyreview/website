@@ -21,6 +21,13 @@ const ContactPage = lazy(() => import('./pages/ContactPage').then(m => ({ defaul
 const AdminPage = lazy(() => import('./pages/AdminPage').then(m => ({ default: m.AdminPage })));
 const TrackPage = lazy(() => import('./pages/TrackPage').then(m => ({ default: m.TrackPage })));
 
+// 5 Standalone Research Article Pages (Volume 01, Issue 01)
+const ArticlePrisonAdvocacyPage = lazy(() => import('./pages/ArticlePrisonAdvocacyPage'));
+const ArticleMissingWomenPage = lazy(() => import('./pages/ArticleMissingWomenPage'));
+const ArticleSalaryProductivityPage = lazy(() => import('./pages/ArticleSalaryProductivityPage'));
+const ArticleCyberterrorismPage = lazy(() => import('./pages/ArticleCyberterrorismPage'));
+const ArticleBiodiversityLossPage = lazy(() => import('./pages/ArticleBiodiversityLossPage'));
+
 // Scroll to top automatically on route changes
 const ScrollToTop: React.FC = () => {
   const { pathname } = useLocation();
@@ -106,6 +113,13 @@ const AppLayout: React.FC = () => {
             {/* 7. Current Issue & Archive */}
             <Route path="/current-issue" element={<IssuesPage />} />
             <Route path="/archive" element={<ArchivePage />} />
+
+            {/* Volume 01, Issue 01 Research Articles */}
+            <Route path="/article/walls-closing-in-prison-advocacy" element={<ArticlePrisonAdvocacyPage />} />
+            <Route path="/article/missing-murdered-marginalized-racial-disparities" element={<ArticleMissingWomenPage />} />
+            <Route path="/article/expectancy-calculations-hygiene-salary-productivity" element={<ArticleSalaryProductivityPage />} />
+            <Route path="/article/preventing-terrorism-and-cyberterrorism" element={<ArticleCyberterrorismPage />} />
+            <Route path="/article/waging-war-against-biodiversity-loss-indonesia" element={<ArticleBiodiversityLossPage />} />
 
             {/* 8. Submission */}
             <Route path="/submit" element={<SubmitPage />} />

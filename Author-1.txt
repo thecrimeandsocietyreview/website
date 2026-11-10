@@ -1,0 +1,1299 @@
+ 
+The Crime & Society Review Rethinking Crime, Justice & Society 
+Emerging Perspectives for the 21st Century 
+Volume I ; Issue I (Oct-Dec/2026)  
+Online/Fortnightly/Multi-Disciplinary/English/2026  
+Waging War Against Biodiversity Loss: Examining Legal Framework and 
+Strategic Actions in Indonesia 
+Acceptance:  Oct 23, 2026 ; Publication: Nov 10, 2026 
+Felix Aglen Ndaru 
+Directorate General of  Forestry Law Enforcement 
+Ministry of  Forestry and Jaga Alam Raya Indonesia, Jakarta, Indonesia 
+Email: felixaglen@gmail.com 
+Abstract 
+The world is currently facing triple planetary crisis: climate change, environmental 
+pollution, and biodiversity loss. Biodiversity has important ecosystem functions such as 
+carbon absorption, oxygen supply, freshwater, soil fertility, nutrition, and medicine. 
+Indonesia has a vital role at the global level because Indonesia has tropical forests with high 
+biodiversity, but its sustainability is threatened by wildlife crime. On August 7, 2024, 
+Indonesia created a new milestone in biodiversity preservation by enacting Law Number 32 
+of  2024 on Amendments to Law Number 5 of  1990 on Conservation of  Natural 
+Resources and Ecosystems. It is important to examine the policy breakthroughs in efforts 
+to protect biodiversity in Indonesia. This study aims to dissect the legal framework in Law 
+Number 32 of  2024 and examine strategic actions to accelerate the eradication of  wildlife 
+crime. The study used normative legal methods and content analysis techniques. The 
+results show that Law Number 32 of  2024 has 26 new policy breakthroughs, which 
+consists of  technical aspects of  conservation, governance, and law enforcement. This 
+regulation still has policy gap, namely still emphasizing criminal sanction, the dependence 
+of  civil servant investigator on police investigator, fundamental authority that investigators 
+do not possess, and the absence of  substances on Forest Ranger. This study also provides 
+strategic actions to strengthen law enforcement, namely applying multiple sentences and 
+multi-regime investigations, reinforcing science and technology, and strengthening 
+collaboration at the global level. 
+Keywords: Biodiversity, Civil Servant Investigator, Triple Planetary Crisis, Wildlife Crime. 
+I. Background 
+The According to United Nations, the world is facing a triple planetary crisis: climate 
+change, biodiversity loss, and environmental pollution. The root cause of  the triple 
+planetary crisis is unsustainable production and consumption. Unsustainable extraction of  
+natural resources caused 9 million premature deaths from pollution,  pushed 1 million 1
+ F. R. Ihsan, J. G. Bloomfield, & L. V . Monrouxe, “Triple planetary crisis: why healthcare professionals should care”, 1
+Front. Med. 11:1465662 (2024). doi: 10.3389/fmed.2024.1465662.
+1
+ 
+The Crime & Society Review Rethinking Crime, Justice & Society 
+Emerging Perspectives for the 21st Century 
+Volume I ; Issue I (Oct-Dec/2026)  
+Online/Fortnightly/Multi-Disciplinary/English/2026  
+global species to extinction, and predicted the Earth's temperature to warm to 1.5°C by 2
+2030 to 2052. Indonesia is a mega-biodiverse country that has a strategic role at the global 3
+level due to its vast tropical forests. Indonesia has 120,4 million hectares of  forest area and 
+5,3 million hectares of  marine protected areas. Indonesia's tropical forests are a global 4
+climate regulator and have high biodiversity. According to the Indonesian Biodiversity 
+Strategy and Action Plan/IBSAP 2025-2045, Indonesia is home to 31.902 flora species, 
+81.260 terrestrial fauna species, and 7.841 marine fauna species. 
+Biodiversity has miscellaneous ecosystem functions, including carbon sequestration, water 
+storage and purification, decomposition, storage and recycling of  nutrients, and the 
+provision of  oxygen, clean water, fertile soil, food, protection from disasters such as floods 
+and fires, climate regulation, and medicines.  In fact, the rate of  biodiversity loss in 5
+Indonesia is alarming. Indonesia has 583 endangered species, including 191 species of  
+mammals and 160 species of  birds. Research also reported that 490 Indonesian plant 6
+species are threatened.  7
+The sustainability of  ecosystems is threatened by wildlife crime. These crimes include 
+directly harming or killing wildlife, taking wildlife from the wild, possessing, selling, or 
+exploiting wildlife. Wildlife crime is one of  the main factors causing wildlife extinction in 8
+the last two decades. This crime leads to disruption of  food chains, food webs, pollination, 9
+seed dispersal, pest populations, widespread environmental changes, and human health 
+impacts due to zoonoses. Globally, the value of  money turnover of  wildlife crime reaches 
+ E. Turnhout and A. Purvis, “Biodiversity and species extinction: categorisation, calculation, and communication”, 2
+Griffith Law Review 2020 29(4): 669–685. https://doi.org/10.1080/10383441.2020.1925204.
+ Intergovernmental Panel on Climate Change (IPCC), “Summary for Policymakers”, In Climate Change 2021 – The 3
+Physical Science Basis: Working Group I Contribution to the Sixth Assessment Report of  the Intergovernmental Panel on Climate Change 
+(Cambridge: Cambridge University Press, 2023), 15.
+ Ministry of  Environment and Forestry, The State of  Indonesia’s Forests 2024 - Towards Sustainability of  Forest Ecosystems 4
+in Indonesia (Jakarta: Ministry of  Environment and Forestry, 2024), 14.
+ E. S. Nelson and D. R. Reddy, Green Aviation - Reduction of  Environmental Impact Through Aircraft Technology and 5
+Alternative Fuels (London: Taylor & Francis Group, 2017). 327.
+ Agus Setiawan, “Indonesia's Biodiversity: Problems and Conservation Efforts”, Indonesian Journal of  Conservation 6
+11(1) (2022): 13-21. DOI 10.15294/ijc.v11i1.34532. 
+ Rony Irawanto, “Management of  Botanical Gardens in Indonesian Plant Conservation,”, SEMSINA 2023: 322 – 7
+329. DOI: https://doi.org/10.36040/semsina.v4i01.8116. 
+ Angus Nurse, Animal Harm - Perspectives on Why People Harm and Kill Animals (New York: Routledge, 2016), 46.8
+ Ministry of  Environment and Forestry, A Snapshot of  Illegal Wildlife Trade in Indonesia (Jakarta: Perkumpulan 9
+SKALA, 2017), 38.
+2
+ 
+The Crime & Society Review Rethinking Crime, Justice & Society 
+Emerging Perspectives for the 21st Century 
+Volume I ; Issue I (Oct-Dec/2026)  
+Online/Fortnightly/Multi-Disciplinary/English/2026  
+USD23 billion annually, which rivals narcotics and illegal weapons trade. Indonesia alone 10
+loses around 9 trillion rupiah annually from wildlife crime. A total of  USD261 million is 11
+disbursed annually for wildlife crime eradication in 67 African and Asian countries. 12
+Wildlife crime is one of  the low-risk, but high-gain crimes. Perpetrators are often sentenced 
+to weak sanction, which has not created a deterrent effect. Indonesia is a producing, transit, 
+and destination country for poaching and illegal wildlife trade. This crime is difficult to 
+detect because is well organized and supported by specialist actors. Each stage has its own 
+methods, routes, and markets. The network is not led by one central leader, but by a range 
+of  domestic and international specialist actors, from storage, treatment, transportation, 
+manufacturing, industrial production, marketing and retailing of  wildlife products. 13
+Illegal wildlife trade is no longer carried out conventionally through face-to-face meetings 
+but has used information technology. Currently, perpetrators are utilizing social media 
+platforms, online marketplaces, digital payments, courier services, and anonymization 
+software to communicate, hide their identities, and obtain money without being detected. 14
+It is estimated that in 2017 at least 40 percent of  wildlife traders in Indonesia switched to 
+online markets. 15
+Government efforts to preserve biodiversity began in the New Order era through Law 
+Number 5 of  1990 on Conservation of  Natural Resources and Ecosystems (Law 5/1990). 
+Law 5/1990 regulates comprehensive ecosystem protection, from habitat protection to 
+illegal trade. Law 5/1990 consists of  14 chapters and 45 articles. The Law regulates 
+protection of  life support systems, preservation of  plant and animal species diversity and 
+ecosystems; Sanctuary Reserve, preservation of  plant and animal species, sustainable 
+utilization of  natural resources and ecosystems, Nature Conservation Areas, utilization of  
+plant and wild animal species, public participation, handover of  affairs and assistance tasks, 
+investigation, and criminal provisions. 
+Law 5/1990 has been the main legal basis in biodiversity management for three decades 
+and is considered necessary to be adjusted to current condition. The urge to review Law 
+ United Nations Development Programme, Reducing Maritime Trafficking of  Wildlife: Best Practices for Ports (New York: 10
+United Nations Development Programme, 2023), 10.
+ Ministry of  Environment and Forestry, A Snapshot of  Illegal Wildlife Trade in Indonesia, 48.11
+ M. Montero, et al., Illegal Logging, Fishing, and Wildlife Trade: The Costs and How to Combat it (The World Bank, 2019)12
+ UNODC, Transnational Organized Crime in Southeast Asia: Evolution, Growth and Impact (UNODC, 2019), 119.13
+ UNODC, 18.14
+ D. A. Sinaga, “Illegal wildlife trade flourishes online in Indonesia”, accessed July 12, 2026, https://jakartaglobe.id/news/15
+illegal-wildlife-trade-flourishes-online-indonesia/. 
+3
+ 
+The Crime & Society Review Rethinking Crime, Justice & Society 
+Emerging Perspectives for the 21st Century 
+Volume I ; Issue I (Oct-Dec/2026)  
+Online/Fortnightly/Multi-Disciplinary/English/2026  
+5/1990 at least emerged in the 2000s because the law still emphasizes the protection aspect 
+and pays less attention to the utilization aspect in managing conservation areas.  
+II. Research Problem 
+The study shows that Law 5/1990 has weaknesses. First, it does not consider Law Number 
+5 of  1960 on Basic Agrarian Principles and the Decree of  the People's Consultative 
+Assembly Number IX/MPR/2001 as the basis for regulating natural resources. Second, 
+there is a disharmony between Law 5/1990 and other regulations and several 
+Constitutional Court verdicts that emphasize the preventive aspect in managing natural 
+resources, protection, and respect for the rights of  indigenous peoples and substantive 
+public participation. Third, Law 5/1990 is not responsive because does not regulate 
+modern biotechnology and genetic resources. Fourth, Law 5/1990 does not provide 
+protection for the management and use of  conservation areas by indigenous peoples and 
+public participation is only at the informing level. 16
+The government's initiative to reform the legal framework was finally realized on 7 August 
+2024 with the enactment of  Law Number 32 of  2024 on Amendments to Law 5/1990 
+(Law 32/2024). Law 32/2024 amended 18 articles, inserted 9 new articles, and removed 1 
+chapter and 1 article, namely regarding the transfer of  affairs and assignment tasks in Law 
+5/1990. Although it has been awaited for years, Law 32/2024 has not escaped public 
+criticism. In fact, Law 32/2024 was challenged at the Constitutional Court by Aliansi 
+Masyarakat Adat Nusantara/AMAN, Walhi, Koalisi Rakyat Untuk Keadilan Perikanan, and a 
+farmer named Mikael Ane. The formal review application was registered in case number 
+132/PUU-XXII/2024. Law 32/2024 was challenged because it was considered not to 
+involve the legal subjects that are closely related to the ecosystem in casu indigenous peoples 
+and local communities. 17
+As a new policy, the regulatory content of  Law 32/2024 is important to be examined to 
+identify policy breakthroughs. This study aims to compare Law 32/2024 with Law 5/1990 
+to dissect the latest policy innovation. The emergence of  Law Number 1 of  2023 on the 
+Criminal Code (Criminal Code), Law Number 20 of  2025 on the Criminal Procedure Code 
+(Criminal Procedure Code), and Law Number 1 of  2026 on Criminal Adjustments (Law on 
+Criminal Adjustments) also be the object of  this study.  
+In addition, the study aims to identify strategic actions that can be utilized by the new 
+administration of  President Prabowo Subianto to accelerate the eradication of  wildlife 
+ R. Wahanisa and M. A. Mahfud, “Analysis on Regulation of  Conversation on Biological Resources in 16
+Constitutional Court Decisions”, Jurnal Konstitusi 18(2), 2021: 391 – 412. DOI: https://doi.org/10.31078/jk1827.
+ Utami Argawati, “Interim Ruling in the Conservation Act Review: Hearing Adjourned, Government Prohibited 17
+from Issuing New Regulations”, accessed July 12, 2026, https://testing.mkri.id/berita/putusan-sela-uji-uu-ksdahe:-
+sidang-ditunda,-pemerintah-tidak-bolehterbitkan-aturan-baru-21844.
+4
+ 
+The Crime & Society Review Rethinking Crime, Justice & Society 
+Emerging Perspectives for the 21st Century 
+Volume I ; Issue I (Oct-Dec/2026)  
+Online/Fortnightly/Multi-Disciplinary/English/2026  
+crime. The aspect of  law enforcement gets a significant portion in this study because bold 
+and fair law enforcement is an important element in improving governance. Law 
+enforcement can create a deterrent effect to encourage changes in behavior and obedience 
+in society. 
+III. Methodology 
+This study is normative juridical that examines positive law aspects. The study attempts to 
+analyze laws and regulations that are relevant to the problems, namely Law 5/1990, Law 
+32/2024, and other relevant regulations. This study focuses to the norm system. In 
+addition to applying the statute approach, a conceptual approach is also utilized to identify 
+strategic actions that need to be taken by the government to eradicate wildlife crimes. The 
+legal materials collected and analyzed in this study are primary, secondary, and tertiary legal 
+materials. The technique used in data analysis is content analysis, which is a method for 
+understanding the contents of  a text. The study also uses data on law enforcement 
+practices undertaken by Ministry of  Environment and Forestry in 2015 - 2024. 
+IV . Key Findings & Implications 
+Around the globe, countries have introduced laws and policies to regulate human-
+environment relations that drive biodiversity loss. The current policies many countries 18
+have adopted and are implementing have not halted biodiversity loss as expected. This is 
+also happening in several European peripheral areas that constitute important “biodiversity 
+hotspots” for the numerous species, habitats, and ecosystems they host.  19
+Conservation policies adopted by countries, starting from traditional policies (species 
+protection and area based interventions), intervening sectoral policies such as agriculture or 
+forestry, market based mechanisms, biodiversity offsetting and ecological restoration, to 
+adopting international policy instruments. Evolutionary biologists and ecologists have 20
+repeatedly called for a more holistic approach to biodiversity conservation, dialling down 
+the traditional focus on species or habitats, and instead emphasizing ecological and 
+evolutionary processes. 21
+ C. Brockett, et al., “Best practice mechanisms for biodiversity conservation law and policy”, Cambridge Prisms: 18
+Extinction. 2023; 1:e16, doi:10.1017/ext.2023.14. 
+ G. Ferraro and P . Failler, “Biodiversity Conservation and the Role of  Policy Resources: The Case of  Saint 19
+Helena”, Sustainability, 14(3) (2022), 1250, https://doi.org/10.3390/su14031250.
+ N. E. Duffus et al., “The Present and Future of  Insect Biodiversity Conservation in the Neotropics: Policy Gaps 20
+and Recommendations”, Neotrop Entomol 52 (2023): 407–421, https://doi.org/10.1007/s13744-023-01031-7.
+ J. A. Tobias et al., “Biodiversity conservation requires integration of  species-centric and process-based strategies,” 21
+Proceedings of  the National Academy of  Sciences (PNAS) 122 (31) e2410936122 (2025), DOI: https://doi.org/10.1073/
+pnas.2410936122. 
+5
+ 
+The Crime & Society Review Rethinking Crime, Justice & Society 
+Emerging Perspectives for the 21st Century 
+Volume I ; Issue I (Oct-Dec/2026)  
+Online/Fortnightly/Multi-Disciplinary/English/2026  
+Source: Tobias et al. (2025). 22
+Based on research, best practice biodiversity laws included the identification of  five key 
+principles: threat-based laws, target-based laws, transparency and independence, inclusive 
+decision-making, and evaluation and review, and eight key mechanisms: mainstreaming 
+biodiversity and climate change, indigenous collaborations and partnerships, protected 
+areas,  listing and recovery plans, stewardship and private protected areas, land restoration, 
+offsets and no net loss schemes, and legal rights of  nature. 23
+Analysis of  Policy Breakthrough in Law 32/2024 
+Law 32/2024 divides three types of  conservation area: Sanctuary Reserve and Nature 
+Conservation Area; conservation areas in waters, coastal areas, and small islands; and 
+preservation area. Sanctuary Reserve is divided into Strict Nature Reserves and Wildlife 
+Sanctuary, while Nature Conservation Area is divided into National Park, Nature 
+Recreation Park, and Grand Forest Park. Meanwhile, preservation areas can be in the form 
+of  buffer zones for Sanctuary Reserve, Nature Conservation Area, and conservation areas 
+in waters, coastal areas, and small islands; ecological corridors or connecting ecosystems; 
+areas of  high conservation value; community-managed conservation areas; and/or local 
+wisdom protection areas, which can come from protected forest areas, production forests, 
+and non-forest area. The government determines the conservation status of  wild plants 
+and animals into two categories: protected or unprotected. 
+There are typologies of  prohibition and criminal acts in Law 32/2024, namely activities 
+that can change the integrity of  Sanctuary Reserve; activities that can change to the 
+Table 1. New Paradigm for Conservation Policy
+Species-centric conservation Process-based conservation
+Aim Preventing extinctions Resilient and adaptable ecosystems
+PriorityBoosting populations of  rare or declining 
+species
+Maintaining and restoring ecosystem processes
+Messag
+e
+Saving species Creating sustainable and productive ecosystems
+Key 
+actions
+Protected areas, threatened species recovery, 
+breeding programmes, habitat restoration, 
+wildlife corridors, action on trade and over-
+exploitation, species-based restoration
+Enhancing genetic diversity, facilitating 
+adaptation, multi-scale connectivity, corridors 
+spanning climate and habitat gradients, 
+maintaining and rebuilding trophic webs, trait-
+based rewilding
+ J.A. Tobias et al.22
+ C. Brockett, et al., “Best practice mechanisms for biodiversity conservation law and policy”, Cambridge Prisms: 23
+Extinction. 2023; 1:e16, doi:10.1017/ext.2023.14.
+6
+ 
+The Crime & Society Review Rethinking Crime, Justice & Society 
+Emerging Perspectives for the 21st Century 
+Volume I ; Issue I (Oct-Dec/2026)  
+Online/Fortnightly/Multi-Disciplinary/English/2026  
+integrity of  Nature Conservation Area; illegal activities against protected plants or their 
+parts in a living or dead state; and illegal activities against protected animals in a living or 
+dead state, their specimens, their parts, or goods made from their parts, including eggs 
+and/or nests of  protected animals. Based on the identification results, there are 26 policy 
+breakthroughs in Law 32/2024 that have not been regulated in Law 5/1990, consisting of  
+breakthroughs in technical aspects of  conservation, governance, and law enforcement. 
+Table 2. Policy Breakthrough in Law 32/2024
+Policy Breakthrough Legal Basis Explanation
+Technical Conservation Aspect
+Regulations on genetic resources 
+and genetic diversity
+Article 1 number 11 
+and 12
+This policy emphasizes that biodiversity 
+conservation is not only carried out at 
+ecosystem and species level, but also at genetic 
+level.
+Regulations on preservation area Article 1 number 16 
+and Article 8 verse 
+(2), verse (3), verse 
+(4), and verse (5)
+This regulation confirms the government's 
+commitment to strengthen conservation 
+efforts not only within conservation areas, but 
+also outside conservation areas. 
+Regulation of  sustainable use of  
+natural biological resources and 
+ecosystems, namely the use of  
+environmental conditions, wildlife 
+types, and wildlife genetic 
+resources
+Article 26 and 
+Article 34
+Law 32/2024 confirms the types of 
+environmental service utilization that can be 
+carried out in Nature Conservation Area, 
+namely nature recreation, water and water 
+energy, solar, wind, geothermal, and/or 
+carbon. The government also guarantees the 
+implementation of  genetic resource utilization.
+Governance Aspect
+Clarity on the division of  
+conservation authority between 
+Minister of  Forestry and the 
+Minister of  Maritime Affairs and 
+Fisheries
+Article 5A Minister of  Forestry determines and manages 
+Sanctuary Reserve and Nature Conservation 
+Area. Meanwhile, Minister of  Marine Affairs 
+and Fisheries determines and manages 
+conservation areas in waters, coastal areas, and 
+small islands.
+Regulations regarding 
+conservation funding
+Article 36A Law 32/2024 mandates the government and 
+local governments to provide adequate and 
+sustainable funding for conservation activities 
+originating from the state revenue and 
+expenditure budget, local revenue and 
+expenditure budget, and/or other legitimate 
+sources.
+7
+ 
+The Crime & Society Review Rethinking Crime, Justice & Society 
+Emerging Perspectives for the 21st Century 
+Volume I ; Issue I (Oct-Dec/2026)  
+Online/Fortnightly/Multi-Disciplinary/English/2026  
+Strengthening the role and 
+recognition of  indigenous law 
+communities
+Article 37 Law 32/2024 explicitly mentions a new legal 
+subject that previously did not exist in Law 
+5/1990, namely indigenous law communities. 
+This indicates that the government recognizes 
+the existence of  indigenous law communities 
+as guardians of  forests and biodiversity at the 
+grassroots level.
+Law Enforcement Aspect
+Application of  administrative 
+sanctions instruments
+Article 9 verse (6) Administrative sanctions are divided into five 
+types, namely written warnings, temporary 
+suspension of  business, closure of  locations, 
+administrative fines, and/or revocation of  
+business licenses, which can be imposed 
+partially or simultaneously.
+Granting protected status to 
+plants and animals from abroad 
+that enter Indonesia’s territory 
+whose status is protected by 
+international provisions
+Article 23 verse (1) This provision supports biodiversity 
+protection at international level, because the 
+government recognizes protected status, even 
+though plants and animals do not have 
+protected status by the Indonesian 
+Government.Additional authority of  civil 
+servant investigators to arrests 
+and detain
+Article 39 verse (5) 
+letter i
+Arrest and detention are integral authorities 
+that all investigators should have to secure 
+suspects and collect evidence.
+The authority of  civil servant 
+investigators to open, examine, 
+and/or confiscate letters, 
+electronic media, or deliveries
+Article 39A verse (2) 
+letter a
+Wildlife crimes are carried out through 
+sophisticated modus operandi, one of  which is 
+using information technology and other forms 
+of  communication, so that civil servant 
+investigators are given the legality to collect 
+private and confidential communication data.
+The authority of  civil servant 
+investigators to request 
+information on conversations via 
+communication devices.
+Article 39A verse (2) 
+letter b
+Wildlife crimes are committed through 
+sophisticated modus operandi, one of  which is 
+using information technology and other forms 
+of  communication, so that civil servant 
+investigators are given the legality to collect 
+private and confidential communication data. 
+This authority must obtain permission from 
+the head of  the district court.
+8
+ 
+The Crime & Society Review Rethinking Crime, Justice & Society 
+Emerging Perspectives for the 21st Century 
+Volume I ; Issue I (Oct-Dec/2026)  
+Online/Fortnightly/Multi-Disciplinary/English/2026  
+Civil servant investigators' 
+authority to block suspects' 
+accounts.
+Article 39A verse (2) 
+letter c
+Wildlife crimes are committed to gain financial 
+profit,24 s o  t h a t  b l o c k i n g  a c c o u n t s  i s  
+indispensable to secure evidence and cut off  
+perpetrator's resources.
+The authority of  investigators, 
+prosecutors, or judges to request 
+data on suspect's wealth and tax 
+data
+Article 39A verse (3) 
+letter a
+Wildlife crimes have a strong economic 
+dimension, so law enforcement officers need 
+financial data from related agencies to prove 
+and confiscate profits.
+The authority of  investigators, 
+public prosecutors or judges to 
+request Indonesia Financial 
+Transaction Reports and Analysis 
+Center/FINTRAC to conduct 
+investigations into the suspect's 
+financial data
+Article 39A verse (3) 
+letter b
+Financial data from FINTRAC is essential for 
+law enforcement to identify criminal networks, 
+identify assets for evidence and asset recovery, 
+and develop cases towards money laundering 
+crimes.
+The authority of  investigators, 
+prosecutors, or judges to request 
+relevant agencies to prohibit 
+someone from traveling abroad
+Article 39A verse (3) 
+letter c
+The perpetrators of wildlife crimes are 
+organized criminal networks that have 
+resources and operate transnationally. There is 
+a precedent for perpetrators to flee abroad to 
+avoid the law.
+The authority of  investigators, 
+public prosecutors, or judges to 
+determine someone as a suspect 
+and include them in the wanted 
+list/fugitive.
+Article 39A verse (3) 
+letter d
+By designating a suspect as a fugitive, this will 
+provide notification to national law 
+enforcement officers and also international 
+authorities to pursuit the suspect and also 
+encourage in absentia trial.
+Recognition of  electronic 
+evidence
+Article 39B verse (1) 
+letter b
+Wildlife crimes are committed through 
+sophisticated modus operandi, one of  which is 
+using electronic media. This provision 
+strengthens the recognition of  electronic 
+evidence as regulated in Law Number 11 of  
+2008 on Electronic Information and 
+Transactions, that electronic information and/
+or electronic documents and/or their printouts 
+are valid legal evidence.
+9
+ 
+The Crime & Society Review Rethinking Crime, Justice & Society 
+Emerging Perspectives for the 21st Century 
+Volume I ; Issue I (Oct-Dec/2026)  
+Online/Fortnightly/Multi-Disciplinary/English/2026  
+Release of  living animal evidence 
+into natural habitat
+Article 39B verse (3)In some cases, animals died due to the 
+protracted law enforcement process. Law 
+32/2024 mandates the government to save 
+living animals, even though they are used as 
+evidence in enforcement process. The release 
+of  animals into natural habitat is sufficiently 
+proven through a release report.
+Stricter criminal sanctions Article 40 until 
+Article 40B
+In Law 5/1990, criminal sanctions are 
+considered too low, namely the threat of  a 
+maximum prison sentence of  10 years and a 
+maximum fine of  IDR200 million. Law 
+32/2024 formulates stricter sanctions. The 
+threat of  a maximum prison sentence of  20 
+years and a maximum fine of  category VIII.
+Specific minimum criminal 
+sanctions
+Article 40 until 
+Article 40B
+Minimum sentence policy is originally 
+intended to provide legal certainty and 
+uniformity in the imposition of  criminal 
+sentences so that there is no sharp disparity 
+between cases with similar characteristics. In 
+Law 5/1990, there is no specific minimum 
+sentence, so the sentences imposed are often 
+very low, even imprisonment of  less than 1 
+year. Through Law 32/2024, a special 
+minimum sentence is regulated, namely a 
+minimum sentence of  2 years imprisonment 
+and a category III fine; a minimum sentence 
+of  3 years imprisonment and a category IV 
+fine; and a minimum sentence of  4 years 
+imprisonment and a category IV fine 
+(depending on crime typology).
+10
+ 
+The Crime & Society Review Rethinking Crime, Justice & Society 
+Emerging Perspectives for the 21st Century 
+Volume I ; Issue I (Oct-Dec/2026)  
+Online/Fortnightly/Multi-Disciplinary/English/2026  
+Gradation of  criminal sanctions 
+based on the act
+Article 40 until 
+Article 40B
+Law 32/2024 applies criminal sanctions based 
+on the gradation of  the act. For example, in 
+Law 32/2024, the act of  killing protected 
+animals is subject to heavier sanctions 
+compared to the act of  removing protected 
+animals from one place to another place within 
+and/or outside Indonesia’s territory. In Law 
+5/1990, both acts are subject to the same 
+criminal sanctions, although the level of  
+fatality is different.
+Recognition of  corporate criminal 
+liability
+Article 1 number 24 
+and Article 40C
+Criminal liability is also given to managers who 
+have functional positions, give orders, hold 
+control, and/or are beneficial owners of  the 
+corporation.
+Increasing criminal sanctions for 
+the use of  information 
+technology facilities
+Article 40C verse (2)This sanction was given in response to the 
+rampant illegal trade of  plants and/or animals 
+through online platforms.
+Additional criminal penalties for 
+corporations
+Article 40C verse (3)Additional penalties imposed to strengthen 
+deterrent effect and recovery of  conditions. 
+There are 11 types of  additional criminal 
+penalties, namely compensation payments; 
+costs for restoring Sanctuary Reserve and/or 
+Nature Conservation Area; costs for 
+rehabilitation, translocation, and release of  
+animals to original habitat; costs for 
+maintaining plants and/or animals that cannot 
+be returned to original habitat; confiscation of  
+plants and/or animals or profits obtained from 
+criminal acts; announcement of  court verdicts; 
+revocation of  certain permits; permanent 
+prohibition of  carrying out certain acts; 
+closure of  all or part of  the business premises 
+and/or business activities; freezing of  all or 
+part of  business activities; and/or dissolution 
+of  the corporation.
+11
+ 
+The Crime & Society Review Rethinking Crime, Justice & Society 
+Emerging Perspectives for the 21st Century 
+Volume I ; Issue I (Oct-Dec/2026)  
+Online/Fortnightly/Multi-Disciplinary/English/2026  
+There are 26 policy breakthroughs in Law 32/2024 that were previously not regulated in 
+Law 5/1990. These policy breakthroughs are divided into technical aspect of  conservation 
+(3 policy breakthroughs), governance aspect (3 policy breakthroughs), and law enforcement 
+aspect (20 policy breakthroughs). Law enforcement is the most improved aspect in Law 
+32/2024. This indicates that lawmakers have high expectations for law enforcement in 
+improving governance in biodiversity conservation. 
+This study also identified policy gaps in Law 32/2024. First, Law 32/2024 is still like Law 
+5/1990 which relies too much on criminal sanctions in responding violations. Law 32/2024 
+indeed introduces a new legal instrument, namely administrative sanctions. However, the 
+application of  administrative sanctions is limited only to business license holder in 
+preservation areas. In addition, Law 32/2024 does not provide civil law instruments or 
+dispute resolution, either through the courts or outside the court. In fact, civil instruments 
+Confiscation and auction of  
+corporation assets 
+Article 40C verse (5)Confiscation and auction of  assets are carried 
+out if  the corporation does not fulfil 
+additional criminal penalties in the form of  
+compensation payments; costs for restoring 
+the Sanctuary Reserve and/or Nature 
+Conservation Area; costs for rehabilitation, 
+translocation, and release of  animals to their 
+original habitat; costs for maintaining plants 
+and/or animals that cannot be returned to 
+their original habitat; and confiscation of  
+plants and/or animals or profits obtained from 
+criminal acts. This provision will enhance 
+corporations obedience in executing additional 
+penalties and prevent legal vacuum when 
+corporations do not execute additional 
+criminal penalties.
+Elimination of  provisions on 
+criminal acts of  exploiting water 
+resources in Sanctuary Reserve 
+and Nature Conservation Area in 
+Law Number 17 of  2019 on 
+Water Resources
+Article 43A verse (2)This provision is intended to prevent legal 
+dualism and overlapping regulations. Currently, 
+criminal acts of  water exploitation in 
+Sanctuary Reserve and Nature Conservation 
+Area are subject only to Law 32/2024.
+Source: content analysis of  Law 32/2024
+12
+ 
+The Crime & Society Review Rethinking Crime, Justice & Society 
+Emerging Perspectives for the 21st Century 
+Volume I ; Issue I (Oct-Dec/2026)  
+Online/Fortnightly/Multi-Disciplinary/English/2026  
+are needed for the government to claim compensation, for example due to ecosystem 
+damage or the death of  plants and/or animals.  
+Second, Law 32/2024 has not accelerated the investigation process because civil servant 
+investigators are still too dependent on police investigators. The provisions of  Article 39 
+verse (6) of  Law 32/2024 state that civil servant investigators notify the commence of  the 
+investigation and report the results of  their investigation to the prosecutor through police 
+investigators. In accordance with Criminal Procedural Code, it is indeed regulated that civil 
+servant investigators are under the coordination and supervision of  police investigators. 
+Realizing the complex characteristics of  wildlife crimes and sophisticated modus operandi, 
+civil servant investigators should be able to directly notify the start of  an investigation and 
+submit the results of  their investigation directly to the prosecutor to accelerate case 
+handling, but still coordinate with police investigators. 
+Third, there is fundamental authority that investigators do not possess. Law 32/2024 
+provides progressive authority for law enforcement officers, especially civil servant 
+investigators to obtain evidence, for example the authority to obtain financial data and 
+communication data from related agencies. However, given the high complexity of  
+handling wildlife crimes, there is authority that has not been regulated, namely the authority 
+of  investigators to carry out undercover buying techniques. This authority is very much 
+required to dismantle illegal wildlife trade network, because the perpetrators need to be 
+"lured" to show the plants, animals, and/or derivative products they control. Lawmakers 
+should reflect on Law Number 35 of  2009 on Narcotics (Narcotics Law). In Article 75 
+letter j of  Narcotics Law, it is stipulated that investigators of  National Narcotics Agency 
+are authorized to perform undercover buying and supervised delivery investigative 
+techniques. This technique is also given to investigators in Law Number 5 of  1997 on 
+Psychotropics. 
+Wildlife crimes have a strong connection with narcotics crimes, and even have identical 
+characteristics, namely using combined smuggling methods (wildlife and narcotics are 
+smuggled in the same shipping mode), camouflage techniques, using more than one trade 
+route, using shared smuggling routes and transportation methods, using a barter system, 
+and both are accompanied by money laundering. 24
+Fourth, there are no regulations pertaining the authority of  forest ranger. Forest ranger has 
+a strategic role in preventing and handling wildlife crimes, but its authority, duties, or 
+functions have not been regulated in Law 5/1990 or Law 32/2024. Regulations regarding 
+forest ranger at the law (Undang-Undang) level are only found in Law Number 41 of  1999 
+on Forestry and Law Number 18 of  2013 on Prevention and Eradication of  Forest 
+ D. van Uhm, N. South, and T. Wyatt, “Connections between trades and trafficking in wildlife and drugs”, Trends in 24
+Organized Crime (2021) 24: 425–446, https://doi.org/10.1007/s12117-021-09416-z. 
+13
+ 
+The Crime & Society Review Rethinking Crime, Justice & Society 
+Emerging Perspectives for the 21st Century 
+Volume I ; Issue I (Oct-Dec/2026)  
+Online/Fortnightly/Multi-Disciplinary/English/2026  
+Destruction. Affirmation of  forest ranger authority should also be regulated in Law 
+5/1990 or Law 32/2024 because the characteristics of  biodiversity cases are different from 
+the characteristics of  forestry cases in general. 
+Important Notes: The Emergence of  Law Reform in Indonesia 
+In 2026, Indonesia marked the emergence of  national legal reform with the enactment of  
+three laws: Criminal Code, Criminal Procedure Code, and Law on Criminal Adjustments. 
+These three laws came into effect on January 2, 2026. Criminal Code was established to 
+replace Wetboek von Strafrecht as stipulated in Law Number 1 of  1946 on Criminal Law 
+Regulations which has been amended several times. Criminal Procedure Code was 
+established to realize an integrated criminal justice system by adjusting the functions, duties, 
+and authorities of  law enforcement officers to align with state developments, advances in 
+science and technology, and international conventions that have been ratified by the 
+Indonesian Government. The Criminal Adjustment Law then was established as an order 
+from the Criminal Code. This law aims to complement the criminal law system to be 
+consistent, adaptive, and responsive to social change, so that adjustments are needed to 
+criminal law norms that have the potential to cause uncertainty and injustice both between 
+laws outside the Criminal Code and Local Regulations with the Criminal Code and within 
+the Criminal Code itself. The enactment of  the three laws brings several new implications 
+for the governance for handling criminal cases in Indonesia, including: 
+Table 3. New Criminal Policy in Indonesia After the Enactment of  Criminal 
+Code, Criminal Procedural Code, and Law on Criminal Adjustment.
+New Provision Legal Basis Explanation
+The application of  double track 
+system for sanctioning, namely a 
+combination of  primary 
+penalties and actions.
+Article 12 and Article 
+103 Criminal Code
+This concept combines sanctioning with 
+mentoring for the perpetrator and restoration 
+for the impact of  the crime
+Application of  categorization 
+for criminal fines
+Article 79 Criminal 
+Code
+There are 8 categories: 
+a.category I: IDR1 million;  
+b.category II: IDR10 million;  
+c.category III: IDR50 million;  
+d.category IV: IDR200 million;  
+e.category V: IDR500 million;  
+f.category VI: IDR2 billion;  
+g.category VII: IDR5 billion;  
+h.category VIII: IDR50 billion
+14
+ 
+The Crime & Society Review Rethinking Crime, Justice & Society 
+Emerging Perspectives for the 21st Century 
+Volume I ; Issue I (Oct-Dec/2026)  
+Online/Fortnightly/Multi-Disciplinary/English/2026  
+The recognition of  living law Article 2 Criminal 
+Code
+Violation of  the living law is sanctioned by 
+fulfilling customary (adat) obligations
+The elimination of  specific 
+minimum sentence provisions
+Article I Law on 
+Criminal Adjustment
+This provision does not apply to heavy crimes 
+against human rights, terrorism, corruption, 
+and money laundering
+The adjustment of  criminal 
+sanction
+Article II - Article VI 
+Law on Criminal 
+Adjustment
+It regulates criminal sanctioning in Laws 
+outside Criminal Code and Local Regulation 
+(Peraturan Daerah). This adjustment does not 
+apply to narcotics crime
+Criminalization due to the 
+fulfilment of  the elements of  a 
+criminal act without considering 
+the element of  fault (schuld)
+Article 37 Law on 
+Criminal Adjustment
+This clause provides policy flexibility for 
+criminalization without fault (strict liability), 
+whether intentional or negligent.
+Affirmation of  ultimum remedium 
+principle in handling the case
+Article 613 verse (3) 
+Law on Criminal 
+Adjustment
+Laws that have characteristic of  administrative 
+penal law, must prioritize mentoring and 
+administrative sanctions or other sanctions 
+before the imposition of  criminal sanctions
+Police investigator are the main 
+investigators 
+Article 6 verse (2) 
+Criminal Procedural 
+Code
+Civil servant investigators are under the 
+coordination and supervision of  the police. 
+Every legal action conducted by the civil 
+servant investigators must be reported to the 
+police investigators.
+Pre-investigations (penyelidikan) 
+can be carried out by officials 
+other than the police
+Article 1 verse (7) 
+Criminal Procedural 
+Code
+In old Criminal Procedural Code, pre-
+investigation (actions to identify and discover 
+event allegedly being a crime) could only be 
+carried out by the police. 
+Protection for victims, 
+informants, complainants, 
+witnesses, suspects, defendants, 
+and convicts, including people 
+with disabilities, women, and 
+elders
+Article 34 verse (5), 
+Article 53 – 54, 
+Article 144, Article 
+145, Article 146, 
+Article 147, and 
+Article 148 Criminal 
+Procedural Code
+Protection includes avoiding any threats as well 
+as fulfilment of  basic rights in law enforcement 
+processes
+15
+ 
+The Crime & Society Review Rethinking Crime, Justice & Society 
+Emerging Perspectives for the 21st Century 
+Volume I ; Issue I (Oct-Dec/2026)  
+Online/Fortnightly/Multi-Disciplinary/English/2026  
+Reducing criminal sanctions and eliminating special minimum sentences could be beneficial 
+in preventing overcrowding in correctional institutions. According to data from Ministry of  
+Immigration and Corrections in 2025, the number of  inmates in correctional institutions 
+and detention centers reached 281.832, while the available capacity was only 147.530. Thus, 
+Expansion of  evidence Article 235 Criminal 
+Procedural Code
+New evidence that is recognized is physical 
+evidence, electronic evidence, judge's 
+observations, and anything that can be used for 
+the purposes of  proof  in court proceedings as 
+long as obtained in accordance with the law.
+The recognition of  in absentia 
+trial
+Article 266 Criminal 
+Procedural Code
+Previously, crimes that could be processed in 
+absentia were only corruption, money 
+laundering, fisheries, terrorism and forest 
+destruction.
+Expansion of  pretrial objects Article 158 – 164 
+Criminal Procedural 
+Code
+New objects in pretrial include: all of  coercive 
+measures; confiscation of  goods that are not 
+unrelated to a crime; delay in handling cases 
+without valid reasons; and suspension of  
+detention
+Strengthening the role of  
+advocates in providing legal aid
+Article 149 – 155 
+Criminal Procedural 
+Code
+Advocates also have the status of  law 
+enforcement officers who can give legal service 
+and legal aid to suspects, defendants, convicts, 
+witnesses, and victims in investigation, 
+prosecution, and trial processes
+Establishment of  an 
+endowment fund for redress 
+rehabilitation, restitution and 
+compensation
+Article 187 Criminal 
+Procedural Code
+The endowment fund is collected from state 
+budget, investment income, profit sharing from 
+Non-Tax State Revenue of  law enforcement, 
+proceeds from the management of  confiscated 
+goods, and other legitimate and non-binding 
+sources
+Recognition of  alternative 
+mechanisms to settle the case
+Article 78 – 88 and 
+Article 328 Criminal 
+Procedural Code
+There are three alternative mechanism: 
+restorative justice, plea bargain, and deferred 
+prosecution agreement
+Source: Law 32/2024 and Law on Criminal Adjustment
+16
+ 
+The Crime & Society Review Rethinking Crime, Justice & Society 
+Emerging Perspectives for the 21st Century 
+Volume I ; Issue I (Oct-Dec/2026)  
+Online/Fortnightly/Multi-Disciplinary/English/2026  
+the occupancy rate of  prisons and detention centers reached approximately 190,9 percent 
+of  ideal capacity. However, the reduction of  criminal sanction and elimination of  special 25
+minimum sentences also applies to fines. This has the potential to weaken law enforcement 
+efforts. 
+There are basically two types of  penalties: monetary and non-monetary (which usually 
+refers to imprisonment). From a legal perspective, monetary sanctions can either be 
+administrative fines or take the form of  criminal fines. Some economists have long 
+advocated that when deterrence could be achieved in the same way through those types of  
+sanctions, fines would be preferred to imprisonment penalties. The straightforward 
+economic reason is that a prison sanction leads to substantial costs for society, whereas 
+fines can shift funds from the perpetrator to society.  Then expressionist theorists of  26
+punishment often agree on two points: first, that a monetary fine is a more humane and 
+efficient punishment than imprisonment and, second, that a monetary fine cannot replace a 
+prison sentence, at least for non-minor offenses. 27
+When minimum sentences are eliminated, judges may lose the standard for sentencing. 
+When judges impose relatively high sentences in conservation cases, they are morally and 
+legally justified because there is a minimum sanction required. Yet now there is no 
+established guideline for the minimum sentence. Judges who are unaware that wildlife 
+crimes have serious impacts on ecosystems may impose relatively light sentences. The 
+severity of  the sentence in conservation cases will depend on the discretion of  the judge 
+deciding the case. It is possible that conservation cases could result in light sentences, as 
+under Law 5/1990. 
+The third, civil servant investigators are no longer can exercise their authorities 
+independently because they are very attached to police investigator as arranged in Criminal 
+Procedural Code. The authority of  civil servant investigators as stated in Law 32/2024 and 
+the other sectoral laws remain valid and can be utilized as stipulated in Article 7 verse (4) 
+of  the Criminal Procedure Code: "Civil Servant Investigators and Specific Investigators have 
+authority based on the law which is their legal basis." Nevertheless, civil servant investigator is 
+unable to perform their authority freely, especially authority to arrests and detain, as 
+described below: 
+ Yustina Sari and Puteri Hikmawati, “Strengthening the Legal Framework for Mass Amnesty Policies to Address 25
+Overcrowding in Correctional Facilities”, Jurnal Negara Hukum 16(2) (2025): 182 – 200, DOI: https://doi.org/
+10.22212/ jnh.v16i2.5136.
+ M. Faure and J. Ma, “Cartel Enforcement in China. Monetary or Criminal Sanctions?” In N. Philipsen and G. Xu 26
+(Eds.), The Role of  Law and Regulation in Sustaining Financial Markets (pp. 195-221) (New York: Routlegde, 2014), 199.
+ I. Coca-Vila, “What’s Really Wrong with Fining Crimes? On the Hard Treatment of  Criminal Monetary Fines”, 27
+Criminal Law and Philosophy 16 (2) (2022): 395-415, doi:10.1007/s11572-021-09623-3.
+17
+ 
+The Crime & Society Review Rethinking Crime, Justice & Society 
+Emerging Perspectives for the 21st Century 
+Volume I ; Issue I (Oct-Dec/2026)  
+Online/Fortnightly/Multi-Disciplinary/English/2026  
+Procedural independence is the legal conditions inherent in the status of  an investigator, 
+which implies a significant degree of  legal freedom in terms of  exercising the discretionary 
+powers in a criminal proceeding. This condition is expressed in the ability of  the 
+investigator to independently perform any investigative measures, make a variety of  
+procedural decisions, assess the strength of  the evidence, and take personal responsibility 
+for their proper execution. 28
+The presence of  civil servant investigator is crucial to protect the implementation and 
+integrity of  a sectoral law. Almost every sectoral law has provisions regarding the mandates 
+for civil servant investigator to conduct investigations. Civil servant investigator has a better 
+Table 4. New Coordination Pattern between Civil Servant Investigator and Police 
+Investigator.
+New Coordination Pattern Legal Basis 
+In executing pre-investigative duties, civil servant investigator are coordinated, 
+supervised and given instructions by police investigators
+Article 20 verse (1)
+Civil servant investigator and specific investigators in carrying out their duties 
+and authorities are under the coordination and supervision of  police 
+investigators
+Article 7 verse (3)
+Civil servant investigator and specific investigators in carrying out their duties 
+and authorities are required to coordinate with police investigators until the 
+case files are handed over to the prosecutor
+Article 7 verse (4)
+The submission of  case files carried out by civil servant investigator and 
+specific investigators is carried out through police investigators who then jointly 
+submit the case files to the prosecutor
+Article 8 verse (3)
+If  civil servant investigator or specific investigators stops the investigation, is 
+obliged to involve police investigator
+Article 24 verse (3)  
+Civil servant investigator and specific investigators cannot make arrests except 
+on the orders of  police investigators
+Article 93 verse (3)
+Civil servant investigator and specific investigators cannot make detention 
+except on the orders of  police investigators
+Article 99 verse (3) 
+Source: Criminal Code, Criminal Procedural Code, and Law on Criminal Adjustment
+ S. B. Rossinskiy and D. B. Bazarova, “Procedural Independence of  the Investigator: Myth of  Reality?”, The 28
+American Journal of  Political Science Law and Criminology  5(06) (2023): 44–56, https://doi.org/10.37547/tajpslc/
+Volume05Issue06-09. 
+18
+ 
+The Crime & Society Review Rethinking Crime, Justice & Society 
+Emerging Perspectives for the 21st Century 
+Volume I ; Issue I (Oct-Dec/2026)  
+Online/Fortnightly/Multi-Disciplinary/English/2026  
+understanding of  the characteristics of  a sectoral criminal act. The effectiv eness of the 29
+criminal justice system is largely determined by the alignment between the authority 
+structure and institutional functions. When authority is not placed in the hands of  the most 
+substantively competent actors, the system will operate inefficiently and be costly. In this 
+context, the subordination of  the civil servant investigator under police investigator 
+negates the initial purpose of  its establishment to accelerate sectoral law enforcement. 30
+Identification of  Strategic Actions to Accelerate Law Enforcement of  Wildlife 
+Crimes 
+The Indonesian government in 2015 took a progressive step in eradicating wildlife crimes 
+by forming specialized unit, namely the Directorate General of  Law Enforcement on 
+Environmental and Forestry at Ministry of  Environment and Forestry. Over the past 
+decade, the Ministry of  Environment and Forestry (currently the Ministry of  Forestry) has 
+successfully carried out 533 operations to eradicate illegal wildlife trafficking and resolved 
+480 criminal cases. From the results of  these operations, 256.451 animals and 22.857 
+animal body parts were successfully secured. 
+ 
+Source: statistic data of  Ministry of  Environment and Forestry 2015 – 2024. 
+Various policy breakthroughs in Law 5/1990 and 32/2024 need to be strengthened with 
+several strategic actions to accelerate law enforcement. The study identified three strategic 
+actions in law enforcement, namely the application of  layered articles and multi-regime 
+Graphic 1. Law Enforcement on Wildlife Crime by Ministry of  Environment and Forestry 2015 – 2024.
+2015 2016 2017 2018 2019 2020 2021 2022 2023 2024
+59
+45
+35
+38
+48
+65
+41
+55
+51
+43
+40
+40
+29
+59
+73
+45
+76
+68
+65
+38
+Operation Criminal Cases
+ F. A. Ndaru, “Should Civil Servant Investigators Become Functional Positions?”, Jurnal Bina Praja 16(3) (2024): 29
+639-661, https://doi.org/10.21787/jbp.16.2024.639-661.
+ T. W . Pranoto, et al., “The Role of  Civil Servant Investigators in the Criminal Justice System Following the 30
+Amendment of  the Criminal Procedure Code”, JUSTLAW: Journal Science and Theory of  Law 2(2) (2025): 1-11, e- 
+ISSN: 3089-2414.
+19
+ 
+The Crime & Society Review Rethinking Crime, Justice & Society 
+Emerging Perspectives for the 21st Century 
+Volume I ; Issue I (Oct-Dec/2026)  
+Online/Fortnightly/Multi-Disciplinary/English/2026  
+investigations, science and technology support, and collaborative networks at the 
+international level. 
+The first strategic action is application of  layered articles and multi-regime investigations. 
+From 29 court decisions related to wildlife crimes from January to August 2020 collected 
+by the WildEye community organization, it was concluded that the sentences for 
+perpetrators of  wildlife crimes were still very low. More than half  of  the cases were only 
+sentenced to less than a year in prison. The data also shows that the fines are relatively 
+minimal. Seven defendants were sentenced to a fine of  IDR100 million, five cases with a 
+fine of  IDR50 million, while the rest varied between IDR1 million and IDR10 million.  31
+One method believed to be effective is the application of  layered articles. This method 
+aims to increase deterrent effect using multiple laws. This is done to maximize the 
+application of  sanctions for creating deterrent effect and accountability for perpetrators. 
+The advantages of  one law can complement the gaps in other laws.  
+Law 5/1990 jo. Law 32/2024 is the core regulation in conservation purview. Wildlife 
+crimes are cross-sectoral, so they not only violate conservation law, but also other rules. In 
+addition to Law 5/1990 jo. Law 32/2024, the study found other regulations that can be 
+utilized to eradicate wildlife crimes, namely Law on Forestry; Law on Environmental 
+Protection and Management; Law on Prevention and Eradication of  Forest Destruction; 
+Law on Land and Water Conservation; Law on Customs; Law on Protection of  Plant 
+Varieties; Law on Fisheries; Law on Spatial Planning; Law on Mineral and Coal Mining; 
+Law on Horticulture; Law on Management of  Coastal Areas and Small Islands; Law on 
+Animal Husbandry and Animal Health; Law on Water Resources; Law on Animal, Fish, 
+and Plant Quarantine; Law on Sustainable Agricultural Cultivation System; Law on 
+Prevention and Eradication of  Money Laundering; and Law on the Eradication of  
+Corruption. 
+The application of  a legal regime other than conservation law was successfully 
+implemented. Ministry of  Agriculture in 2019 used Law Number 21 of  2019 on Animal, 
+Fish and Plant Quarantine to ensnare a wildlife trader named Irawan Shia. In 2020, 
+Pekanbaru District Court sentenced Irawan Shia to four years in prison and a fine of  IDR1 
+billion, which was a higher verdict than the verdict in the case using Law 5/1990.  La w 32
+enforcement agencies, namely the Corruption Eradication Commission, the Police, and the 
+Prosecutor's Office, also need to investigate alleged corruption, because there are state 
+officials who are involved in wildlife crimes. In addition, the Constitutional Court through 
+ R. A. Pratama and W . U. N. Zuhra, “Quarantine Law: New Hope in Eradicating Wildlife Smuggling”, accessed July 12, 31
+2026, https://www.ekuatorial.com/2020/10/uu-karantina-harapan-baru-dalam-pemberantasan-penyelundupan-satwa/. 
+ Anggi Romadhoni, “Judge sentences African lion cub smuggler to four years in prison”, accessed July 12, 2026, https://32
+www.antaranews.com/berita/1615370/hakim-vonis-empat-tahun-penjara-penyelundup-bayi-singa-afrika.  
+20
+ 
+The Crime & Society Review Rethinking Crime, Justice & Society 
+Emerging Perspectives for the 21st Century 
+Volume I ; Issue I (Oct-Dec/2026)  
+Online/Fortnightly/Multi-Disciplinary/English/2026  
+Decision Number 15/PUU-XIX/2021 grant investigators in the forestry sector the 
+authority to investigate money laundering crimes. Money laundering investigations are very 
+important to increase the deterrent effect, dismantle the network of  criminal gangs, recover 
+assets, and identify beneficiaries. With the implementation of  these various legal regimes, 
+law enforcement that intersects with the issue of  biodiversity can be handled by 
+investigators from various agencies, including local governments. And since all civil servant 
+investigators are subordinate of  police investigators in Criminal Procedural Code 
+framework, it is also important to establish a strong synergy between civil servant 
+investigator institution and the Police. It is crucial to develop a technical regulation, 
+especially for conducting arrest and detention for civil servant investigator under the order 
+of  police investigator. 
+The second strategic action is science and technology support. Law enforcement needs to 
+be supported by science and technology to strengthen the evidence. In uncovering cases 
+related to biodiversity, a science and technology approach is carried out by involving 
+experts, forensic support, and digital transformation. These three things are very important 
+to accelerate the process of  making accurate decisions. Experts contribute in translating 
+scientific evidence into legal evidence. Several scientific fields are needed in handling 
+biodiversity cases, including mapping and geospatial, spatial planning, microbiology, 
+molecular biology, forensics, wood administration, wildlife utilization, identification of  
+species, public policy, psychology, sociology, criminology, intelligence, economic valuation, 
+agronomy, and other sciences. 
+Forensic support is the application of  scientific knowledge for the purpose of  resolving 
+legal problems. The function of  forensics is to provide reliable, accurate, and timely 
+information to officers. To uncover wildlife cases, the types of  forensics used are biological 
+forensics and digital forensics. Illegal circulation of  wildlife can be traced through 
+deoxyribonucleic acid (DNA) testing at the wildlife origin and final distribution locations. 
+Through biological forensics, the location of  the wildlife habitat can be identified. Digital 
+forensics is also needed because today's crimes use communication and information 
+technology. Digital forensics is the process of  acquiring, identifying, evaluating, and 
+presenting electronic evidence (information extracted from computers or digital devices). 
+The science and technology approach can only be realized by involving support from key 
+actors, ranging from academics, practitioners, and experts spread across laboratory 
+institutions, universities, private institutions, or government agencies. Artificial intelligence 
+technology can also be a game changer in eradicating wildlife crimes. Artificial intelligence 
+can help officers identify species, verify the contents and documentation of  shipments, 
+detect sales via cyberspace, and identify trade patterns. Artificial intelligence thus has great 
+potential to reduce the need for personnel and time to conduct field inspections. 
+21
+ 
+The Crime & Society Review Rethinking Crime, Justice & Society 
+Emerging Perspectives for the 21st Century 
+Volume I ; Issue I (Oct-Dec/2026)  
+Online/Fortnightly/Multi-Disciplinary/English/2026  
+Since 2017, Ministry of  Environment and Forestry has carried out a digital transformation 
+to eradicate wildlife crimes by designing cyber patrol program to monitor wildlife trade via 
+internet, social media, and online marketplace. If  an illegal transaction is found online, the 
+Ministry will immediately notify the online platform to immediately close the content and 
+seller account; write and submit a request to Ministry of  Communication and Information 
+(currently Ministry of  Communication and Digital) to immediately close the content and 
+accounts of  the sellers; and/or carry out profiling of  cyber accounts involved in illegal 
+transactions and immediately enforce the law. A total of  3.980 contents and 256 social 
+media accounts were caught by the cyber patrol and deleted. 33
+The third strategic action is collaborative network at international level. Synergistic 
+partnerships at the global level are urgently required because biodiversity issues are cross-
+border, have broad and systemic impacts, and involve transnational actors. Understanding 
+and collaboration between countries are unavoidable, both multilaterally and bilaterally, 
+including by using cooperation through mutual legal assistance (MLA) to prosecute 
+transnational criminals. At the global level, there is the International Consortium on 
+Combating Wildlife Crime (ICCWC) which is a coalition of  five international 
+organizations, namely the Secretariat of  the Convention on International Trade in 
+Endangered Species of  Wild Fauna and Flora (CITES), The International Criminal Police 
+Organization (INTERPOL), the United Nations Office on Drugs and Crime (UNODC), 
+the World Bank Group (WBG), and the World Customs Organization (WCO). 
+Indonesia plays an active role in CITES. There are three agencies assigned for CITES, 
+namely: Directorate General of  Natural Resources and Ecosystem Conservation as 
+Management Authority; Directorate General of  Law Enforcement as Enforcement 
+Authority; and National Research and Innovation Agency as Scientific Authority. Indonesia 
+also plays an active role in regional level instruments such as the ASEAN Wildlife 
+Enforcement Network (ASEAN-WEN) and the ASEAN Senior Officials on Forestry 
+(ASOF). 
+International collaboration is also necessary to obtain funding support through the Global 
+Environment Facility (GEF). GEF is a funding mechanism established in 1991 to foster 
+international cooperation in addressing global environmental threats. GEF is an 
+incremental funding mechanism from the basic financing of  recipient countries. GEF 
+prioritizes funding support to ensure the success of  strategic steps in building national 
+capacity in supporting environmental protection. Indonesia is among the top five countries 
+that can utilize GEF funding and provide real impacts. The GEF-8 cycle (GEF-8 
+replenishment) has started from July 1, 2022 to June 30, 2026 with funding sources coming 
+ Irsyan Hasyim, “Combating Wildlife Trade on the Internet, KLHK Removes 3,980 Content and 256 Accounts”, accessed July 33
+12, 2026, https://www.tempo.co/lingkungan/perangi-perdagangan-satwa-di-internet-klhk-hapus-3-980-konten-dan-256-
+akun-1175980. 
+22
+ 
+The Crime & Society Review Rethinking Crime, Justice & Society 
+Emerging Perspectives for the 21st Century 
+Volume I ; Issue I (Oct-Dec/2026)  
+Online/Fortnightly/Multi-Disciplinary/English/2026  
+from 39 donor countries. Meanwhile, the Country System for Transparent Allocation of  
+Resources (STAR) was published on July 1, 2022. In the 8th cycle of  the GEF (GEF-8), 
+Indonesia received a STAR fund allocation of  USD 103,65 million, which is divided into 3 
+focal areas, namely biodiversity (USD82,15 million), climate change (USD20,05 million), 
+and land degradation (USD1,45 million). 
+Besides GEF mechanism, the government can seek funding from bilateral cooperation. 
+Indonesia and Norway partnership can be an interesting example. The two countries are 
+involved in a results-based contribution scheme for emission reductions. The value that has 
+been paid is USD156 million, which is divided into three stages, namely stage 1 
+(2016/2017), stage 2 (2017/2018), and stage 3 (2018/2019). The two countries are 
+currently discussing further implementation of  stage 4. 
+Numerous wildlife rescue initiatives on a global scale have been carried out by Ministry of  
+Environment and Forestry together with related parties. From 2015 to 2024, there have 
+been four cases of  wildlife trade cases across countries. The first case was the use of  MLA 
+instrument between Indonesian and Dutch authorities to ensnare Eric Roer, a Dutch 
+citizen living in Bali, Indonesia. Because the case was in two different jurisdictions, the 
+MLA was used to help gather information related to this case. This MLA was the first 
+between Indonesia and Netherlands for environmental case. The parties involved in 
+handling this case were Ministry of  Environment and Forestry, Indonesian Police, Ministry 
+of  Law and Human Rights, and Dutch Police. Denpasar District Court on November 13, 
+2019, declared Eric Roer guilty of  distributing body parts of  protected animals from 
+Indonesia to Netherlands and sentenced him to two years inprisonment and IDR50 million 
+fine. 
+The second case is the facilitation from Ministry of  Environment and Forestry to London 
+Metro Police regarding the case involving celebrity Stephanie Scolaro, a British citizen. The 
+perpetrator distributed hats and bags made of  rare snakeskin from Indonesia to Germany 
+worth £18,000. To deceive officers, the perpetrator used fake CITES documents. On 
+January 22, 2019, Southwark Crown Court sentenced Stephanie Scolaro to 12 months of  
+community service and 160 hours of  unpaid work. London Metro Police expressed their 
+gratitude to the Indonesian Government for the support at the London Conference on the 
+Illegal Wildlife Trade 2018. 
+The third case is the repatriation of  322 rare birds in collaboration with the Vietnamese 
+authorities. On June 17, 2019, the Vietnamese police confiscated 322 parrots without valid 
+documents at Noi Bai Airport. The sender of  the birds was a logistics company with an 
+address in North Sumatra Province, Indonesia. The Vietnamese police then asked for 
+assistance from the Indonesian Police to repatriate the birds (312 birds were dead and 10 
+were still alive). In July 2019, the Indonesian Police asked for support from Ministry of  
+23
+ 
+The Crime & Society Review Rethinking Crime, Justice & Society 
+Emerging Perspectives for the 21st Century 
+Volume I ; Issue I (Oct-Dec/2026)  
+Online/Fortnightly/Multi-Disciplinary/English/2026  
+Environment and Forestry for the repatriation process and joint investigation in 
+uncovering the wildlife crime network. 
+The fourth case is the repatriation of  91 endangered Indonesian animals from Davao, 
+Philippines. These animals were confiscated by the Philippine Authorities since April 8, 
+2019. On October 14, 2019, the Maty City Court ordered the Philippine Government to 
+repatriate the animals to Indonesia. On July 30, 2019, the repatriation process was held in 
+Bitung City, North Sulawesi Province, Indonesia and was attended by the Mayor of  Bitung, 
+the Ministry of  Transportation, the Agricultural Quarantine Agency, the Directorate 
+General of  Customs and Excise, the Masarang Foundation, and the mass media. 
+V . Conclusion 
+The study identified 26 policy breakthroughs in Law 32/2024, namely policy breakthroughs 
+in technical aspects of  conservation (3 policy breakthroughs), governance aspects (3 policy 
+breakthroughs), and law enforcement aspects (20 policy breakthroughs). Policy 
+breakthroughs in the law enforcement aspect were most often found, so there is an 
+indication that policy makers place significant expectations on law enforcement to 
+strengthen the deterrent effect and behavioural change in society.  The study also identified 
+policy gaps in Law 32/2024. It relies heavily on criminal sanctions, makes civil servant 
+investigators too dependent on police investigators, does not grant fundamental authorities 
+to investigators in building cases, and does not regulate the authority of  forest ranger 
+officials. With the enactment of  Criminal Code, Criminal Procedure Code, and Law on 
+Criminal Adjustments, some legal breakthroughs in Law 32/2024 are no longer valid, those 
+are the reduction of  criminal sanction from maximum 20 year of  imprisonment and a 
+Category VIII fine to 15 year of  imprisonment and a Category VII fine, the nullification of  
+specific minimum criminal sanction, and the restriction of  civil servant investigator 
+authority, especially for arrests and detention. 
+The study recommends three strategic actions for the government to accelerate law 
+enforcement, namely the application of  layered articles and multi-regime investigations, 
+science and technology support, and collaborative networks at the international level. 
+24
+ 
+The Crime & Society Review Rethinking Crime, Justice & Society 
+Emerging Perspectives for the 21st Century 
+Volume I ; Issue I (Oct-Dec/2026)  
+Online/Fortnightly/Multi-Disciplinary/English/2026  
+VI. References 
+1.Argawati, Utami. "Interim Ruling in the Conservation Act Review: Hearing Adjourned, Government 
+Prohibited from Issuing New Regulations." Accessed July 12, 2026, https://testing.mkri.id/berita/
+putusan-sela-uji-uu-ksdahe:-sidang-ditunda,- pemerintah-tidak-boleh-terbitkan-aturan-baru-21844. 
+2.Brockett C., K. Woolaston, F. Deane, F. Humphries, E. Kumar, A. Kennedy, and J. Bell-James. “Best 
+practice mechanisms for biodiversity conservation law and policy.” Cambridge Prisms: Extinction. 2023; 
+1:e16. doi:10.1017/ext.2023.14.  
+3.Coca-Vila, I. "What’s Really Wrong with Fining Crimes? On the Hard Treatment of  Criminal Monetary 
+Fines." Criminal Law and Philosophy 16 (2) (2022): 395-415. doi:10.1007/s11572-021-09623-3. 
+4.Duffus, N. E. et al. "The Present and Future of  Insect Biodiversity Conservation in the Neotropics: 
+Policy Gaps and Recommendations." Neotrop Entomol 52 (2023): 407–421. https://doi.org/10.1007/
+s13744-023-01031-7. 
+5.Faure, M., and J. Ma. "Cartel Enforcement in China. Monetary or Criminal Sanctions?" In Philipsen, N. 
+and G. Xu (Eds.). The Role of  Law and Regulation in Sustaining Financial Markets (pp. 195-221). New York: 
+Routlegde, 2014. 
+6.Ferraro, G., and P . Failler. "Biodiversity Conservation and the Role of  Policy Resources: The Case of  
+Saint Helena." Sustainability, 14(3) (2022), 1250. https://doi.org/10.3390/su14031250. 
+7.Hasyim, Irsyan. “Combating Wildlife Trade on the Internet, KLHK Removes 3,980 Content and 256 Accounts .” 
+Accessed July 12, 2026, https://www.tempo.co/lingkungan/perangi-perdagangan-satwa-di-internet-klhk-
+hapus-3-980-konten-dan-256-akun-1175980.  
+8.Ihsan, F. R., J. G. Bloomfield, & L. V . Monrouxe. “Triple planetary crisis: why healthcare professionals 
+should care.” Front. Med. 11:1465662 (2024). doi: 10.3389/fmed.2024.1465662.  
+9.Intergovernmental Panel on Climate Change. “Summary for Policymakers.” In Climate Change 2021 – The 
+Physical Science Basis: Working Group I Contribution to the Sixth Assessment Report of  the Intergovernmental Panel on 
+Climate Change, 1–2. Cambridge: Cambridge University Press, 2023. 
+10.Irawanto, Rony. "Management of  Botanical Gardens in Indonesian Plant Conservation." SEMSINA 
+2023: 322 – 329. DOI: https://doi.org/10.36040/semsina.v4i01.8116.  
+11.Ministry of  Environment and Forestry. A Snapshot of  Illegal Wildlife Trade in Indonesia. Jakarta: 
+Perkumpulan SKALA, 2017. 
+12.Ministry of  Environment and Forestry. The State of  Indonesia’s Forests 2024 - Towards Sustainability of  Forest 
+Ecosystems in Indonesia. Jakarta: Ministry of  Environment and Forestry, 2024. 
+13.Ministry of  National Development Planning. Indonesian Biodiversity Strategy and Action Plan (IBSAP) 
+2025-2045. Jakarta: Ministry of  National Development Planning, 2024. 
+14.McLaughlin, Eugene and John Muncie. The SAGE Dictionary of  Criminology. Fourth Edition. London: 
+SAGE, 2019. 
+15.Montero, M., J. J. Wright, E. M., Khan, and M. Najeeb. Illegal Logging, Fishing, and Wildlife Trade: The Costs 
+and How to Combat it. The World Bank, 2019. 
+16.Ndaru, F. A. "Should Civil Servant Investigators Become Functional Positions?" Jurnal Bina Praja 16(3) 
+(2024): 639-661. https://doi.org/10.21787/jbp.16.2024.639-661. 
+17.Nelson, E. S. and D. R. Reddy. Green Aviation - Reduction of  Environmental Impact Through Aircraft Technology 
+and Alternative Fuels. London: Taylor & Francis Group, 2017. 
+18.Nurse, Angus. Animal Harm - Perspectives on Why People Harm and Kill Animals. New York: Routledge, 2016. 
+25
+ 
+The Crime & Society Review Rethinking Crime, Justice & Society 
+Emerging Perspectives for the 21st Century 
+Volume I ; Issue I (Oct-Dec/2026)  
+Online/Fortnightly/Multi-Disciplinary/English/2026  
+19.Pranoto, T. W ., E. Elawati, M. P . P . M. Sinaga, and Z. M. Putri. “The Role of  Civil Servant Investigators 
+in the Criminal Justice System Following the Amendment of  the Criminal Procedure Code.” JUSTLAW: 
+Journal Science and Theory of  Law 2(2) (2025): 1-11. e- ISSN: 3089-2414. 
+20.Pratama, R. A. and W . U. N. Zuhra. "Quarantine Law: New Hope in Eradicating Wildlife Smuggling." Accessed 
+July 12, 2026, https://www.ekuatorial.com/2020/10/uu-karantina-harapan-baru-dalam-pemberantasan-
+penyelundupan-satwa/.  
+21.Romadhoni, Anggi. “Judge sentences African lion cub smuggler to four years in prison.” Accessed July 12, 2026, 
+https://www.antaranews.com/berita/1615370/hakim-vonis-empat-tahun-penjara-penyelundup-bayi-
+singa-afrika.  
+22.Rossinskiy, S. B. and D. B. Bazarova. “Procedural Independence of  the Investigator: Myth of  Reality?” 
+The American Journal of  Political Science Law and Criminology 5(06) (2023): 44–56. https://doi.org/10.37547/
+tajpslc/Volume05Issue06-09.  
+23.Santiarto, D. B. “The Application of  Minimum Sentences in Judicial Practice.” Accessed July 12, 2026, https://
+www.hukumonline.com/berita/a/perlakuan-terhadap-pidana-minimum-dalam-praktik-
+peradilanlt691fe1a4bb584/. 
+24.Sari, Yustina and Puteri Hikmawati. “Strengthening the Legal Framework for Mass Amnesty Policies to 
+Address Overcrowding in Correctional Facilities.” Jurnal Negara Hukum 16(2) (2025): 182 - 200. DOI: 
+https://doi.org/10.22212/jnh.v16i2.5136. 
+25.Setiawan, Agus. “Indonesia's Biodiversity: Problems and Conservation Efforts.” Indonesian Journal of  
+Conservation 11(1) (2022): 13-21. DOI 10.15294/ijc.v11i1.34532. 
+26.Sinaga, D. A. “Illegal wildlife trade flourishes online in Indonesia .” Accessed July 12, 2026, https://
+jakartaglobe.id/news/illegal-wildlife-trade-flourishes-online-indonesia/.  
+27.Tobias, J.A., J. M. Bullock, L. V . Dicks, B. R. Forester, and O. Razgour. “Biodiversity conservation 
+requires integration of  species-centric and process-based strategies.” Proceedings of  the National Academy of  
+Sciences (PNAS) 122 (31) e2410936122 (2025). DOI: https://doi.org/10.1073/pnas.2410936122.  
+28.Turnhout, E. and A. Purvis. “Biodiversity and species extinction: categorisation, calculation, and 
+communication.”  Griffith  Law  Review  2 0 2 0  2 9 ( 4 ) :  6 6 9 – 6 8 5 .  https://doi.org/
+10.1080/10383441.2020.1925204.  
+29.United Nations Development Programme. Reducing Maritime Trafficking of  Wildlife: Best Practices for Ports. 
+New York: United Nations Development Programme, 2023. 
+30.UNODC. Transnational Organized Crime in Southeast Asia: Evolution, Growth and Impact. UNODC, 2019. 
+31.Van Uhm, D., N. South, and T. Wyatt. “Connections between  trades and trafficking in wildlife 
+and drugs.” Trends in Organized Crime (2021) 24: 425–446. https://doi.org/10.1007/s12117-021-09416-z.  
+32.Wahanisa, R. and M. A. Mahfud. “Analysis on Regulation of  Conversation on Biological Resources in 
+Constitutional Court Decisions.” Jurnal Konstitusi 18(2), 2021: 391 – 412. DOI: https://doi.org/10.31078/
+jk1827. 
+33.Table 2. Policy Breakthrough in Law 32/2024 [Article 39A verse (2) letter c] — Eugene McLaughlin and 
+John Muncie, The SAGE Dictionary of  Criminology (London: SAGE, 2019), 578. 
+34.Table 2. Policy Breakthrough in Law 32/2024 [Article 40 until Article 40B] — D. B. Santiarto, “ The 
+Application of  Minimum Sentences in Judicial Practice ”, accessed July 12, 2026, https://
+www.hukumonline.com/berita/a/perlakuan-terhadap-pidana-minimum-dalam-praktik-peradilan-
+lt691fe1a4bb584/.  
+26

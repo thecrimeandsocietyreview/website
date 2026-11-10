@@ -1,0 +1,942 @@
+ 
+The Crime & Society Review Rethinking Crime, Justice & Society 
+Emerging Perspectives for the 21st Century 
+Volume I ; Issue I (Oct-Dec/2026)  
+Online/Fortnightly/Multi-Disciplinary/English/2026  
+Preventing Terrorism and Cyberterrorism within a National Security 
+Strategy 
+Acceptance:  Oct 23, 2026 ; Publication: Nov 10, 2026 
+Ricardo Alexandre Rodrigues Caiado 
+Research and Development Center of  the Military University Institute 
+Lisbon, Portugal 
+Email: rarcaiado@gmail.com 
+Abstract 
+Background: The prevention of  terrorism and cyberterrorism increasingly depends on the 
+coordination of  security institutions, intelligence capabilities and digital resilience. Global 
+interdependence and the use of  cyberspace complicate the distinction between internal and 
+external threats, while predictive technologies raise questions about legality, evidence and 
+accountability. 
+Purpose: This article examines how a National Security Strategy can integrate the 
+prevention of  terrorism and cyberterrorism while preserving the rule of  law and 
+fundamental rights. It argues that effective prevention requires institutional coordination 
+without collapsing the distinct functions of  intelligence, cybersecurity, national defence, 
+criminal investigation and judicial review. 
+Methodology: The article adopts a legal-dogmatic and interdisciplinary approach. It 
+analyses the Portuguese constitutional and statutory framework, relevant national and 
+European strategic instruments, and selected scholarship in security studies, intelligence 
+studies and crime prevention. The analysis distinguishes threat, risk, intelligence and 
+evidence and assesses preventive measures against legal basis, institutional competence, 
+evidential status, necessity, proportionality and accountability. 
+Findings and implications: Intelligence-led policing, predictive analytics and artificial 
+intelligence can improve early warning and prioritisation, but their outputs remain 
+probabilistic and cannot independently establish criminal responsibility or justify coercive 
+measures. The article proposes a boundary-oriented model in which information-sharing 
+and operational cooperation are paired with clear mandates, meaningful human oversight, 
+data-protection safeguards and reviewable decisions. It concludes that a coherent national-
+security strategy should connect internal security, defence, intelligence and cybersecurity 
+while preserving their legal and institutional distinctions. This approach can strengthen 
+preparedness in strategic planning and operational practice without turning preventive 
+security into indiscriminate surveillance or treating algorithmic assessments as evidence. 
+Keywords: Terrorism, Cyberterrorism, National Security, Prevention; Intelligence, 
+Cybersecurity, Fundamental Rights, Artificial Intelligence 
+1. Introduction 
+27
+ 
+The Crime & Society Review Rethinking Crime, Justice & Society 
+Emerging Perspectives for the 21st Century 
+Volume I ; Issue I (Oct-Dec/2026)  
+Online/Fortnightly/Multi-Disciplinary/English/2026  
+The prevention of  terrorism and cyberterrorism poses a rule-of-law challenge involving 
+legal, institutional, technological and strategic dimensions. Globalization, infrastructure 
+interdependence and digitalization have blurred the distinction between internal and 
+external threats. In cyberspace, actors can operate across borders and produce effects in 
+several States without physical movement. 
+The article asks how a National Security Strategy can organize the prevention of  terrorism 
+and cyberterrorism without compromising the rule of  law. It argues for coordination 
+among intelligence, internal security, cybersecurity, national defence, criminal investigation 
+and international partners, while preserving their distinct mandates. Information-sharing 
+and predictive tools may improve early warning, but probabilistic outputs are not evidence 
+and cannot replace legal authority, human judgement or review. 
+Methodologically, the article adopts a legal-dogmatic and interdisciplinary approach, 
+analysing Portuguese constitutional and statutory rules, relevant national and European 
+strategic instruments, and selected scholarship in security, intelligence and crime-prevention 
+studies. Sources were purposively selected for their relevance to the institutional 
+architecture and legal limits of  prevention; this is neither a systematic literature review nor 
+an empirical evaluation of  operational effectiveness. The analysis assesses preventive 
+capabilities by operational relevance, legal basis, institutional competence, evidential status, 
+proportionality and accountability. It is limited to Portugal, using European and 
+comparative material where directly relevant. 
+The article’s contribution is to formulate a boundary-oriented model for preventive 
+security: cooperation and information-sharing should be strengthened, but intelligence, 
+criminal investigation, cybersecurity, cyber-defence and judicial decision-making must retain 
+distinct mandates and evidential standards. The model evaluates preventive capabilities 
+through six connected questions: operational relevance, legal basis, institutional 
+competence, evidential status, proportionality and accountability. The article first examines 
+Portugal’s security architecture, then analyses terrorism, cyberterrorism and preventive 
+technologies, and finally identifies the legal safeguards required for rights-compatible 
+prevention. 
+1.1 National Security Strategy And The Security Architecture 
+1.1.1 Constitutional and Legal Framework 
+The Portuguese Constitution (CRP) defines, among the State’s fundamental tasks, the 
+safeguarding of  national independence, the protection of  fundamental rights and 
+guarantees, and respect for the principles of  the democratic rule of  law. At the same time, 34
+it should be recalled that, following Max Weber’s sociological definition, the State is a 
+ CRP , art.9.34
+28
+ 
+The Crime & Society Review Rethinking Crime, Justice & Society 
+Emerging Perspectives for the 21st Century 
+Volume I ; Issue I (Oct-Dec/2026)  
+Online/Fortnightly/Multi-Disciplinary/English/2026  
+human community that successfully claims, within a given territory, the monopoly of  the 
+legitimate use of  physical force. 35
+Likewise, the State is responsible for guaranteeing the rights to liberty and security, which 
+are, broadly speaking, safeguarded by the police pursuant to Article 272 of  the CRP , 
+particularly with regard to upholding democratic legality and guaranteeing internal security 
+and citizens’ rights. The police function is also expressed through police measures and 36
+crime prevention, both of  which are grounded in the principles of  legality and 
+proportionality. 37
+The Constitution does not itself  define the structure of  the police in the broad sense; this 
+structure is established by legislation governing the organisation of  the Security Forces 
+(SF), which falls within the exclusive legislative competence of  the Assembly of  the 
+Republic. 38
+The Internal Security Law (ISL), approved by Law No. 53/2008 of  29 August, establishes 
+the structure and functions of  Portugal’s Internal Security System (ISS). It defines internal 
+security as State activity to guarantee public order, security and tranquility; protect persons 
+and property; prevent and suppress crime; and support democratic institutions, 
+fundamental rights and democratic legality. The law also makes clear that internal-security 
+activity must comply with the Constitution and legislation and that police measures must be 
+necessary, adequate and proportionate. Against this legal background, it is important to 
+recall that, over the last two decades, and particularly since the end of  the Cold War, 
+security studies have been enriched by research into the social processes contributing to the 
+construction of  new security objects, including the nature of  threats, the social 
+construction of  the idea of  the enemy, feelings of  insecurity, and the perception of  risk 
+and vulnerability. Likewise, the contemporary globalised world presents security threats 39
+characterised by their transnational nature, reflecting the fact that no State can address 
+them alone and that no State is immune to the risks to which they relate, together with an 
+increasing reliance on international agencies and bilateral mechanisms and potentially 
+greater coordination capacity. 40
+ Lourenço & Costa (2018, p. 35).35
+ CRP , art. 27.36
+ CRP , art. 272.37
+ CRP , art. 272.38
+ Law No. 53/2008, of  August 29 (Internal Security Law), in its current wording.39
+ No. 1 and 3 of  article 1 of  the LSI.40
+29
+ 
+The Crime & Society Review Rethinking Crime, Justice & Society 
+Emerging Perspectives for the 21st Century 
+Volume I ; Issue I (Oct-Dec/2026)  
+Online/Fortnightly/Multi-Disciplinary/English/2026  
+Recent geopolitical tensions, including Russia-NATO confrontation and renewed strategic 
+competition, contribute to an uncertain security environment. Such developments matter 
+to national planning, but should be assessed alongside transnational terrorism, cyber threats 
+and domestic vulnerabilities rather than treated as a substitute for risk analysis. 41
+The foregoing calls for a broader theorization of  national security. 
+Realist approaches traditionally define national security through territorial integrity, 
+sovereignty and protection against external threats, while assigning internal security a role 
+in maintaining public order and protecting institutions. Contemporary interdependence 
+makes this division incomplete: cyber operations, transnational networks and critical-
+infrastructure dependencies can produce effects across both domains. A national-security 
+strategy should therefore integrate these dimensions without erasing their distinct legal 
+mandates. National security can be analysed through distinct but connected functions: 
+national defence and military security; intelligence concerning threats to State interests; 
+internal security and law enforcement; and human security, including civil protection and 
+the protection of  people. These functions overlap in practice but remain subject to 
+different legal mandates and accountability mechanisms. An integrated strategy should 
+coordinate them without merging their competences. Beck’s account of  the “risk society” 
+helps explain how technological, environmental and transnational risks cross borders and 
+expose local vulnerabilities. This perspective supports a multidimensional approach to 
+national security rather than a narrow focus on military threats. 42
+In 2013, the Strategic Concept of  National Defence (SCND) was approved. It defined “the 
+fundamental aspects of  the overall strategy to be adopted by the State for the achievement 
+of  the objectives of  national security and defence policy”. The SCND refers expressly to 43
+the concept of  national security, although the previous 2003 SCND had already addressed 
+it, albeit less explicitly. The current SCND approaches the ISL as an integral part of  a 
+broader and more comprehensive National Security system, advocating cooperation 
+between the Armed Forces (AF) and the Security Forces and Services (SFS) in combating 
+transnational threats. In this respect, it is important to emphasise that the SCND is 
+provided for in Article 7 of  Law No. 31-A/2009 of  7 July and that, under paragraph 1 of  
+that provision, it defines “the State’s priorities in the field of  defence, according to the 
+national interest” and forms an integral part of  national defence policy. Accordingly, it 
+concerns State priorities in the field of  defence rather than the domain of  internal security. 
+ Lourenço & Costa (2018, p. 80).41
+ Lourenço & Costa (2018, p. 80).42
+ Lourenço & Costa (2018, p. 28).43
+30
+ 
+The Crime & Society Review Rethinking Crime, Justice & Society 
+Emerging Perspectives for the 21st Century 
+Volume I ; Issue I (Oct-Dec/2026)  
+Online/Fortnightly/Multi-Disciplinary/English/2026  
+Several European states, including Spain, France and the United Kingdom, have adopted 
+national-security strategies that coordinate public institutions and, where relevant, private 
+actors. These examples provide comparative context for considering an integrated 
+Portuguese framework.  There is therefore a case for developing a National Security 
+Strategy that encompasses internal security and national defence, while remaining aligned 
+with the applicable European security strategy. Moreover, any such strategy must respond 
+to contemporary challenges, which are constantly changing. For the purposes of  this 
+article, the expression “National Security Strategy” is used as a proposed integrating 
+strategic framework rather than as a claim that Portugal currently possesses a single 
+comprehensive statutory strategy bearing that exact institutional status. The argument is 
+therefore normative and architectural: it concerns how the relevant security, defence, 
+intelligence and cybersecurity instruments could be coordinated within a coherent strategic 
+framework, while remaining subject to the competences and legal limits established by the 
+Constitution and ordinary legislation. Automated analysis of  biographical, image, voice and 
+other identifying data can assist counter-terrorism work where information volumes exceed 
+manual capacity. Its use nevertheless requires a lawful purpose, reliable provenance, access 
+controls and safeguards against unjustified interference with rights. Automation may 
+improve the processing of  large datasets, but it does not remove the need for human 
+assessment, necessity and proportionality. Analytical outputs should inform, not 
+independently determine, preventive or coercive decisions. Any national strategy 
+concerning internal security should therefore incorporate and remain coherent with 
+relevant European and national strategies. In particular, it should be consistent with the 
+European Union Internal Security Strategy, the EU strategy for the eradication of  
+trafficking in human beings, the EU drugs strategy, the EU cybersecurity strategy, and the 
+EU strategy for combating terrorist radicalization and recruitment. 44
+1.1.2. Internal Security and External Security 
+Within the Portuguese Internal Security System (ISS), internal security encompasses “three 
+guarantees – public order, security and tranquility –, two protections – persons and 
+property –, one preventive function – crime prevention – and three contributions – the 
+normal functioning of  democratic institutions, the regular exercise of  citizens fundamental 
+rights, freedoms and guarantees, and respect for democratic legality”.  45
+Accordingly, security-policy planning pursues three fundamental objectives: “(1) first, 
+preventing symmetrical and asymmetrical risks from materializing; then, (2) protecting 
+people, democratic institutions, critical infrastructures and security services and forces; and, 
+finally, (3) containing the impacts and/or effects of  a catastrophic event, managing its 
+ Council of  Ministers Resolution No. 19/2013.44
+ Graça (2017, p. 112); Carvalho (2015, p. 112).45
+31
+ 
+The Crime & Society Review Rethinking Crime, Justice & Society 
+Emerging Perspectives for the 21st Century 
+Volume I ; Issue I (Oct-Dec/2026)  
+Online/Fortnightly/Multi-Disciplinary/English/2026  
+consequences, restoring order and law, and facilitating the return to the conditions of  
+normality that existed before the crisis”. 46
+Security is a broad public function whose boundaries with defence and justice must be 
+clearly defined. Coordination is necessary, but institutional roles and legal powers must 
+remain distinct. During a lawfully declared state of  emergency, the Armed Forces may 47
+support civilian authorities within the constitutional and statutory framework. Such 
+involvement should remain limited to the authorized purpose and duration of  the 
+emergency. The traditional Westphalian distinction treated borders as separating internal 48
+from external security. Global interdependence has weakened the explanatory value of  
+geography alone, as threats and their effects increasingly cross-national boundaries.  49
+Internal and external security are now mutually dependent: globalization externalizes 
+domestic problems and internalizes external ones. Security analysis must therefore consider 
+cross-border causes, actors and consequences. Brandão identifies three dynamics linking 50
+the two dimensions: the internalization of  externally generated phenomena, the 
+externalization of  domestic phenomena, and the growth of  transboundary threats. 51
+Internal security can no longer be understood simply as a domestic version of  external 
+security. Their relationship is more complex and reflects interdependence across national 
+and international settings. Under the CRP , a distinction exists between National Defence 52
+(ND) and Internal Security (IS), corresponding to the classical distinction of  modern States 
+“which, since the fragmentation of  the empires of  Central Europe (…) continues to 
+inform even the most scholastic conception of  security strategies: in the face of  external 
+threats, taking territorial borders as the term or limit, ND falls essentially to the Armed 
+Forces; in relation to threats within those borders, maintaining IS falls to the police 
+forces”. The Armed Forces’ primary mission remains national defence, but transnational 53
+and hybrid threats can require structured cooperation with civilian security institutions. 
+Such cooperation must rest on constitutional and statutory authority, defined command 
+arrangements and clear limits on the functions performed by each body. Integration should 
+ Almeida (2013, p. 7). Nogueira (2012) 46
+ Almeida (2013, p. 8).47
+ Almeida (2013, p. 8).48
+ Guedes (2015a).49
+  Graça (2017, p. 19); Collins (2016, p. 2); Collins (2007, p. 2)50
+ Brandão (2015, p. 5-6); Brandão (2014, p. 5-6).51
+ Guedes (2015b).52
+ Serviço de Informações de Segurança (2019, p. 4-5).53
+32
+ 
+The Crime & Society Review Rethinking Crime, Justice & Society 
+Emerging Perspectives for the 21st Century 
+Volume I ; Issue I (Oct-Dec/2026)  
+Online/Fortnightly/Multi-Disciplinary/English/2026  
+improve preparedness and exchange information, not blur the distinction between military 
+defence, police powers and intelligence activity. 
+In this context, particular importance should be attached to the protocol signed on 28 
+February 2020 containing the Guidelines for Operational Coordination between the Armed 
+Forces and the Security Forces and Services.  The protocol seeks to establish, at 54
+operational level, how cooperation between these State entities is to be implemented in 
+matters of  internal security. Its adoption reflects the necessary adaptation of  these 
+institutions to new threats, including terrorism, organized crime, cyber threats, 
+cyberterrorism and protection-and-rescue operations. 
+The historical distinction between internal and external security has become less clear 
+because threats, institutions and non-state actors operate across both domains. This 
+development supports an integrated national-security perspective while preserving legal 
+distinctions between institutional mandates. Finally, attention should be drawn to the 55
+need for and relevance of  creating a Strategic Concept of  Internal Security (SCIS), which 
+should strategically develop “side by side” with the SCND. Several proposals have already 
+been formulated. The SCIS has been presented as an “essential component in defining the 
+architecture of  a National Security System that integrates, through a logic of  
+complementarity, the systems of  military security, internal security, intelligence and civil 
+protection, without neglecting other important political, economic and social factors that 
+contribute to achieving national-security strategic objectives”.  The proposed security 56
+architecture is based on a coherent and coordinated Internal Security System, with 
+complementary roles for public institutions and relevant private actors. Coordination 
+should support shared situational awareness and resource prioritisation while preserving 
+the accountability and competence of  each participating institution. 
+Proposals for reform have included stronger political coordination, clearer operational 
+command arrangements and a coordination centre to reduce friction between actors, 
+standardize procedures and support joint operations. Any such model must remain 
+consistent with statutory competences and accountability. 57
+ Sistema de Segurança Interna (2020a). Orientações para a articulação operacional entre as Forças Armadas e as Forças e 54
+Serviços de Segurança.
+ Collins (2016, p. 3); Collins (2007, p. 3)55
+ Moleirinho (2009, p. 280).56
+ Lourenço et al. (2015, p. 83-84).57
+33
+ 
+The Crime & Society Review Rethinking Crime, Justice & Society 
+Emerging Perspectives for the 21st Century 
+Volume I ; Issue I (Oct-Dec/2026)  
+Online/Fortnightly/Multi-Disciplinary/English/2026  
+Territorial responsibility should remain the organising principle for ordinary police 
+functions, supplemented by nationwide capabilities where legislation or operational needs 
+require them. 58
+1.1.3. The New Security Paradigm 
+The contemporary national-security paradigm combines policy coordination, legal 
+measures and international cooperation. It reflects the fact that domestic security decisions 
+may affect regional and global peace and security. 
+Its development may therefore be structured around four pillars that reinforce the notion 
+of  National Security: “National Defence and the Armed Forces; Internal Security and the 
+Police Forces; State Security and the Intelligence Services; Community Security and Civil 
+Protection”. Beck’s “risk society” highlights how technological and urban development 59
+coexist with complex risks that cross political, economic and social boundaries. Security 
+analysis must therefore account for multidimensional vulnerabilities rather than military 
+threats alone. Contemporary risks are networked, adaptable and capable of  affecting 60
+individual well-being and security at local, national and international levels. 61
+States consequently need responses that are dynamic, coordinated, integrated and 
+multidisciplinary. 62
+Security policy now extends beyond military threats to include crises such as natural 
+disasters, pandemics and food insecurity, whose effects may undermine social resilience. 63
+Portugal’s position at the European Union’s external border gives internal-security policy a 
+clear European dimension. National measures must therefore align with EU cooperation in 
+the Area of  Freedom, Security and Justice and with relevant common strategies, while 
+reflecting Portugal’s own constitutional allocation of  responsibilities. This reinforces the 
+case for a national-security framework that connects internal security, defence, intelligence 
+and cybersecurity, rather than treating them as isolated policy fields. Portugal’s EU 
+membership means that national security choices also affect European cooperation and 
+shared security objectives. 
+ Lourenço et al. (2015, p. 86).58
+ Gouveia (2018, p. 367).59
+ Beck (2009, p. 19).60
+ Elias (2011, p. 147).61
+ Sousa (2008).62
+ Buzan (2007, p. 24)63
+34
+ 
+The Crime & Society Review Rethinking Crime, Justice & Society 
+Emerging Perspectives for the 21st Century 
+Volume I ; Issue I (Oct-Dec/2026)  
+Online/Fortnightly/Multi-Disciplinary/English/2026  
+Several states have adopted cross-government national security strategies that coordinate 
+public institutions and, where appropriate, private actors. Such examples offer comparative 
+context, but the Portuguese model must be designed around its own constitutional 
+allocation of  powers and statutory institutions. 
+Conceptual confusion between security and defence can obstruct cooperation and 
+encourage institutional competition, weakening responses to transnational threats.  64
+National security is best understood as an integrated framework connecting the institutions, 
+powers and instruments that protect the State and society.  A “system of  systems” 65
+approach coordinates different instruments of  State power and analyses the causes, 
+purposes and dynamics of  threats before selecting responses. Such a strategy should be 66
+structural in nature and make the Portuguese ISS better able to address present and future 
+challenges. Its principal lines of  action should include the following. The proposed 
+framework would connect four principal pillars: State security and intelligence; civil 
+protection and human security; internal security and criminal investigation in cooperation 
+with judicial authorities; and national defence, including legally authorized subsidiary 
+support. The pillars should have distinct functions: defence addresses military security, 67
+intelligence supports State security, civil protection covers emergencies and human security, 
+and internal security is primarily delivered by the competent security forces and services. 
+Coordination should occur at governmental level without erasing these distinctions. 68
+A National Security Strategy should guide policies across diplomatic, intelligence, military, 
+internal-security, economic and cultural domains, including the protection of  national 
+cohesion and identity. Alongside defence, internal security, foreign policy and intelligence, 69
+relevant areas include civil protection, food and maritime security, cybersecurity, public 
+health and cooperation with private actors and civil society.  The Strategic Reflection 70
+Group on Security proposed a National Security Law and a Superior Council for National 
+Security to coordinate implementation, crisis monitoring and strategic planning. 71
+  Silva & Ribeiro (2018, p. 149).64
+ Gouveia (2018, p. 365).65
+ Lourenço et al. (2015, p. 60-61).66
+ Lourenço et al. (2015, p. 60-61).67
+ Moleirinho (2009, p. 279)68
+ Lourenço et al. (2015, p. 64).69
+ Lourenço et al. (2015, p. 66).70
+ Lourenço & Costa (2018); Lourenço et al. (2015).71
+35
+ 
+The Crime & Society Review Rethinking Crime, Justice & Society 
+Emerging Perspectives for the 21st Century 
+Volume I ; Issue I (Oct-Dec/2026)  
+Online/Fortnightly/Multi-Disciplinary/English/2026  
+The proposal combines a National Security Strategy, a National Security Law, a Superior 
+Council and a consultative council. The proposal responds to the multidimensional nature 72
+of  contemporary societal change and security risks. Current threats involve diverse state 
+and non-state actors, asymmetric methods and new technological capabilities, especially in 
+cyberspace. Hybrid campaigns may combine informational, economic, energy, 
+technological and political instruments to exploit vulnerabilities and weaken institutions. 
+Although conventional military action remains relevant, security environments increasingly 
+include drones, cyberattacks, special forces and remote capabilities. Non-state actors may 
+also use asymmetric violence that disregards humanitarian norms. At domestic level, 
+relevant concerns include jihadist terrorism, transnational organized crime, violence and 
+potential social instability, particularly in metropolitan areas. The broadened concept of  
+security places individuals and societal, political and economic conditions alongside the 
+State, while recognising that many contemporary threats originate abroad without 
+amounting to armed conflict. The GRES study favors a coordinated “system of  systems”, 
+with autonomous but interdependent strategic concepts guided by complementarity and 
+subsidiarity, and prevention policies that address both insecurity and its public perception. 73
+2. Prevention Of  Terrorism And Cyberterrorism Within A National Security 
+Strategy 
+2.1. Contextual Analysis 
+The geopolitical scenario is increasingly uncertain and complex, making it possible to 
+identify “multiple and different global threats which, directly and/or indirectly, affect 
+Portugal and Portuguese interests abroad, (…) [in particular] the terrorist threat of  Islamist 
+origin”. 74
+Globalization has made terrorism more transnational, although its organisation, targets and 
+operational reach may remain local or regional. Definitions vary, but recurring features 
+include politically motivated violence, attacks on civilians or non-combatants, and the 
+pursuit of  ideological or religious objectives. 75
+Benjamin Netanyahu similarly stated that “terrorism has been defined, with more or fewer 
+elements, as a set of  attacks against indiscriminate targets, civilians and ‘non-combatants’, 
+with an underlying political motivation, whether ideological or religious”. 76
+ Lourenço & Costa (2018, p. 73).72
+ Lourenço et al. (2015, p. 86).73
+ Internal Security System (SSI). (2020b). Annual Internal Security Report (RASI 2019), p. 78.74
+ Varino (2012, p. 15).75
+ Bravo (2010, p. 6).76
+36
+ 
+The Crime & Society Review Rethinking Crime, Justice & Society 
+Emerging Perspectives for the 21st Century 
+Volume I ; Issue I (Oct-Dec/2026)  
+Online/Fortnightly/Multi-Disciplinary/English/2026  
+Intensive media coverage can amplify public fear and place terrorism at the centre of  
+security-oriented political discourse. Policy should respond to genuine threats without 
+allowing sensational coverage or public anxiety alone to determine exceptional measures. 77
+Alongside terrorism, hybrid threats are another category that must be considered in 
+everyday security because of  their increasing presence and complexity. The European 
+Centre of  Excellence for Countering Hybrid Threats describes hybrid threats as 
+coordinated combinations of  state and non-state activity, conventional and unconventional 
+methods, and military and non-military instruments. They may exploit legal, political, 
+economic, informational and technological vulnerabilities while remaining below the 
+threshold of  open armed conflict. Their prevention requires cross-sectoral assessment and 
+cooperation, but responses must remain proportionate and grounded in reliable attribution. 
+Hybrid threats combine conventional and unconventional, military and non-military 
+instruments, often using cyber operations, information campaigns and economic or 
+political pressure to achieve strategic objectives. The COVID-19 pandemic exposed how 78
+information and disinformation operations can exploit institutional pressure, weaken public 
+confidence and distort government decision-making. Terrorism can exploit the openness 79
+and trust that sustain democratic societies. This insight matters for prevention because 
+excessive or indiscriminate security measures may undermine social cohesion and public 
+confidence themselves. Counter-terrorism policy should therefore combine the protection 
+of  potential targets with careful differentiation between lawful conduct, indicators of  risk 
+and evidence of  criminal activity. 
+The Paris and Copenhagen Schools offer critical perspectives on how security institutions 
+define threats and justify preventive action. The Paris School examines security routines 
+and technologies in everyday governance; the Copenhagen School analyses how issues are 
+framed as existential threats. Both underline that threat definition and response are political 
+and institutional choices requiring scrutiny. Contemporary security therefore includes 
+economic, environmental and societal dimensions in addition to political and military 
+security. 
+2.2. Terrorism 
+Contrary to a widespread perception, terrorism should not simply be regarded as a global 
+phenomenon. It may instead be understood as a limited and circumscribed phenomenon 
+and as an instrument used by a political, state or clandestine organisation to pursue political 
+objectives in a regional or local context. 
+ Martinho (2018, p. 117).77
+ Pereira (2018, p. 11).78
+ Internal Security System (SSI). (2021). Annual Internal Security Report (RASI 2020), p. 102.79
+37
+ 
+The Crime & Society Review Rethinking Crime, Justice & Society 
+Emerging Perspectives for the 21st Century 
+Volume I ; Issue I (Oct-Dec/2026)  
+Online/Fortnightly/Multi-Disciplinary/English/2026  
+For analytical and legal purposes, cyberterrorism should be distinguished from cybercrime, 
+hacktivism, cyber espionage and state-sponsored cyber operations, even where methods or 
+infrastructure overlap. The use of  digital tools, the disruption of  a network or the political 
+character of  an online act is not, by itself, sufficient to establish a terrorist offence. 
+Classification requires assessment of  conduct, intent, target, consequences and applicable 
+statutory elements. This distinction matters operationally: threat intelligence may justify 
+further assessment or protective action, but coercive measures and criminal attribution 
+require an adequate legal basis and evidence appropriate to the decision being taken. 80
+2.3. Intelligence in the Prevention of  Terrorism and Cyberterrorism 
+Terrorism is one of  the principal threats to the security of  States and citizens. The struggle 
+takes place on several fronts: combating ideology, dismantling support structures for 
+terrorist groups and, equally importantly, disrupting the financial flows that sustain terrorist 
+activities. 
+2.3.1. Intelligence and the Cyber Domain 
+Information is a vital resource for modern States, and intelligence increasingly contributes 
+to information superiority through an improved understanding of  the cyber domain. Such 
+superiority may translate into decision-making advantages and strategic and tactical 
+benefits. It depends, among other factors, on cyber power, the scale and complexity of  
+attacks, the robustness of  defence, policy positions, systemic vulnerabilities and 
+dependencies, and the anonymity and attribution problems associated with cyber actors. 
+2.3.2. Intelligence, Investigation and Institutional Coordination 
+The proactive nature of  cyberterrorism prevention makes intelligence production and early 
+warning particularly relevant. This prospective dimension does not, however, confer 
+exclusive preventive responsibility on intelligence services. Prevention and response depend 
+on coordination among competent authorities within their respective legal mandates. 
+2.4. Strategies for the Technological and Operational Prevention of  Terrorism 
+Pedro Clemente describes security as a “national endeavor” and identifies fragmentation 
+between internal security, civil protection, national defence and intelligence as a challenge 
+to an integrated system. 81
+Likewise, the omnipresence of  digital communication media, the proliferation of  such 
+devices and their use by individuals and criminal organisations require a paradigm shift and 
+adjustments to police processes and procedures. This new security environment therefore 82
+ Plotnek and Slay (2021) & Freitas (2022) & Law No. 52/200380
+ Clemente (2006, p. 34).81
+ Lourenço & Costa (2018, p. 153).82
+38
+ 
+The Crime & Society Review Rethinking Crime, Justice & Society 
+Emerging Perspectives for the 21st Century 
+Volume I ; Issue I (Oct-Dec/2026)  
+Online/Fortnightly/Multi-Disciplinary/English/2026  
+requires the security forces to adapt to big data, predictive policing and smart policing, 
+bringing police activity into the digital domain and taking advantage of  artificial intelligence 
+while safeguarding individual rights. 83
+This new paradigm and the corresponding prevention strategies are considered below. It 
+arises in a context in which the community-policing model appears to have lost 
+prominence, giving way to information-guided, geographically informed patrol and the 
+pursuit of  operational objectives. 84
+2.4.1. Framework 
+This model is internationally known as intelligence-led policing, that is, policing guided by 
+intelligence. It has emerged as a model of  police action in which intelligence products 85
+direct patrol efforts in order to deter disorder and incivilities.  Intelligence-led policing 86
+incorporates a criminal-analysis dimension, in which tactical analysis identifies crime 87
+patterns, locations with higher incidence and preferred times for criminal activity.  88
+Strategic criminal analysis, based on reported-crime indicators, can consequently identify a 
+general pattern of  offending or a pattern of  offences affecting particular victims, thereby 
+supporting the formulation of  preventive crime programs. 89
+Another policing model is problem-oriented policing. Although this model is not 
+particularly suited to dealing with terrorism or cyberterrorism, it was proposed by Herman 
+Goldstein in 1979 and defines strategies and programmes for reducing crime, emerging as a 
+response to growing criticism of  traditional community or proximity policing.  It treats 90
+crime control as the study of  problems leading to corrective and successful enforcement 
+strategies, with analysis, study and evaluation at the centre of  problem-oriented policing 
+and with a requirement to assess each new problem and develop a tailored response. 91
+2.4.2. Predictive Policing 
+ Lourenço & Costa (2018, p. 153).83
+ Clemente (2006, p. 35).84
+ Almeida (2013, pp. 7-8); Elias (2011, p. 158).85
+ Clemente (2006, p. 50).86
+ Clemente (2010, p. 419).87
+ Clemente (2006, p. 50).88
+ Clemente (2006, p. 50).89
+ Carvalho (2015, p. 157).90
+ Peterson (2005, p. 10).91
+39
+ 
+The Crime & Society Review Rethinking Crime, Justice & Society 
+Emerging Perspectives for the 21st Century 
+Volume I ; Issue I (Oct-Dec/2026)  
+Online/Fortnightly/Multi-Disciplinary/English/2026  
+Police intelligence developed from practices associated with diplomacy, warfare and the 
+prevention of  threats to political authority. These traditions continue to shape modern 
+intelligence collection and assessment. 92
+Predictive policing applies analytical techniques to estimate where crime may occur, or 
+which people may be at risk of  victimization or offending. Its use must respect equality and 
+non-discrimination and avoid treating statistical likelihood as proof  of  individual 
+conduct. Big-data analysis seeks patterns across large datasets but may also enable 93
+extensive observation and the classification of  individuals for preventive or enforcement 
+purposes. Information overload can hinder analysis; data-mining techniques may help 94
+identify relevant patterns and support decisions, but their outputs depend on data quality 
+and interpretation. Algorithmic forecasting may assist anticipation, yet data mining and 95
+predictive analysis can interfere with privacy and therefore require legal limits and 
+safeguards. Predictive tools may identify crime hotspots and support operational 96
+decisions, but their apparent precision should not obscure uncertainty, data limitations or 
+the governance consequences of  digital surveillance. Predictive models infer probabilities 97
+from historical data. They may support tactical decisions, while strategic security 
+intelligence remains subject to the legally defined remit of  intelligence services.  98
+Intelligence services and criminal-investigation bodies may need to cooperate, particularly 
+where an emerging threat develops into a suspected offence. Their purposes and legal 
+powers nevertheless remain distinct: intelligence supports anticipation and strategic 
+assessment, whereas criminal investigation seeks to establish facts and obtain admissible 
+evidence under procedural safeguards. Cooperation should define the lawful basis for 
+information exchange, the conditions for onward use and the responsibility for each 
+subsequent decision. Predictive policing typically involves collecting data, generating a 
+prediction and using it to inform police strategy or tactics. Its intended benefit is more 
+effective resource allocation, not the replacement of  evidence or lawful decision-making. 99
+ Brito (2008, pp. 155-197).92
+ Brayne et al. (2015).93
+ Neiva (2019).94
+ Colombo & Neto (2017, pp. 63, 77). Chen et al. (2003, p. 1)95
+ Colombo & Neto (2017, p. 77).96
+ Aradau & Blanke (2017, p. 373).97
+ Carvalho (2015, p. 169). Moleirinho (2009, p. 256). L’Heuillet (2004, p. 256-257). 98
+ Brantingham (2018, p. 473)99
+40
+ 
+The Crime & Society Review Rethinking Crime, Justice & Society 
+Emerging Perspectives for the 21st Century 
+Volume I ; Issue I (Oct-Dec/2026)  
+Online/Fortnightly/Multi-Disciplinary/English/2026  
+New technologies applied to established policing doctrines can threaten individual rights 
+and must be assessed accordingly. 100
+2.4.3. Intelligence-led Policing 
+Intelligence-led policing emerged in the United Kingdom in the early 1990s, directing 
+police resources through the collection and analysis of  criminal intelligence to identify 
+persistent unlawful activity. Its core practices include prioritizing significant incidents, 101
+focusing on persistent offending, managing sources and surveillance lawfully, and placing 
+intelligence at the centre of  operational decisions. Intelligence-led policing can use AI-102
+supported analysis, but police intelligence and national-security intelligence remain 
+institutionally and legally distinct. Criminal-investigation bodies may develop prospective 
+assessments only within their own powers.  Ratcliffe’s model treats intelligence-led 103
+policing as an organisational philosophy aimed at reducing crime and disrupting offenders, 
+supported by strategic leadership and objective allocation of  resources. Analysis of  the 104
+criminal environment helps decision-makers select strategic, operational and tactical 
+responses. For terrorism prevention, it should support both early intervention and an 
+effective response while remaining tied to lawful purposes.  R a t c l i f f e  d e s c r i b e s  105
+intelligence-led policing as an ongoing interaction between intelligence, decision-makers 
+and the criminal environment, supported by specialist analytical expertise.  Police 106
+intelligence can support early warning, incident management and prevention, rather than 
+relying only on reactive enforcement. Its value depends on sound interpretation, 
+accountable decisions and assessment of  effects.  Forensic intelligence integrates and 107
+cross-references evidence such as DNA, fingerprints, ballistics and trace material to identify 
+patterns and links that may inform investigations and resource allocation. 108
+The analysis of  evidence from improvised explosive devices illustrates the value of  
+information sharing across agencies and countries, allowing investigators to identify links 
+ Barrett (2017, p. 327).100
+ Carvalho (2015, p. 122). Newman (2008, p. 70).101
+ Carvalho (2015, p. 122-123).102
+ Carvalho (2015, p. 123). Pereira (2015).103
+ Carvalho (2015, p. 124).104
+ Carvalho (2015, p. 124). Peterson (2005, p. 10).105
+ Carvalho (2015, p. 160-161).106
+ Carvalho (2015, p. 161).107
+ Legrand (2012, p. 1108
+41
+ 
+The Crime & Society Review Rethinking Crime, Justice & Society 
+Emerging Perspectives for the 21st Century 
+Volume I ; Issue I (Oct-Dec/2026)  
+Online/Fortnightly/Multi-Disciplinary/English/2026  
+and patterns beyond individual cases.  Intelligence-led policing uses routine police 109
+information to support prevention and deterrence as well as investigation, requiring 
+systems that organize information for efficient, lawful access.  Intelligence is central to 110
+assessing terrorist threats and vulnerabilities and can help authorities disrupt groups before 
+an attack occurs. Effective counterterrorism requires early-warning mechanisms and 111
+reliable information-sharing arrangements that allow competent bodies to compare and 
+analyse information within their respective legal mandates. 112
+2.4.4. Artificial Intelligence 
+Collective-intelligence systems have been proposed to improve understanding of  complex 
+transnational threats and support more effective responses. Their value depends on 
+institutional cooperation and responsible use.  Artificial intelligence refers broadly to 113
+computational systems that perform tasks associated with human reasoning or decision-
+making, using models that perceive inputs and generate outputs toward specified 
+objectives. Machine learning and data mining can identify statistical patterns in historical 114
+data and apply them to new information. These correlations are predictive signals, not 
+explanations or certainties. AI tools can analyse large datasets through machine learning, 115
+sentiment and content analysis, and natural-language processing. Such capabilities may 
+assist intelligence-led policing, subject to legal safeguards and meaningful human 
+oversight. Artificial neural networks use interconnected computational units whose 116
+weights are adjusted during learning. Their outputs require evaluation for reliability, bias 
+and relevance to the decision at hand. 117
+3. Legal Limits, Fundamental Rights and Preventive Security 
+Preventive security is subject to legal limits that cannot be treated as merely operational 
+constraints. Anticipating risk is not equivalent to proving that a crime has been committed, 
+nor does identifying a vulnerability, by itself, authorize intrusive measures. Preventive action 
+ Legrand (2012, p. 3-4).109
+ Newman (2008, p. 70110
+ Romana (2005, p. 36).111
+ Romana (2005, p. 37-38).112
+ Zang (2014).113
+ Mukhopadhyay (2011, p. 4).114
+ Ramos-Martín & Barreneche (2020, p. 2).115
+ Singh & George (2021, p. 349); Ramos-Martín & Barreneche (2020, p. 4).116
+ Kaur (2016, p. 20).117
+42
+ 
+The Crime & Society Review Rethinking Crime, Justice & Society 
+Emerging Perspectives for the 21st Century 
+Volume I ; Issue I (Oct-Dec/2026)  
+Online/Fortnightly/Multi-Disciplinary/English/2026  
+must remain subject to legality, necessity, suitability and proportionality, as well as to 
+safeguards concerning privacy, data protection, freedom of  expression and judicial 
+oversight. 
+At European level, Directive (EU) 2016/680 establishes specific requirements for the 
+processing of  personal data by competent authorities for the prevention, detection, 
+investigation and prosecution of  criminal offences. In Portugal, it was transposed by Law 
+No. 59/2019 of  8 August; that law excludes processing related to national security, so the 
+applicable regime must be identified by reference to the purpose and institutional context 
+of  processing. The case law of  the Court of  Justice of  the European Union and the 118
+European Court of  Human Rights has likewise reinforced the requirement for effective 
+safeguards in relation to intrusive surveillance and data-processing practices. The national 
+framework has also evolved: Law No. 33/2026 of  21 July amended the Counter-Terrorism 
+Law (Law No. 52/2003), while Decree-Law No. 125/2025 of  4 December approved the 
+current legal regime for cybersecurity, transposing Directive (EU) 2022/2555.  T h e s e  119
+requirements are particularly relevant when predictive-analytics systems, data mining or 
+artificial intelligence are used. The technical capacity to identify statistical correlations 
+cannot transform probabilities into legal certainties. Risks of  biased data, reproduction of  
+pre-existing discrimination, algorithmic opacity and the use of  indirect indicators as 
+substitutes for grounded suspicion require qualified human oversight, auditability and clear 
+accountability criteria. Regulation (EU) 2024/1689, the Artificial Intelligence Act, 
+reinforces these concerns by subjecting certain uses, including specified law-enforcement 
+uses, to specific requirements and, in defined circumstances, high-risk regimes, requiring 
+particular attention to accuracy, robustness, transparency, documentation and human 
+oversight. In the counter-terrorism field, the need to prevent attacks does not eliminate the 
+obligation to distinguish threat, risk, intent, preparation and evidence, nor does it dispense 
+with the need to provide reasons for and review the measures adopted. 
+4. Conclusions 
+Preventing terrorism and cyberterrorism within a National Security Strategy requires an 
+integrated approach capable of  articulating intelligence production, early warning, 
+cooperation among security forces and services, criminal police bodies, the Public 
+Prosecution Service, cybersecurity and cyber-defence structures, and other relevant public 
+and private actors, always within their respective legal competences. 
+ Law No. 59/2019, of  August 8, which transposes Directive (EU) 2016/680 into the Portuguese legal system; Article 2(3) 118
+excludes the processing of  personal data related to national security.
+ Law No. 33/2026, of  July 21st, which amends Law No. 52/2003, of  August 22nd (Combating Terrorism Law); Decree-119
+Law No. 125/2025, of  December 4, which approves the legal regime for cybersecurity and transposes Directive (EU) 
+2022/2555.
+43
+ 
+The Crime & Society Review Rethinking Crime, Justice & Society 
+Emerging Perspectives for the 21st Century 
+Volume I ; Issue I (Oct-Dec/2026)  
+Online/Fortnightly/Multi-Disciplinary/English/2026  
+Such integration does not, however, eliminate the functional boundaries between the 
+different security systems. Intelligence has an essentially prospective and anticipatory 
+function; criminal investigation seeks to establish facts, identify offenders and obtain 
+evidence; cybersecurity and cyber-defence, according to their respective legal and 
+institutional frameworks, protect and enhance the resilience of  systems and infrastructures; 
+and judicial decision-making retains its constitutional autonomy. Cooperation must 
+therefore coexist with a clear differentiation of  competences. 
+Accordingly, the preventive use of  analytical technologies should be assessed through a 
+cumulative sequence: whether the capability is technically and operationally relevant; 
+whether there is a sufficient legal basis for its use; which institution is competent to act; 
+what evidential status the resulting information has; whether the contemplated measure is 
+necessary, suitable and proportionate; and whether the decision remains subject to 
+meaningful institutional and legal accountability. 
+In the field of  terrorism and cyberterrorism, this distinction is particularly relevant. Not 
+every cyberattack constitutes cyberterrorism, just as the use of  digital means by a terrorist 
+organisation does not automatically transform every digital activity into an act of  
+cyberterrorism. Legal classification depends on the material and subjective elements 
+required by the applicable legal regime. Prevention must also distinguish threat, risk, intent, 
+preparation and evidence, avoiding the conversion of  prospective assessments into 
+individual imputations without additional grounds. 
+The use of  predictive policing, intelligence-led policing and artificial intelligence may 
+strengthen analytical and anticipatory capacity, but it does not eliminate uncertainty or 
+replace legally responsible human decision-making. Probabilistic risk estimates do not 
+amount to criminal evidence, and statistical correlations do not, in themselves, establish 
+individual authorship. The use of  these tools must comply with legality, necessity, suitability 
+and proportionality, as well as applicable requirements concerning data protection, human 
+oversight, transparency and accountability. 
+At institutional level, effective prevention depends on coherence among national 
+instruments relating to internal security, national defence, intelligence, cybersecurity and 
+cyber-defence. The current legal framework reinforces the need for coordination and 
+resilience without eliminating the functional autonomy of  the entities involved. The 
+objective should not be to concentrate all preventive capabilities in a single entity, but to 
+build cooperation mechanisms capable of  sharing relevant information, reducing 
+vulnerabilities and ensuring proportionate responses to different categories of  threat. 
+Effective prevention integrates information and action while preserving legality, 
+proportionality, evidence and accountability. A strategy should improve cooperation 
+without treating intelligence assessments as proof  or allowing technology to determine 
+coercive decisions. 
+44
+ 
+The Crime & Society Review Rethinking Crime, Justice & Society 
+Emerging Perspectives for the 21st Century 
+Volume I ; Issue I (Oct-Dec/2026)  
+Online/Fortnightly/Multi-Disciplinary/English/2026  
+5. Reference 
+1.Almeida, P . (2013). Políticas de segurança nacional. In P . Almeida, Como tornar Portugal um país seguro: 
+Segurança nacional e prevenção da criminalidade (pp. 7–8). bnomics. 
+2.Amaral, S. N. B. P . (2014). O papel dos serviços de informações no combate ao ciberterrorismo: O caso 
+português [Dissertação de mestrado, Academia Militar]. RCAAP . http://hdl.handle.net/10400.26/8749 
+3.Aradau, C., & Blanke, T. (2017). Politics of  prediction: Security and the time/space of  governmentality in 
+the age of  big data. European Journal of  Social Theory, 20(3), 373–391. https://doi.org/
+10.1177/1368431016667623 
+4.Barrett, L. (2017). Reasonably suspicious algorithms: Predictive policing at the United States border. New 
+York University Review of  Law & Social Change, 41(3), 327–366. https://papers.ssrn.com/sol3/
+papers.cfm?abstract_id=2863355 
+5.Beck, U. (2009). World at risk. Polity Press. 
+6.Brandão, A. P . (2015). O nexo interno-externo na narrativa securitária da União Europeia. JANUS.NET 
+e-journal of  International Relations, 6(1). http://observare.ual.pt/janus.net/images/stories/PDF/
+vol6_n1/pt/pt_vol6_n1.pdf 
+7.Brandão, P . C., & Brito, V . P . (2014). Terrorismo, inteligência e mecanismos legais: Desafios para o Brasil. 
+In C. S. Arturi (Ed.), Políticas de defesa, inteligência e segurança (pp. 168–186). UFRGS/CEGOV . 
+https://www.ufrgs.br/cegov/files/pub_38.pdf 
+8.Brantingham, P . J. (2018). The logic of  data bias and its impact on place-based predictive policing. Ohio 
+State Journal of  Criminal Law, 15(2), 473–486. 
+9.Brantly, A. F. (2016). The decision to attack: Military and intelligence cyber decision-making. University 
+of  Georgia Press. 
+10.Bravo, R. (2010). Do espectro de conflitualidade nas redes de informação: Por uma reconstrução 
+conceptual do terrorismo no ciberespaço. Polícia Judiciária. 
+11.Brayne, S., Rosenblat, A., & boyd, d. (2015, October 27). Predictive policing. Data & Society. https://
+datacivilrights.org/pubs/2015-1027/Predictive_Policing.pdf 
+12.Brito, V . P . (2008). Novos paradigmas para a inteligência policial: Análise comparativa entre a inteligência 
+de Estado, policial e competitiva. In C. R. S. Barbalho & S. O. M. Márques (Eds.), Inteligência 
+competitiva: Reflexões e contribuições para o desenvolvimento da Amazônia (pp. 155–197). EDUA/
+NEPCI. 
+13.Buzan, B. (2007). People, states and fear: An agenda for international security studies in the post-Cold 
+War era. ECPR Press. 
+14.Carnoy, M. (2007). Os custos económicos da guerra contra o terrorismo. In M. Castells & N. Serra 
+(Coords.), Guerra e paz no século XXI: Uma perspetiva europeia (p. 117). Fim de Século Edições. 
+15.Carvalho, J. (2015). Prospetiva e intelligence policial: Estudo da utilidade da geração de cenários [Master’s 
+dissertation, University of  Lisbon, Institute of  Social and Political Sciences]. 
+16.Chen, H., Chung, W ., Qin, Y ., Chau, M., Xu, J. J., Wang, G., Zheng, R., & Atabakhsh, H. (2003). Crime 
+data mining: An overview and case studies. In Proceedings of  the 2003 annual national conference on 
+Digital Government Research (pp. 45–48). Digital Government Society of  North America. https://
+pweb.fbe.hku.hk/~mchau/papers/crimedatamining.pdf 
+17.Clemente, P . (2006). A polícia em Portugal. Instituto Nacional de Administração. 
+18.Clemente, P . (2010). Informações e segurança pública. Estratégia, XIX, 411–421. 
+45
+ 
+The Crime & Society Review Rethinking Crime, Justice & Society 
+Emerging Perspectives for the 21st Century 
+Volume I ; Issue I (Oct-Dec/2026)  
+Online/Fortnightly/Multi-Disciplinary/English/2026  
+19.Collins, A. (2007). Introduction: What is security studies? In Contemporary security studies (4th ed., p. 3). 
+Oxford University Press. 
+20.Collins, A. (2016). Contemporary security studies (4th ed.). Oxford University Press. 
+21.Colombo, C., & Neto, E. (2017). Mineração de dados e análise preditiva: Reflexões sobre possíveis 
+violações ao direito de privacidade na sociedade da informação e critérios para sua adequada 
+implementação à luz do ordenamento brasileiro. Revista de Direito, Governança e Novas Tecnologias, 
+3(2), 59–80. 
+22.Court of  Justice of  the European Union. (2016). Tele2 Sverige AB v. Post-och telestyrelsen and Secretary 
+of  State for the Home Department v. Tom Watson and Others (Joined Cases C-203/15 and C-698/15; 
+ECLI:EU:C:2016:970). 
+23.Court of  Justice of  the European Union. (2020). La Quadrature du Net and Others v. Premier ministre 
+and Others (Joined Cases C-511/18, C-512/18 and C-520/18; ECLI:EU:C:2020:791). 
+24.Duarte, F. P . (2012). Violência política: Do Estado à subversão do Estado—Análise sobre um modelo 
+conceptual. Perspectivas: Portuguese Journal of  Political Science and International Relations, (8). 
+25.Duarte, F. P . (2016). O terrorismo explora a confiança que há nas sociedades. International Club of  
+Portugal. 
+26.Elias, L. (2011). Estratégia portuguesa na gestão civil de crises. Nação e Defesa, (129), 145–184. 
+27.European Court of  Human Rights. (2021). Big Brother Watch and Others v. the United Kingdom 
+(Applications Nos. 58170/13, 62322/14, and 24960/15). 
+28.European Union. (2016). Directive (EU) 2016/680 of  the European Parliament and of  the Council of  
+27 April 2016. Official Journal of  the European Union, L 119, 89–131. 
+29.European Union. (2022). Directive (EU) 2022/2555 of  the European Parliament and of  the Council of  
+14 December 2022 (NIS2 Directive). Official Journal of  the European Union, L 333. 
+30.European Union. (2024). Regulation (EU) 2024/1689 of  the European Parliament and of  the Council of  
+13 June 2024 (Artificial Intelligence Act). 
+31.Freitas, P . M. (2022). Ciberterrorismo e a Lei de Combate ao Terrorismo. Nação e Defesa, (161), 115–
+130. https://doi.org/10.47906/ND2022.161.06 
+32.Gouveia, J. B. (2018). Direito da segurança: Cidadania, soberania e cosmopolitismo. Almedina. 
+33.Graça, P . (2017). Externalização da segurança interna e a dimensão interna da segurança internacional 
+[Trabalho de investigação individual, Curso de Estado-Maior Conjunto 2016–2017, Instituto 
+Universitário Militar]. RCAAP . http://hdl.handle.net/10400.26/21415 
+34.Guedes, A. (2015a). Segurança externa. In J. B. Gouveia & S. Santos (Eds.), Enciclopédia de direito e 
+segurança (pp. 411–418). Almedina. 
+35.Guedes, A. (2015b). Segurança interna. In J. B. Gouveia & S. Santos (Eds.), Enciclopédia de direito e 
+segurança (pp. 425–431). Almedina. 
+36.Inácio, C. (2010). Políticas públicas de segurança: Novo paradigma [Master’s dissertation, University of  
+Aveiro]. 
+37.Kaur, P . (2016). Artificial intelligence. International Journal of  Advanced Trends in Computer 
+Applications, 3(3), 19–21. 
+38.Legrand, T., & Vogel, L. (2012). Forensic intelligence. Centre of  Excellence in Policing and Security. 
+39.L’Heuillet, H. (2004). Alta polícia, baixa política: Uma abordagem histórica da polícia (L. Fonseca, Trad.). 
+Editorial Notícias. 
+46
+ 
+The Crime & Society Review Rethinking Crime, Justice & Society 
+Emerging Perspectives for the 21st Century 
+Volume I ; Issue I (Oct-Dec/2026)  
+Online/Fortnightly/Multi-Disciplinary/English/2026  
+40.Lourenço, N., Lopes, A. F., Rodrigues, J. C., Costa, A., & Silvério, P . (2015). Segurança Horizonte 2025: 
+Um conceito estratégico de segurança interna. Edições Colibri/GRESI. 
+41.Lourenço, N. M. O., & Costa, A. (Eds.). (2018). Estratégia de segurança nacional: Portugal Horizonte 
+2030. Almedina. 
+42.Machado, E. (2017). O papel da HUMINT no contraterrorismo: A infiltração contraterrorista e o 
+terrorismo jihadista [Master’s dissertation, Higher Institute of  Police Sciences and Internal Security]. 
+43.Martinho, J. A. D. (2018). O terrorismo e a perceção do medo na segurança dos Estados. In Estudos 
+estratégicos: Da estratégia, do planeamento estratégico e da conflitualidade (Coleção ARES, n.º 21). 
+Instituto Universitário Militar. https://www.ium.pt/files/publicacoes/Ares/21/
+Colecao_ARES_21_Estudos_Estrategicos.pdf 
+44.Melos, A., Alves, J., & Machry, P . (2016). O terrorismo é um fenómeno islâmico? In P . Visentini (Ed.), 
+Relações internacionais para educadores: Desconstruindo os mitos do século XXI (Vol. 3). Universidade 
+Federal do Rio Grande do Sul. 
+45.Moleirinho, P . M. S. E. (2009). Da polícia de proximidade ao policiamento orientado pelas informações 
+[Dissertação de mestrado, Faculdade de Direito, Universidade Nova de Lisboa]. 
+46.Moleirinho, P . M. S. E. (2015). Partilha de intelligence: Limites e interferências. Revista de Direito e 
+Segurança, 5, 247–271. https://cedis.novalaw.unl.pt/cms/api/media/file/REVISTA-RDeS-
+n%C2%BA-5.pdf 
+47.Mondim, C. (2016). Terrorismo e intelligence [Doctoral dissertation, University of  Minho]. 
+48.Mukhopadhyay, S. (2011). Artificial intelligence. Amity University. 
+49.Nabais, T. (2011). Prevenção do terrorismo transnacional: A partilha de informações no quadro da 
+Europol [Master’s dissertation, Higher Institute of  Police Sciences and Internal Security]. 
+50.Neiva, L. (2019). Big data na investigação criminal: Previsão do risco, vigilância e expectativas sociais na 
+União Europeia [Master’s dissertation, University of  Minho]. 
+51.Newman, G., & Clarke, R. (2008). Policing terrorism: An executive’s guide. U.S. Department of  Justice. 
+52.Nogueira, F. (2012). O papel do serviço de inteligência na segurança das infraestruturas críticas. Revista 
+Brasileira de Inteligência, (7), 79–92. https://doi.org/10.58960/rbi.2012.7.97 
+53.Pereira, J. (2018). As ameaças híbridas—Uma abordagem conceptual no quadro da OTAN e da UE 
+(CEDIS Working Papers—Direito, Segurança e Democracia No. 60). NOVA School of  Law. 
+54.Pereira, M. (2018). Política de defesa. In H. Saint-Pierre & M. Vitelli (Eds.), Dicionário de segurança e 
+defesa (pp. 968–974). Editora Unesp. 
+55.Pereira, N. (2015). O sistema de informações da República Portuguesa: Evolução e caracterização 
+(CEDIS Working Papers—Direito, Segurança e Democracia, n.º 9). Faculdade de Direito, Universidade 
+Nova de Lisboa. 
+56.Peterson, M. (2005). Intelligence-led policing: The new intelligence architecture. Bureau of  Justice 
+Assistance. https://www.ojp.gov/library/publications/intelligence-led-policing-new-intelligence-
+architecture 
+57.Plotnek, J. J., & Slay, J. (2021). Cyber terrorism: A homogenized taxonomy and definition. Computers & 
+Security, 102, Article 102145. https://doi.org/10.1016/j.cose.2020.102145 
+58.Portugal. (2003). Lei n.º 52/2003, de 22 de agosto (Lei de Combate ao Terrorismo). 
+59.Portugal. (2008). Lei n.º 53/2008, de 29 de agosto (Lei de Segurança Interna). 
+60.Portugal. (2009). Lei n.º 31-A/2009, de 7 de julho. 
+47
+ 
+The Crime & Society Review Rethinking Crime, Justice & Society 
+Emerging Perspectives for the 21st Century 
+Volume I ; Issue I (Oct-Dec/2026)  
+Online/Fortnightly/Multi-Disciplinary/English/2026  
+61.Portugal. (2009). Lei n.º 73/2009, de 12 de agosto. 
+62.Portugal. (2013). Resolução do Conselho de Ministros n.º 19/2013, de 5 de abril: Conceito Estratégico de 
+Defesa Nacional. Diário da República. 
+63.Portugal. (2019). Lei n.º 59/2019, de 8 de agosto (Proteção de dados pessoais para efeitos de prevenção, 
+deteção, investigação ou repressão de infrações penais). Diário da República. https://
+diariodarepublica.pt/dr/detalhe/lei/59-2019-123815983 
+64.Portugal. (2025). Decreto-Lei n.º 125/2025, de 4 de dezembro (Regime jurídico da cibersegurança). 
+Diário da República. https://diariodarepublica.pt/dr/detalhe/decreto-lei/125-2025-962603401 
+65.Portugal. (2026). Lei n.º 33/2026, de 21 de julho (transpõe as Diretivas (UE) 2023/977 e (UE) 
+2023/2123, altera a Lei n.º 52/2003, de 22 de agosto, e revoga a Lei n.º 74/2009, de 12 de agosto). Diário 
+da República. https://diariodarepublica.pt/dr/detalhe/lei/33-2026-1149748262 
+66.Portugal. (n.d.). Constituição da República Portuguesa (versão vigente). 
+67.Ramos-Martín, J., & Barreneche, C. (2020). Artificial intelligence. In D. L. Merskin (Ed.), The SAGE 
+international encyclopedia of  mass media and society (pp. 88–89). SAGE. https://doi.org/
+10.4135/9781483375519.n41 
+68.Rêgo, H. (2016). Sistemas de informações: A base para a resposta. In Instituto Universitário Militar, 
+Cadernos do IUM (N.º 15, pp. 101–112). Instituto Universitário Militar. https://research.unl.pt/ws/
+portalfiles/portal/13095392/CADERNO_15.pdf 
+69.Ribeiro, A. S. (2009). Teoria geral da estratégia. Almedina. 
+70.Rocha, M. F. B. (2009). A segurança nacional e a problemática do sistema policial dualista. Proelium—
+Revista da Academia Militar, VI Série, (12), 11–73. 
+71.Romana, H. (2005). Terrorismo global e intelligence. Política Internacional, (28), 33–42. https://
+www.ipris.org/files/28/03PIn28_RomanaS.pdf 
+72.Saraiva, L. E. (2019). Dinâmicas geopolíticas sobre terrorismo e as novas ameaças à segurança. In J. F. L. 
+Z. Pavia & M. Monteiro (Eds.), Estudos de relações internacionais: Comunicações ao 1.º Congresso de Relações 
+Internacionais da Universidade Lusíada (pp. 195–220). Universidade Lusíada Editora. 
+73.Secretário-Geral do Sistema de Informações da República Portuguesa. (2018). Informações estratégicas e 
+segurança: O SIRP . https://www.sirp.pt/media/2018/05/informacoes-estrategicas-e-seguranca.pdf 
+74.Serviço de Informações de Segurança. (2018, 11 de outubro). Financiamento do terrorismo e serviços de 
+informações. https://www.sirp.pt/media/2018/10/intervencao-dg-sis-no-iscsp-11out18.pdf 
+75.Serviço de Informações de Segurança. (2019). A missão do SIS na prevenção das ameaças ao Estado de 
+Direito Democrático. I Congresso Internacional Juscrim, Escola de Direito da Universidade do Minho. 
+76.Silva, C., & Ribeiro, F. (2018). As informações militares—Um instrumento de segurança e defesa 
+nacional. Revista de Ciências Militares, 6(2). 
+77.Singh, P ., & George, J. (2021). Artificial intelligence over human intelligence. International Research 
+Journal of  Engineering and Technology, 8(1). 
+78.Sistema de Segurança Interna. (2020a). Orientações para a articulação operacional entre as Forças 
+Armadas e as Forças e Serviços de Segurança.  
+79.Sistema de Segurança Interna. (2020b). Relatório anual de segurança interna: Ano 2019. 
+80.Sistema de Segurança Interna. (2021). Relatório anual de segurança interna: Ano 2020. 
+81.Sousa, P . (2008). O direito penal e a defesa nacional. Almedina. 
+82.Valença, M. (n.d.). A literatura de segurança. https://www.maxwell.vrac.puc-rio.br/16533/16533_4.pdf 
+48
+ 
+The Crime & Society Review Rethinking Crime, Justice & Society 
+Emerging Perspectives for the 21st Century 
+Volume I ; Issue I (Oct-Dec/2026)  
+Online/Fortnightly/Multi-Disciplinary/English/2026  
+83.Valente, M. (2005). Videovigilância: Instrumento de segurança interna? In M. Valente (Ed.), II Colóquio 
+de Segurança Interna. Instituto Superior de Ciências Policiais e Segurança Interna; Almedina. 
+84.Varino, J. (2012). Terrorismo: A interrupção de sistemas [Individual research paper, CEMC 2011/12, 
+Institute of  Higher Military Studies]. 
+85.Zang, D. (2014). Apoio à inteligência coletiva global por meio de inteligência artificial. IEEE Computer 
+Society. 
+49
