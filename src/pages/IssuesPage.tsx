@@ -375,7 +375,7 @@ export const IssuesPage: React.FC = () => {
               </h2>
 
               <p className="text-xs sm:text-sm text-slate-300 font-serif leading-relaxed pt-1">
-                Priority Editorial Tracks for Vol-I ; Issue-I ; October-December/2026 (Inaugural Issue). The journal invites high-quality empirical studies, doctrinal evaluations, forensic methodologies, and critical policy perspectives across six structured tracks. Accepted papers receive continuous rolling publication.
+                Priority Editorial Tracks for Vol-I ; Issue-I ; October-December/2026 (Inaugural Issue).
               </p>
 
               <div className="pt-2">
@@ -638,7 +638,7 @@ export const IssuesPage: React.FC = () => {
                   <span>Inaugural Editorial Overview &amp; Call for Papers</span>
                 </h4>
                 <p className="text-xs text-[var(--text-secondary)] font-serif leading-relaxed text-justify">
-                  Priority Editorial Tracks for Vol-I ; Issue-I ; October-December/2026 (Inaugural Issue). The journal invites high-quality empirical studies, doctrinal evaluations, forensic methodologies, and critical policy perspectives across six structured tracks. Accepted papers receive continuous publication.
+                  Priority Editorial Tracks for Vol-I ; Issue-I ; October-December/2026 (Inaugural Issue).
                 </p>
               </div>
 

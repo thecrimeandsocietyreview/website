@@ -178,7 +178,7 @@ export const ArticleReaderLayout: React.FC<ArticleReaderLayoutProps> = ({ articl
               </h1>
 
               <p className="text-xs sm:text-sm text-amber-100/95 font-serif leading-relaxed text-justify sm:text-left">
-                Priority Editorial Tracks for Vol-I ; Issue-I ; October-December/2026 (Inaugural Issue). The journal invites high-quality empirical studies, doctrinal evaluations, forensic methodologies, and critical policy perspectives across six structured tracks. Accepted papers receive DOI assignment and continuous publication.
+                Priority Editorial Tracks for Vol-I ; Issue-I ; October-December/2026 (Inaugural Issue).
               </p>
             </div>
 
