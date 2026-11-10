@@ -7,8 +7,6 @@ import {
   Download, 
   Share2, 
   Quote, 
-  Info, 
-  BarChart2, 
   ChevronDown, 
   ChevronUp, 
   Check, 
@@ -26,6 +24,7 @@ import {
   MapPin,
   Calendar,
   Layers,
+  CheckCircle2,
   X
 } from 'lucide-react';
 import { ArticleData, ARTICLES_DATA } from '../../data/articlesData';
@@ -38,13 +37,10 @@ export const ArticleReaderLayout: React.FC<ArticleReaderLayoutProps> = ({ articl
   const [showAuthorsModal, setShowAuthorsModal] = useState(false);
   const [showCiteModal, setShowCiteModal] = useState(false);
   const [showShareModal, setShowShareModal] = useState(false);
-  const [showInfoModal, setShowInfoModal] = useState(false);
-  const [showMetricsModal, setShowMetricsModal] = useState(false);
   const [showTocDropdown, setShowTocDropdown] = useState(false);
   const [citationFormat, setCitationFormat] = useState<'APA' | 'MLA' | 'Harvard' | 'BibTeX'>('APA');
   const [copiedCite, setCopiedCite] = useState(false);
   const [copiedLink, setCopiedLink] = useState(false);
-  const [copiedDoi, setCopiedDoi] = useState(false);
   const [scrollProgress, setScrollProgress] = useState(0);
 
   useEffect(() => {
@@ -83,14 +79,14 @@ export const ArticleReaderLayout: React.FC<ArticleReaderLayoutProps> = ({ articl
 
   const currentUrl = typeof window !== 'undefined' ? window.location.href : `https://thecrimeandsocietyreview.com/article/${article.slug}`;
 
-  // Citations generator
+  // Citations generator (without DOI)
   const authorNamesStr = article.authors.map(a => a.name).join(', ');
   const firstAuthorLastName = article.authors[0]?.name.split(' ').slice(-1)[0] || 'Author';
   
   const citations = {
-    APA: `${article.authors.map(a => `${a.name.split(' ').slice(-1)[0]}, ${a.name.split(' ').slice(0, -1).map(n => n[0] + '.').join(' ')}`).join(', & ')} (${article.year}). ${article.title}. The Crime & Society Review, 1(1), ${article.pages}. ${article.doi}`,
+    APA: `${article.authors.map(a => `${a.name.split(' ').slice(-1)[0]}, ${a.name.split(' ').slice(0, -1).map(n => n[0] + '.').join(' ')}`).join(', & ')} (${article.year}). ${article.title}. The Crime & Society Review, 1(1), ${article.pages}.`,
     MLA: `${article.authors[0]?.name}. "${article.title}." The Crime & Society Review, vol. 1, no. 1, ${article.year}, pp. ${article.pages}.`,
-    Harvard: `${article.authors.map(a => `${a.name.split(' ').slice(-1)[0]}, ${a.name.split(' ').slice(0, -1).map(n => n[0] + '.').join('')}`).join(', ')} (${article.year}) '${article.title}', The Crime & Society Review, 1(1), pp. ${article.pages}. doi: ${article.doi}`,
+    Harvard: `${article.authors.map(a => `${a.name.split(' ').slice(-1)[0]}, ${a.name.split(' ').slice(0, -1).map(n => n[0] + '.').join('')}`).join(', ')} (${article.year}) '${article.title}', The Crime & Society Review, 1(1), pp. ${article.pages}.`,
     BibTeX: `@article{csr_${article.year}_${firstAuthorLastName.toLowerCase()},
   title={${article.title}},
   author={${authorNamesStr}},
@@ -98,8 +94,7 @@ export const ArticleReaderLayout: React.FC<ArticleReaderLayoutProps> = ({ articl
   volume={1},
   number={1},
   pages={${article.pages}},
-  year={${article.year}},
-  doi={${article.doi.replace('https://doi.org/', '')}}
+  year={${article.year}}
 }`
   };
 
@@ -113,12 +108,6 @@ export const ArticleReaderLayout: React.FC<ArticleReaderLayoutProps> = ({ articl
     navigator.clipboard.writeText(currentUrl);
     setCopiedLink(true);
     setTimeout(() => setCopiedLink(false), 2000);
-  };
-
-  const handleCopyDoi = () => {
-    navigator.clipboard.writeText(article.doi);
-    setCopiedDoi(true);
-    setTimeout(() => setCopiedDoi(false), 2000);
   };
 
   const scrollToSection = (id: string) => {
@@ -228,16 +217,16 @@ export const ArticleReaderLayout: React.FC<ArticleReaderLayoutProps> = ({ articl
             <span>Open access</span>
           </div>
           <span className="text-[var(--text-muted)]">|</span>
-          <div className="inline-flex items-center gap-1 font-mono text-[11px] px-2 py-0.5 rounded bg-slate-100 dark:bg-slate-800 text-[var(--text-primary)] border border-[var(--border-subtle)]">
-            <span className="font-bold">CC</span>
-            <span>BY 4.0</span>
-          </div>
-          <span className="text-[var(--text-muted)]">|</span>
           <span className="font-medium text-[var(--text-primary)]">{article.articleType}</span>
           <span className="text-[var(--text-muted)]">|</span>
           <div className="flex items-center gap-1">
+            <CheckCircle2 className="w-3.5 h-3.5 text-emerald-500" />
+            <span>Accepted: {article.acceptanceDate}</span>
+          </div>
+          <span className="text-[var(--text-muted)]">|</span>
+          <div className="flex items-center gap-1">
             <Calendar className="w-3.5 h-3.5 text-[var(--text-muted)]" />
-            <span>First published online {article.firstPublished}</span>
+            <span>First published online: {article.firstPublished}</span>
           </div>
           <span className="text-[var(--text-muted)]">|</span>
           <span className="text-[var(--accent-gold)] font-medium">Vol 01, Issue 01 (2026), pp. {article.pages}</span>
@@ -255,7 +244,7 @@ export const ArticleReaderLayout: React.FC<ArticleReaderLayoutProps> = ({ articl
           )}
         </div>
 
-        {/* Author Line with ORCID & Affiliations Toggle */}
+        {/* Author Line with Affiliations Toggle */}
         <div className="space-y-3 pt-1">
           <div className="flex flex-wrap items-center gap-x-3 gap-y-1.5 text-sm sm:text-base font-serif">
             {article.authors.map((author, idx) => (
@@ -268,17 +257,6 @@ export const ArticleReaderLayout: React.FC<ArticleReaderLayoutProps> = ({ articl
                     className="text-amber-600 hover:text-amber-700"
                   >
                     <Mail className="w-3.5 h-3.5 inline" />
-                  </a>
-                )}
-                {author.orcid && (
-                  <a
-                    href={`https://orcid.org/${author.orcid}`}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    title={`ORCID iD: ${author.orcid}`}
-                    className="inline-flex items-center justify-center w-4 h-4 rounded-full bg-[#a6ce39] text-white font-bold text-[9px] hover:opacity-90"
-                  >
-                    iD
                   </a>
                 )}
                 {idx < article.authors.length - 1 && <span className="text-[var(--text-muted)]">,</span>}
@@ -306,16 +284,6 @@ export const ArticleReaderLayout: React.FC<ArticleReaderLayoutProps> = ({ articl
                   <div key={idx} className="p-3.5 rounded-lg bg-[var(--bg-page)] border border-[var(--border-subtle)] space-y-1.5">
                     <div className="flex items-center justify-between">
                       <span className="font-serif font-bold text-sm text-[var(--text-primary)]">{author.name}</span>
-                      {author.orcid && (
-                        <a
-                          href={`https://orcid.org/${author.orcid}`}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="inline-flex items-center gap-1 text-[11px] font-mono text-[#7ea31e] hover:underline"
-                        >
-                          <span>ORCID: {author.orcid}</span>
-                        </a>
-                      )}
                     </div>
                     {author.designation && (
                       <p className="text-xs text-[var(--text-secondary)] font-medium">{author.designation}</p>
@@ -352,7 +320,7 @@ export const ArticleReaderLayout: React.FC<ArticleReaderLayoutProps> = ({ articl
           )}
         </div>
 
-        {/* Breadcrumb Navigation & DOI Line */}
+        {/* Breadcrumb Navigation Line */}
         <div className="flex flex-wrap items-center justify-between gap-3 text-xs font-mono py-2.5 px-3.5 rounded-lg bg-[var(--bg-card)] border border-[var(--border-subtle)]">
           <Link
             to="/current-issue"
@@ -361,28 +329,12 @@ export const ArticleReaderLayout: React.FC<ArticleReaderLayoutProps> = ({ articl
             <ArrowLeft className="w-3.5 h-3.5" />
             <span>All Articles in Volume 01, Issue 01</span>
           </Link>
-          <div className="flex items-center gap-2">
-            <span className="text-[var(--text-muted)] hidden sm:inline">Persistent DOI:</span>
-            <a
-              href={article.doi}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-sky-700 dark:text-sky-400 hover:underline break-all"
-            >
-              {article.doi}
-            </a>
-            <button
-              type="button"
-              onClick={handleCopyDoi}
-              title="Copy DOI Link"
-              className="p-1 text-[var(--text-muted)] hover:text-[var(--text-primary)] cursor-pointer"
-            >
-              {copiedDoi ? <Check className="w-3.5 h-3.5 text-emerald-500" /> : <Copy className="w-3.5 h-3.5" />}
-            </button>
-          </div>
+          <span className="text-[var(--text-muted)] font-serif">
+            The Crime &amp; Society Review • Volume 01, Issue 01
+          </span>
         </div>
 
-        {/* Sticky Action Navigation Toolbar (Matching Image 2) */}
+        {/* Sticky Action Navigation Toolbar */}
         <div className="sticky top-0 z-30 bg-[var(--bg-card)]/95 backdrop-blur-md border-y border-[var(--border-strong)] py-2 sm:py-2.5 -mx-4 px-4 sm:mx-0 sm:px-4 sm:rounded-xl shadow-xs">
           <div className="flex items-center justify-between gap-1 sm:gap-2 text-xs font-sans">
             <div className="flex items-center gap-1 sm:gap-1.5 overflow-x-auto no-scrollbar shrink-0 py-0.5">
@@ -434,30 +386,6 @@ export const ArticleReaderLayout: React.FC<ArticleReaderLayoutProps> = ({ articl
               >
                 <Share2 className="w-3.5 h-3.5 text-amber-600" />
                 <span>Share options</span>
-              </button>
-            </div>
-
-            <div className="flex items-center gap-1 shrink-0">
-              {/* Information, Rights & Permissions */}
-              <button
-                type="button"
-                onClick={() => setShowInfoModal(true)}
-                className="px-2.5 py-1.5 rounded-lg text-[var(--text-secondary)] hover:text-[var(--text-primary)] hover:bg-[var(--bg-card-hover)] font-medium flex items-center gap-1 transition-colors cursor-pointer"
-                title="Rights and Permissions"
-              >
-                <Info className="w-3.5 h-3.5" />
-                <span className="hidden md:inline">Information, rights &amp; permissions</span>
-              </button>
-
-              {/* Metrics */}
-              <button
-                type="button"
-                onClick={() => setShowMetricsModal(true)}
-                className="px-2.5 py-1.5 rounded-lg text-[var(--text-secondary)] hover:text-[var(--text-primary)] hover:bg-[var(--bg-card-hover)] font-medium flex items-center gap-1 transition-colors cursor-pointer"
-                title="Metrics and Citations"
-              >
-                <BarChart2 className="w-3.5 h-3.5" />
-                <span className="hidden md:inline">Metrics &amp; citations</span>
               </button>
             </div>
           </div>
@@ -543,174 +471,179 @@ export const ArticleReaderLayout: React.FC<ArticleReaderLayoutProps> = ({ articl
           )}
         </div>
 
-        {/* Abstract Section (Structured Format Matching Image 2) */}
-        <section id="abstract-section" className="p-6 sm:p-8 rounded-2xl bg-[var(--bg-card)] border border-[var(--border-subtle)] space-y-4">
-          <h3 className="font-serif text-xl sm:text-2xl font-bold text-[var(--text-primary)] border-b border-[var(--border-subtle)] pb-2">
-            Abstract
-          </h3>
+        {/* Unified Article Paper Container (Continuous Reading Mode - Joined, No Separate Boxes) */}
+        <article className="rounded-2xl bg-[var(--bg-card)] border border-[var(--border-subtle)] p-6 sm:p-10 lg:p-12 shadow-sm space-y-10">
+          
+          {/* Abstract Section */}
+          <section id="abstract-section" className="scroll-mt-24 space-y-4">
+            <h3 className="font-serif text-xl sm:text-2xl font-bold text-[var(--text-primary)] border-b border-[var(--border-subtle)] pb-2">
+              Abstract
+            </h3>
 
-          <div className="space-y-4 font-serif text-sm sm:text-base leading-relaxed text-[var(--text-secondary)]">
-            {article.abstract.background && (
-              <div className="space-y-1">
-                <h4 className="font-sans font-bold text-xs uppercase tracking-wider text-[var(--text-primary)]">
-                  Background
-                </h4>
-                <p className="text-justify">{article.abstract.background}</p>
+            <div className="space-y-4 font-serif text-sm sm:text-base leading-relaxed text-[var(--text-secondary)]">
+              {article.abstract.background && (
+                <div className="space-y-1">
+                  <h4 className="font-sans font-bold text-xs uppercase tracking-wider text-[var(--text-primary)]">
+                    Background
+                  </h4>
+                  <p className="text-justify">{article.abstract.background}</p>
+                </div>
+              )}
+
+              {article.abstract.purpose && (
+                <div className="space-y-1">
+                  <h4 className="font-sans font-bold text-xs uppercase tracking-wider text-[var(--text-primary)]">
+                    Purpose
+                  </h4>
+                  <p className="text-justify">{article.abstract.purpose}</p>
+                </div>
+              )}
+
+              {article.abstract.methods && (
+                <div className="space-y-1">
+                  <h4 className="font-sans font-bold text-xs uppercase tracking-wider text-[var(--text-primary)]">
+                    Materials and Methods
+                  </h4>
+                  <p className="text-justify">{article.abstract.methods}</p>
+                </div>
+              )}
+
+              {article.abstract.results && (
+                <div className="space-y-1">
+                  <h4 className="font-sans font-bold text-xs uppercase tracking-wider text-[var(--text-primary)]">
+                    Results
+                  </h4>
+                  <p className="text-justify">{article.abstract.results}</p>
+                </div>
+              )}
+
+              {article.abstract.conclusion && (
+                <div className="space-y-1">
+                  <h4 className="font-sans font-bold text-xs uppercase tracking-wider text-[var(--text-primary)]">
+                    Conclusion
+                  </h4>
+                  <p className="text-justify">{article.abstract.conclusion}</p>
+                </div>
+              )}
+
+              {/* If no structured fields exist, render fullText */}
+              {!article.abstract.background && article.abstract.fullText && (
+                <p className="text-justify">{article.abstract.fullText}</p>
+              )}
+            </div>
+
+            {/* Keywords */}
+            {article.keywords && article.keywords.length > 0 && (
+              <div className="pt-4 border-t border-[var(--border-subtle)] space-y-2">
+                <span className="text-xs font-mono font-bold uppercase tracking-wider text-[var(--text-muted)] block">
+                  Keywords
+                </span>
+                <div className="flex flex-wrap gap-2">
+                  {article.keywords.map((kw, i) => (
+                    <span
+                      key={i}
+                      className="px-2.5 py-1 rounded-md text-xs font-serif bg-[var(--bg-page)] text-[var(--text-primary)] border border-[var(--border-subtle)]"
+                    >
+                      {kw}
+                    </span>
+                  ))}
+                </div>
               </div>
             )}
+          </section>
 
-            {article.abstract.purpose && (
-              <div className="space-y-1">
-                <h4 className="font-sans font-bold text-xs uppercase tracking-wider text-[var(--text-primary)]">
-                  Purpose
-                </h4>
-                <p className="text-justify">{article.abstract.purpose}</p>
-              </div>
-            )}
-
-            {article.abstract.methods && (
-              <div className="space-y-1">
-                <h4 className="font-sans font-bold text-xs uppercase tracking-wider text-[var(--text-primary)]">
-                  Materials and Methods
-                </h4>
-                <p className="text-justify">{article.abstract.methods}</p>
-              </div>
-            )}
-
-            {article.abstract.results && (
-              <div className="space-y-1">
-                <h4 className="font-sans font-bold text-xs uppercase tracking-wider text-[var(--text-primary)]">
-                  Results
-                </h4>
-                <p className="text-justify">{article.abstract.results}</p>
-              </div>
-            )}
-
-            {article.abstract.conclusion && (
-              <div className="space-y-1">
-                <h4 className="font-sans font-bold text-xs uppercase tracking-wider text-[var(--text-primary)]">
-                  Conclusion
-                </h4>
-                <p className="text-justify">{article.abstract.conclusion}</p>
-              </div>
-            )}
-
-            {/* If no structured fields exist, render fullText */}
-            {!article.abstract.background && article.abstract.fullText && (
-              <p className="text-justify">{article.abstract.fullText}</p>
-            )}
+          {/* Full Text Sections - Seamlessly Flowing */}
+          <div className="space-y-10 pt-2 border-t border-[var(--border-subtle)]">
+            {article.sections.map((section, idx) => (
+              <section
+                key={idx}
+                id={section.id}
+                className="scroll-mt-24 space-y-4"
+              >
+                <h3 className="font-serif text-xl sm:text-2xl font-bold text-[var(--text-primary)] border-b border-[var(--border-subtle)] pb-2 leading-snug">
+                  {section.title}
+                </h3>
+                <div className="space-y-4 font-serif text-sm sm:text-base leading-relaxed text-[var(--text-secondary)]">
+                  {section.paragraphs.map((para, pIdx) => (
+                    <p key={pIdx} className="text-justify leading-relaxed">
+                      {para}
+                    </p>
+                  ))}
+                </div>
+              </section>
+            ))}
           </div>
 
-          {/* Keywords */}
-          {article.keywords && article.keywords.length > 0 && (
-            <div className="pt-4 border-t border-[var(--border-subtle)] space-y-2">
-              <span className="text-xs font-mono font-bold uppercase tracking-wider text-[var(--text-muted)] block">
-                Keywords
-              </span>
-              <div className="flex flex-wrap gap-2">
-                {article.keywords.map((kw, i) => (
-                  <span
-                    key={i}
-                    className="px-2.5 py-1 rounded-md text-xs font-serif bg-[var(--bg-page)] text-[var(--text-primary)] border border-[var(--border-subtle)]"
-                  >
-                    {kw}
-                  </span>
-                ))}
-              </div>
-            </div>
-          )}
-        </section>
-
-        {/* Full Text Sections */}
-        <div className="space-y-8 pt-4">
-          {article.sections.map((section, idx) => (
+          {/* References Section - Continuous within the article */}
+          {article.references && article.references.length > 0 && (
             <section
-              key={idx}
-              id={section.id}
-              className="scroll-mt-20 p-6 sm:p-8 rounded-2xl bg-[var(--bg-card)] border border-[var(--border-subtle)] space-y-4"
+              id="references-section"
+              className="scroll-mt-24 pt-6 border-t border-[var(--border-subtle)] space-y-4"
             >
-              <h3 className="font-serif text-xl sm:text-2xl font-bold text-[var(--text-primary)] border-b border-[var(--border-subtle)] pb-2 leading-snug">
-                {section.title}
-              </h3>
-              <div className="space-y-4 font-serif text-sm sm:text-base leading-relaxed text-[var(--text-secondary)]">
-                {section.paragraphs.map((para, pIdx) => (
-                  <p key={pIdx} className="text-justify leading-relaxed">
-                    {para}
-                  </p>
-                ))}
+              <div className="flex items-center justify-between border-b border-[var(--border-subtle)] pb-2">
+                <h3 className="font-serif text-xl sm:text-2xl font-bold text-[var(--text-primary)]">
+                  References
+                </h3>
+                <span className="text-xs font-mono text-[var(--text-muted)]">
+                  {article.references.length} Cited Sources
+                </span>
               </div>
+
+              <ol className="space-y-3 font-serif text-xs sm:text-sm text-[var(--text-secondary)] list-none pl-0">
+                {article.references.map((ref, idx) => {
+                  // Linkify DOIs and URLs in the reference
+                  const urlRegex = /(https?:\/\/[^\s]+|doi:[^\s]+)/gi;
+                  const parts = ref.split(urlRegex);
+
+                  return (
+                    <li
+                      key={idx}
+                      className="flex items-start gap-3 py-1.5 border-l-2 border-amber-500/30 hover:border-amber-500 pl-3 transition-colors leading-relaxed group"
+                    >
+                      <span className="font-mono text-xs font-bold text-amber-600 dark:text-amber-400 shrink-0 select-none min-w-[2.25rem] text-right pt-0.5 group-hover:text-amber-500">
+                        [{idx + 1}]
+                      </span>
+                      <span className="block break-words flex-1 text-justify">
+                        {parts.map((part, pIdx) => {
+                          if (part.match(/^https?:\/\//i)) {
+                            return (
+                              <a
+                                key={pIdx}
+                                href={part}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="text-sky-700 dark:text-sky-400 hover:underline break-all inline-flex items-center gap-0.5 ml-1"
+                              >
+                                <span>{part}</span>
+                                <ExternalLink className="w-2.5 h-2.5 inline" />
+                              </a>
+                            );
+                          } else if (part.match(/^doi:/i)) {
+                            const doiUrl = `https://doi.org/${part.replace(/^doi:\s*/i, '')}`;
+                            return (
+                              <a
+                                key={pIdx}
+                                href={doiUrl}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="text-sky-700 dark:text-sky-400 hover:underline break-all inline-flex items-center gap-0.5 ml-1"
+                              >
+                                <span>{part}</span>
+                                <ExternalLink className="w-2.5 h-2.5 inline" />
+                              </a>
+                            );
+                          }
+                          return <span key={pIdx}>{part}</span>;
+                        })}
+                      </span>
+                    </li>
+                  );
+                })}
+              </ol>
             </section>
-          ))}
-        </div>
+          )}
 
-        {/* References Section */}
-        {article.references && article.references.length > 0 && (
-          <section
-            id="references-section"
-            className="scroll-mt-20 p-6 sm:p-8 rounded-2xl bg-[var(--bg-card)] border border-[var(--border-subtle)] space-y-4"
-          >
-            <div className="flex items-center justify-between border-b border-[var(--border-subtle)] pb-2">
-              <h3 className="font-serif text-xl sm:text-2xl font-bold text-[var(--text-primary)]">
-                References
-              </h3>
-              <span className="text-xs font-mono text-[var(--text-muted)]">
-                {article.references.length} Cited Sources
-              </span>
-            </div>
-
-            <ol className="space-y-3 font-serif text-xs sm:text-sm text-[var(--text-secondary)] list-none pl-0">
-              {article.references.map((ref, idx) => {
-                // Linkify DOIs and URLs in the reference
-                const urlRegex = /(https?:\/\/[^\s]+|doi:[^\s]+)/gi;
-                const parts = ref.split(urlRegex);
-
-                return (
-                  <li
-                    key={idx}
-                    className="flex items-start gap-3 py-1.5 border-l-2 border-amber-500/30 hover:border-amber-500 pl-3 transition-colors leading-relaxed group"
-                  >
-                    <span className="font-mono text-xs font-bold text-amber-600 dark:text-amber-400 shrink-0 select-none min-w-[2.25rem] text-right pt-0.5 group-hover:text-amber-500">
-                      [{idx + 1}]
-                    </span>
-                    <span className="block break-words flex-1 text-justify">
-                      {parts.map((part, pIdx) => {
-                        if (part.match(/^https?:\/\//i)) {
-                          return (
-                            <a
-                              key={pIdx}
-                              href={part}
-                              target="_blank"
-                              rel="noopener noreferrer"
-                              className="text-sky-700 dark:text-sky-400 hover:underline break-all inline-flex items-center gap-0.5 ml-1"
-                            >
-                              <span>{part}</span>
-                              <ExternalLink className="w-2.5 h-2.5 inline" />
-                            </a>
-                          );
-                        } else if (part.match(/^doi:/i)) {
-                          const doiUrl = `https://doi.org/${part.replace(/^doi:\s*/i, '')}`;
-                          return (
-                            <a
-                              key={pIdx}
-                              href={doiUrl}
-                              target="_blank"
-                              rel="noopener noreferrer"
-                              className="text-sky-700 dark:text-sky-400 hover:underline break-all inline-flex items-center gap-0.5 ml-1"
-                            >
-                              <span>{part}</span>
-                              <ExternalLink className="w-2.5 h-2.5 inline" />
-                            </a>
-                          );
-                        }
-                        return <span key={pIdx}>{part}</span>;
-                      })}
-                    </span>
-                  </li>
-                );
-              })}
-            </ol>
-          </section>
-        )}
+        </article>
 
         {/* Bottom Pagination & Navigation Between Articles */}
         <div className="p-6 rounded-2xl bg-[var(--bg-card)] border border-[var(--border-strong)] space-y-6">
@@ -909,106 +842,6 @@ export const ArticleReaderLayout: React.FC<ArticleReaderLayoutProps> = ({ articl
                 </a>
               </div>
             </div>
-          </div>
-        </div>
-      )}
-
-      {/* Information, Rights & Permissions Modal */}
-      {showInfoModal && (
-        <div 
-          className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/75 backdrop-blur-sm animate-fadeIn"
-          onClick={() => setShowInfoModal(false)}
-        >
-          <div 
-            className="relative w-full max-w-lg bg-[var(--bg-card)] border border-[var(--border-strong)] rounded-2xl p-6 shadow-2xl space-y-4"
-            onClick={(e) => e.stopPropagation()}
-          >
-            <div className="flex items-center justify-between border-b border-[var(--border-subtle)] pb-3">
-              <h3 className="font-serif text-lg font-bold text-[var(--text-primary)] flex items-center gap-2">
-                <Info className="w-4 h-4 text-amber-600" />
-                <span>Information, Rights &amp; Permissions</span>
-              </h3>
-              <button
-                type="button"
-                onClick={() => setShowInfoModal(false)}
-                className="text-[var(--text-muted)] hover:text-[var(--text-primary)] text-sm font-bold"
-              >
-                ✕
-              </button>
-            </div>
-
-            <div className="space-y-3 text-xs font-serif leading-relaxed text-[var(--text-secondary)]">
-              <div className="p-3 rounded-lg bg-[var(--bg-page)] border border-[var(--border-subtle)] space-y-1">
-                <span className="font-bold font-sans text-[var(--text-primary)] block">Open Access License</span>
-                <p>
-                  This article is distributed under the terms of the Creative Commons Attribution 4.0 International License (CC BY 4.0), which permits unrestricted use, distribution, and reproduction in any medium, provided you give appropriate credit to the original author(s) and the source, provide a link to the Creative Commons license, and indicate if changes were made.
-                </p>
-              </div>
-
-              <div className="space-y-1">
-                <span className="font-bold font-sans text-[var(--text-primary)] block">Copyright Notice</span>
-                <p>
-                  © 2026 The Author(s). Published by The Crime &amp; Society Review. Authors retain full copyright over their work with no embargo restrictions.
-                </p>
-              </div>
-
-              <div className="space-y-1">
-                <span className="font-bold font-sans text-[var(--text-primary)] block">Archiving &amp; Repository Policy</span>
-                <p>
-                  Authors are permitted and encouraged to post their work online (e.g., in institutional repositories or on their personal website) prior to and during the submission process, as it can lead to productive exchanges, as well as earlier and greater citation of published work.
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
-      )}
-
-      {/* Metrics Modal */}
-      {showMetricsModal && (
-        <div 
-          className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/75 backdrop-blur-sm animate-fadeIn"
-          onClick={() => setShowMetricsModal(false)}
-        >
-          <div 
-            className="relative w-full max-w-md bg-[var(--bg-card)] border border-[var(--border-strong)] rounded-2xl p-6 shadow-2xl space-y-4"
-            onClick={(e) => e.stopPropagation()}
-          >
-            <div className="flex items-center justify-between border-b border-[var(--border-subtle)] pb-3">
-              <h3 className="font-serif text-lg font-bold text-[var(--text-primary)] flex items-center gap-2">
-                <BarChart2 className="w-4 h-4 text-amber-600" />
-                <span>Scholarly Metrics &amp; Impact</span>
-              </h3>
-              <button
-                type="button"
-                onClick={() => setShowMetricsModal(false)}
-                className="text-[var(--text-muted)] hover:text-[var(--text-primary)] text-sm font-bold"
-              >
-                ✕
-              </button>
-            </div>
-
-            <div className="grid grid-cols-2 gap-3 text-center">
-              <div className="p-4 rounded-xl bg-[var(--bg-page)] border border-[var(--border-subtle)] space-y-1">
-                <span className="font-serif text-2xl font-bold text-amber-600">142</span>
-                <span className="text-[11px] font-mono uppercase text-[var(--text-muted)] block">Article Views</span>
-              </div>
-              <div className="p-4 rounded-xl bg-[var(--bg-page)] border border-[var(--border-subtle)] space-y-1">
-                <span className="font-serif text-2xl font-bold text-indigo-600">48</span>
-                <span className="text-[11px] font-mono uppercase text-[var(--text-muted)] block">PDF Downloads</span>
-              </div>
-              <div className="p-4 rounded-xl bg-[var(--bg-page)] border border-[var(--border-subtle)] space-y-1">
-                <span className="font-serif text-2xl font-bold text-emerald-600">0</span>
-                <span className="text-[11px] font-mono uppercase text-[var(--text-muted)] block">Citations (Crossref)</span>
-              </div>
-              <div className="p-4 rounded-xl bg-[var(--bg-page)] border border-[var(--border-subtle)] space-y-1">
-                <span className="font-serif text-2xl font-bold text-sky-600">100%</span>
-                <span className="text-[11px] font-mono uppercase text-[var(--text-muted)] block">Open Access</span>
-              </div>
-            </div>
-
-            <p className="text-[11px] text-[var(--text-secondary)] font-serif text-center pt-2">
-              Metrics are aggregated continuously via digital object identifiers (DOIs) and verified repository logging.
-            </p>
           </div>
         </div>
       )}

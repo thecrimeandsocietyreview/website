@@ -159,7 +159,7 @@ def parse_all():
     a5 = {
         "id": "csr-2026-01-001",
         "slug": "walls-closing-in-prison-advocacy",
-        "title": "WALLS CLOSING IN: THE NEED FOR PRISON ADVOCACY",
+        "title": "Walls Closing In: The Need for Prison Advocacy",
         "articleType": "Research article",
         "openAccess": True,
         "license": "CC BY 4.0",

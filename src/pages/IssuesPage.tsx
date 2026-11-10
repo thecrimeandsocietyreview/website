@@ -201,7 +201,7 @@ export const IssuesPage: React.FC = () => {
   };
 
   const handleCopyCitation = (article: ArticleData) => {
-    const citation = `${article.authors.map(a => a.name).join(', ')} (${article.year}). ${article.title}. The Crime & Society Review, 1(1), ${article.pages}. ${article.doi}`;
+    const citation = `${article.authors.map(a => a.name).join(', ')} (${article.year}). ${article.title}. The Crime & Society Review, 1(1), ${article.pages}.`;
     navigator.clipboard.writeText(citation);
     setCopiedId(article.id);
     setTimeout(() => setCopiedId(null), 2500);
@@ -375,7 +375,7 @@ export const IssuesPage: React.FC = () => {
               </h2>
 
               <p className="text-xs sm:text-sm text-slate-300 font-serif leading-relaxed pt-1">
-                Priority Editorial Tracks for Vol-I ; Issue-I ; October-December/2026 (Inaugural Issue). The journal invites high-quality empirical studies, doctrinal evaluations, forensic methodologies, and critical policy perspectives across six structured tracks. Accepted papers receive DOI assignment and continuous publication.
+                Priority Editorial Tracks for Vol-I ; Issue-I ; October-December/2026 (Inaugural Issue). The journal invites high-quality empirical studies, doctrinal evaluations, forensic methodologies, and critical policy perspectives across six structured tracks. Accepted papers receive continuous rolling publication.
               </p>
 
               <div className="pt-2">
@@ -428,6 +428,8 @@ export const IssuesPage: React.FC = () => {
                       <span className="text-[var(--text-muted)] opacity-60">|</span>
                       <span className="text-[var(--text-secondary)] font-medium">{article.articleType}</span>
                       <span className="text-[var(--text-muted)] opacity-60">|</span>
+                      <span className="text-[var(--text-secondary)]">Accepted {article.acceptanceDate}</span>
+                      <span className="text-[var(--text-muted)] opacity-60">|</span>
                       <span className="text-[var(--text-secondary)]">First published {article.firstPublished}</span>
                     </div>
 
@@ -445,14 +447,6 @@ export const IssuesPage: React.FC = () => {
                         {article.authors.map((author, aIdx) => (
                           <span key={aIdx} className="inline-flex items-center">
                             <span>{author.name}</span>
-                            {author.orcid && (
-                              <span
-                                title={`ORCID iD: ${author.orcid}`}
-                                className="inline-flex items-center justify-center w-3.5 h-3.5 rounded-full bg-[#a6ce39] text-white font-bold text-[8px] ml-1 shrink-0 select-none"
-                              >
-                                iD
-                              </span>
-                            )}
                             {aIdx < article.authors.length - 1 && <span className="mr-1">,</span>}
                           </span>
                         ))}
@@ -552,12 +546,6 @@ export const IssuesPage: React.FC = () => {
                           </>
                         )}
                       </button>
-
-                      <span className="text-[var(--text-muted)] opacity-50 hidden sm:inline">•</span>
-
-                      <span className="text-[11px] font-mono text-[var(--text-muted)] hidden sm:inline truncate max-w-xs">
-                        {article.doi.replace('https://doi.org/', 'doi: ')}
-                      </span>
                     </div>
 
                   </article>
@@ -650,7 +638,7 @@ export const IssuesPage: React.FC = () => {
                   <span>Inaugural Editorial Overview &amp; Call for Papers</span>
                 </h4>
                 <p className="text-xs text-[var(--text-secondary)] font-serif leading-relaxed text-justify">
-                  Priority Editorial Tracks for Vol-I ; Issue-I ; October-December/2026 (Inaugural Issue). The journal invites high-quality empirical studies, doctrinal evaluations, forensic methodologies, and critical policy perspectives across six structured tracks. Accepted papers receive DOI assignment and continuous publication.
+                  Priority Editorial Tracks for Vol-I ; Issue-I ; October-December/2026 (Inaugural Issue). The journal invites high-quality empirical studies, doctrinal evaluations, forensic methodologies, and critical policy perspectives across six structured tracks. Accepted papers receive continuous publication.
                 </p>
               </div>
 

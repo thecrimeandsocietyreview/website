@@ -54,7 +54,7 @@ export const ARTICLES_DATA: ArticleData[] = [
   {
     "id": "csr-2026-01-001",
     "slug": "walls-closing-in-prison-advocacy",
-    "title": "WALLS CLOSING IN: THE NEED FOR PRISON ADVOCACY",
+    "title": "Walls Closing In: The Need for Prison Advocacy",
     "articleType": "Research article",
     "openAccess": true,
     "license": "CC BY 4.0",
