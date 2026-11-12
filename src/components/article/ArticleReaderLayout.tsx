@@ -1,22 +1,22 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { 
-  Lock, 
-  Unlock, 
-  FileText, 
-  Download, 
-  Share2, 
-  Quote, 
-  ChevronDown, 
-  ChevronUp, 
-  Check, 
-  Copy, 
-  ArrowLeft, 
-  ArrowRight, 
-  Mail, 
-  ExternalLink, 
-  List, 
-  BookOpen, 
+import {
+  Lock,
+  Unlock,
+  FileText,
+  Download,
+  Share2,
+  Quote,
+  ChevronDown,
+  ChevronUp,
+  Check,
+  Copy,
+  ArrowLeft,
+  ArrowRight,
+  Mail,
+  ExternalLink,
+  List,
+  BookOpen,
   Printer,
   Sparkles,
   ShieldCheck,
@@ -40,6 +40,7 @@ export const ArticleReaderLayout: React.FC<ArticleReaderLayoutProps> = ({ articl
   const [showTocDropdown, setShowTocDropdown] = useState(false);
   const [citationFormat, setCitationFormat] = useState<'APA' | 'MLA' | 'Harvard' | 'BibTeX'>('APA');
   const [copiedCite, setCopiedCite] = useState(false);
+  const [copiedSnippet, setCopiedSnippet] = useState<string | null>(null);
   const [copiedLink, setCopiedLink] = useState(false);
   const [scrollProgress, setScrollProgress] = useState(0);
 
@@ -81,12 +82,29 @@ export const ArticleReaderLayout: React.FC<ArticleReaderLayoutProps> = ({ articl
 
   // Citations generator (without DOI)
   const authorNamesStr = article.authors.map(a => a.name).join(', ');
-  const firstAuthorLastName = article.authors[0]?.name.split(' ').slice(-1)[0] || 'Author';
-  
+  const firstAuthorLastName = article.authors[0]?.surname || article.authors[0]?.name.split(' ').slice(-1)[0] || 'Author';
+
+  // APA reference citation with preferred citation names
+  const apaAuthors = article.authors.map(a => {
+    if (a.preferredCitationName) return a.preferredCitationName;
+    const parts = a.name.split(' ');
+    const last = a.surname || parts.slice(-1)[0];
+    const initials = parts.slice(0, -1).map(n => n[0] + '.').join(' ');
+    return `${last}, ${initials}`;
+  }).join(article.authors.length === 2 ? ', & ' : ', ');
+
+  const harvardAuthors = article.authors.map(a => {
+    if (a.preferredCitationName) return a.preferredCitationName.replace(/\.\s*/g, '');
+    const parts = a.name.split(' ');
+    const last = a.surname || parts.slice(-1)[0];
+    const initials = parts.slice(0, -1).map(n => n[0] + '.').join('');
+    return `${last}, ${initials}`;
+  }).join(article.authors.length === 2 ? ' and ' : ', ');
+
   const citations = {
-    APA: `${article.authors.map(a => `${a.name.split(' ').slice(-1)[0]}, ${a.name.split(' ').slice(0, -1).map(n => n[0] + '.').join(' ')}`).join(', & ')} (${article.year}). ${article.title}. The Crime & Society Review, 1(1), ${article.pages}.`,
-    MLA: `${article.authors[0]?.name}. "${article.title}." The Crime & Society Review, vol. 1, no. 1, ${article.year}, pp. ${article.pages}.`,
-    Harvard: `${article.authors.map(a => `${a.name.split(' ').slice(-1)[0]}, ${a.name.split(' ').slice(0, -1).map(n => n[0] + '.').join('')}`).join(', ')} (${article.year}) '${article.title}', The Crime & Society Review, 1(1), pp. ${article.pages}.`,
+    APA: `${apaAuthors} (${article.year}). ${article.title}. The Crime & Society Review, 1(1), pp. ${article.pages}.`,
+    MLA: `${article.authors.map(a => a.name).join(', ')}. "${article.title}." The Crime & Society Review, vol. 1, no. 1, ${article.year}, pp. ${article.pages}.`,
+    Harvard: `${harvardAuthors} (${article.year}) '${article.title}', The Crime & Society Review, 1(1), pp. ${article.pages}.`,
     BibTeX: `@article{csr_${article.year}_${firstAuthorLastName.toLowerCase()},
   title={${article.title}},
   author={${authorNamesStr}},
@@ -98,10 +116,31 @@ export const ArticleReaderLayout: React.FC<ArticleReaderLayoutProps> = ({ articl
 }`
   };
 
+  // In-text citations
+  const inTextParenthetical = article.inTextCitation?.parenthetical ||
+    (article.authors.length === 1
+      ? `(${article.authors[0].surname || article.authors[0].name.split(' ').slice(-1)[0]}, ${article.year})`
+      : article.authors.length === 2
+        ? `(${article.authors[0].surname || article.authors[0].name.split(' ').slice(-1)[0]} & ${article.authors[1].surname || article.authors[1].name.split(' ').slice(-1)[0]}, ${article.year})`
+        : `(${article.authors[0].surname || article.authors[0].name.split(' ').slice(-1)[0]} et al., ${article.year})`);
+
+  const inTextNarrative = article.inTextCitation?.narrative ||
+    (article.authors.length === 1
+      ? `${article.authors[0].surname || article.authors[0].name.split(' ').slice(-1)[0]} (${article.year})`
+      : article.authors.length === 2
+        ? `${article.authors[0].surname || article.authors[0].name.split(' ').slice(-1)[0]} and ${article.authors[1].surname || article.authors[1].name.split(' ').slice(-1)[0]} (${article.year})`
+        : `${article.authors[0].surname || article.authors[0].name.split(' ').slice(-1)[0]} et al. (${article.year})`);
+
   const handleCopyCitation = () => {
     navigator.clipboard.writeText(citations[citationFormat]);
     setCopiedCite(true);
     setTimeout(() => setCopiedCite(false), 2000);
+  };
+
+  const handleCopySnippet = (text: string, id: string) => {
+    navigator.clipboard.writeText(text);
+    setCopiedSnippet(id);
+    setTimeout(() => setCopiedSnippet(null), 2000);
   };
 
   const handleCopyLink = () => {
@@ -125,7 +164,7 @@ export const ArticleReaderLayout: React.FC<ArticleReaderLayoutProps> = ({ articl
   return (
     <div className="min-h-screen bg-[var(--bg-page)] text-[var(--text-primary)]">
       {/* Reading Progress Indicator */}
-      <div 
+      <div
         className="fixed top-0 left-0 h-1 bg-[var(--accent-gold)] z-50 transition-all duration-150"
         style={{ width: `${scrollProgress}%` }}
       />
@@ -282,425 +321,452 @@ export const ArticleReaderLayout: React.FC<ArticleReaderLayoutProps> = ({ articl
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 {article.authors.map((author, idx) => (
                   <div key={idx} className="p-3.5 rounded-lg bg-[var(--bg-page)] border border-[var(--border-subtle)] space-y-1.5">
-                    <div className="flex items-center justify-between">
-                      <span className="font-serif font-bold text-sm text-[var(--text-primary)]">{author.name}</span>
-                    </div>
-                    {author.designation && (
-                      <p className="text-xs text-[var(--text-secondary)] font-medium">{author.designation}</p>
-                    )}
-                    <div className="text-xs text-[var(--text-muted)] space-y-0.5">
-                      <p className="flex items-center gap-1.5">
-                        <Building className="w-3 h-3 shrink-0" />
-                        <span>{author.institution}</span>
-                      </p>
-                      {author.location && (
+                      <div className="flex items-center justify-between gap-2">
+                        <span className="font-serif font-bold text-sm text-[var(--text-primary)]">{author.name}</span>
+                        {author.isCorresponding && (
+                          <span className="text-[10px] font-mono uppercase px-2 py-0.5 rounded bg-amber-500/10 text-amber-600 dark:text-amber-400 font-semibold border border-amber-500/20 shrink-0">
+                            Corresponding Author
+                          </span>
+                        )}
+                      </div>
+                      {author.preferredCitationName && (
+                        <p className="text-[11px] font-mono text-[var(--text-muted)]">
+                          Citation: <span className="text-[var(--text-primary)] font-medium">{author.preferredCitationName}</span>
+                        </p>
+                      )}
+                      {author.designation && (
+                        <p className="text-xs text-[var(--text-secondary)] font-medium">{author.designation}</p>
+                      )}
+                      <div className="text-xs text-[var(--text-muted)] space-y-0.5">
                         <p className="flex items-center gap-1.5">
-                          <MapPin className="w-3 h-3 shrink-0" />
-                          <span>{author.location}</span>
+                          <Building className="w-3 h-3 shrink-0" />
+                          <span>{author.institution}</span>
                         </p>
-                      )}
-                      {author.email && (
-                        <p className="flex items-center gap-1.5 pt-1">
-                          <Mail className="w-3 h-3 shrink-0 text-amber-600" />
-                          <a href={`mailto:${author.email}`} className="text-sky-700 dark:text-sky-400 hover:underline">
-                            {author.email}
-                          </a>
+                        {author.location && (
+                          <p className="flex items-center gap-1.5">
+                            <MapPin className="w-3 h-3 shrink-0" />
+                            <span>{author.location}</span>
+                          </p>
+                        )}
+                        {author.email && (
+                          <p className="flex items-center gap-1.5 pt-1">
+                            <Mail className="w-3 h-3 shrink-0 text-amber-600" />
+                            <a href={`mailto:${author.email}`} className="text-sky-700 dark:text-sky-400 hover:underline">
+                              {author.email}
+                            </a>
+                          </p>
+                        )}
+                        {author.secondaryEmail && (
+                          <p className="flex items-center gap-1.5 pl-4.5">
+                            <a href={`mailto:${author.secondaryEmail}`} className="text-sky-700 dark:text-sky-400 hover:underline">
+                              {author.secondaryEmail}
+                            </a>
+                          </p>
+                        )}
+                      </div>
+                      {author.bio && (
+                        <p className="text-[11px] text-[var(--text-secondary)] font-serif italic pt-1 border-t border-[var(--border-subtle)] mt-2">
+                          {author.bio}
                         </p>
                       )}
                     </div>
-                    {author.bio && (
-                      <p className="text-[11px] text-[var(--text-secondary)] font-serif italic pt-1 border-t border-[var(--border-subtle)] mt-2">
-                        {author.bio}
-                      </p>
-                    )}
-                  </div>
                 ))}
-              </div>
+                  </div>
             </div>
           )}
-        </div>
+            </div>
 
         {/* Breadcrumb Navigation Line */}
-        <div className="flex flex-wrap items-center justify-between gap-3 text-xs font-mono py-2.5 px-3.5 rounded-lg bg-[var(--bg-card)] border border-[var(--border-subtle)]">
-          <Link
-            to="/current-issue"
-            className="text-sky-700 dark:text-sky-400 hover:underline inline-flex items-center gap-1.5 font-sans font-medium"
-          >
-            <ArrowLeft className="w-3.5 h-3.5" />
-            <span>All Articles in Volume 01, Issue 01</span>
-          </Link>
-          <span className="text-[var(--text-muted)] font-serif">
-            The Crime &amp; Society Review • Volume 01, Issue 01
-          </span>
-        </div>
+          <div className="flex flex-wrap items-center justify-between gap-3 text-xs font-mono py-2.5 px-3.5 rounded-lg bg-[var(--bg-card)] border border-[var(--border-subtle)]">
+            <Link
+              to="/current-issue"
+              className="text-sky-700 dark:text-sky-400 hover:underline inline-flex items-center gap-1.5 font-sans font-medium"
+            >
+              <ArrowLeft className="w-3.5 h-3.5" />
+              <span>All Articles in Volume 01, Issue 01</span>
+            </Link>
+            <span className="text-[var(--text-muted)] font-serif">
+              The Crime &amp; Society Review • Volume 01, Issue 01
+            </span>
+          </div>
 
-        {/* Sticky Action Navigation Toolbar */}
-        <div className="sticky top-0 z-30 bg-[var(--bg-card)]/95 backdrop-blur-md border-y border-[var(--border-strong)] py-2 sm:py-2.5 -mx-4 px-4 sm:mx-0 sm:px-4 sm:rounded-xl shadow-xs">
-          <div className="flex items-center justify-between gap-1 sm:gap-2 text-xs font-sans">
-            <div className="flex items-center gap-1 sm:gap-1.5 overflow-x-auto no-scrollbar shrink-0 py-0.5">
-              {/* Contents Button */}
-              <button
-                type="button"
-                onClick={() => setShowTocDropdown(prev => !prev)}
-                className={`px-3 py-1.5 rounded-lg border font-medium flex items-center gap-1.5 transition-colors cursor-pointer shrink-0 ${
-                  showTocDropdown
-                    ? 'border-amber-500 bg-amber-500/10 text-amber-600 dark:text-amber-400'
-                    : 'border-[var(--border-subtle)] hover:border-[var(--border-strong)] hover:bg-[var(--bg-card-hover)] text-[var(--text-primary)]'
-                }`}
-                aria-expanded={showTocDropdown}
-                aria-haspopup="true"
-                title="Browse Table of Contents"
+          {/* Sticky Action Navigation Toolbar */}
+          <div className="sticky top-0 z-30 bg-[var(--bg-card)]/95 backdrop-blur-md border-y border-[var(--border-strong)] py-2 sm:py-2.5 -mx-4 px-4 sm:mx-0 sm:px-4 sm:rounded-xl shadow-xs">
+            <div className="flex items-center justify-between gap-1 sm:gap-2 text-xs font-sans">
+              <div className="flex items-center gap-1 sm:gap-1.5 overflow-x-auto no-scrollbar shrink-0 py-0.5">
+                {/* Contents Button */}
+                <button
+                  type="button"
+                  onClick={() => setShowTocDropdown(prev => !prev)}
+                  className={`px-3 py-1.5 rounded-lg border font-medium flex items-center gap-1.5 transition-colors cursor-pointer shrink-0 ${showTocDropdown
+                      ? 'border-amber-500 bg-amber-500/10 text-amber-600 dark:text-amber-400'
+                      : 'border-[var(--border-subtle)] hover:border-[var(--border-strong)] hover:bg-[var(--bg-card-hover)] text-[var(--text-primary)]'
+                    }`}
+                  aria-expanded={showTocDropdown}
+                  aria-haspopup="true"
+                  title="Browse Table of Contents"
+                >
+                  <List className="w-3.5 h-3.5 text-amber-600" />
+                  <span>Contents</span>
+                  <ChevronDown className={`w-3 h-3 text-[var(--text-muted)] transition-transform duration-200 ${showTocDropdown ? 'rotate-180' : ''}`} />
+                </button>
+
+                {/* PDF Viewer Button (Opens in New Tab) */}
+                <a
+                  href={article.pdfUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="px-3 py-1.5 rounded-lg bg-[var(--accent-gold)] hover:bg-[var(--accent-gold-hover)] text-slate-950 font-semibold flex items-center gap-1.5 shadow-xs transition-colors shrink-0"
+                  title="Open PDF in new tab"
+                >
+                  <FileText className="w-3.5 h-3.5" />
+                  <span>PDF/EPUB</span>
+                </a>
+
+                {/* Cite Button */}
+                <button
+                  type="button"
+                  onClick={() => setShowCiteModal(true)}
+                  className="px-3 py-1.5 rounded-lg border border-[var(--border-subtle)] hover:border-[var(--border-strong)] hover:bg-[var(--bg-card-hover)] text-[var(--text-primary)] font-medium flex items-center gap-1.5 transition-colors cursor-pointer shrink-0"
+                >
+                  <Quote className="w-3.5 h-3.5 text-amber-600" />
+                  <span>Cite</span>
+                </button>
+
+                {/* Share Options */}
+                <button
+                  type="button"
+                  onClick={() => setShowShareModal(true)}
+                  className="px-3 py-1.5 rounded-lg border border-[var(--border-subtle)] hover:border-[var(--border-strong)] hover:bg-[var(--bg-card-hover)] text-[var(--text-primary)] font-medium flex items-center gap-1.5 transition-colors cursor-pointer shrink-0"
+                >
+                  <Share2 className="w-3.5 h-3.5 text-amber-600" />
+                  <span>Share options</span>
+                </button>
+              </div>
+            </div>
+
+            {/* Dedicated Contents Flyout Panel with Backdrop */}
+            {showTocDropdown && (
+              <div className="relative">
+                {/* Click outside backdrop */}
+                <div
+                  className="fixed inset-0 bg-black/30 backdrop-blur-[1px] z-40 animate-fadeIn"
+                  onClick={() => setShowTocDropdown(false)}
+                />
+
+                {/* Dropdown Card */}
+                <div
+                  className="absolute left-0 top-full mt-2 w-80 sm:w-96 max-h-[70vh] flex flex-col bg-[var(--bg-card)] border border-[var(--border-strong)] rounded-2xl shadow-2xl z-50 animate-fadeIn overflow-hidden"
+                  onClick={(e) => e.stopPropagation()}
+                >
+                  {/* Panel Header */}
+                  <div className="p-3.5 border-b border-[var(--border-subtle)] bg-[var(--bg-page)]/80 flex items-center justify-between gap-3">
+                    <div className="flex items-center gap-2">
+                      <List className="w-4 h-4 text-amber-600" />
+                      <div>
+                        <span className="font-serif font-bold text-xs sm:text-sm text-[var(--text-primary)] block">
+                          Table of Contents
+                        </span>
+                        <span className="text-[10px] font-mono text-[var(--text-muted)]">
+                          {article.sections.length} Sections • {article.references.length} References
+                        </span>
+                      </div>
+                    </div>
+                    <button
+                      type="button"
+                      onClick={() => setShowTocDropdown(false)}
+                      className="p-1 rounded-lg text-[var(--text-muted)] hover:text-[var(--text-primary)] hover:bg-[var(--bg-card-hover)] transition-colors cursor-pointer"
+                      aria-label="Close contents"
+                    >
+                      <X className="w-4 h-4" />
+                    </button>
+                  </div>
+
+                  {/* Panel Links */}
+                  <div className="p-2 overflow-y-auto space-y-1 text-xs">
+                    {/* Abstract */}
+                    <button
+                      type="button"
+                      onClick={() => scrollToSection('abstract-section')}
+                      className="w-full text-left px-3 py-2 rounded-lg hover:bg-[var(--bg-card-hover)] font-serif font-semibold text-sky-700 dark:text-sky-400 flex items-center justify-between group transition-colors cursor-pointer"
+                    >
+                      <span>Abstract &amp; Keywords</span>
+                      <ArrowRight className="w-3.5 h-3.5 opacity-0 group-hover:opacity-100 group-hover:translate-x-0.5 transition-all text-amber-500 shrink-0" />
+                    </button>
+
+                    {/* Sections */}
+                    {article.sections.map((sec, idx) => (
+                      <button
+                        key={idx}
+                        type="button"
+                        onClick={() => scrollToSection(sec.id)}
+                        className="w-full text-left px-3 py-2 rounded-lg hover:bg-[var(--bg-card-hover)] text-[var(--text-secondary)] hover:text-[var(--text-primary)] font-serif flex items-start justify-between gap-2 group transition-colors cursor-pointer"
+                      >
+                        <span className="line-clamp-2 leading-snug">{sec.title}</span>
+                        <ArrowRight className="w-3 h-3 opacity-0 group-hover:opacity-100 group-hover:translate-x-0.5 transition-all text-amber-500 shrink-0 mt-0.5" />
+                      </button>
+                    ))}
+
+                    {/* References */}
+                    {article.references && article.references.length > 0 && (
+                      <div className="pt-1 border-t border-[var(--border-subtle)] mt-1">
+                        <button
+                          type="button"
+                          onClick={() => scrollToSection('references-section')}
+                          className="w-full text-left px-3 py-2 rounded-lg hover:bg-[var(--bg-card-hover)] font-serif font-semibold text-[var(--text-primary)] flex items-center justify-between group transition-colors cursor-pointer"
+                        >
+                          <span>References ({article.references.length} sources)</span>
+                          <ArrowRight className="w-3.5 h-3.5 opacity-0 group-hover:opacity-100 group-hover:translate-x-0.5 transition-all text-amber-500 shrink-0" />
+                        </button>
+                      </div>
+                    )}
+                  </div>
+                </div>
+              </div>
+            )}
+          </div>
+
+          {/* Unified Article Paper Container (Continuous Reading Mode - Joined, No Separate Boxes) */}
+          <article className="rounded-2xl bg-[var(--bg-card)] border border-[var(--border-subtle)] p-6 sm:p-10 lg:p-12 shadow-sm space-y-10">
+
+            {/* Abstract Section */}
+            <section id="abstract-section" className="scroll-mt-24 space-y-4">
+              <h3 className="font-serif text-xl sm:text-2xl font-bold text-[var(--text-primary)] border-b border-[var(--border-subtle)] pb-2">
+                Abstract
+              </h3>
+
+              <div className="space-y-4 font-serif text-sm sm:text-base leading-relaxed text-[var(--text-secondary)]">
+                {article.abstract.background && (
+                  <div className="space-y-1">
+                    <h4 className="font-sans font-bold text-xs uppercase tracking-wider text-[var(--text-primary)]">
+                      Background
+                    </h4>
+                    <p className="text-justify">{article.abstract.background}</p>
+                  </div>
+                )}
+
+                {article.abstract.purpose && (
+                  <div className="space-y-1">
+                    <h4 className="font-sans font-bold text-xs uppercase tracking-wider text-[var(--text-primary)]">
+                      Purpose
+                    </h4>
+                    <p className="text-justify">{article.abstract.purpose}</p>
+                  </div>
+                )}
+
+                {article.abstract.methods && (
+                  <div className="space-y-1">
+                    <h4 className="font-sans font-bold text-xs uppercase tracking-wider text-[var(--text-primary)]">
+                      Materials and Methods
+                    </h4>
+                    <p className="text-justify">{article.abstract.methods}</p>
+                  </div>
+                )}
+
+                {article.abstract.results && (
+                  <div className="space-y-1">
+                    <h4 className="font-sans font-bold text-xs uppercase tracking-wider text-[var(--text-primary)]">
+                      Results
+                    </h4>
+                    <p className="text-justify">{article.abstract.results}</p>
+                  </div>
+                )}
+
+                {article.abstract.conclusion && (
+                  <div className="space-y-1">
+                    <h4 className="font-sans font-bold text-xs uppercase tracking-wider text-[var(--text-primary)]">
+                      Conclusion
+                    </h4>
+                    <p className="text-justify">{article.abstract.conclusion}</p>
+                  </div>
+                )}
+
+                {/* If no structured fields exist, render fullText */}
+                {!article.abstract.background && article.abstract.fullText && (
+                  <p className="text-justify">{article.abstract.fullText}</p>
+                )}
+              </div>
+
+              {/* Keywords */}
+              {article.keywords && article.keywords.length > 0 && (
+                <div className="pt-4 border-t border-[var(--border-subtle)] space-y-2">
+                  <span className="text-xs font-mono font-bold uppercase tracking-wider text-[var(--text-muted)] block">
+                    Keywords
+                  </span>
+                  <div className="flex flex-wrap gap-2">
+                    {article.keywords.map((kw, i) => (
+                      <span
+                        key={i}
+                        className="px-2.5 py-1 rounded-md text-xs font-serif bg-[var(--bg-page)] text-[var(--text-primary)] border border-[var(--border-subtle)]"
+                      >
+                        {kw}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+              )}
+            </section>
+
+            {/* Full Text Sections - Seamlessly Flowing */}
+            <div className="space-y-10 pt-2 border-t border-[var(--border-subtle)]">
+              {article.sections.map((section, idx) => (
+                <section
+                  key={idx}
+                  id={section.id}
+                  className="scroll-mt-24 space-y-4"
+                >
+                  <h3 className="font-serif text-xl sm:text-2xl font-bold text-[var(--text-primary)] border-b border-[var(--border-subtle)] pb-2 leading-snug">
+                    {section.title}
+                  </h3>
+                  <div className="space-y-4 font-serif text-sm sm:text-base leading-relaxed text-[var(--text-secondary)]">
+                    {section.paragraphs.map((para, pIdx) => {
+                      if (para.startsWith('<')) {
+                        return (
+                          <div
+                            key={pIdx}
+                            className="w-full my-6 font-sans leading-normal overflow-x-auto"
+                            dangerouslySetInnerHTML={{ __html: para }}
+                          />
+                        );
+                      }
+                      return (
+                        <p key={pIdx} className="text-justify leading-relaxed">
+                          {para}
+                        </p>
+                      );
+                    })}
+                  </div>
+                </section>
+              ))}
+            </div>
+
+            {/* References Section - Continuous within the article */}
+            {article.references && article.references.length > 0 && (
+              <section
+                id="references-section"
+                className="scroll-mt-24 pt-6 border-t border-[var(--border-subtle)] space-y-4"
               >
-                <List className="w-3.5 h-3.5 text-amber-600" />
-                <span>Contents</span>
-                <ChevronDown className={`w-3 h-3 text-[var(--text-muted)] transition-transform duration-200 ${showTocDropdown ? 'rotate-180' : ''}`} />
-              </button>
+                <div className="flex items-center justify-between border-b border-[var(--border-subtle)] pb-2">
+                  <h3 className="font-serif text-xl sm:text-2xl font-bold text-[var(--text-primary)]">
+                    References
+                  </h3>
+                  <span className="text-xs font-mono text-[var(--text-muted)]">
+                    {article.references.length} Cited Sources
+                  </span>
+                </div>
 
-              {/* PDF Viewer Button (Opens in New Tab) */}
+                <ol className="space-y-3 font-serif text-xs sm:text-sm text-[var(--text-secondary)] list-none pl-0">
+                  {article.references.map((ref, idx) => {
+                    // Linkify DOIs and URLs in the reference
+                    const urlRegex = /(https?:\/\/[^\s]+|doi:[^\s]+)/gi;
+                    const parts = ref.split(urlRegex);
+
+                    return (
+                      <li
+                        key={idx}
+                        className="flex items-start gap-3 py-1.5 border-l-2 border-amber-500/30 hover:border-amber-500 pl-3 transition-colors leading-relaxed group"
+                      >
+                        <span className="font-mono text-xs font-bold text-amber-600 dark:text-amber-400 shrink-0 select-none min-w-[2.25rem] text-right pt-0.5 group-hover:text-amber-500">
+                          [{idx + 1}]
+                        </span>
+                        <span className="block break-words flex-1 text-justify">
+                          {parts.map((part, pIdx) => {
+                            if (part.match(/^https?:\/\//i)) {
+                              return (
+                                <a
+                                  key={pIdx}
+                                  href={part}
+                                  target="_blank"
+                                  rel="noopener noreferrer"
+                                  className="text-sky-700 dark:text-sky-400 hover:underline break-all inline-flex items-center gap-0.5 ml-1"
+                                >
+                                  <span>{part}</span>
+                                  <ExternalLink className="w-2.5 h-2.5 inline" />
+                                </a>
+                              );
+                            } else if (part.match(/^doi:/i)) {
+                              const doiUrl = `https://doi.org/${part.replace(/^doi:\s*/i, '')}`;
+                              return (
+                                <a
+                                  key={pIdx}
+                                  href={doiUrl}
+                                  target="_blank"
+                                  rel="noopener noreferrer"
+                                  className="text-sky-700 dark:text-sky-400 hover:underline break-all inline-flex items-center gap-0.5 ml-1"
+                                >
+                                  <span>{part}</span>
+                                  <ExternalLink className="w-2.5 h-2.5 inline" />
+                                </a>
+                              );
+                            }
+                            return <span key={pIdx}>{part}</span>;
+                          })}
+                        </span>
+                      </li>
+                    );
+                  })}
+                </ol>
+              </section>
+            )}
+
+          </article>
+
+          {/* Bottom Pagination & Navigation Between Articles */}
+          <div className="p-6 rounded-2xl bg-[var(--bg-card)] border border-[var(--border-strong)] space-y-6">
+            <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
+              {prevArticle ? (
+                <Link
+                  to={`/article/${prevArticle.slug}`}
+                  className="w-full sm:w-1/2 p-3.5 rounded-xl border border-[var(--border-subtle)] hover:border-amber-500/50 hover:bg-[var(--bg-card-hover)] transition-all group flex items-start gap-3"
+                >
+                  <ArrowLeft className="w-4 h-4 text-amber-500 shrink-0 mt-0.5 group-hover:-translate-x-1 transition-transform" />
+                  <div className="space-y-1 overflow-hidden">
+                    <span className="text-[10px] font-mono uppercase text-[var(--text-muted)] block">Previous Article</span>
+                    <p className="font-serif text-xs font-bold text-[var(--text-primary)] truncate group-hover:text-amber-500">
+                      {prevArticle.title}
+                    </p>
+                  </div>
+                </Link>
+              ) : (
+                <div className="hidden sm:block sm:w-1/2" />
+              )}
+
+              {nextArticle && (
+                <Link
+                  to={`/article/${nextArticle.slug}`}
+                  className="w-full sm:w-1/2 p-3.5 rounded-xl border border-[var(--border-subtle)] hover:border-amber-500/50 hover:bg-[var(--bg-card-hover)] transition-all group flex items-start justify-end text-right gap-3"
+                >
+                  <div className="space-y-1 overflow-hidden">
+                    <span className="text-[10px] font-mono uppercase text-[var(--text-muted)] block">Next Article</span>
+                    <p className="font-serif text-xs font-bold text-[var(--text-primary)] truncate group-hover:text-amber-500">
+                      {nextArticle.title}
+                    </p>
+                  </div>
+                  <ArrowRight className="w-4 h-4 text-amber-500 shrink-0 mt-0.5 group-hover:translate-x-1 transition-transform" />
+                </Link>
+              )}
+            </div>
+
+            <div className="pt-4 border-t border-[var(--border-subtle)] flex flex-wrap items-center justify-between gap-3 text-xs">
+              <Link
+                to="/current-issue"
+                className="text-sky-700 dark:text-sky-400 hover:underline inline-flex items-center gap-1.5 font-medium"
+              >
+                <ArrowLeft className="w-3.5 h-3.5" />
+                <span>Back to Volume 01, Issue 01 Table of Contents</span>
+              </Link>
               <a
                 href={article.pdfUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="px-3 py-1.5 rounded-lg bg-[var(--accent-gold)] hover:bg-[var(--accent-gold-hover)] text-slate-950 font-semibold flex items-center gap-1.5 shadow-xs transition-colors shrink-0"
+                className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-[var(--accent-gold)] text-slate-950 font-bold hover:bg-[var(--accent-gold-hover)]"
                 title="Open PDF in new tab"
               >
                 <FileText className="w-3.5 h-3.5" />
-                <span>PDF/EPUB</span>
+                <span>View Full PDF</span>
               </a>
-
-              {/* Cite Button */}
-              <button
-                type="button"
-                onClick={() => setShowCiteModal(true)}
-                className="px-3 py-1.5 rounded-lg border border-[var(--border-subtle)] hover:border-[var(--border-strong)] hover:bg-[var(--bg-card-hover)] text-[var(--text-primary)] font-medium flex items-center gap-1.5 transition-colors cursor-pointer shrink-0"
-              >
-                <Quote className="w-3.5 h-3.5 text-amber-600" />
-                <span>Cite</span>
-              </button>
-
-              {/* Share Options */}
-              <button
-                type="button"
-                onClick={() => setShowShareModal(true)}
-                className="px-3 py-1.5 rounded-lg border border-[var(--border-subtle)] hover:border-[var(--border-strong)] hover:bg-[var(--bg-card-hover)] text-[var(--text-primary)] font-medium flex items-center gap-1.5 transition-colors cursor-pointer shrink-0"
-              >
-                <Share2 className="w-3.5 h-3.5 text-amber-600" />
-                <span>Share options</span>
-              </button>
             </div>
           </div>
-
-          {/* Dedicated Contents Flyout Panel with Backdrop */}
-          {showTocDropdown && (
-            <div className="relative">
-              {/* Click outside backdrop */}
-              <div 
-                className="fixed inset-0 bg-black/30 backdrop-blur-[1px] z-40 animate-fadeIn"
-                onClick={() => setShowTocDropdown(false)}
-              />
-
-              {/* Dropdown Card */}
-              <div 
-                className="absolute left-0 top-full mt-2 w-80 sm:w-96 max-h-[70vh] flex flex-col bg-[var(--bg-card)] border border-[var(--border-strong)] rounded-2xl shadow-2xl z-50 animate-fadeIn overflow-hidden"
-                onClick={(e) => e.stopPropagation()}
-              >
-                {/* Panel Header */}
-                <div className="p-3.5 border-b border-[var(--border-subtle)] bg-[var(--bg-page)]/80 flex items-center justify-between gap-3">
-                  <div className="flex items-center gap-2">
-                    <List className="w-4 h-4 text-amber-600" />
-                    <div>
-                      <span className="font-serif font-bold text-xs sm:text-sm text-[var(--text-primary)] block">
-                        Table of Contents
-                      </span>
-                      <span className="text-[10px] font-mono text-[var(--text-muted)]">
-                        {article.sections.length} Sections • {article.references.length} References
-                      </span>
-                    </div>
-                  </div>
-                  <button
-                    type="button"
-                    onClick={() => setShowTocDropdown(false)}
-                    className="p-1 rounded-lg text-[var(--text-muted)] hover:text-[var(--text-primary)] hover:bg-[var(--bg-card-hover)] transition-colors cursor-pointer"
-                    aria-label="Close contents"
-                  >
-                    <X className="w-4 h-4" />
-                  </button>
-                </div>
-
-                {/* Panel Links */}
-                <div className="p-2 overflow-y-auto space-y-1 text-xs">
-                  {/* Abstract */}
-                  <button
-                    type="button"
-                    onClick={() => scrollToSection('abstract-section')}
-                    className="w-full text-left px-3 py-2 rounded-lg hover:bg-[var(--bg-card-hover)] font-serif font-semibold text-sky-700 dark:text-sky-400 flex items-center justify-between group transition-colors cursor-pointer"
-                  >
-                    <span>Abstract &amp; Keywords</span>
-                    <ArrowRight className="w-3.5 h-3.5 opacity-0 group-hover:opacity-100 group-hover:translate-x-0.5 transition-all text-amber-500 shrink-0" />
-                  </button>
-
-                  {/* Sections */}
-                  {article.sections.map((sec, idx) => (
-                    <button
-                      key={idx}
-                      type="button"
-                      onClick={() => scrollToSection(sec.id)}
-                      className="w-full text-left px-3 py-2 rounded-lg hover:bg-[var(--bg-card-hover)] text-[var(--text-secondary)] hover:text-[var(--text-primary)] font-serif flex items-start justify-between gap-2 group transition-colors cursor-pointer"
-                    >
-                      <span className="line-clamp-2 leading-snug">{sec.title}</span>
-                      <ArrowRight className="w-3 h-3 opacity-0 group-hover:opacity-100 group-hover:translate-x-0.5 transition-all text-amber-500 shrink-0 mt-0.5" />
-                    </button>
-                  ))}
-
-                  {/* References */}
-                  {article.references && article.references.length > 0 && (
-                    <div className="pt-1 border-t border-[var(--border-subtle)] mt-1">
-                      <button
-                        type="button"
-                        onClick={() => scrollToSection('references-section')}
-                        className="w-full text-left px-3 py-2 rounded-lg hover:bg-[var(--bg-card-hover)] font-serif font-semibold text-[var(--text-primary)] flex items-center justify-between group transition-colors cursor-pointer"
-                      >
-                        <span>References ({article.references.length} sources)</span>
-                        <ArrowRight className="w-3.5 h-3.5 opacity-0 group-hover:opacity-100 group-hover:translate-x-0.5 transition-all text-amber-500 shrink-0" />
-                      </button>
-                    </div>
-                  )}
-                </div>
-              </div>
-            </div>
-          )}
-        </div>
-
-        {/* Unified Article Paper Container (Continuous Reading Mode - Joined, No Separate Boxes) */}
-        <article className="rounded-2xl bg-[var(--bg-card)] border border-[var(--border-subtle)] p-6 sm:p-10 lg:p-12 shadow-sm space-y-10">
-          
-          {/* Abstract Section */}
-          <section id="abstract-section" className="scroll-mt-24 space-y-4">
-            <h3 className="font-serif text-xl sm:text-2xl font-bold text-[var(--text-primary)] border-b border-[var(--border-subtle)] pb-2">
-              Abstract
-            </h3>
-
-            <div className="space-y-4 font-serif text-sm sm:text-base leading-relaxed text-[var(--text-secondary)]">
-              {article.abstract.background && (
-                <div className="space-y-1">
-                  <h4 className="font-sans font-bold text-xs uppercase tracking-wider text-[var(--text-primary)]">
-                    Background
-                  </h4>
-                  <p className="text-justify">{article.abstract.background}</p>
-                </div>
-              )}
-
-              {article.abstract.purpose && (
-                <div className="space-y-1">
-                  <h4 className="font-sans font-bold text-xs uppercase tracking-wider text-[var(--text-primary)]">
-                    Purpose
-                  </h4>
-                  <p className="text-justify">{article.abstract.purpose}</p>
-                </div>
-              )}
-
-              {article.abstract.methods && (
-                <div className="space-y-1">
-                  <h4 className="font-sans font-bold text-xs uppercase tracking-wider text-[var(--text-primary)]">
-                    Materials and Methods
-                  </h4>
-                  <p className="text-justify">{article.abstract.methods}</p>
-                </div>
-              )}
-
-              {article.abstract.results && (
-                <div className="space-y-1">
-                  <h4 className="font-sans font-bold text-xs uppercase tracking-wider text-[var(--text-primary)]">
-                    Results
-                  </h4>
-                  <p className="text-justify">{article.abstract.results}</p>
-                </div>
-              )}
-
-              {article.abstract.conclusion && (
-                <div className="space-y-1">
-                  <h4 className="font-sans font-bold text-xs uppercase tracking-wider text-[var(--text-primary)]">
-                    Conclusion
-                  </h4>
-                  <p className="text-justify">{article.abstract.conclusion}</p>
-                </div>
-              )}
-
-              {/* If no structured fields exist, render fullText */}
-              {!article.abstract.background && article.abstract.fullText && (
-                <p className="text-justify">{article.abstract.fullText}</p>
-              )}
-            </div>
-
-            {/* Keywords */}
-            {article.keywords && article.keywords.length > 0 && (
-              <div className="pt-4 border-t border-[var(--border-subtle)] space-y-2">
-                <span className="text-xs font-mono font-bold uppercase tracking-wider text-[var(--text-muted)] block">
-                  Keywords
-                </span>
-                <div className="flex flex-wrap gap-2">
-                  {article.keywords.map((kw, i) => (
-                    <span
-                      key={i}
-                      className="px-2.5 py-1 rounded-md text-xs font-serif bg-[var(--bg-page)] text-[var(--text-primary)] border border-[var(--border-subtle)]"
-                    >
-                      {kw}
-                    </span>
-                  ))}
-                </div>
-              </div>
-            )}
-          </section>
-
-          {/* Full Text Sections - Seamlessly Flowing */}
-          <div className="space-y-10 pt-2 border-t border-[var(--border-subtle)]">
-            {article.sections.map((section, idx) => (
-              <section
-                key={idx}
-                id={section.id}
-                className="scroll-mt-24 space-y-4"
-              >
-                <h3 className="font-serif text-xl sm:text-2xl font-bold text-[var(--text-primary)] border-b border-[var(--border-subtle)] pb-2 leading-snug">
-                  {section.title}
-                </h3>
-                <div className="space-y-4 font-serif text-sm sm:text-base leading-relaxed text-[var(--text-secondary)]">
-                  {section.paragraphs.map((para, pIdx) => (
-                    <p key={pIdx} className="text-justify leading-relaxed">
-                      {para}
-                    </p>
-                  ))}
-                </div>
-              </section>
-            ))}
-          </div>
-
-          {/* References Section - Continuous within the article */}
-          {article.references && article.references.length > 0 && (
-            <section
-              id="references-section"
-              className="scroll-mt-24 pt-6 border-t border-[var(--border-subtle)] space-y-4"
-            >
-              <div className="flex items-center justify-between border-b border-[var(--border-subtle)] pb-2">
-                <h3 className="font-serif text-xl sm:text-2xl font-bold text-[var(--text-primary)]">
-                  References
-                </h3>
-                <span className="text-xs font-mono text-[var(--text-muted)]">
-                  {article.references.length} Cited Sources
-                </span>
-              </div>
-
-              <ol className="space-y-3 font-serif text-xs sm:text-sm text-[var(--text-secondary)] list-none pl-0">
-                {article.references.map((ref, idx) => {
-                  // Linkify DOIs and URLs in the reference
-                  const urlRegex = /(https?:\/\/[^\s]+|doi:[^\s]+)/gi;
-                  const parts = ref.split(urlRegex);
-
-                  return (
-                    <li
-                      key={idx}
-                      className="flex items-start gap-3 py-1.5 border-l-2 border-amber-500/30 hover:border-amber-500 pl-3 transition-colors leading-relaxed group"
-                    >
-                      <span className="font-mono text-xs font-bold text-amber-600 dark:text-amber-400 shrink-0 select-none min-w-[2.25rem] text-right pt-0.5 group-hover:text-amber-500">
-                        [{idx + 1}]
-                      </span>
-                      <span className="block break-words flex-1 text-justify">
-                        {parts.map((part, pIdx) => {
-                          if (part.match(/^https?:\/\//i)) {
-                            return (
-                              <a
-                                key={pIdx}
-                                href={part}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className="text-sky-700 dark:text-sky-400 hover:underline break-all inline-flex items-center gap-0.5 ml-1"
-                              >
-                                <span>{part}</span>
-                                <ExternalLink className="w-2.5 h-2.5 inline" />
-                              </a>
-                            );
-                          } else if (part.match(/^doi:/i)) {
-                            const doiUrl = `https://doi.org/${part.replace(/^doi:\s*/i, '')}`;
-                            return (
-                              <a
-                                key={pIdx}
-                                href={doiUrl}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className="text-sky-700 dark:text-sky-400 hover:underline break-all inline-flex items-center gap-0.5 ml-1"
-                              >
-                                <span>{part}</span>
-                                <ExternalLink className="w-2.5 h-2.5 inline" />
-                              </a>
-                            );
-                          }
-                          return <span key={pIdx}>{part}</span>;
-                        })}
-                      </span>
-                    </li>
-                  );
-                })}
-              </ol>
-            </section>
-          )}
-
-        </article>
-
-        {/* Bottom Pagination & Navigation Between Articles */}
-        <div className="p-6 rounded-2xl bg-[var(--bg-card)] border border-[var(--border-strong)] space-y-6">
-          <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
-            {prevArticle ? (
-              <Link
-                to={`/article/${prevArticle.slug}`}
-                className="w-full sm:w-1/2 p-3.5 rounded-xl border border-[var(--border-subtle)] hover:border-amber-500/50 hover:bg-[var(--bg-card-hover)] transition-all group flex items-start gap-3"
-              >
-                <ArrowLeft className="w-4 h-4 text-amber-500 shrink-0 mt-0.5 group-hover:-translate-x-1 transition-transform" />
-                <div className="space-y-1 overflow-hidden">
-                  <span className="text-[10px] font-mono uppercase text-[var(--text-muted)] block">Previous Article</span>
-                  <p className="font-serif text-xs font-bold text-[var(--text-primary)] truncate group-hover:text-amber-500">
-                    {prevArticle.title}
-                  </p>
-                </div>
-              </Link>
-            ) : (
-              <div className="hidden sm:block sm:w-1/2" />
-            )}
-
-            {nextArticle && (
-              <Link
-                to={`/article/${nextArticle.slug}`}
-                className="w-full sm:w-1/2 p-3.5 rounded-xl border border-[var(--border-subtle)] hover:border-amber-500/50 hover:bg-[var(--bg-card-hover)] transition-all group flex items-start justify-end text-right gap-3"
-              >
-                <div className="space-y-1 overflow-hidden">
-                  <span className="text-[10px] font-mono uppercase text-[var(--text-muted)] block">Next Article</span>
-                  <p className="font-serif text-xs font-bold text-[var(--text-primary)] truncate group-hover:text-amber-500">
-                    {nextArticle.title}
-                  </p>
-                </div>
-                <ArrowRight className="w-4 h-4 text-amber-500 shrink-0 mt-0.5 group-hover:translate-x-1 transition-transform" />
-              </Link>
-            )}
-          </div>
-
-          <div className="pt-4 border-t border-[var(--border-subtle)] flex flex-wrap items-center justify-between gap-3 text-xs">
-            <Link
-              to="/current-issue"
-              className="text-sky-700 dark:text-sky-400 hover:underline inline-flex items-center gap-1.5 font-medium"
-            >
-              <ArrowLeft className="w-3.5 h-3.5" />
-              <span>Back to Volume 01, Issue 01 Table of Contents</span>
-            </Link>
-            <a
-              href={article.pdfUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-[var(--accent-gold)] text-slate-950 font-bold hover:bg-[var(--accent-gold-hover)]"
-              title="Open PDF in new tab"
-            >
-              <FileText className="w-3.5 h-3.5" />
-              <span>View Full PDF</span>
-            </a>
-          </div>
-        </div>
 
       </main>
 
@@ -708,11 +774,11 @@ export const ArticleReaderLayout: React.FC<ArticleReaderLayoutProps> = ({ articl
 
       {/* Citation Modal */}
       {showCiteModal && (
-        <div 
+        <div
           className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/75 backdrop-blur-sm animate-fadeIn"
           onClick={() => setShowCiteModal(false)}
         >
-          <div 
+          <div
             className="relative w-full max-w-xl bg-[var(--bg-card)] border border-[var(--border-strong)] rounded-2xl p-6 shadow-2xl space-y-4"
             onClick={(e) => e.stopPropagation()}
           >
@@ -737,11 +803,10 @@ export const ArticleReaderLayout: React.FC<ArticleReaderLayoutProps> = ({ articl
                   key={fmt}
                   type="button"
                   onClick={() => setCitationFormat(fmt)}
-                  className={`px-3 py-1 rounded-md font-semibold transition-colors cursor-pointer ${
-                    citationFormat === fmt 
-                      ? 'bg-amber-500 text-slate-950' 
+                  className={`px-3 py-1 rounded-md font-semibold transition-colors cursor-pointer ${citationFormat === fmt
+                      ? 'bg-amber-500 text-slate-950'
                       : 'text-[var(--text-secondary)] hover:bg-[var(--bg-card-hover)]'
-                  }`}
+                    }`}
                 >
                   {fmt}
                 </button>
@@ -767,17 +832,57 @@ export const ArticleReaderLayout: React.FC<ArticleReaderLayoutProps> = ({ articl
                 <span>{copiedCite ? 'Citation Copied!' : 'Copy Citation'}</span>
               </button>
             </div>
+
+            {/* In-Text Citation Block */}
+            <div className="pt-3 border-t border-[var(--border-subtle)] space-y-2">
+              <span className="text-[10px] font-mono font-bold uppercase tracking-wider text-[var(--text-muted)] block">
+                In-Text Citation
+              </span>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs font-mono">
+                {/* Parenthetical */}
+                <div className="p-2.5 rounded-xl bg-[var(--bg-page)] border border-[var(--border-subtle)] space-y-1">
+                  <span className="text-[10px] text-[var(--text-muted)] block">Parenthetical:</span>
+                  <div className="flex items-center justify-between gap-1">
+                    <span className="text-[var(--text-primary)] font-semibold">{inTextParenthetical}</span>
+                    <button
+                      type="button"
+                      onClick={() => handleCopySnippet(inTextParenthetical, 'parenthetical')}
+                      className="p-1 rounded hover:bg-[var(--bg-card-hover)] text-amber-600 dark:text-amber-400 cursor-pointer"
+                      title="Copy Parenthetical Citation"
+                    >
+                      {copiedSnippet === 'parenthetical' ? <Check className="w-3.5 h-3.5 text-emerald-600" /> : <Copy className="w-3.5 h-3.5" />}
+                    </button>
+                  </div>
+                </div>
+
+                {/* Narrative */}
+                <div className="p-2.5 rounded-xl bg-[var(--bg-page)] border border-[var(--border-subtle)] space-y-1">
+                  <span className="text-[10px] text-[var(--text-muted)] block">Narrative:</span>
+                  <div className="flex items-center justify-between gap-1">
+                    <span className="text-[var(--text-primary)] font-semibold">{inTextNarrative}</span>
+                    <button
+                      type="button"
+                      onClick={() => handleCopySnippet(inTextNarrative, 'narrative')}
+                      className="p-1 rounded hover:bg-[var(--bg-card-hover)] text-amber-600 dark:text-amber-400 cursor-pointer"
+                      title="Copy Narrative Citation"
+                    >
+                      {copiedSnippet === 'narrative' ? <Check className="w-3.5 h-3.5 text-emerald-600" /> : <Copy className="w-3.5 h-3.5" />}
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       )}
 
       {/* Share Modal */}
       {showShareModal && (
-        <div 
+        <div
           className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/75 backdrop-blur-sm animate-fadeIn"
           onClick={() => setShowShareModal(false)}
         >
-          <div 
+          <div
             className="relative w-full max-w-md bg-[var(--bg-card)] border border-[var(--border-strong)] rounded-2xl p-6 shadow-2xl space-y-4"
             onClick={(e) => e.stopPropagation()}
           >

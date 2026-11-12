@@ -1,21 +1,21 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { 
-  Archive as ArchiveIcon, 
-  Sparkles, 
-  BookOpen, 
-  ArrowRight, 
-  FileText, 
-  Download, 
-  Calendar, 
-  Check, 
-  Copy, 
-  Quote, 
-  Search, 
-  ShieldCheck, 
-  Unlock, 
-  Layers, 
-  Globe, 
+import {
+  Archive as ArchiveIcon,
+  Sparkles,
+  BookOpen,
+  ArrowRight,
+  FileText,
+  Download,
+  Calendar,
+  Check,
+  Copy,
+  Quote,
+  Search,
+  ShieldCheck,
+  Unlock,
+  Layers,
+  Globe,
   Building,
   ExternalLink
 } from 'lucide-react';
@@ -28,17 +28,20 @@ export const ArchivePage: React.FC = () => {
 
   // Filter articles for Volume 01, Issue 01
   const filteredArticles = ARTICLES_DATA.filter((article) => {
-    const matchesSearch = 
+    const matchesSearch =
       article.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
       article.authors.some(a => a.name.toLowerCase().includes(searchQuery.toLowerCase()) || a.institution.toLowerCase().includes(searchQuery.toLowerCase())) ||
       article.keywords.some(k => k.toLowerCase().includes(searchQuery.toLowerCase()));
-    
+
     const matchesTrack = selectedTrack === 'All' || article.trackCategory.toLowerCase().includes(selectedTrack.toLowerCase());
     return matchesSearch && matchesTrack;
   });
 
   const handleCopyCitation = (article: ArticleData) => {
-    const citation = `${article.authors.map(a => a.name).join(', ')} (${article.year}). ${article.title}. The Crime & Society Review, Vol. 01, Issue 01 (Oct–Dec 2026), pp. ${article.pages}.`;
+    const authorsStr = article.authors.length === 2
+      ? `${article.authors[0].preferredCitationName || article.authors[0].name}, & ${article.authors[1].preferredCitationName || article.authors[1].name}`
+      : article.authors.map(a => a.preferredCitationName || a.name).join(', ');
+    const citation = `${authorsStr} (${article.year}). ${article.title}. The Crime & Society Review, Vol. 01, Issue 01 (Oct–Dec 2026), pp. ${article.pages}.`;
     navigator.clipboard.writeText(citation);
     setCopiedId(article.id);
     setTimeout(() => setCopiedId(null), 2000);
@@ -46,7 +49,7 @@ export const ArchivePage: React.FC = () => {
 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12 space-y-10 animate-fadeIn text-[var(--text-primary)]">
-      
+
       {/* Page Header with Journal Identity & Metadata */}
       <div className="border-b border-[var(--border-subtle)] pb-8 space-y-4">
         <div className="flex flex-wrap items-center gap-2">
@@ -104,7 +107,7 @@ export const ArchivePage: React.FC = () => {
           VOLUME 01 (2026) — OFFICIAL ARCHIVE ENTRY
       ======================================================== */}
       <section className="space-y-6">
-        
+
         {/* Year & Volume Heading */}
         <div className="flex items-center justify-between gap-4 border-b-2 border-amber-500/30 pb-3">
           <div className="flex items-center gap-3">
@@ -122,11 +125,11 @@ export const ArchivePage: React.FC = () => {
 
         {/* Issue 01 (Inaugural Issue) Official Record Card */}
         <div className="rounded-3xl border border-[var(--border-strong)] bg-[var(--bg-card)] shadow-lg overflow-hidden">
-          
+
           {/* Issue Header / Bibliographic Banner */}
           <div className="p-6 sm:p-8 bg-gradient-to-r from-amber-500/10 via-slate-900/5 to-indigo-500/10 border-b border-[var(--border-subtle)]">
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-center">
-              
+
               {/* Cover Artwork Thumbnail */}
               <div className="lg:col-span-3 flex justify-center lg:justify-start">
                 <div className="relative rounded-2xl overflow-hidden shadow-xl border border-amber-500/30 bg-slate-950 w-40 sm:w-48 shrink-0">
@@ -246,11 +249,10 @@ export const ArchivePage: React.FC = () => {
                   key={track}
                   type="button"
                   onClick={() => setSelectedTrack(track)}
-                  className={`px-2.5 py-1 rounded-lg text-xs font-medium transition-colors cursor-pointer shrink-0 ${
-                    selectedTrack === track
+                  className={`px-2.5 py-1 rounded-lg text-xs font-medium transition-colors cursor-pointer shrink-0 ${selectedTrack === track
                       ? 'bg-[var(--accent-gold)] text-slate-950 font-bold'
                       : 'border border-[var(--border-subtle)] hover:bg-[var(--bg-card-hover)] text-[var(--text-secondary)]'
-                  }`}
+                    }`}
                 >
                   {track}
                 </button>
@@ -267,7 +269,7 @@ export const ArchivePage: React.FC = () => {
             ) : (
               filteredArticles.map((article, idx) => (
                 <article key={article.id} className="p-5 sm:p-6 space-y-3 hover:bg-[var(--bg-card-hover)]/40 transition-colors">
-                  
+
                   {/* Mandatory Bibliographic Citation Line */}
                   <div className="flex flex-wrap items-center gap-x-2.5 gap-y-1 text-xs font-mono text-[var(--text-muted)]">
                     <span className="font-bold text-amber-600 dark:text-amber-400">

@@ -1,16 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { 
-  FileText, 
-  Download, 
-  ArrowRight, 
-  Sparkles, 
-  TrendingUp, 
-  Scale, 
-  Binary, 
-  Users, 
-  Layers, 
-  Globe, 
+import {
+  FileText,
+  Download,
+  ArrowRight,
+  Sparkles,
+  TrendingUp,
+  Scale,
+  Binary,
+  Users,
+  Layers,
+  Globe,
   ShieldCheck,
   X,
   BookOpen,
@@ -201,7 +201,10 @@ export const IssuesPage: React.FC = () => {
   };
 
   const handleCopyCitation = (article: ArticleData) => {
-    const citation = `${article.authors.map(a => a.name).join(', ')} (${article.year}). ${article.title}. The Crime & Society Review, 1(1), ${article.pages}.`;
+    const authorsStr = article.authors.length === 2
+      ? `${article.authors[0].preferredCitationName || article.authors[0].name}, & ${article.authors[1].preferredCitationName || article.authors[1].name}`
+      : article.authors.map(a => a.preferredCitationName || a.name).join(', ');
+    const citation = `${authorsStr} (${article.year}). ${article.title}. The Crime & Society Review, 1(1), pp. ${article.pages}.`;
     navigator.clipboard.writeText(citation);
     setCopiedId(article.id);
     setTimeout(() => setCopiedId(null), 2500);
@@ -247,20 +250,20 @@ export const IssuesPage: React.FC = () => {
 
       {/* Main Two-Column Container Layout */}
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
-        
+
         {/* ========================================================
             LEFT SIDE: Issue Cover Artwork & Metadata (4 cols)
         ======================================================== */}
         <div className="lg:col-span-4 space-y-6">
-          
+
           {/* Issue Cover Artwork Container */}
           <div className="bg-[var(--bg-card)] p-4 sm:p-5 rounded-2xl border border-[var(--border-subtle)] shadow-md space-y-4">
-            
+
             {/* Clean Static Image (Small, Compact) */}
             <div className="relative rounded-xl overflow-hidden shadow-lg border border-amber-500/20 bg-slate-950 max-w-[210px] sm:max-w-[230px] mx-auto">
-              <img 
-                src="/currentissue/vol-1-oct-dec-2026.jpeg" 
-                alt="The Crime & Society Review - Volume I Issue I Cover: Rethinking Crime, Justice & Society" 
+              <img
+                src="/currentissue/vol-1-oct-dec-2026.jpeg"
+                alt="The Crime & Society Review - Volume I Issue I Cover: Rethinking Crime, Justice & Society"
                 className="w-full h-auto object-cover select-none"
                 loading="eager"
               />
@@ -360,11 +363,11 @@ export const IssuesPage: React.FC = () => {
             RIGHT SIDE: Content From PDF & 6 Priority Editorial Tracks (8 cols)
         ======================================================== */}
         <div className="lg:col-span-8 space-y-6">
-          
+
           {/* Main Thematic Banner (Extracted from PDF Header) */}
           <div className="bg-gradient-to-br from-slate-950 via-slate-900 to-indigo-950 text-white p-6 sm:p-8 rounded-2xl border border-slate-800 shadow-xl relative overflow-hidden space-y-3">
             <div className="absolute top-0 right-0 w-80 h-80 bg-amber-500/10 rounded-full blur-3xl pointer-events-none" />
-            
+
             <div className="relative z-10 space-y-2">
               <h2 className="font-serif text-2xl sm:text-3xl font-extrabold text-white tracking-tight leading-tight">
                 Rethinking Crime, Justice &amp; Society:
@@ -596,11 +599,11 @@ export const IssuesPage: React.FC = () => {
 
       {/* Full Issue Description & Priority Tracks Modal */}
       {showTracksModal && (
-        <div 
+        <div
           className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-6 bg-black/75 backdrop-blur-sm animate-fadeIn"
           onClick={() => setShowTracksModal(false)}
         >
-          <div 
+          <div
             className="relative w-full max-w-4xl max-h-[90vh] bg-[var(--bg-card)] border border-[var(--border-strong)] rounded-2xl sm:rounded-3xl shadow-2xl flex flex-col overflow-hidden"
             onClick={(e) => e.stopPropagation()}
           >
