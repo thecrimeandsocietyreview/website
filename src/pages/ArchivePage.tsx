@@ -193,7 +193,7 @@ export const ArchivePage: React.FC = () => {
                   <div className="p-2.5 rounded-xl bg-[var(--bg-page)] border border-[var(--border-subtle)] space-y-0.5">
                     <span className="text-[10px] uppercase text-[var(--text-muted)] block">Total Output</span>
                     <span className="font-bold text-amber-600 dark:text-amber-400 block">
-                      5 Articles • 89 Pages
+                      {ARTICLES_DATA.length} Articles • 112 Pages
                     </span>
                   </div>
                 </div>
